@@ -1,18 +1,71 @@
 // DOM element where the Timeline will be attached
 var container = document.getElementById('visualization');
 
-// Create a DataSet (allows two way data-binding)
-var items = new vis.DataSet([
-    {id: 1, content: 'Tolkien', start: '2013-04-20'},
-    {id: 2, content: 'item 2', start: '2013-04-14'},
-    {id: 3, content: 'item 3', start: '2013-04-18'},
-    {id: 4, content: 'item 4', start: '2013-04-16', end: '2013-04-19'},
-    {id: 5, content: 'item 5', start: '2013-04-25'},
-    {id: 6, content: 'item 6', start: '2013-04-27'}
-]);
+// Get timeline data from data file
+function processData(rawGroups) {
+    // store these globally to allow flat sequential ordering
+    let nextGroupId = 1;
+    let nextItemId = 1;
+
+    // flat arrays of all groups and items
+    let groups = [];
+    let items = [];
+
+    function processGroups(currentGroups) {
+        let groupIds = [];
+
+        for (const rawGroup of currentGroups) {
+            let group = {
+                id: nextGroupId++,
+                content: rawGroup.name
+            };
+
+            if (rawGroup.hasSubgroups) {
+                // Recursive call to get subgroup IDs
+                group.nestedGroups = processGroups(rawGroup.contents);
+            } else {
+                // Process the items and push them to the global flat item list
+                const processedItems = rawGroup.contents.map(item => {
+                    return {
+                        ...item,
+                        id: nextItemId++,
+                        group: group.id
+                    }
+                })
+
+                items.push(...processedItems);
+            }
+
+            // Push the fully processed group to the global flat list of groups
+            groups.push(group);
+            groupIds.push(group.id);
+        }
+
+        // Return the IDs of the groups processed at this level
+        return groupIds;
+    }
+
+    processGroups(rawGroups);
+
+    return {
+        groups: groups,
+        items: items
+    }
+}
+
+const timelineData = processData(rawData);
+
+var groups = new vis.DataSet(timelineData.groups);
+var items = new vis.DataSet(timelineData.items);
 
 // Configuration for the Timeline
-var options = {};
+var options = {
+    horizontalScroll: true,
+    verticalScroll: false,
+    zoomKey: 'ctrlKey',
+    min: '1850-01-01',
+    max: '2000-01-01',
+};
 
 // Create a Timeline
-var timeline = new vis.Timeline(container, items, options); 
+var timeline = new vis.Timeline(container, items, groups, options); 
