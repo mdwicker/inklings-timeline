@@ -1,3 +1,10 @@
+/**
+ * TO-DO
+ * Implement visualization of timeline width (or maybe scrollbar....)
+ * better color coding
+ * labels for small ranges?
+ */
+
 // DOM element where the Timeline will be attached
 var container = document.getElementById('visualization');
 
@@ -17,7 +24,8 @@ function processData(rawGroups) {
         for (const rawGroup of currentGroups) {
             let group = {
                 id: nextGroupId++,
-                content: rawGroup.name
+                content: rawGroup.name,
+                className: rawGroup.className
             };
 
             if (rawGroup.hasSubgroups) {
@@ -63,8 +71,24 @@ var options = {
     horizontalScroll: true,
     verticalScroll: false,
     zoomKey: 'ctrlKey',
-    min: '1850-01-01',
-    max: '2000-01-01',
+    min: '1880-01-01',
+    max: '1990-01-01',
+    start: '1920-01-01',
+    end: '1950-12-31',
+    margin: {
+      item : {
+        horizontal : 0
+      }
+    },
+    tooltip: {
+      template: function (item) {
+        if (!('name' in item)){
+          return item.content;
+        } else {
+          return item.name;
+        }
+      }
+    }
 };
 
 // Create a Timeline

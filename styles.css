@@ -1,0 +1,28 @@
+.vis-timeline .vis-group.tolkien {
+    background-color: hsl(106, 36%, 95%);
+}
+
+.vis-timeline .vis-label.tolkien {
+    background-color: hsl(106, 36%, 95%);
+}
+
+.vis-timeline .vis-label.lewis {
+    background-color: hsl(47, 100%, 96%);
+}
+
+.vis-timeline .vis-group.lewis {
+    background-color: hsl(47, 100%, 96%);
+}
+
+.vis-timeline .vis-label.inklings {
+    background-color: hsl(236, 63%, 96%);
+}
+
+.vis-timeline .vis-group.inklings {
+    background-color: hsl(236, 63%, 96%);
+}
+
+.vis-timeline .vis-label {
+    border: none;
+    border-bottom: 1px solid #bfbfbf;
+}
