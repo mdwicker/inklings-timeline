@@ -485,8 +485,152 @@ const rawData = [
                 "hasSubgroups": false,
                 "contents": [
                     {
+                        "content": "Belfast",
+                        "name": "Dundela Villas, near Holywood Road in East Belfast",
+                        "start": "1898-11-29",
+                        "end": "1905-03-31",
+                        "type": "range"
+                    },
+                    {
+                        "content": "Little Lea",
+                        "name": "76 Circular Road, Belfast, Northern Ireland",
+                        "start": "1905-04-01",
+                        "end": "1908-09-14",
+                        "type": "range"
+                    },
+                    {
+                        "content": "Watford",
+                        "name": "Hertfordshire",
+                        "start": "1908-09-15",
+                        "end": "1910-06-30",
+                        "type": "range"
+                    },
+                    {
+                        "content": "Little Lea",
+                        "start": "1910-07-01",
+                        "end": "1911-01-14",
+                        "type": "range"
+                    },
+                    {
+                        "content": "Malvern, England",
+                        "start": "1911-01-15",
+                        "end": "1914-09-14",
+                        "type": "range"
+                    },
+                    {
+                        "content": "Great Bookham",
+                        "name": "Surrey",
+                        "start": "1914-09-15",
+                        "end": "1917-04-25",
+                        "type": "range"
+                    },
+                    {
+                        "content": "Oxford",
+                        "start": "1917-04-26",
+                        "end": "1917-10-31",
+                        "type": "range"
+                    },
+                    {
+                        "content": "France",
+                        "start": "1917-11-01",
+                        "end": "1918-10-31",
+                        "type": "range"
+                    },
+                    {
+                        "content": "Oxford",
+                        "start": "1919-01-01",
+                        "end": "1930-10-31",
+                        "type": "range"
+                    },
+                    {
                         "content": "The Kilns",
-                        "start": "1930-01-01",
+                        "start": "1930-11-01",
+                        "end": "1954-12-31",
+                        "type": "range"
+                    },
+                    {
+                        "content": "The Kilns and Cambridge",
+                        "name": "Cambridge for academic duties and writing, the Kilns for weekends and holidays",
+                        "start": "1955-01-01",
+                        "end": "1963-11-22",
+                        "type": "range"
+                    }
+                ]
+            },
+            {
+                "name": "Occupation",
+                "className": "lewis occupation",
+                "hasSubgroups": false,
+                "contents": [
+                    {
+                        "content": "Wynyard School",
+                        "start": "1908-09-15",
+                        "end": "1910-06-30",
+                        "type": "range"
+                    },
+                    {
+                        "content": "Campbell College",
+                        "start": "1910-09-01",
+                        "end": "1910-11-30",
+                        "type": "range"
+                    },
+                    {
+                        "content": "Cherbourg House",
+                        "start": "1911-01-15",
+                        "end": "1913-09-14",
+                        "type": "range"
+                    },
+                    {
+                        "content": "Malvern College",
+                        "start": "1913-09-15",
+                        "end": "1914-09-14",
+                        "type": "range"
+                    },
+                    {
+                        "content": "Kirkpatrick",
+                        "name": "private study with William T. Kirkpatrick, \"The Great Knock\"",
+                        "start": "1914-09-15",
+                        "end": "1917-04-25",
+                        "type": "range"
+                    },
+                    {
+                        "content": "University College",
+                        "name": "Student",
+                        "start": "1917-04-26",
+                        "end": "1917-09-14",
+                        "type": "range"
+                    },
+                    {
+                        "content": "Army",
+                        "start": "1917-09-15",
+                        "end": "1919-01-31",
+                        "type": "range"
+                    },
+                    {
+                        "content": "University College",
+                        "name": "Student: Honour Moderations, Greats, English",
+                        "start": "1919-02-01",
+                        "end": "1924-06-30",
+                        "type": "range"
+                    },
+                    {
+                        "content": "University College",
+                        "name": "Philosophy Tutor",
+                        "start": "1924-10-01",
+                        "end": "1925-05-19",
+                        "type": "range"
+                    },
+                    {
+                        "content": "Magdalen College, Oxford",
+                        "name": "Fellow and Tutor in English",
+                        "start": "1925-05-20",
+                        "end": "1954-06-30",
+                        "type": "range"
+                    },
+                    {
+                        "content": "Magdalene College, Cambridge",
+                        "name": "Professor of Medieval and Renaissance Literature",
+                        "start": "1954-07-01",
                         "end": "1963-11-22",
                         "type": "range"
                     }
@@ -503,9 +647,330 @@ const rawData = [
                         "type": "point"
                     },
                     {
+                        "content": "Death of Mabel Lewis",
+                        "name": "C.S. Lewis's mother",
+                        "start": "1908-08-23",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Lewis has lung troubles",
+                        "start": "1910-11-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Lewis meets Arthur Greeves",
+                        "start": "1914-04-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Lewis joins army",
+                        "name": "Receives commission as an officer in the 3rd Battalion, Somerset Light Infantry",
+                        "start": "1917-09-25",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Lewis injured",
+                        "name": "Mount Berenchon, Battle of Arras",
+                        "start": "1918-04-15",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Lewis learns of “Paddy” Moore's death",
+                        "start": "1918-05-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Lewis discharged",
+                        "start": "1919-12-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Lewis moves in with Moores",
+                        "start": "1921-06-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Lewis becomes theist",
+                        "name": "\"Most reluctant convert.\" He reports the date to be Trinity Term 1929, but most scholars believe he is off by a year.",
+                        "start": "1930-06-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Lewis becomes Christian",
+                        "start": "1931-09-28",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Death of Mrs. Moore",
+                        "start": "1951-01-12",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Lewis loses election for Professor of Poetry",
+                        "start": "1951-05-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Lewis declines O.B.E.",
+                        "start": "1951-12-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Lewis meets Joy Gresham",
+                        "start": "1952-09-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Marriage of C.S. Lewis and Joy Davidman",
+                        "name": "Civil marriage at Oxford Registry Office",
+                        "start": "1956-04-23",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Joy diagnosed with cancer",
+                        "start": "1956-10-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Lewis & Joy's Anglican marriage",
+                        "name": "Wingfield Hospital, because of Joy's suspected imminent death",
+                        "start": "1956-12-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Death of Joy Davidman",
+                        "start": "1960-07-13",
+                        "type": "point"
+                    },
+                    {
                         "content": "Death of C.S. Lewis",
                         "start": "1963-11-22",
                         "type": "point"
+                    }
+                ]
+            },
+            {
+                "name": "Publications",
+                "className": "lewis publications",
+                "hasSubgroups": true,
+                "contents": [
+                    {
+                        "name": "Major",
+                        "className": "lewis publications major",
+                        "hasSubgroups": false,
+                        "contents": [
+                            {
+                                "content": "Out of the Silent Planet",
+                                "start": "1938-04-01",
+                                "type": "point"
+                            },
+                            {
+                                "content": "The Problem of Pain",
+                                "start": "1940-10-01",
+                                "type": "point"
+                            },
+                            {
+                                "content": "The Screwtape Letters",
+                                "name": "May to November as a weekly serial in The Guardian",
+                                "start": "1941-05-01",
+                                "type": "point"
+                            },
+                            {
+                                "content": "Broadcast Talks",
+                                "name": "1st part of Mere Christianity",
+                                "start": "1942-07-01",
+                                "type": "point"
+                            },
+                            {
+                                "content": "Christian Behavior",
+                                "name": "2nd part of Mere Christianity",
+                                "start": "1943-03-01",
+                                "type": "point"
+                            },
+                            {
+                                "content": "Perelandra",
+                                "start": "1943-04-20",
+                                "type": "point"
+                            },
+                            {
+                                "content": "The Abolition of Man",
+                                "start": "1943-07-02",
+                                "type": "point"
+                            },
+                            {
+                                "content": "Beyond Personality",
+                                "name": "3rd part of Mere Christianity",
+                                "start": "1944-01-01",
+                                "type": "point"
+                            },
+                            {
+                                "content": "That Hideous Strength",
+                                "start": "1945-08-16",
+                                "type": "point"
+                            },
+                            {
+                                "content": "The Great Divorce",
+                                "name": "published in serial form in 1944",
+                                "start": "1945-07-02",
+                                "type": "point"
+                            },
+                            {
+                                "content": "Miracles",
+                                "start": "1947-07-02",
+                                "type": "point"
+                            },
+                            {
+                                "content": "The Lion, the Witch, and the Wardrobe",
+                                "start": "1950-10-16",
+                                "type": "point"
+                            },
+                            {
+                                "content": "Prince Caspian",
+                                "start": "1951-10-15",
+                                "type": "point"
+                            },
+                            {
+                                "content": "The Voyage of the Dawn Treader",
+                                "start": "1952-09-15",
+                                "type": "point"
+                            },
+                            {
+                                "content": "The Silver Chair",
+                                "start": "1953-09-07",
+                                "type": "point"
+                            },
+                            {
+                                "content": "The Horse and His Boy",
+                                "start": "1954-09-06",
+                                "type": "point"
+                            },
+                            {
+                                "content": "Surprised by Joy",
+                                "start": "1955-01-01",
+                                "type": "point"
+                            },
+                            {
+                                "content": "The Magicians Nephew",
+                                "start": "1955-05-02",
+                                "type": "point"
+                            },
+                            {
+                                "content": "Till We Have Faces",
+                                "start": "1956-01-01",
+                                "type": "point"
+                            },
+                            {
+                                "content": "The Last Battle",
+                                "start": "1956-09-04",
+                                "type": "point"
+                            },
+                            {
+                                "content": "The Four Loves",
+                                "start": "1960-07-02",
+                                "type": "point"
+                            },
+                            {
+                                "content": "A Grief Observed",
+                                "start": "1961-01-03",
+                                "type": "point"
+                            },
+                            {
+                                "content": "The Discarded Image",
+                                "name": "Posthumous",
+                                "start": "1964-01-01",
+                                "type": "point"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Minor",
+                        "className": "lewis publications minor",
+                        "hasSubgroups": false,
+                        "contents": [
+                            {
+                                "content": "The Pilgrim's Regress",
+                                "name": "J.M. Dent, published under Clive Hamliton",
+                                "start": "1933-05-01",
+                                "type": "point"
+                            },
+                            {
+                                "content": "The Allegory of Love",
+                                "name": "Clarendon Press",
+                                "start": "1936-05-21",
+                                "type": "point"
+                            },
+                            {
+                                "content": "Spirits in Bondage: A Cycle of Lyrics",
+                                "name": "Heinemann, published under Clive Hamilton",
+                                "start": "1919-03-20",
+                                "type": "point"
+                            },
+                            {
+                                "content": "Dymer",
+                                "name": "J.M. Dent, published under Clive Hamilton",
+                                "start": "1926-09-18",
+                                "type": "point"
+                            },
+                            {
+                                "content": "The Screwtape Letters",
+                                "name": "book",
+                                "start": "1942-02-09",
+                                "type": "point"
+                            },
+                            {
+                                "content": "A Preface to Paradise Lost",
+                                "start": "1942-07-02",
+                                "type": "point"
+                            },
+                            {
+                                "content": "Essays Presented to Charles Williams",
+                                "start": "1947-12-04",
+                                "type": "point"
+                            },
+                            {
+                                "content": "Arthurian Torso",
+                                "start": "1948-07-02",
+                                "type": "point"
+                            },
+                            {
+                                "content": "Transposition and Other Addresses",
+                                "start": "1949-07-02",
+                                "type": "point"
+                            },
+                            {
+                                "content": "Mere Christianity",
+                                "name": "Compiling Broadcast Talks, Christian Behavior, and Beyond Personality into a single book",
+                                "start": "1952-07-07",
+                                "type": "point"
+                            },
+                            {
+                                "content": "English Literature in the 16th Century, Excluding Drama",
+                                "name": "Oxford History of English Literature",
+                                "start": "1954-09-16",
+                                "type": "point"
+                            },
+                            {
+                                "content": "Reflections on the Psalms",
+                                "start": "1958-07-02",
+                                "type": "point"
+                            },
+                            {
+                                "content": "Screwtape Proposes a Toast",
+                                "start": "1959-12-19",
+                                "type": "point"
+                            },
+                            {
+                                "content": "Studies in Words",
+                                "start": "1960-09-09",
+                                "type": "point"
+                            },
+                            {
+                                "content": "Letters to Malcom: Chiefly on Prayer",
+                                "name": "Posthumous",
+                                "start": "1964-01-01",
+                                "type": "point"
+                            }
+                        ]
                     }
                 ]
             }
