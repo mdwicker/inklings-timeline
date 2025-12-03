@@ -3,10 +3,9 @@
  * Implement visualization of timeline width (or maybe scrollbar....)
  * better color coding
  * labels for small ranges?
+ * add icon to represent group visibility
  */
 
-// DOM element where the Timeline will be attached
-var container = document.getElementById('visualization');
 
 // Get timeline data from data file
 function processData(rawGroups) {
@@ -22,10 +21,12 @@ function processData(rawGroups) {
         let groupIds = [];
 
         for (const rawGroup of currentGroups) {
+            const groupId = nextGroupId++;
             let group = {
-                id: nextGroupId++,
+                id: groupId,
                 content: rawGroup.name,
-                className: rawGroup.className
+                // encode group id in a class Name
+                className: rawGroup.className + " groupId-" + groupId
             };
 
             if (rawGroup.hasSubgroups) {
@@ -33,13 +34,13 @@ function processData(rawGroups) {
                 group.nestedGroups = processGroups(rawGroup.contents);
             } else {
                 // Process the items and push them to the global flat item list
-                const processedItems = rawGroup.contents.map(item => {
+                const processedItems = rawGroup.contents.map((item) => {
                     return {
                         ...item,
                         id: nextItemId++,
-                        group: group.id
-                    }
-                })
+                        group: group.id,
+                    };
+                });
 
                 items.push(...processedItems);
             }
@@ -57,39 +58,84 @@ function processData(rawGroups) {
 
     return {
         groups: groups,
-        items: items
-    }
+        items: items,
+    };
 }
+
+// DOM element where the Timeline will be attached
+let container = document.getElementById("visualization");
+
+// Dict to temporarily store hidden timeline items
+let hiddenItemsByGroupId = {};
 
 const timelineData = processData(rawData);
 
-var groups = new vis.DataSet(timelineData.groups);
-var items = new vis.DataSet(timelineData.items);
+let groups = new vis.DataSet(timelineData.groups);
+let items = new vis.DataSet(timelineData.items);
+
+// toggle visibility of timeline items belonging to a given group
+function toggleItemVisibility(groupId) {
+    // check if items are already hidden
+    if (hiddenItemsByGroupId[groupId]) {
+        // put the items back on the timeline
+        items.add(hiddenItemsByGroupId[groupId]);
+        // remove them from the cache of hidden items
+        delete hiddenItemsByGroupId[groupId];
+    } else {
+        // Retreive the items to be hidden
+        const itemsToHide = items.get({
+            filter: function (item) {
+                return (item.group == groupId);
+            }
+        });
+
+        // Do not proceed if no items were found
+        if (itemsToHide.length > 0) {
+            // cache the items to be hidden
+            hiddenItemsByGroupId[groupId] = itemsToHide;
+            // remove the items from the timeline
+            items.remove(itemsToHide.map((item) => item.id));
+        }
+    }
+}
 
 // Configuration for the Timeline
-var options = {
+let options = {
     horizontalScroll: true,
     verticalScroll: false,
-    zoomKey: 'ctrlKey',
-    min: '1880-01-01',
-    max: '1990-01-01',
-    start: '1920-01-01',
-    end: '1950-12-31',
+    zoomKey: "ctrlKey",
+    min: "1880-01-01",
+    max: "1990-01-01",
+    start: "1925-01-01",
+    end: "1960-12-31",
     margin: {
-      item : {
-        horizontal : 0
-      }
+        item: {
+            horizontal: 0,
+        },
     },
     tooltip: {
-      template: function (item) {
-        if (!('name' in item)){
-          return item.content;
-        } else {
-          return item.name;
-        }
-      }
-    }
+        template: function (item) {
+            if (!("name" in item)) {
+                return item.content;
+            } else {
+                return item.name;
+            }
+        },
+    },
 };
 
 // Create a Timeline
-var timeline = new vis.Timeline(container, items, groups, options); 
+let timeline = new vis.Timeline(container, items, groups, options);
+
+container.addEventListener("click", function (event) {
+    const labelSelector = ".vis-label:not(.vis-nesting-group)";
+    const clickedLabel = event.target.closest(labelSelector);
+    if (clickedLabel) {
+        // Retrieve group ID from class list
+        const groupId = Array.from(clickedLabel.classList)
+            .find((className) => className.startsWith("groupId-"))
+            .split("-")[1];
+
+        toggleItemVisibility(groupId);
+    }
+})

@@ -1,3 +1,11 @@
+.vis-label:not(.vis-nesting-group):hover {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
 .vis-timeline .vis-group.tolkien {
     background-color: hsl(106, 36%, 95%);
 }

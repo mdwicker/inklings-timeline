@@ -1,12 +1,12 @@
 const rawData = [
     {
         "name": "Tolkien",
-        "className": "group tolkien",
+        "className": "tolkien",
         "hasSubgroups": true,
         "contents": [
             {
                 "name": "Location",
-                "className": "subgroup tolkien location",
+                "className": "tolkien location",
                 "hasSubgroups": false,
                 "contents": [
                     {
@@ -18,7 +18,7 @@ const rawData = [
                     {
                         "content": "Birmingham and suburbs",
                         "start": "1896-01-01",
-                        "end" : "1911-09-30"
+                        "end": "1911-09-30"
                     },
                     {
                         "content": "Oxford",
@@ -115,7 +115,7 @@ const rawData = [
             },
             {
                 "name": "Occupation",
-                "className": "subgroup tolkien occupation",
+                "className": "tolkien occupation",
                 "hasSubgroups": false,
                 "contents": [
                     {
@@ -199,7 +199,7 @@ const rawData = [
             },
             {
                 "name": "Life Events",
-                "className": "subgroup tolkien life",
+                "className": "tolkien life",
                 "hasSubgroups": false,
                 "contents": [
                     {
@@ -311,12 +311,12 @@ const rawData = [
             },
             {
                 "name": "Publications",
-                "className": "subgroup tolkien publications",
+                "className": "tolkien publications",
                 "hasSubgroups": true,
                 "contents": [
                     {
                         "name": "Major",
-                        "className": "subgroup tolkien publications",
+                        "className": "tolkien publications major",
                         "hasSubgroups": false,
                         "contents": [
                             {
@@ -356,17 +356,6 @@ const rawData = [
                                 "type": "point"
                             },
                             {
-                                "content": "Ace Books Lord of the Rings",
-                                "name": "unauthorized",
-                                "start": "1965-07-01",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Ballantine Books Lord of the Rings",
-                                "start": "1965-12-01",
-                                "type": "point"
-                            },
-                            {
                                 "content": "Smith of Wooton Major",
                                 "start": "1967-11-09",
                                 "type": "point"
@@ -385,7 +374,7 @@ const rawData = [
                     },
                     {
                         "name": "Minor",
-                        "className": "subgroup tolkien publications",
+                        "className": "tolkien publications minor",
                         "hasSubgroups": false,
                         "contents": [
                             {
@@ -442,6 +431,17 @@ const rawData = [
                                 "type": "point"
                             },
                             {
+                                "content": "Ace Books LOTR",
+                                "name": "unauthorized",
+                                "start": "1965-07-01",
+                                "type": "point"
+                            },
+                            {
+                                "content": "Ballantine Books LOTR",
+                                "start": "1965-12-01",
+                                "type": "point"
+                            },
+                            {
                                 "content": "The Jerusalem Bible",
                                 "name": "Jonah by Tolkien",
                                 "start": "1966-01-01",
@@ -481,7 +481,7 @@ const rawData = [
         "contents": [
             {
                 "name": "Location",
-                "className": "subgroup lewis location",
+                "className": "lewis location",
                 "hasSubgroups": false,
                 "contents": [
                     {
@@ -494,7 +494,7 @@ const rawData = [
             },
             {
                 "name": "Life Events",
-                "className": "subgroup lewis life",
+                "className": "lewis life",
                 "hasSubgroups": false,
                 "contents": [
                     {
@@ -508,12 +508,12 @@ const rawData = [
                         "type": "point"
                     }
                 ]
-            }            
+            }
         ]
     },
     {
         "name": "Inklings",
-        "className": "group inklings",
+        "className": "inklings",
         "hasSubgroups": false,
         "contents": [
             {
