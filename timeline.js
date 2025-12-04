@@ -12,6 +12,9 @@
  * Full Detail mode
  * Scaling mode
  * Maybe Summary mode?
+ * make line disappear when nothing's visible in it.
+ * 
+ * random note: if it gets too laggy change rangechange to rangechanged
  */
 
 
@@ -49,7 +52,7 @@ function processData(rawGroups) {
                         group: group.id,
                     };
                 });
-
+                group.className += " subgroup";
                 items.push(...processedItems);
             }
 
@@ -135,6 +138,7 @@ let options = {
 // Create a Timeline
 let timeline = new vis.Timeline(container, items, groups, options);
 
+// Click subgroup names to show/hide items
 container.addEventListener("click", function (event) {
     const labelSelector = ".vis-label:not(.vis-nesting-group)";
     const clickedLabel = event.target.closest(labelSelector);
@@ -147,3 +151,25 @@ container.addEventListener("click", function (event) {
         toggleItemVisibility(groupId);
     }
 })
+
+timeline.on('rangechanged', function (properties) {
+    const subgroupSelector = ".vis-itemset .vis-foreground .vis-group.subgroup"
+    document.querySelectorAll(subgroupSelector).forEach(subgroup => {
+        const groupId = Array.from(subgroup.classList)
+            .find((className) => className.startsWith("groupId-"))
+            .split("-")[1];
+        const hidden = subgroup.classList.contains("hidden");
+        const empty = subgroup.childElementCount == 0;
+
+        if (hidden && !empty) {
+            const toShow = document.querySelectorAll(`.groupId-${groupId}`);
+            toShow.forEach(element => { element.classList.remove("hidden") });
+        } else if (empty && !hidden && !hiddenItemsByGroupId[groupId]) {
+            const toHide = document.querySelectorAll(`.groupId-${groupId}`);
+            toHide.forEach(element => { element.classList.add("hidden") });
+        }
+    });
+});
+// Check each visible group for visible items. If none, hide.
+// For now, ONLY if it doesn't have hidden items.
+// Check each hidden group for visible items. If so, unhide.
