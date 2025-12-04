@@ -1,9 +1,17 @@
 /**
  * TO-DO
  * Implement visualization of timeline width (or maybe scrollbar....)
+ * scrolling vertical AND horizontal.
  * better color coding
  * labels for small ranges?
  * add icon to represent group visibility
+ * add Inklings data
+ * 
+ * EVENTUALLY:
+ * add zoom level detail adjustment (Google Maps style)
+ * Full Detail mode
+ * Scaling mode
+ * Maybe Summary mode?
  */
 
 
