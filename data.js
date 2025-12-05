@@ -480,72 +480,94 @@ const rawData = [
                         "name": "Belfast",
                         "description": "Dundela Villas, near Holywood Road in East Belfast",
                         "start": "1898-11-29",
-                        "end": "1905-03-31",
-                        "type": "range"
+                        "end": "1905-04-21",
+                        "type": "range",
+                        "note": "end date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Little Lea",
                         "description": "76 Circular Road, Belfast, Northern Ireland",
-                        "start": "1905-04-01",
-                        "end": "1908-09-14",
-                        "type": "range"
+                        "start": "1905-04-21",
+                        "end": "1908-09-17",
+                        "type": "range",
+                        "note": "dates exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Watford",
                         "description": "Hertfordshire",
-                        "start": "1908-09-15",
-                        "end": "1910-06-30",
-                        "type": "range"
+                        "start": "1908-09-18",
+                        "end": "1910-07-31",
+                        "type": "range",
+                        "note": "start date exact, end date approximate",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Little Lea",
                         "start": "1910-07-01",
-                        "end": "1911-01-14",
-                        "type": "range"
+                        "end": "1911-01-10",
+                        "type": "range",
+                        "note": "start date approximate, end date likely",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Malvern, England",
-                        "start": "1911-01-15",
-                        "end": "1914-09-14",
-                        "type": "range"
+                        "start": "1911-01-10",
+                        "end": "1914-07-29",
+                        "type": "range",
+                        "note": "start date likely, end date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Great Bookham",
                         "description": "Surrey",
-                        "start": "1914-09-15",
+                        "start": "1914-09-19",
                         "end": "1917-04-25",
-                        "type": "range"
+                        "type": "range",
+                        "note": "dates exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Oxford",
                         "start": "1917-04-26",
-                        "end": "1917-10-31",
-                        "type": "range"
+                        "end": "1917-11-17",
+                        "type": "range",
+                        "note": "dates exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "France",
-                        "start": "1917-11-01",
-                        "end": "1918-10-31",
-                        "type": "range"
+                        "start": "1917-11-17",
+                        "end": "1918-05-24",
+                        "type": "range",
+                        "note": "start date exact, end date approximate",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Oxford",
-                        "start": "1919-01-01",
-                        "end": "1930-10-31",
-                        "type": "range"
+                        "start": "1919-01-13",
+                        "end": "1930-10-11",
+                        "type": "range",
+                        "note": "dates exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "The Kilns",
-                        "start": "1930-11-01",
+                        "start": "1930-10-11",
                         "end": "1954-12-31",
-                        "type": "range"
+                        "type": "range",
+                        "note": "dates exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "The Kilns and Cambridge",
                         "description": "Cambridge for academic duties and writing, the Kilns for weekends and holidays",
                         "start": "1955-01-01",
                         "end": "1963-11-22",
-                        "type": "range"
+                        "type": "range",
+                        "note": "dates exact",
+                        "source": "Chronologically Lewis"
                     }
                 ]
             },
@@ -556,34 +578,44 @@ const rawData = [
                 "contents": [
                     {
                         "name": "Wynyard School",
-                        "start": "1908-09-15",
-                        "end": "1910-06-30",
-                        "type": "range"
+                        "start": "1908-09-18",
+                        "end": "1910-07-12",
+                        "type": "range",
+                        "note": "exact dates",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Campbell College",
                         "start": "1910-09-01",
-                        "end": "1910-11-30",
-                        "type": "range"
+                        "end": "1910-11-15",
+                        "type": "range",
+                        "note": "start month, exact finish date",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Cherbourg House",
-                        "start": "1911-01-15",
-                        "end": "1913-09-14",
-                        "type": "range"
+                        "start": "1911-01-10",
+                        "end": "1913-07-29",
+                        "type": "range",
+                        "note": "start date likely, end date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Malvern College",
-                        "start": "1913-09-15",
-                        "end": "1914-09-14",
-                        "type": "range"
+                        "start": "1913-09-18",
+                        "end": "1914-07-28",
+                        "type": "range",
+                        "note": "dates exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Kirkpatrick",
                         "description": "private study with William T. Kirkpatrick, \"The Great Knock\"",
-                        "start": "1914-09-15",
+                        "start": "1914-09-14",
                         "end": "1917-04-25",
-                        "type": "range"
+                        "type": "range",
+                        "note": "dates exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "University College",
@@ -595,36 +627,44 @@ const rawData = [
                     {
                         "name": "Army",
                         "start": "1917-09-15",
-                        "end": "1919-01-31",
+                        "end": "1918-12-24",
                         "type": "range"
                     },
                     {
                         "name": "University College",
                         "description": "Student: Honour Moderations, Greats, English",
-                        "start": "1919-02-01",
-                        "end": "1924-06-30",
-                        "type": "range"
+                        "start": "1919-01-13",
+                        "end": "1924-07-16",
+                        "type": "range",
+                        "note": "dates accurate but confusing",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "University College",
-                        "description": "Philosophy Tutor",
-                        "start": "1924-10-01",
+                        "description": "Filling in as Philosophy lecturer",
+                        "start": "1924-10-14",
                         "end": "1925-05-19",
-                        "type": "range"
+                        "type": "range",
+                        "note": "start date exact, end date very rough",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Magdalen College, Oxford",
                         "description": "Fellow and Tutor in English",
                         "start": "1925-05-20",
-                        "end": "1954-06-30",
-                        "type": "range"
+                        "end": "1954-06-04",
+                        "type": "range",
+                        "note": "dates exact, up to his resignation letter. Final lecture was Dec. 3",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Magdalene College, Cambridge",
                         "description": "Professor of Medieval and Renaissance Literature",
-                        "start": "1954-07-01",
-                        "end": "1963-11-22",
-                        "type": "range"
+                        "start": "1954-06-04",
+                        "end": "1963-08-11",
+                        "type": "range",
+                        "note": "start date exact, end date approx (it was by then at the latest that he resigned)",
+                        "source": "Chronologically Lewis"
                     }
                 ]
             },
@@ -748,124 +788,153 @@ const rawData = [
                 "contents": [
                     {
                         "name": "Out of the Silent Planet",
-                        "start": "1938-04-01",
-                        "type": "point"
+                        "start": "1938-09-23",
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "The Problem of Pain",
-                        "start": "1940-10-01",
-                        "type": "point"
+                        "start": "1940-10-18",
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "The Screwtape Letters",
-                        "description": "May to November as a weekly serial in The Guardian",
-                        "start": "1941-05-01",
-                        "type": "point"
-                    },
-                    {
-                        "name": "Broadcast Talks",
-                        "description": "1st part of Mere Christianity",
-                        "start": "1942-07-01",
-                        "type": "point"
-                    },
-                    {
-                        "name": "Christian Behavior",
-                        "description": "2nd part of Mere Christianity",
-                        "start": "1943-03-01",
-                        "type": "point"
+                        "description": "in book form",
+                        "start": "1942-02-09",
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Perelandra",
                         "start": "1943-04-20",
-                        "type": "point"
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "The Abolition of Man",
-                        "start": "1943-07-02",
-                        "type": "point"
-                    },
-                    {
-                        "name": "Beyond Personality",
-                        "description": "3rd part of Mere Christianity",
-                        "start": "1944-01-01",
-                        "type": "point"
+                        "start": "1944-01-06",
+                        "type": "point",
+                        "note": "Lecture happened on Feb 23 1943",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "That Hideous Strength",
                         "start": "1945-08-16",
-                        "type": "point"
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "The Great Divorce",
-                        "description": "published in serial form in 1944",
-                        "start": "1945-07-02",
-                        "type": "point"
+                        "description": "published in serial form in the Guardian from Nov. 10 1944 to Apr. 13 1945",
+                        "start": "1946-01-14",
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Miracles",
-                        "start": "1947-07-02",
-                        "type": "point"
+                        "start": "1947-05-12",
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "The Lion, the Witch, and the Wardrobe",
                         "start": "1950-10-16",
-                        "type": "point"
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Prince Caspian",
                         "start": "1951-10-15",
-                        "type": "point"
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
+                    },
+                    {
+                        "name": "Mere Christianity",
+                        "description": "Compiling his talks from the war",
+                        "start": "1952-07-07",
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "The Voyage of the Dawn Treader",
                         "start": "1952-09-15",
-                        "type": "point"
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "The Silver Chair",
                         "start": "1953-09-07",
-                        "type": "point"
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "The Horse and His Boy",
                         "start": "1954-09-06",
-                        "type": "point"
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Surprised by Joy",
                         "start": "1955-01-01",
-                        "type": "point"
+                        "type": "point",
+                        "note": "date approximate",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "The Magicians Nephew",
                         "start": "1955-05-02",
-                        "type": "point"
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Till We Have Faces",
-                        "start": "1956-01-01",
-                        "type": "point"
+                        "start": "1956-09-10",
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "The Last Battle",
-                        "start": "1956-09-04",
+                        "start": "1956-03-19",
                         "type": "point"
                     },
                     {
                         "name": "The Four Loves",
-                        "start": "1960-07-02",
-                        "type": "point"
+                        "start": "1960-03-28",
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "A Grief Observed",
-                        "start": "1961-01-03",
-                        "type": "point"
+                        "description": "Under the name N.W. Clerk",
+                        "start": "1961-09-29",
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "The Discarded Image",
                         "description": "Posthumous",
-                        "start": "1964-01-01",
-                        "type": "point"
+                        "start": "1964-05-07",
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     }
                 ]
             },
@@ -877,85 +946,140 @@ const rawData = [
                     {
                         "name": "The Pilgrim's Regress",
                         "description": "J.M. Dent, published under Clive Hamliton",
-                        "start": "1933-05-01",
-                        "type": "point"
+                        "start": "1933-05-25",
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "The Allegory of Love",
                         "description": "Clarendon Press",
                         "start": "1936-05-21",
-                        "type": "point"
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Spirits in Bondage: A Cycle of Lyrics",
                         "description": "Heinemann, published under Clive Hamilton",
                         "start": "1919-03-20",
-                        "type": "point"
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Dymer",
                         "description": "J.M. Dent, published under Clive Hamilton",
-                        "start": "1926-09-18",
-                        "type": "point"
+                        "start": "1926-09-08",
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "The Screwtape Letters",
-                        "description": "book",
-                        "start": "1942-02-09",
-                        "type": "point"
+                        "description": "Serial format in Anglican newspaper The Guardian",
+                        "start": "1941-05-02",
+                        "end": "1941-11-28",
+                        "type": "range",
+                        "note": "dates exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "A Preface to Paradise Lost",
-                        "start": "1942-07-02",
-                        "type": "point"
+                        "start": "1942-10-08",
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
+                    },
+                    {
+                        "name": "Broadcast Talks",
+                        "description": "1st part of Mere Christianity",
+                        "start": "1942-07-13",
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
+                    },
+                    {
+                        "name": "Christian Behavior",
+                        "description": "2nd part of Mere Christianity",
+                        "start": "1944-01-18",
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
+                    },
+                    {
+                        "name": "Beyond Personality",
+                        "description": "3rd part of Mere Christianity",
+                        "start": "1944-10-09",
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Essays Presented to Charles Williams",
                         "start": "1947-12-04",
-                        "type": "point"
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Arthurian Torso",
-                        "start": "1948-07-02",
-                        "type": "point"
+                        "start": "1948-10-21",
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Transposition and Other Addresses",
                         "start": "1949-07-02",
-                        "type": "point"
-                    },
-                    {
-                        "name": "Mere Christianity",
-                        "description": "Compiling Broadcast Talks, Christian Behavior, and Beyond Personality into a single book",
-                        "start": "1952-07-07",
-                        "type": "point"
+                        "type": "point",
+                        "note": "unknown date in 1949",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "English Literature in the 16th Century, Excluding Drama",
                         "description": "Oxford History of English Literature",
                         "start": "1954-09-16",
-                        "type": "point"
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Reflections on the Psalms",
-                        "start": "1958-07-02",
-                        "type": "point"
+                        "start": "1958-09-08",
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Screwtape Proposes a Toast",
                         "start": "1959-12-19",
-                        "type": "point"
+                        "description": "Article in the Saturday Evening Post",
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
+                    },
+                    {
+                        "name": "The World's Last Night and Other Essays",
+                        "start": "1960-02-10",
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Studies in Words",
                         "start": "1960-09-09",
-                        "type": "point"
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Letters to Malcom: Chiefly on Prayer",
                         "description": "Posthumous",
-                        "start": "1964-01-01",
-                        "type": "point"
+                        "start": "1964-01-27",
+                        "type": "point",
+                        "note": "date exact",
+                        "source": "Chronologically Lewis"
                     }
                 ]
             }
