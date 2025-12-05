@@ -310,170 +310,164 @@ const rawData = [
                 ]
             },
             {
-                "name": "Publications",
-                "className": "tolkien publications",
-                "hasSubgroups": true,
+                "name": "Major Publications",
+                "className": "tolkien major-publications",
+                "hasSubgroups": false,
                 "contents": [
                     {
-                        "name": "Major",
-                        "className": "tolkien publications major",
-                        "hasSubgroups": false,
-                        "contents": [
-                            {
-                                "content": "The Hobbit",
-                                "start": "1937-09-21",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Leaf by Niggle",
-                                "start": "1945-01-01",
-                                "type": "point"
-                            },
-                            {
-                                "content": "On Fairy Stories",
-                                "name": "Essays Presented to Charles Williams",
-                                "start": "1947-12-04",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Farmer Giles of Ham",
-                                "start": "1949-10-20",
-                                "type": "point"
-                            },
-                            {
-                                "content": "The Fellowship of the Ring",
-                                "start": "1954-07-29",
-                                "type": "point"
-                            },
-                            {
-                                "content": "The Two Towers",
-                                "start": "1954-11-11",
-                                "type": "point"
-                            },
-                            {
-                                "content": "The Return of the King",
-                                "start": "1955-10-20",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Smith of Wooton Major",
-                                "start": "1967-11-09",
-                                "type": "point"
-                            },
-                            {
-                                "content": "The Silmarillion",
-                                "start": "1977-09-15",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Unfinished Tales",
-                                "start": "1980-10-02",
-                                "type": "point"
-                            }
-                        ]
+                        "content": "The Hobbit",
+                        "start": "1937-09-21",
+                        "type": "point"
                     },
                     {
-                        "name": "Minor",
-                        "className": "tolkien publications minor",
-                        "hasSubgroups": false,
-                        "contents": [
-                            {
-                                "content": "Goblin Feet",
-                                "name": "Oxford Poetry 1915",
-                                "start": "1915-12-01",
-                                "type": "point"
-                            },
-                            {
-                                "content": "A Middle English Vocabulary",
-                                "start": "1922-05-11",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Sir Gawain and the Green Knight",
-                                "name": "with E.V. Gordon (Clarendon Press)",
-                                "start": "1925-04-23",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Errantry",
-                                "name": "The Oxford Magazine",
-                                "start": "1933-11-09",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Beowulf: The Monsters and the Critics",
-                                "start": "1937-07-01",
-                                "type": "point"
-                            },
-                            {
-                                "content": "The Homecoming of Beorhtnoth Beorhthelm's Son",
-                                "start": "1953-10-01",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Sir Gawain and the Green Knight broadcast on BBC Radio",
-                                "start": "1953-12-06",
-                                "type": "point"
-                            },
-                            {
-                                "content": "The Adventures of Tom Bombadil",
-                                "start": "1962-11-22",
-                                "type": "point"
-                            },
-                            {
-                                "content": "English and Welsh",
-                                "start": "1963-07-08",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Tree and Leaf",
-                                "start": "1964-05-28",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Ace Books LOTR",
-                                "name": "unauthorized",
-                                "start": "1965-07-01",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Ballantine Books LOTR",
-                                "start": "1965-12-01",
-                                "type": "point"
-                            },
-                            {
-                                "content": "The Jerusalem Bible",
-                                "name": "Jonah by Tolkien",
-                                "start": "1966-01-01",
-                                "type": "point"
-                            },
-                            {
-                                "content": "LOTR 2ed.",
-                                "start": "1966-10-27",
-                                "type": "point"
-                            },
-                            {
-                                "content": "The Road Goes Ever On",
-                                "start": "1967-10-31",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Father Christmas Letters",
-                                "start": "1976-09-02",
-                                "type": "point"
-                            },
-                            {
-                                "content": "J.R.R. Tolkien: A Biography",
-                                "name": "Carpenter",
-                                "start": "1977-05-05",
-                                "type": "point"
-                            }
-                        ]
+                        "content": "Leaf by Niggle",
+                        "start": "1945-01-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "On Fairy Stories",
+                        "name": "Essays Presented to Charles Williams",
+                        "start": "1947-12-04",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Farmer Giles of Ham",
+                        "start": "1949-10-20",
+                        "type": "point"
+                    },
+                    {
+                        "content": "The Fellowship of the Ring",
+                        "start": "1954-07-29",
+                        "type": "point"
+                    },
+                    {
+                        "content": "The Two Towers",
+                        "start": "1954-11-11",
+                        "type": "point"
+                    },
+                    {
+                        "content": "The Return of the King",
+                        "start": "1955-10-20",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Smith of Wooton Major",
+                        "start": "1967-11-09",
+                        "type": "point"
+                    },
+                    {
+                        "content": "The Silmarillion",
+                        "start": "1977-09-15",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Unfinished Tales",
+                        "start": "1980-10-02",
+                        "type": "point"
+                    }
+                ]
+            },
+            {
+                "name": "Minor Publications",
+                "className": "tolkien minor-publications",
+                "hasSubgroups": false,
+                "contents": [
+                    {
+                        "content": "Goblin Feet",
+                        "name": "Oxford Poetry 1915",
+                        "start": "1915-12-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "A Middle English Vocabulary",
+                        "start": "1922-05-11",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Sir Gawain and the Green Knight",
+                        "name": "with E.V. Gordon (Clarendon Press)",
+                        "start": "1925-04-23",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Errantry",
+                        "name": "The Oxford Magazine",
+                        "start": "1933-11-09",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Beowulf: The Monsters and the Critics",
+                        "start": "1937-07-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "The Homecoming of Beorhtnoth Beorhthelm's Son",
+                        "start": "1953-10-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Sir Gawain and the Green Knight broadcast on BBC Radio",
+                        "start": "1953-12-06",
+                        "type": "point"
+                    },
+                    {
+                        "content": "The Adventures of Tom Bombadil",
+                        "start": "1962-11-22",
+                        "type": "point"
+                    },
+                    {
+                        "content": "English and Welsh",
+                        "start": "1963-07-08",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Tree and Leaf",
+                        "start": "1964-05-28",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Ace Books LOTR",
+                        "name": "unauthorized",
+                        "start": "1965-07-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Ballantine Books LOTR",
+                        "start": "1965-12-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "The Jerusalem Bible",
+                        "name": "Jonah by Tolkien",
+                        "start": "1966-01-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "LOTR 2ed.",
+                        "start": "1966-10-27",
+                        "type": "point"
+                    },
+                    {
+                        "content": "The Road Goes Ever On",
+                        "start": "1967-10-31",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Father Christmas Letters",
+                        "start": "1976-09-02",
+                        "type": "point"
+                    },
+                    {
+                        "content": "J.R.R. Tolkien: A Biography",
+                        "name": "Carpenter",
+                        "start": "1977-05-05",
+                        "type": "point"
                     }
                 ]
             }
         ]
     },
+
     {
         "name": "Lewis",
         "className": "group lewis",
@@ -750,227 +744,220 @@ const rawData = [
                 ]
             },
             {
-                "name": "Publications",
-                "className": "lewis publications",
-                "hasSubgroups": true,
+                "name": "Major Publications",
+                "className": "lewis major-publications",
+                "hasSubgroups": false,
                 "contents": [
                     {
-                        "name": "Major",
-                        "className": "lewis publications major",
-                        "hasSubgroups": false,
-                        "contents": [
-                            {
-                                "content": "Out of the Silent Planet",
-                                "start": "1938-04-01",
-                                "type": "point"
-                            },
-                            {
-                                "content": "The Problem of Pain",
-                                "start": "1940-10-01",
-                                "type": "point"
-                            },
-                            {
-                                "content": "The Screwtape Letters",
-                                "name": "May to November as a weekly serial in The Guardian",
-                                "start": "1941-05-01",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Broadcast Talks",
-                                "name": "1st part of Mere Christianity",
-                                "start": "1942-07-01",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Christian Behavior",
-                                "name": "2nd part of Mere Christianity",
-                                "start": "1943-03-01",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Perelandra",
-                                "start": "1943-04-20",
-                                "type": "point"
-                            },
-                            {
-                                "content": "The Abolition of Man",
-                                "start": "1943-07-02",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Beyond Personality",
-                                "name": "3rd part of Mere Christianity",
-                                "start": "1944-01-01",
-                                "type": "point"
-                            },
-                            {
-                                "content": "That Hideous Strength",
-                                "start": "1945-08-16",
-                                "type": "point"
-                            },
-                            {
-                                "content": "The Great Divorce",
-                                "name": "published in serial form in 1944",
-                                "start": "1945-07-02",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Miracles",
-                                "start": "1947-07-02",
-                                "type": "point"
-                            },
-                            {
-                                "content": "The Lion, the Witch, and the Wardrobe",
-                                "start": "1950-10-16",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Prince Caspian",
-                                "start": "1951-10-15",
-                                "type": "point"
-                            },
-                            {
-                                "content": "The Voyage of the Dawn Treader",
-                                "start": "1952-09-15",
-                                "type": "point"
-                            },
-                            {
-                                "content": "The Silver Chair",
-                                "start": "1953-09-07",
-                                "type": "point"
-                            },
-                            {
-                                "content": "The Horse and His Boy",
-                                "start": "1954-09-06",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Surprised by Joy",
-                                "start": "1955-01-01",
-                                "type": "point"
-                            },
-                            {
-                                "content": "The Magicians Nephew",
-                                "start": "1955-05-02",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Till We Have Faces",
-                                "start": "1956-01-01",
-                                "type": "point"
-                            },
-                            {
-                                "content": "The Last Battle",
-                                "start": "1956-09-04",
-                                "type": "point"
-                            },
-                            {
-                                "content": "The Four Loves",
-                                "start": "1960-07-02",
-                                "type": "point"
-                            },
-                            {
-                                "content": "A Grief Observed",
-                                "start": "1961-01-03",
-                                "type": "point"
-                            },
-                            {
-                                "content": "The Discarded Image",
-                                "name": "Posthumous",
-                                "start": "1964-01-01",
-                                "type": "point"
-                            }
-                        ]
+                        "content": "Out of the Silent Planet",
+                        "start": "1938-04-01",
+                        "type": "point"
                     },
                     {
-                        "name": "Minor",
-                        "className": "lewis publications minor",
-                        "hasSubgroups": false,
-                        "contents": [
-                            {
-                                "content": "The Pilgrim's Regress",
-                                "name": "J.M. Dent, published under Clive Hamliton",
-                                "start": "1933-05-01",
-                                "type": "point"
-                            },
-                            {
-                                "content": "The Allegory of Love",
-                                "name": "Clarendon Press",
-                                "start": "1936-05-21",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Spirits in Bondage: A Cycle of Lyrics",
-                                "name": "Heinemann, published under Clive Hamilton",
-                                "start": "1919-03-20",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Dymer",
-                                "name": "J.M. Dent, published under Clive Hamilton",
-                                "start": "1926-09-18",
-                                "type": "point"
-                            },
-                            {
-                                "content": "The Screwtape Letters",
-                                "name": "book",
-                                "start": "1942-02-09",
-                                "type": "point"
-                            },
-                            {
-                                "content": "A Preface to Paradise Lost",
-                                "start": "1942-07-02",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Essays Presented to Charles Williams",
-                                "start": "1947-12-04",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Arthurian Torso",
-                                "start": "1948-07-02",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Transposition and Other Addresses",
-                                "start": "1949-07-02",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Mere Christianity",
-                                "name": "Compiling Broadcast Talks, Christian Behavior, and Beyond Personality into a single book",
-                                "start": "1952-07-07",
-                                "type": "point"
-                            },
-                            {
-                                "content": "English Literature in the 16th Century, Excluding Drama",
-                                "name": "Oxford History of English Literature",
-                                "start": "1954-09-16",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Reflections on the Psalms",
-                                "start": "1958-07-02",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Screwtape Proposes a Toast",
-                                "start": "1959-12-19",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Studies in Words",
-                                "start": "1960-09-09",
-                                "type": "point"
-                            },
-                            {
-                                "content": "Letters to Malcom: Chiefly on Prayer",
-                                "name": "Posthumous",
-                                "start": "1964-01-01",
-                                "type": "point"
-                            }
-                        ]
+                        "content": "The Problem of Pain",
+                        "start": "1940-10-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "The Screwtape Letters",
+                        "name": "May to November as a weekly serial in The Guardian",
+                        "start": "1941-05-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Broadcast Talks",
+                        "name": "1st part of Mere Christianity",
+                        "start": "1942-07-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Christian Behavior",
+                        "name": "2nd part of Mere Christianity",
+                        "start": "1943-03-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Perelandra",
+                        "start": "1943-04-20",
+                        "type": "point"
+                    },
+                    {
+                        "content": "The Abolition of Man",
+                        "start": "1943-07-02",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Beyond Personality",
+                        "name": "3rd part of Mere Christianity",
+                        "start": "1944-01-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "That Hideous Strength",
+                        "start": "1945-08-16",
+                        "type": "point"
+                    },
+                    {
+                        "content": "The Great Divorce",
+                        "name": "published in serial form in 1944",
+                        "start": "1945-07-02",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Miracles",
+                        "start": "1947-07-02",
+                        "type": "point"
+                    },
+                    {
+                        "content": "The Lion, the Witch, and the Wardrobe",
+                        "start": "1950-10-16",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Prince Caspian",
+                        "start": "1951-10-15",
+                        "type": "point"
+                    },
+                    {
+                        "content": "The Voyage of the Dawn Treader",
+                        "start": "1952-09-15",
+                        "type": "point"
+                    },
+                    {
+                        "content": "The Silver Chair",
+                        "start": "1953-09-07",
+                        "type": "point"
+                    },
+                    {
+                        "content": "The Horse and His Boy",
+                        "start": "1954-09-06",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Surprised by Joy",
+                        "start": "1955-01-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "The Magicians Nephew",
+                        "start": "1955-05-02",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Till We Have Faces",
+                        "start": "1956-01-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "The Last Battle",
+                        "start": "1956-09-04",
+                        "type": "point"
+                    },
+                    {
+                        "content": "The Four Loves",
+                        "start": "1960-07-02",
+                        "type": "point"
+                    },
+                    {
+                        "content": "A Grief Observed",
+                        "start": "1961-01-03",
+                        "type": "point"
+                    },
+                    {
+                        "content": "The Discarded Image",
+                        "name": "Posthumous",
+                        "start": "1964-01-01",
+                        "type": "point"
+                    }
+                ]
+            },
+            {
+                "name": "Minor Publications",
+                "className": "lewis minor-publications",
+                "hasSubgroups": false,
+                "contents": [
+                    {
+                        "content": "The Pilgrim's Regress",
+                        "name": "J.M. Dent, published under Clive Hamliton",
+                        "start": "1933-05-01",
+                        "type": "point"
+                    },
+                    {
+                        "content": "The Allegory of Love",
+                        "name": "Clarendon Press",
+                        "start": "1936-05-21",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Spirits in Bondage: A Cycle of Lyrics",
+                        "name": "Heinemann, published under Clive Hamilton",
+                        "start": "1919-03-20",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Dymer",
+                        "name": "J.M. Dent, published under Clive Hamilton",
+                        "start": "1926-09-18",
+                        "type": "point"
+                    },
+                    {
+                        "content": "The Screwtape Letters",
+                        "name": "book",
+                        "start": "1942-02-09",
+                        "type": "point"
+                    },
+                    {
+                        "content": "A Preface to Paradise Lost",
+                        "start": "1942-07-02",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Essays Presented to Charles Williams",
+                        "start": "1947-12-04",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Arthurian Torso",
+                        "start": "1948-07-02",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Transposition and Other Addresses",
+                        "start": "1949-07-02",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Mere Christianity",
+                        "name": "Compiling Broadcast Talks, Christian Behavior, and Beyond Personality into a single book",
+                        "start": "1952-07-07",
+                        "type": "point"
+                    },
+                    {
+                        "content": "English Literature in the 16th Century, Excluding Drama",
+                        "name": "Oxford History of English Literature",
+                        "start": "1954-09-16",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Reflections on the Psalms",
+                        "start": "1958-07-02",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Screwtape Proposes a Toast",
+                        "start": "1959-12-19",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Studies in Words",
+                        "start": "1960-09-09",
+                        "type": "point"
+                    },
+                    {
+                        "content": "Letters to Malcom: Chiefly on Prayer",
+                        "name": "Posthumous",
+                        "start": "1964-01-01",
+                        "type": "point"
                     }
                 ]
             }

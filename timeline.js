@@ -36,6 +36,7 @@ function processData(rawGroups) {
             let group = {
                 id: groupId,
                 content: rawGroup.name,
+                render: true,
                 // encode group id in a class Name
                 className: rawGroup.className + " groupId-" + groupId
             };
@@ -50,6 +51,8 @@ function processData(rawGroups) {
                         ...item,
                         id: nextItemId++,
                         group: group.id,
+                        start: new Date(item.start),
+                        end: item.end ? new Date(item.end) : undefined
                     };
                 });
                 group.className += " subgroup";
@@ -83,6 +86,38 @@ const timelineData = processData(rawData);
 
 let groups = new vis.DataSet(timelineData.groups);
 let items = new vis.DataSet(timelineData.items);
+let groupsDataView = new vis.DataView(groups, {
+    filter: (group) => group.render == true,
+});
+
+// Configuration for the Timeline
+let options = {
+    horizontalScroll: true,
+    verticalScroll: false,
+    zoomKey: "ctrlKey",
+    min: "1880-01-01",
+    max: "1990-01-01",
+    start: "1925-01-01",
+    end: "1960-12-31",
+    groupOrder: "id",
+    margin: {
+        item: {
+            horizontal: 0,
+        },
+    },
+    tooltip: {
+        template: function (item) {
+            if (!("name" in item)) {
+                return item.content;
+            } else {
+                return item.name;
+            }
+        },
+    },
+};
+
+// Create a Timeline
+let timeline = new vis.Timeline(container, items, groupsDataView, options);
 
 // toggle visibility of timeline items belonging to a given group
 function toggleItemVisibility(groupId) {
@@ -110,34 +145,6 @@ function toggleItemVisibility(groupId) {
     }
 }
 
-// Configuration for the Timeline
-let options = {
-    horizontalScroll: true,
-    verticalScroll: false,
-    zoomKey: "ctrlKey",
-    min: "1880-01-01",
-    max: "1990-01-01",
-    start: "1925-01-01",
-    end: "1960-12-31",
-    margin: {
-        item: {
-            horizontal: 0,
-        },
-    },
-    tooltip: {
-        template: function (item) {
-            if (!("name" in item)) {
-                return item.content;
-            } else {
-                return item.name;
-            }
-        },
-    },
-};
-
-// Create a Timeline
-let timeline = new vis.Timeline(container, items, groups, options);
-
 // Click subgroup names to show/hide items
 container.addEventListener("click", function (event) {
     const labelSelector = ".vis-label:not(.vis-nesting-group)";
@@ -148,28 +155,44 @@ container.addEventListener("click", function (event) {
             .find((className) => className.startsWith("groupId-"))
             .split("-")[1];
 
-        toggleItemVisibility(groupId);
+        toggleItemVisibility(Number(groupId));
     }
 })
 
-timeline.on('rangechanged', function (properties) {
-    const subgroupSelector = ".vis-itemset .vis-foreground .vis-group.subgroup"
-    document.querySelectorAll(subgroupSelector).forEach(subgroup => {
-        const groupId = Array.from(subgroup.classList)
-            .find((className) => className.startsWith("groupId-"))
-            .split("-")[1];
-        const hidden = subgroup.classList.contains("hidden");
-        const empty = subgroup.childElementCount == 0;
+// Only display groups with items in range
+timeline.on('rangechange', function (properties) {
+    let groupsToUpdate = []
+    const rangeStart = properties.start.valueOf();
+    const rangeEnd = properties.end.valueOf();
 
-        if (hidden && !empty) {
-            const toShow = document.querySelectorAll(`.groupId-${groupId}`);
-            toShow.forEach(element => { element.classList.remove("hidden") });
-        } else if (empty && !hidden && !hiddenItemsByGroupId[groupId]) {
-            const toHide = document.querySelectorAll(`.groupId-${groupId}`);
-            toHide.forEach(element => { element.classList.add("hidden") });
+    const itemsInRange = items.get({
+        filter: (item => {
+            const itemStart = item.start.valueOf();
+            const itemEnd = item.end ? item.end.valueOf() : itemStart;
+
+            return itemStart < rangeEnd && itemEnd > rangeStart
+        })
+    })
+
+    const groupsInRange = new Set(itemsInRange.map(item => item.group));
+
+    for (const group of groups.get({ filter: (group) => !group.nestedGroups })) {
+        const render = groupsInRange.has(group.id)
+        // Always display groups that are toggled off, so that the name remains
+        if (hiddenItemsByGroupId[group.id]) {
+            render = true;
+        };
+
+        if (render !== group.render) {
+            groupsToUpdate.push({
+                id: group.id,
+                render: render
+            })
         }
-    });
+    }
+
+    if (groupsToUpdate.length > 0) {
+        groups.update(groupsToUpdate);
+    }
 });
-// Check each visible group for visible items. If none, hide.
-// For now, ONLY if it doesn't have hidden items.
-// Check each hidden group for visible items. If so, unhide.
+
