@@ -17,8 +17,7 @@
  * random note: if it gets too laggy change rangechange to rangechanged
  */
 
-
-// Get timeline data from data file
+// Get timeline data from data file and format it for vis-js
 function processData(rawGroups) {
     // store these globally to allow flat sequential ordering
     let nextGroupId = 1;
@@ -38,28 +37,30 @@ function processData(rawGroups) {
                 content: rawGroup.name,
                 render: true,
                 // encode group id in a class Name
-                className: rawGroup.className + " groupId-" + groupId
+                className: `${rawGroup.tags.join(" ")} groupId-${groupId}`
             };
 
-            if (rawGroup.hasSubgroups) {
+            if (rawGroup.type == "superGroup") {
                 // Recursive call to get subgroup IDs
                 group.nestedGroups = processGroups(rawGroup.contents);
             } else {
                 // Process the items and push them to the global flat item list
                 const processedItems = rawGroup.contents.map((item) => {
                     return {
-                        ...item,
                         id: nextItemId++,
                         group: group.id,
+                        content: item.name,
+                        description: item.description ? item.description : undefined,
                         start: new Date(item.start),
-                        end: item.end ? new Date(item.end) : undefined
+                        end: item.end ? new Date(item.end) : undefined,
+                        type: item.displayMode ? item.displayMode : item.type
                     };
                 });
-                group.className += " subgroup";
                 items.push(...processedItems);
             }
 
             // Push the fully processed group to the global flat list of groups
+            console.log(group);
             groups.push(group);
             groupIds.push(group.id);
         }
@@ -97,8 +98,8 @@ let options = {
     zoomKey: "ctrlKey",
     min: "1880-01-01",
     max: "1990-01-01",
-    start: "1925-01-01",
-    end: "1960-12-31",
+    start: "1930-01-01",
+    end: "1940-12-31",
     groupOrder: "id",
     margin: {
         item: {
@@ -106,13 +107,7 @@ let options = {
         },
     },
     tooltip: {
-        template: function (item) {
-            if (!("name" in item)) {
-                return item.content;
-            } else {
-                return item.name;
-            }
-        },
+        template: (item) => item.description || item.content,
     },
 };
 
