@@ -1086,20 +1086,261 @@ const rawData = [
         ]
     },
     {
+        "name": "Barfield",
+        "type": "subGroup",
+        "tags": ["barfield"],
+        "contents": [
+            {
+                "name": "Birth of Owen Barfield",
+                "start": "1898-11-09",
+                "type": "point",
+                "note": "exact date",
+                "source": "Owen Barfield Literary Estate"
+            },
+            {
+                "name": "Marriage of Owen Barfield and Maud Douie",
+                "start": "1923-04-11",
+                "type": "point",
+                "note": "exact date",
+                "source": "Chronologically Lewis"
+            },
+            {
+                "name": "Barfield becomes Anthroposophist",
+                "start": "1923-06-01",
+                "type": "point",
+                "note": "date approximate, joined Anthroposophic Society of Great Britain in January 1924",
+                "source": "Owen Barfield Literary Estate"
+            },
+            {
+                "name": "Poetic Diction",
+                "start": "1928-05-01",
+                "type": "point",
+                "note": "Only year known. Lewis purchased a copy at the end of May",
+                "source": "Chronologically Lewis"
+            },
+            {
+                "name": "This Ever Diverse Pair",
+                "start": "1950-01-01",
+                "type": "point",
+                "note": "year only",
+                "source": "Owen Barfield Literary Estate"
+            },
+            {
+                "name": "Saving the Appearances",
+                "start": "1957-01-01",
+                "type": "point",
+                "note": "year only",
+                "source": "Owen Barfield Literary Estate"
+            },
+            {
+                "name": "Barfield retires from the law",
+                "start": "1959-01-01",
+                "type": "point",
+                "note": "year only",
+                "source": "Owen Barfield Literary Estate"
+            },
+            {
+                "name": "Death of Owen Barfield",
+                "start": "1997-12-14",
+                "type": "point",
+                "note": "exact date",
+                "source": "Owen Barfield Literary Estate"
+            }
+        ]
+    },
+    {
+        "name": "Williams",
+        "type": "subGroup",
+        "tags": ["williams"],
+        "contents": [
+            {
+                "name": "Birth of Charles Williams",
+                "start": "1886-09-20",
+                "type": "point",
+                "note": "exact date",
+                "source": "The Fellowship"
+            },
+            {
+                "name": "Started work at Oxford University Press",
+                "description": "Amen House",
+                "start": "1908-06-09",
+                "type": "point",
+                "note": "exact date",
+                "source": "The Fellowship"
+            },
+            {
+                "name": "Williams joins the Fellowship of the Rosy Cross",
+                "start": "1917-09-23",
+                "type": "point",
+                "note": "date exact (autumn equinox)",
+                "source": "The Fellowship"
+            },
+            {
+                "name": "Place of the Lion published",
+                "start": "1931-01-01",
+                "type": "point",
+                "note": "Only year known.",
+                "source": "Charles Williams Society"
+            },
+            {
+                "name": "Descent into Hell published",
+                "start": "1937-01-01",
+                "type": "point",
+                "note": "Only year known.",
+                "source": "Charles Williams Society"
+            },
+            {
+                "name": "Williams moves to Oxford",
+                "start": "1939-09-07",
+                "type": "point",
+                "note": "date exact",
+                "source": "Chronologically Lewis"
+            },
+            {
+                "name": "All Hallows' Eve published",
+                "start": "1945-01-01",
+                "type": "point",
+                "note": "Only year known.",
+                "source": "Charles Williams Society"
+            },
+            {
+                "name": "Death of Charles Williams",
+                "start": "1945-05-15",
+                "type": "point",
+                "note": "exact date",
+                "source": "Charles Williams Society"
+            }
+
+        ]
+    },
+    {
+        "name": "Warren Lewis",
+        "type": "subgroup",
+        "tags": ["wlewis"],
+        "contents": [
+            {
+                "name": "Birth of Warren Lewis",
+                "start": "1895-06-15",
+                "type": "point",
+                "note": "exact date",
+                "source": "Chronologically Lewis"
+            },
+            {
+                "name": "Warren Lewis army service",
+                "description": `Including a posting in Sierra Leone (Mar 9, 1921 to Mar 23, 1922)
+                                and two postings in China (Apr 11, 1927 to Feb 25, 1930 and Oct 9, 1931 to Oct 22, 1932)`,
+                "start": "1914-01-09",
+                "end": "1932-12-14",
+                "type": "range",
+                "note": "exact start date of receiving entrance exam results, exact end date of final arrival back in England",
+                "source": "Chronologically Lewis"
+            },
+            {
+                "name": "Warren Lewis returns to Christianity",
+                "start": "1931-05-09",
+                "type": "point",
+                "note": "exact date",
+                "source": "Chronologically Lewis"
+            },
+            {
+                "name": "Warren Lewis moves into the Kilns",
+                "start": "1932-12-21",
+                "type": "point",
+                "note": "exact date",
+                "source": "Chronologically Lewis"
+            },
+            {
+                "name": "Warren Lewis begins The Lewis Papers",
+                "start": "1930-12-01",
+                "type": "point",
+                "note": "month only",
+                "source": "Chronologically Lewis"
+            },
+            {
+                "name": "The Splendid Century published",
+                "start": "1953-11-01",
+                "type": "point",
+                "note": "sometime this year after October 17",
+                "source": "Chronologically Lewis"
+            },
+            {
+                "name": "Memoirs of the Duc de Saint-Simon published",
+                "start": "1964-01-01",
+                "type": "point",
+                "note": "year only",
+                "source": "Chronologically Lewis"
+            },
+            {
+                "name": "Letters of C.S. Lewis published",
+                "start": "1966-04-18",
+                "type": "point",
+                "note": "exact date",
+                "source": "Chronologically Lewis"
+            },
+            {
+                "name": "Death of Warren Lewis",
+                "description": "Walter Hooper goes to visit him at the Kilns and finds he has just died.",
+                "start": "1973-04-09",
+                "type": "point",
+                "note": "exact date",
+                "source": "Chronologically Lewis"
+            }
+
+        ]
+    },
+    {
         "name": "Inklings",
         "type": "subGroup",
         "tags": ["inklings"],
         "contents": [
             {
+                "name": "Lewis and Barfield meet",
+                "start": "1919-11-15",
+                "type": "point",
+                "note": "month known, not date",
+                "source": "Chronologically Lewis"
+            },
+            {
+
+                "name": "Inklings weekly meetings",
+                "description": "Thursday nights ~1929-",
+                "start": "1929-12-01",
+                "end": "1949-10-27",
+                "type": "range",
+                "note": `Start date approximate and early, based on Tolkien
+                          sharing his mythology with Lewis. End date
+                          approximate and late, based on Warren recording
+                          a Thursday evening with Lewis where noone else came.`,
+                "source": "The Company They Keep"
+            },
+            {
                 "name": "Lewis & Barfield's Great War",
                 "start": "1922-01-01",
                 "end": "1931-12-31",
-                "type": "range"
+                "type": "range",
+                "note": "approximate years, dates indetermined",
+                "source": "The Company They Keep"
             },
             {
                 "name": "Lewis and Tolkien meet",
                 "start": "1926-05-11",
-                "type": "point"
+                "type": "point",
+                "note": "date exact",
+                "source": "Chronologically Lewis"
+            },
+            {
+                "name": "Addison's Walk",
+                "start": "1931-09-19",
+                "type": "point",
+                "note": "date exact",
+                "source": "Chronologically Lewis"
+            },
+            {
+                "name": "Lewis and Williams begin correspondence",
+                "start": "1936-03-11",
+                "type": "point",
+                "note": "date exact",
+                "source": "Chronologically Lewis"
             }
         ]
     }

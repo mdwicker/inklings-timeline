@@ -60,7 +60,6 @@ function processData(rawGroups) {
             }
 
             // Push the fully processed group to the global flat list of groups
-            console.log(group);
             groups.push(group);
             groupIds.push(group.id);
         }
@@ -87,6 +86,7 @@ const timelineData = processData(rawData);
 
 let groups = new vis.DataSet(timelineData.groups);
 let items = new vis.DataSet(timelineData.items);
+
 let groupsDataView = new vis.DataView(groups, {
     filter: (group) => group.render == true,
 });
@@ -97,7 +97,7 @@ let options = {
     verticalScroll: false,
     zoomKey: "ctrlKey",
     min: "1880-01-01",
-    max: "1990-01-01",
+    max: "2000-01-01",
     start: "1930-01-01",
     end: "1940-12-31",
     groupOrder: "id",
@@ -190,4 +190,3 @@ timeline.on('rangechange', function (properties) {
         groups.update(groupsToUpdate);
     }
 });
-
