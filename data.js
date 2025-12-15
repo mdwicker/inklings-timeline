@@ -305,6 +305,11 @@ const rawData = [
                         "name": "Tolkien receives CBE",
                         "start": "1972-01-01",
                         "type": "point"
+                    },
+                    {
+                        "name": "Death of J.R.R. Tolkien",
+                        "start": "1973-09-02",
+                        "type": "point"
                     }
                 ]
             },

@@ -77,7 +77,7 @@ function processData(rawGroups) {
 }
 
 // DOM element where the Timeline will be attached
-let container = document.getElementById("visualization");
+const container = document.getElementById("visualization");
 
 // Dict to temporarily store hidden timeline items
 let hiddenItemsByGroupId = {};
@@ -115,30 +115,53 @@ let options = {
 let timeline = new vis.Timeline(container, items, groupsDataView, options);
 
 // toggle visibility of timeline items belonging to a given group
-function toggleItemVisibility(groupId) {
-    // check if items are already hidden
-    if (hiddenItemsByGroupId[groupId]) {
-        // put the items back on the timeline
-        items.add(hiddenItemsByGroupId[groupId]);
-        // remove them from the cache of hidden items
-        delete hiddenItemsByGroupId[groupId];
-    } else {
-        // Retreive the items to be hidden
-        const itemsToHide = items.get({
-            filter: function (item) {
-                return (item.group == groupId);
-            }
-        });
+function toggleItemVisibility(groupId, checked) {
+    const group = groups.get(Number(groupId));
 
-        // Do not proceed if no items were found
-        if (itemsToHide.length > 0) {
-            // cache the items to be hidden
-            hiddenItemsByGroupId[groupId] = itemsToHide;
-            // remove the items from the timeline
-            items.remove(itemsToHide.map((item) => item.id));
+    if (group.nestedGroups) {
+        groups.update({
+            id: Number(groupId),
+            showNested: checked
+        });
+        for (const id of group.nestedGroups) {
+            groups.update({
+                id: id,
+                render: checked
+            })
+        }
+    } else {
+        // check if items are already hidden
+        if (hiddenItemsByGroupId[groupId]) {
+            // put the items back on the timeline
+            items.add(hiddenItemsByGroupId[groupId]);
+            // remove them from the cache of hidden items
+            delete hiddenItemsByGroupId[groupId];
+        } else {
+            // Retreive the items to be hidden
+            const itemsToHide = items.get({
+                filter: function (item) {
+                    return (item.group == groupId);
+                }
+            });
+
+            // Do not proceed if no items were found
+            if (itemsToHide.length > 0) {
+                // cache the items to be hidden
+                hiddenItemsByGroupId[groupId] = itemsToHide;
+                // remove the items from the timeline
+                items.remove(itemsToHide.map((item) => item.id));
+            }
         }
     }
 }
+
+// Toggle visbility of groups using checkbox controls
+const visibilityControls = document.querySelectorAll(".group-list-item input[type='checkbox']");
+visibilityControls.forEach(checkbox => {
+    checkbox.addEventListener("change", () => {
+        toggleItemVisibility(checkbox.dataset.groupId, checkbox.checked);
+    })
+});
 
 // Click subgroup names to show/hide items
 container.addEventListener("click", function (event) {
@@ -150,7 +173,11 @@ container.addEventListener("click", function (event) {
             .find((className) => className.startsWith("groupId-"))
             .split("-")[1];
 
-        toggleItemVisibility(Number(groupId));
+        const checkbox = document.querySelector(
+            `input[data-group-id="${groupId}"][type="checkbox"]`);
+        if (checkbox) {
+            checkbox.click();
+        }
     }
 })
 

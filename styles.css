@@ -34,3 +34,51 @@
     border: none;
     border-bottom: 1px solid #bfbfbf;
 }
+
+.visibility-controls {
+    border: 1px solid black;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+.group-list, .sub-group-list {
+    list-style: none;
+}
+
+.group-list {
+    margin: 10px 0 0 0;
+    padding: 0;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.group-list-item.top-level {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.group-list-item.sub-item {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.sub-group-list {
+    margin: 5px 0 0 0;
+    padding: 0 0 0 15px;
+    border-left: 2px solid #cccccc;
+}
+
+.visibility-controls.top-group {
+    font-size: 20px;
+    border: 1px solid red;
+    
+}
+
+.visibility-controls.sub-group {
+    margin-left: 2rem;
+    font-size: 16px;
+}
+
