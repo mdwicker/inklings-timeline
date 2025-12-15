@@ -35,7 +35,8 @@ function processData(rawGroups) {
             let group = {
                 id: groupId,
                 content: rawGroup.name,
-                render: true,
+                isToggledOn: true,
+                isInRange: true,
                 // encode group id in a class Name
                 className: `${rawGroup.tags.join(" ")} groupId-${groupId}`
             };
@@ -44,6 +45,7 @@ function processData(rawGroups) {
                 // Recursive call to get subgroup IDs
                 group.nestedGroups = processGroups(rawGroup.contents);
             } else {
+                group.isParentVisible = true;
                 // Process the items and push them to the global flat item list
                 const processedItems = rawGroup.contents.map((item) => {
                     return {
@@ -79,16 +81,18 @@ function processData(rawGroups) {
 // DOM element where the Timeline will be attached
 const container = document.getElementById("visualization");
 
-// Dict to temporarily store hidden timeline items
-let hiddenItemsByGroupId = {};
-
 const timelineData = processData(rawData);
+const groups = new vis.DataSet(timelineData.groups);
+const items = new vis.DataSet(timelineData.items);
 
-let groups = new vis.DataSet(timelineData.groups);
-let items = new vis.DataSet(timelineData.items);
-
-let groupsDataView = new vis.DataView(groups, {
-    filter: (group) => group.render == true,
+let groupsView = new vis.DataView(groups, {
+    filter: (group) => {
+        // Groups w/o parents will evaluate as undefined and skip this check
+        if (group.isParentVisible === false) {
+            return false;
+        }
+        return group.isToggledOn && group.isInRange;
+    },
 });
 
 // Configuration for the Timeline
@@ -112,45 +116,20 @@ let options = {
 };
 
 // Create a Timeline
-let timeline = new vis.Timeline(container, items, groupsDataView, options);
+let timeline = new vis.Timeline(container, items, groupsView, options);
 
 // toggle visibility of timeline items belonging to a given group
-function toggleItemVisibility(groupId, checked) {
-    const group = groups.get(Number(groupId));
+function toggleGroupVisibility(groupId, toggleStatus) {
+    groups.update({ id: groupId, isToggledOn: toggleStatus });
 
-    if (group.nestedGroups) {
-        groups.update({
-            id: Number(groupId),
-            showNested: checked
-        });
-        for (const id of group.nestedGroups) {
+    const nestedGroups = groups.get(groupId).nestedGroups;
+    if (nestedGroups) {
+        // update visibility of all subgroups
+        for (const subGroupId of nestedGroups) {
             groups.update({
-                id: id,
-                render: checked
+                id: subGroupId,
+                isParentVisible: toggleStatus
             })
-        }
-    } else {
-        // check if items are already hidden
-        if (hiddenItemsByGroupId[groupId]) {
-            // put the items back on the timeline
-            items.add(hiddenItemsByGroupId[groupId]);
-            // remove them from the cache of hidden items
-            delete hiddenItemsByGroupId[groupId];
-        } else {
-            // Retreive the items to be hidden
-            const itemsToHide = items.get({
-                filter: function (item) {
-                    return (item.group == groupId);
-                }
-            });
-
-            // Do not proceed if no items were found
-            if (itemsToHide.length > 0) {
-                // cache the items to be hidden
-                hiddenItemsByGroupId[groupId] = itemsToHide;
-                // remove the items from the timeline
-                items.remove(itemsToHide.map((item) => item.id));
-            }
         }
     }
 }
@@ -159,27 +138,9 @@ function toggleItemVisibility(groupId, checked) {
 const visibilityControls = document.querySelectorAll(".group-list-item input[type='checkbox']");
 visibilityControls.forEach(checkbox => {
     checkbox.addEventListener("change", () => {
-        toggleItemVisibility(checkbox.dataset.groupId, checkbox.checked);
+        toggleGroupVisibility(Number(checkbox.dataset.groupId), checkbox.checked);
     })
 });
-
-// Click subgroup names to show/hide items
-container.addEventListener("click", function (event) {
-    const labelSelector = ".vis-label:not(.vis-nesting-group)";
-    const clickedLabel = event.target.closest(labelSelector);
-    if (clickedLabel) {
-        // Retrieve group ID from class list
-        const groupId = Array.from(clickedLabel.classList)
-            .find((className) => className.startsWith("groupId-"))
-            .split("-")[1];
-
-        const checkbox = document.querySelector(
-            `input[data-group-id="${groupId}"][type="checkbox"]`);
-        if (checkbox) {
-            checkbox.click();
-        }
-    }
-})
 
 // Only display groups with items in range
 timeline.on('rangechange', function (properties) {
@@ -190,26 +151,35 @@ timeline.on('rangechange', function (properties) {
     const itemsInRange = items.get({
         filter: (item => {
             const itemStart = item.start.valueOf();
+            // Point items should use the same value for start and end
             const itemEnd = item.end ? item.end.valueOf() : itemStart;
 
             return itemStart < rangeEnd && itemEnd > rangeStart
         })
     })
 
-    const groupsInRange = new Set(itemsInRange.map(item => item.group));
+    let groupsInRange = new Set(itemsInRange.map(item => item.group));
 
-    for (const group of groups.get({ filter: (group) => !group.nestedGroups })) {
-        const render = groupsInRange.has(group.id)
-        // Always display groups that are toggled off, so that the name remains
-        if (hiddenItemsByGroupId[group.id]) {
-            render = true;
-        };
+    // parent groups count as in range if their children are in range
+    groups.get({
+        filter: (group) => {
+            return (
+                group.nestedGroups &&
+                group.nestedGroups.some((id) => groupsInRange.has(id))
+            );
+        }
+    })
+        .map(group => group.id)
+        .forEach(id => groupsInRange.add(id));
 
-        if (render !== group.render) {
+    for (const group of groups.get()) {
+        const isInRange = groupsInRange.has(group.id);
+
+        if (isInRange !== group.isInRange) {
             groupsToUpdate.push({
                 id: group.id,
                 render: render
-            })
+            });
         }
     }
 
@@ -217,3 +187,22 @@ timeline.on('rangechange', function (properties) {
         groups.update(groupsToUpdate);
     }
 });
+
+/**
+ * Desired functionality: Clicking on parent group collapses it. Clicking
+ * on other groups EITHER does what it currently does (which is frankly
+ * unnecessary at this point) OR does nothing. More likely, all group filtering
+ * happens via the controls at the top. When you uncheck the box, the group
+ * (and any subGroups) are un-rendered. We might need a way to store the current
+ * state, tbh. Maybe more options than just "render"? Because from my perspective,
+ * we have a few options. Or rather, there are three different toggles.
+ * 1. Hidden b/c it has been unchecked up top
+ * 2. Hidden b/c no items in range (checkbox should be disabled)
+ * 3. Hidden b/c the parent group has been collapsed. (checkbox should be disabled)
+ * 4. Hidden b/c parent group has been unchecked (checkbox should be disabled)
+ * In all cases except 1, we need to save the status of the checkbox so that we can
+ * display properly when unhidden. so maybe we need to save the states?
+ * isEnabled
+ * isInRange
+ * parentEnabled
+ */
