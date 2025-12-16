@@ -17,9 +17,12 @@
  * random note: if it gets too laggy change rangechange to rangechanged
  */
 
-/**
- * Get timeline data from data file and format it for vis-js
- */
+
+/* =====================
+ *  Definitions
+ * ===================== */
+
+// Get timeline data from data file and format it for vis-js
 function processData(rawGroups) {
     // store these globally to allow flat sequential ordering
     let nextGroupId = 1;
@@ -44,7 +47,7 @@ function processData(rawGroups) {
                 // encode group id in a class Name
                 className: `${rawGroup.tags.join(" ")} groupId-${groupId}`
             };
-            if (rawGroup.type == "superGroup") {
+            if (rawGroup.type === "superGroup") {
                 // Recursive call to get subgroup IDs
                 group.nestedGroups = processGroups(rawGroup.contents, groupId);
             } else {
@@ -54,10 +57,10 @@ function processData(rawGroups) {
                         id: nextItemId++,
                         group: group.id,
                         content: item.name,
-                        description: item.description ? item.description : undefined,
+                        description: item.description,
                         start: new Date(item.start),
-                        end: item.end ? new Date(item.end) : undefined,
-                        type: item.displayMode ? item.displayMode : item.type
+                        end: item.end && new Date(item.end),
+                        type: item.displayMode ?? item.type
                     };
                 });
                 items.push(...processedItems);
@@ -81,9 +84,7 @@ function processData(rawGroups) {
     };
 }
 
-/**
- * Create visibility toggle controls and add them to the DOM
- */
+// Create visibility toggle controls and add them to the DOM
 function createVisibilityControls(groups) {
     const groupList = document.querySelector(".visibility-controls .group-list");
     groupList.innerHTML = '';
@@ -111,9 +112,7 @@ function createVisibilityControls(groups) {
 
             for (const subGroupId of group.nestedGroups) {
                 const subGroup = groups.get(subGroupId);
-                const subGroupName = `
-                    ${groupName}-${subGroup.content.toLowerCase().replace(" ", "-")}
-                `;
+                const subGroupName = `${groupName}-${subGroup.content.toLowerCase().replace(" ", "-")}`;
 
                 // all groups at this level are sub-groups
                 let subGroupNode = document.createElement("li");
@@ -133,26 +132,79 @@ function createVisibilityControls(groups) {
     });
 }
 
-/**
- * Toggle visibility of timeline items belonging to a given group
- */
+// Toggle visibility of timeline items belonging to a given group
 function toggleGroupVisibility(groupId, toggleStatus) {
     groups.update({ id: groupId, isToggledOn: toggleStatus });
 
     const nestedGroups = groups.get(groupId).nestedGroups;
     if (nestedGroups) {
         for (const subGroupId of nestedGroups) {
-            const checkboxSelector = `
-                input[type='checkbox'][data-group-id='${subGroupId}']
-            `;
-            checkbox = document.querySelector(checkboxSelector);
-            checkbox.disabled = !toggleStatus;
-            label = document.querySelector(`${checkboxSelector} + label`);
+            const checkboxSelector =
+                `input[type='checkbox'][data-group-id='${subGroupId}']`;
+            document.querySelector(checkboxSelector).disabled = !toggleStatus;
+            const label = document.querySelector(`${checkboxSelector} + label`);
             label.classList.toggle("parent-toggled-off", !toggleStatus);
         }
     }
     groupsView.refresh();
 }
+
+// Update visible groups with only groups currently in range
+function updateGroupsInRange(rangeStart, rangeEnd) {
+    const groupsToUpdate = []
+
+    const itemsInRange = items.get({
+        filter: (item) => {
+            const itemStart = item.start.valueOf();
+            // Point items should use the same value for start and end
+            const itemEnd = item.end ? item.end.valueOf() : itemStart;
+
+            return itemStart < rangeEnd && itemEnd > rangeStart
+        }
+    })
+
+    let groupsInRange = new Set(itemsInRange.map(item => item.group));
+
+    // parent groups count as in range if their children are in range
+    groups.get({
+        filter: (group) => {
+            return (
+                group.nestedGroups?.some((id) => groupsInRange.has(id))
+            );
+        }
+    })
+        .map(group => group.id)
+        .forEach(id => groupsInRange.add(id));
+
+
+    groups.forEach((group) => {
+        const isInRange = groupsInRange.has(group.id);
+
+        if (isInRange !== group.isInRange) {
+            groupsToUpdate.push({
+                id: group.id,
+                isInRange: isInRange
+            });
+
+            // Update visibility controls to indicate out of range
+            const label = document.querySelector(
+                `input[type='checkbox'][data-group-id='${group.id}'] + label`
+            );
+            if (label) {
+                label.classList.toggle("out-of-range", !isInRange);
+            }
+        }
+    });
+
+    if (groupsToUpdate.length > 0) {
+        groups.update(groupsToUpdate);
+    }
+}
+
+
+/* =====================
+ *  State creation
+ * ===================== */
 
 
 // DOM element where the Timeline will be attached
@@ -161,9 +213,7 @@ const container = document.getElementById("visualization");
 const timelineData = processData(rawData);
 const groups = new vis.DataSet(timelineData.groups);
 const items = new vis.DataSet(timelineData.items);
-
-
-let groupsView = new vis.DataView(groups, {
+const groupsView = new vis.DataView(groups, {
     filter: (group) => {
         // Groups with parents should only display if parent is toggled on
         if (group.parentId && !groups.get(group.parentId).isToggledOn) {
@@ -174,7 +224,7 @@ let groupsView = new vis.DataView(groups, {
 });
 
 // Configuration for the Timeline
-let options = {
+const options = {
     horizontalScroll: true,
     verticalScroll: false,
     zoomKey: "ctrlKey",
@@ -194,12 +244,22 @@ let options = {
 };
 
 // Create a Timeline
-let timeline = new vis.Timeline(container, items, groupsView, options);
+const timeline = new vis.Timeline(container, items, groupsView, options);
+
+
+/* =====================
+ *  Initial render
+ * ===================== */
 
 // Create visibility toggles
 createVisibilityControls(groups);
 
-// Toggle visbility of groups using checkbox controls
+
+/* =====================
+ *  Event wiring
+ * ===================== */
+
+// add Event Listeners to visibility toggles
 const visibilityControls = document.querySelectorAll(".group-list-item input[type='checkbox']");
 visibilityControls.forEach(checkbox => {
     checkbox.addEventListener("change", () => {
@@ -207,55 +267,9 @@ visibilityControls.forEach(checkbox => {
     })
 });
 
-// Only display groups with items in range
-timeline.on('rangechange', function (properties) {
-    let groupsToUpdate = []
-    const rangeStart = properties.start.valueOf();
-    const rangeEnd = properties.end.valueOf();
-
-    const itemsInRange = items.get({
-        filter: (item => {
-            const itemStart = item.start.valueOf();
-            // Point items should use the same value for start and end
-            const itemEnd = item.end ? item.end.valueOf() : itemStart;
-
-            return itemStart < rangeEnd && itemEnd > rangeStart
-        })
-    })
-
-    let groupsInRange = new Set(itemsInRange.map(item => item.group));
-
-    // parent groups count as in range if their children are in range
-    groups.get({
-        filter: (group) => {
-            return (
-                group.nestedGroups &&
-                group.nestedGroups.some((id) => groupsInRange.has(id))
-            );
-        }
-    })
-        .map(group => group.id)
-        .forEach(id => groupsInRange.add(id));
-
-    for (const group of groups.get()) {
-        const isInRange = groupsInRange.has(group.id);
-
-        if (isInRange !== group.isInRange) {
-            groupsToUpdate.push({
-                id: group.id,
-                isInRange: isInRange
-            });
-
-            // Update visibility controls to indicate out of range
-            const label = document.querySelector(
-                `input[type='checkbox'][data-group-id='${group.id}'] + label`
-            );
-            label.classList.toggle("out-of-range", !isInRange);
-            console.log(label);
-        }
-    }
-
-    if (groupsToUpdate.length > 0) {
-        groups.update(groupsToUpdate);
-    }
+// Listen for range change to update displayed groups
+timeline.on("rangechange", (properties) => {
+    updateGroupsInRange(
+        properties.start.valueOf(), properties.end.valueOf()
+    );
 });
