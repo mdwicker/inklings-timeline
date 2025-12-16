@@ -201,6 +201,11 @@ function updateGroupsInRange(rangeStart, rangeEnd) {
     }
 }
 
+function toggleVisibilityControls(isOpen) {
+    // display (or undisplay)
+    // change icon
+}
+
 
 /* =====================
  *  State creation
@@ -273,3 +278,15 @@ timeline.on("rangechange", (properties) => {
         properties.start.valueOf(), properties.end.valueOf()
     );
 });
+
+// Toggle visibility controls collapse state
+document.querySelector("button.controls-toggle")
+    .addEventListener("click", function (e) {
+        const button = e.target;
+        const controls = document.querySelector(".visibility-controls .group-list");
+
+        const expanded = button.getAttribute("aria-expanded") === "true";
+
+        button.setAttribute("aria-expanded", !expanded);
+        controls.classList.toggle("hidden", expanded);
+    });

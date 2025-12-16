@@ -45,6 +45,17 @@
     flex-wrap: wrap;
     gap: 20px;
     align-items: flex-start;
+
+    transition: max-height 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+.group-list.hidden {
+    max-height: 0;
+}
+
+.group-list:not(.hidden) {
+    max-height: 500px;
 }
 
 .group-list-item.top-level {
@@ -71,3 +82,30 @@
     color:#cccccc;
 }
 
+.controls-toggle {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    font-family: "Helvetica", "Arial", sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.controls-toggle::before {
+    content: "▶";
+    display: inline-block;
+    width: 1em;
+
+    transition: transform 0.25s ease-in-out;
+    transform-origin: 50% 50%;
+}
+
+.controls-toggle[aria-expanded="true"]::before {
+    transform: rotate(90deg);
+}
+
+.controls-toggle[aria-expanded="false"]::before {
+    transform: rotate(0deg);
+    transition-delay: 0.05s;
+}
