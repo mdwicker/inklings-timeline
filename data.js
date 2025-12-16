@@ -1221,7 +1221,7 @@ const rawData = [
     {
         "name": "Warren Lewis",
         "type": "subgroup",
-        "tags": ["wlewis"],
+        "tags": ["warren-lewis"],
         "contents": [
             {
                 "name": "Birth of Warren Lewis",
