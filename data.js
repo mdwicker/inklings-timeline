@@ -697,108 +697,171 @@ const rawData = [
                     {
                         "name": "Birth of C.S. Lewis",
                         "start": "1898-11-29",
+                        "edtf": "1898-11-29",
                         "type": "point"
                     },
                     {
                         "name": "Death of Mabel Lewis",
                         "description": "C.S. Lewis's mother",
                         "start": "1908-08-23",
+                        "edtf": "1908-08-23T06:30",
+                        "source": "Chronologically Lewis",
                         "type": "point"
                     },
                     {
                         "name": "Lewis has lung troubles",
                         "start": "1910-11-01",
+                        "edtf": "1910-11",
+                        "source": "Chronologically Lewis",
                         "type": "point"
                     },
                     {
                         "name": "Lewis meets Arthur Greeves",
-                        "start": "1914-04-01",
-                        "type": "point"
+                        "start": "1914-04-05",
+                        "edtf": "1914-04-15~",
+                        "type": "point",
+                        "source": "Chronologically Lewis",
+                        "note": "Sometime \"mid-April\" according to CL"
                     },
                     {
                         "name": "Lewis joins army",
-                        "description": "Receives commission as an officer in the 3rd Battalion, Somerset Light Infantry",
-                        "start": "1917-09-25",
+                        "description": "Lewis Joins the No.4 Officer Cadet Battalion (Company E) as No.738 Cadet under Lieutenant Colonel J.F. Stenning. He rooms with Paddy Moore at Keble College.",
+                        "start": "1917-06-05",
+                        "edtf": "1917-06-05",
+                        "source": "Chronologically Lewis",
                         "type": "point"
                     },
                     {
-                        "name": "Lewis injured",
-                        "description": "Mount Berenchon, Battle of Arras",
+                        "name": "Lewis comissioned as officer",
+                        "description": "Second Lieutenant",
+                        "start": "1917-09-26",
+                        "edtf": "1917-09-26",
+                        "type": "point",
+                        "source": "Chronologically Lewis",
+                    },
+                    {
+                        "name": "Lewis posted to Somerset Light Infantry",
+                        "description": "3rd Batallion",
+                        "start": "1917-10-16",
+                        "edtf": "1917-10-16",
+                        "type": "point",
+                        "source": "Chronologically Lewis",
+                    },
+                    {
+                        "name": "Paddy Moore dies",
+                        "description": "First reported missing, later confirmed dead.",
+                        "start": "1918-03-24",
+                        "edtf": "1918-03-24",
+                        "type": "point",
+                        "source": "Chronologically Lewis"
+                    },
+                    {
+                        "name": "Lewis injured in Battle of Arras",
+                        "description": "Wounded in left hand, left leg, and left side on Mount Bernenchon near Lillers, France.",
                         "start": "1918-04-15",
-                        "type": "point"
+                        "edtf": "1918-04-15",
+                        "type": "point",
+                        "source": "Chronologically Lewis"
                     },
                     {
-                        "name": "Lewis learns of “Paddy” Moore's death",
-                        "start": "1918-05-01",
-                        "type": "point"
-                    },
-                    {
-                        "name": "Lewis discharged",
-                        "start": "1919-12-01",
-                        "type": "point"
+                        "name": "Lewis discharged from Army",
+                        "start": "1918-12-24",
+                        "edtf": "1918-12-24",
+                        "type": "point",
+                        "source": "Chronologically Lewis",
                     },
                     {
                         "name": "Lewis moves in with Moores",
-                        "start": "1921-06-01",
-                        "type": "point"
+                        "start": "1920-05-03",
+                        "edtf": "1920-05-03~",
+                        "type": "point",
+                        "source": "Chronologically Lewis",
+                        "note": "By May 3 they had moved to a new address together."
                     },
                     {
                         "name": "Lewis becomes theist",
                         "description": "\"Most reluctant convert.\" He reports the date to be Trinity Term 1929, but most scholars believe he is off by a year.",
-                        "start": "1930-06-01",
-                        "type": "point"
+                        "start": "1930-07-20",
+                        "edtf": "1930-07-20%",
+                        "type": "point",
+                        "source": "Chronologically Lewis",
+                        "note": "Sources vary, but CL takes July 17-26 sometime as the most likely date. Sometime in June 1-6 is also possible but less likely. Lewis's own reported date of Trinity Term 1929 is very likely incorrect."
                     },
                     {
                         "name": "Lewis becomes Christian",
+                        "description": "Lewis professes faith in Christ in Warren's sidecar on the way to Whipsnade Zoo.",
                         "start": "1931-09-28",
-                        "type": "point"
+                        "edtf": "1931-09-28?",
+                        "type": "point",
+                        "source": "Chronologically Lewis",
+                        "note": "Some scholars think this could have been in 1932. Sayer inaccurately dates this to September 22 with no explanation. Warren's diary supports the given date."
+                    },
+                    {
+                        "name": "Lewis receives first letter from Joy Davidman",
+                        "start": "1950-01-10",
+                        "edtf": "1950-01-10",
+                        "type": "point",
+                        "source": "Chronologically Lewis",
                     },
                     {
                         "name": "Death of Mrs. Moore",
                         "start": "1951-01-12",
-                        "type": "point"
+                        "edtf": "1951-01-12T17:00",
+                        "type": "point",
+                        "source": "Chronologically Lewis"
                     },
                     {
-                        "name": "Lewis loses election for Professor of Poetry",
-                        "start": "1951-05-01",
-                        "type": "point"
+                        "name": "Lewis loses election to Poetry Chair",
+                        "start": "1951-02-08",
+                        "edtf": "1951-02-08",
+                        "type": "point",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Lewis declines O.B.E.",
-                        "start": "1951-12-01",
-                        "type": "point"
+                        "description": "Responding to a letter from Winston Churchill received the previous day.",
+                        "start": "1951-12-04",
+                        "edtf": "1951-12-04",
+                        "type": "point",
+                        "source": "Chronologically Lewis"
                     },
                     {
-                        "name": "Lewis meets Joy Gresham",
-                        "start": "1952-09-01",
-                        "type": "point"
+                        "name": "Lewis meets Joy Davidman",
+                        "description": "Lewis and George Sayer meet Joy and Phyllis Williams for lunch",
+                        "start": "1952-09-24",
+                        "edtf": "1952-09-24",
+                        "type": "point",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Marriage of C.S. Lewis and Joy Davidman",
                         "description": "Civil marriage at Oxford Registry Office",
                         "start": "1956-04-23",
-                        "type": "point"
+                        "edtf": "1956-04-23",
+                        "type": "point",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Joy diagnosed with cancer",
-                        "start": "1956-10-01",
-                        "type": "point"
-                    },
-                    {
-                        "name": "Lewis & Joy's Anglican marriage",
-                        "description": "Wingfield Hospital, because of Joy's suspected imminent death",
-                        "start": "1956-12-01",
-                        "type": "point"
+                        "description": "Joy broke her femur on October 18, and the x-rays the following day revealed an advanced case of cancer.",
+                        "start": "1956-10-19",
+                        "edtf": "1956-10-19",
+                        "type": "point",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Death of Joy Davidman",
                         "start": "1960-07-13",
-                        "type": "point"
+                        "edtf": "1960-07-13T22:15",
+                        "type": "point",
+                        "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Death of C.S. Lewis",
                         "start": "1963-11-22",
-                        "type": "point"
+                        "edtf": "1963-11-22T17:33",
+                        "type": "point",
+                        "source": "Chronologically Lewis"
                     }
                 ]
             },
