@@ -486,8 +486,8 @@ const rawData = [
                         "description": "Dundela Villas, near Holywood Road in East Belfast",
                         "start": "1898-11-29",
                         "end": "1905-04-21",
+                        "edtf": "1898-11-29/1905-04-21",
                         "type": "range",
-                        "note": "end date exact",
                         "source": "Chronologically Lewis"
                     },
                     {
@@ -495,8 +495,8 @@ const rawData = [
                         "description": "76 Circular Road, Belfast, Northern Ireland",
                         "start": "1905-04-21",
                         "end": "1908-09-17",
+                        "edtf": "1905-04-21/1908-09-17",
                         "type": "range",
-                        "note": "dates exact",
                         "source": "Chronologically Lewis"
                     },
                     {
@@ -504,24 +504,27 @@ const rawData = [
                         "description": "Hertfordshire",
                         "start": "1908-09-18",
                         "end": "1910-07-31",
+                        "edtf": "1908-09-18/1910-07-12?",
                         "type": "range",
-                        "note": "start date exact, end date approximate",
+                        "note": "Lewis finished school on July 12, but we don't know exactly when he went back to Belfast. He may have gone back immediately, or he may have waited and gone back with Warnie (whose exams at Malvern started the 21st). All we know for certain is that he was in Belfast for school in September.",
                         "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Little Lea",
-                        "start": "1910-07-01",
+                        "start": "1910-07-13?",
                         "end": "1911-01-10",
+                        "edtf": "1910-07-13?/1911-01-10?",
                         "type": "range",
-                        "note": "start date approximate, end date likely",
+                        "note": "See note on previous location. We don't know exactly when he returned to Belfast. Also, Chronologically Lewis has his date of sailing to Malvern as likely January 10, but not documented for certain.",
                         "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Malvern, England",
                         "start": "1911-01-10",
                         "end": "1914-07-29",
+                        "edtf": "1911-01-10?/1914-07-29",
                         "type": "range",
-                        "note": "start date likely, end date exact",
+                        "note": "For uncertain start date, see note on previous event.",
                         "source": "Chronologically Lewis"
                     },
                     {
@@ -529,40 +532,43 @@ const rawData = [
                         "description": "Surrey",
                         "start": "1914-09-19",
                         "end": "1917-04-25",
+                        "edtf": "1914-09-19/1917-04-25",
                         "type": "range",
-                        "note": "dates exact",
                         "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Oxford",
                         "start": "1917-04-26",
                         "end": "1917-11-17",
+                        "edtf": "1917-04-26/1917-11-17",
                         "type": "range",
-                        "note": "dates exact",
                         "source": "Chronologically Lewis"
                     },
                     {
                         "name": "France",
                         "start": "1917-11-17",
                         "end": "1918-05-24",
+                        "edtf": "1917-11-17/1918-05-24?",
                         "type": "range",
-                        "note": "start date exact, end date approximate",
+                        "note": "For end date, CL reports that Lewis \"probably\" crossed to England on May 24. He then spent some time in various hospitals and army bases, as well as some time at Little Lea.",
                         "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Oxford",
                         "start": "1919-01-13",
                         "end": "1930-10-11",
+                        "edtf": "1919-01-13/1930-10-11",
                         "type": "range",
-                        "note": "dates exact",
+                        "note": "Prior to his return to Oxford, he spent a small amount of time at Little Lea following his discharge and demobilization on December 24.",
                         "source": "Chronologically Lewis"
                     },
                     {
                         "name": "The Kilns",
                         "start": "1930-10-11",
                         "end": "1954-12-31",
+                        "edtf": "1930-10-11/1955-01-01",
                         "type": "range",
-                        "note": "dates exact",
+                        "note": "End date is the day Lewis moved to Cambridge part-time.",
                         "source": "Chronologically Lewis"
                     },
                     {
@@ -570,8 +576,9 @@ const rawData = [
                         "description": "Cambridge for academic duties and writing, the Kilns for weekends and holidays",
                         "start": "1955-01-01",
                         "end": "1963-11-22",
+                        "edtf": "1955-01-01/1963-11-22",
                         "type": "range",
-                        "note": "dates exact",
+                        "note": "Start day is the beginning of his part-time residence in Cambridge, end date is his death. Note that he likely did not travel much to Cambridge in his last days.",
                         "source": "Chronologically Lewis"
                     }
                 ]
@@ -585,32 +592,34 @@ const rawData = [
                         "name": "Wynyard School",
                         "start": "1908-09-18",
                         "end": "1910-07-12",
+                        "edtf": "1908-09-18/1910-07-12",
                         "type": "range",
-                        "note": "exact dates",
                         "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Campbell College",
                         "start": "1910-09-01",
                         "end": "1910-11-15",
+                        "edtf": "1910-09/1910-11-15",
                         "type": "range",
-                        "note": "start month, exact finish date",
+                        "note": "School ended November 15, but Lewis was likely brought home earlier due to illness.",
                         "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Cherbourg House",
                         "start": "1911-01-10",
                         "end": "1913-07-29",
+                        "edtf": "1911-01-10?-1913-07-29",
                         "type": "range",
-                        "note": "start date likely, end date exact",
+                        "note": "CL lists start date as uncertain.",
                         "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Malvern College",
                         "start": "1913-09-18",
                         "end": "1914-07-28",
+                        "edtf": "1913-09-18/1914-07-28",
                         "type": "range",
-                        "note": "dates exact",
                         "source": "Chronologically Lewis"
                     },
                     {
@@ -618,48 +627,54 @@ const rawData = [
                         "description": "private study with William T. Kirkpatrick, \"The Great Knock\"",
                         "start": "1914-09-14",
                         "end": "1917-04-25",
+                        "edtf": "1914-09-14/1917-04-25",
                         "type": "range",
-                        "note": "dates exact",
                         "source": "Chronologically Lewis"
                     },
                     {
                         "name": "University College",
                         "description": "Student",
-                        "start": "1917-04-26",
-                        "end": "1917-09-14",
+                        "start": "1917-04-29",
+                        "end": "1917-06-05",
+                        "edtf": "1917-04-29/1917-06-05",
+                        "note": "Start date is date of enrolment, end date is when he joined the Army.",
                         "type": "range"
                     },
                     {
                         "name": "Army",
-                        "start": "1917-09-15",
+                        "start": "1917-06-05",
                         "end": "1918-12-24",
+                        "edtf": "1917-06-05/1918-12-24",
                         "type": "range"
                     },
                     {
                         "name": "University College",
                         "description": "Student: Honour Moderations, Greats, English",
-                        "start": "1919-01-13",
+                        "start": "1919-01-14",
                         "end": "1924-07-16",
+                        "edtf": "1919-01-14/1923-07-16",
                         "type": "range",
-                        "note": "dates accurate but confusing",
+                        "note": "Arrived in Oxford on the 13th, term started on the 14th. End date is when Lewis learned he had received First Class Honours. End date of actual studies unclear.",
                         "source": "Chronologically Lewis"
                     },
                     {
                         "name": "University College",
                         "description": "Filling in as Philosophy lecturer",
                         "start": "1924-10-14",
-                        "end": "1925-05-19",
+                        "end": "1925-06-15",
+                        "edtf": "1924-10-14/1925-07-11",
                         "type": "range",
-                        "note": "start date exact, end date very rough",
+                        "note": "Start date is date of Lewis's first lecture. He agreed to the job on May 5. End date was July 11, the last day of term that school year. Timeline display uses earlier date to avoid overlap with Magdalen Fellowship",
                         "source": "Chronologically Lewis"
                     },
                     {
                         "name": "Magdalen College, Oxford",
                         "description": "Fellow and Tutor in English",
-                        "start": "1925-05-20",
+                        "start": "1925-06-15",
                         "end": "1954-06-04",
+                        "edtf": "1925-06-15/1954-06-04",
                         "type": "range",
-                        "note": "dates exact, up to his resignation letter. Final lecture was Dec. 3",
+                        "note": "Start date is official beginning of his Fellowship. He learned of his appointment May 20 that year. End date is the date of his resignation letter. His final lecture was Dec. 3 that year.",
                         "source": "Chronologically Lewis"
                     },
                     {
@@ -667,8 +682,9 @@ const rawData = [
                         "description": "Professor of Medieval and Renaissance Literature",
                         "start": "1954-06-04",
                         "end": "1963-08-11",
+                        "edtf": "1954-06-04/1963-08-11~",
                         "type": "range",
-                        "note": "start date exact, end date approx (it was by then at the latest that he resigned)",
+                        "note": "Start date is the day he wrote to accept the post. End date is the latest possible date for his resignation.",
                         "source": "Chronologically Lewis"
                     }
                 ]
