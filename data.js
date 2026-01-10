@@ -1,45 +1,57 @@
-export function flattened(groupTree) {
-    // store these globally to allow flat sequential ordering
-    groupTree = allData;
-    let nextGroupId = 1;
-    let nextItemId = 1;
+class Group {
+    // id will iterate to allow each group to have a unique sequential id
+    static id = 1;
 
+    constructor(group, parent = null) {
+        this.id = Group.id++;
+        this.content = group.name;
+        this.isToggledOn = true;
+        this.isInRange = true;
+        this.parentId = parent;
+        this.className = group.tags.join(" ") + ` groupId-${this.id}`;
+        this.nestedGroups = null;
+    }
+
+    setNestedGroups(groups) {
+        this.nestedGroups = groups;
+    }
+}
+
+class Item {
+    // id will iterate to allow each item to have a unique sequential id
+    static #id = 1;
+
+    constructor(item, group) {
+        this.id = Item.#id++;
+        this.group = group;
+        this.content = item.name;
+        this.description = item.description;
+        this.start = new Date(item.start);
+        this.end = item.end && new Date(item.end);
+        this.type = item.displayMode ?? item.type;
+    }
+}
+
+export function flattened() {
+    const groupTree = allData;
     // flat arrays of all groups and items
     let groups = [];
     let items = [];
 
-    function processGroups(groupsToProcess, parentId) {
+    function processGroups(groupsToProcess, parentId = null) {
         // for nested groups to store Ids to pass to parent group
         let groupIds = [];
 
         for (const rawGroup of groupsToProcess) {
-            const groupId = nextGroupId++;
-            let group = {
-                id: groupId,
-                content: rawGroup.name,
-                isToggledOn: true,
-                isInRange: true,
-                parentId: parentId,
-                // encode group id in a class Name
-                className: `${rawGroup.tags.join(" ")} groupId-${groupId}`
-            };
+            const group = new Group(rawGroup, parentId);
             if (rawGroup.type === "superGroup") {
                 // Recursive call to get subgroup IDs
-                group.nestedGroups = processGroups(rawGroup.contents, groupId);
+                group.setNestedGroups(processGroups(rawGroup.contents, group.id));
             } else {
                 // Process the items and push them to the global flat item list
-                const processedItems = rawGroup.contents.map((item) => {
-                    return {
-                        id: nextItemId++,
-                        group: group.id,
-                        content: item.name,
-                        description: item.description,
-                        start: new Date(item.start),
-                        end: item.end && new Date(item.end),
-                        type: item.displayMode ?? item.type
-                    };
-                });
-                items.push(...processedItems);
+                for (const item of rawGroup.contents) {
+                    items.push(new Item(item, group.id));
+                }
             }
 
             // Push the fully processed group to the global flat list of groups
@@ -51,16 +63,13 @@ export function flattened(groupTree) {
         return groupIds;
     }
 
-    // parent id starts out as null, since top level items have no parent
-    processGroups(groupTree, null);
+    processGroups(groupTree);
 
     return {
         groups: groups,
         items: items,
     };
 }
-
-
 
 
 export const allData = [

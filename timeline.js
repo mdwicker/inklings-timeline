@@ -33,7 +33,6 @@ function createVisibilityControls(groups) {
         filter: (group) => !group.parentId
     }).forEach(group => {
         const groupName = group.content.toLowerCase().replace(" ", "-");
-
         // all groups at this level of the loop are top-level items
         let groupNode = document.createElement("li");
         groupNode.classList.add("group-list-item", "top-level");
