@@ -1,88 +1,12 @@
-class Group {
-    // id will iterate to allow each group to have a unique sequential id
-    static id = 1;
-
-    constructor(group, parent = null) {
-        this.id = Group.id++;
-        this.content = group.name;
-        this.isToggledOn = true;
-        this.isInRange = true;
-        this.parentId = parent;
-        this.className = group.tags.join(" ") + ` groupId-${this.id}`;
-        this.nestedGroups = null;
-    }
-
-    setNestedGroups(groups) {
-        this.nestedGroups = groups;
-    }
-}
-
-class Item {
-    // id will iterate to allow each item to have a unique sequential id
-    static #id = 1;
-
-    constructor(item, group) {
-        this.id = Item.#id++;
-        this.group = group;
-        this.content = item.name;
-        this.description = item.description;
-        this.start = new Date(item.start);
-        this.end = item.end && new Date(item.end);
-        this.type = item.displayMode ?? item.type;
-    }
-}
-
-export function flattened() {
-    const groupTree = allData;
-    // flat arrays of all groups and items
-    let groups = [];
-    let items = [];
-
-    function processGroups(groupsToProcess, parentId = null) {
-        // for nested groups to store Ids to pass to parent group
-        let groupIds = [];
-
-        for (const rawGroup of groupsToProcess) {
-            const group = new Group(rawGroup, parentId);
-            if (rawGroup.type === "superGroup") {
-                // Recursive call to get subgroup IDs
-                group.setNestedGroups(processGroups(rawGroup.contents, group.id));
-            } else {
-                // Process the items and push them to the global flat item list
-                for (const item of rawGroup.contents) {
-                    items.push(new Item(item, group.id));
-                }
-            }
-
-            // Push the fully processed group to the global flat list of groups
-            groups.push(group);
-            groupIds.push(group.id);
-        }
-
-        // Return the IDs of the groups processed at this level
-        return groupIds;
-    }
-
-    processGroups(groupTree);
-
-    return {
-        groups: groups,
-        items: items,
-    };
-}
-
-
-export const allData = [
+const data = [
     {
         "name": "Tolkien",
-        "type": "superGroup",
         "tags": ["tolkien"],
-        "contents": [
+        "subGroups": [
             {
                 "name": "Location",
-                "type": "subGroup",
                 "tags": ["tolkien", "location"],
-                "contents": [
+                "items": [
                     {
                         "name": "Bloemfontein, South Africa",
                         "start": "1892-01-01",
@@ -189,9 +113,8 @@ export const allData = [
             },
             {
                 "name": "Occupation",
-                "type": "subGroup",
                 "tags": ["tolkien", "occupation"],
-                "contents": [
+                "items": [
                     {
                         "name": "King Edward's School",
                         "start": "1900-01-01",
@@ -273,9 +196,8 @@ export const allData = [
             },
             {
                 "name": "Life Events",
-                "type": "subGroup",
                 "tags": ["tolkien", "life"],
-                "contents": [
+                "items": [
                     {
                         "name": "Birth of J.R.R. Tolkien",
                         "start": "1892-01-03",
@@ -389,9 +311,8 @@ export const allData = [
             },
             {
                 "name": "Major Publications",
-                "type": "subGroup",
                 "tags": ["tolkien", "major-publications"],
-                "contents": [
+                "items": [
                     {
                         "name": "The Hobbit",
                         "start": "1937-09-21",
@@ -447,9 +368,8 @@ export const allData = [
             },
             {
                 "name": "Minor Publications",
-                "type": "subGroup",
                 "tags": ["tolkien", "minor-publications"],
-                "contents": [
+                "items": [
                     {
                         "name": "Goblin Feet",
                         "description": "Oxford Poetry 1915",
@@ -547,14 +467,12 @@ export const allData = [
     },
     {
         "name": "Lewis",
-        "type": "superGroup",
         "tags": ["lewis"],
-        "contents": [
+        "subGroups": [
             {
                 "name": "Location",
-                "type": "subGroup",
                 "tags": ["lewis", "location"],
-                "contents": [
+                "items": [
                     {
                         "name": "Belfast",
                         "description": "Dundela Villas, near Holywood Road in East Belfast",
@@ -659,9 +577,8 @@ export const allData = [
             },
             {
                 "name": "Occupation",
-                "type": "subGroup",
                 "tags": ["lewis", "occupation"],
-                "contents": [
+                "items": [
                     {
                         "name": "Wynyard School",
                         "start": "1908-09-18",
@@ -765,9 +682,8 @@ export const allData = [
             },
             {
                 "name": "Life Events",
-                "type": "subGroup",
                 "tags": ["lewis", "life"],
-                "contents": [
+                "items": [
                     {
                         "name": "Birth of C.S. Lewis",
                         "start": "1898-11-29",
@@ -941,9 +857,8 @@ export const allData = [
             },
             {
                 "name": "Major Publications",
-                "type": "subGroup",
                 "tags": ["lewis", "major-publications"],
-                "contents": [
+                "items": [
                     {
                         "name": "Out of the Silent Planet",
                         "start": "1938-09-23",
@@ -1098,9 +1013,8 @@ export const allData = [
             },
             {
                 "name": "Minor Publications",
-                "type": "subGroup",
                 "tags": ["lewis", "minor-publications"],
-                "contents": [
+                "items": [
                     {
                         "name": "The Pilgrim's Regress",
                         "description": "J.M. Dent, published under Clive Hamliton",
@@ -1245,9 +1159,8 @@ export const allData = [
     },
     {
         "name": "Barfield",
-        "type": "subGroup",
         "tags": ["barfield"],
-        "contents": [
+        "items": [
             {
                 "name": "Birth of Owen Barfield",
                 "start": "1898-11-09",
@@ -1308,9 +1221,8 @@ export const allData = [
     },
     {
         "name": "Williams",
-        "type": "subGroup",
         "tags": ["williams"],
-        "contents": [
+        "items": [
             {
                 "name": "Birth of Charles Williams",
                 "start": "1886-09-20",
@@ -1373,9 +1285,8 @@ export const allData = [
     },
     {
         "name": "Warren Lewis",
-        "type": "subgroup",
         "tags": ["warren-lewis"],
-        "contents": [
+        "items": [
             {
                 "name": "Birth of Warren Lewis",
                 "start": "1895-06-15",
@@ -1447,9 +1358,8 @@ export const allData = [
     },
     {
         "name": "Inklings",
-        "type": "subGroup",
         "tags": ["inklings"],
-        "contents": [
+        "items": [
             {
                 "name": "Lewis and Barfield meet",
                 "start": "1919-11-15",
@@ -1501,3 +1411,77 @@ export const allData = [
         ]
     }
 ]
+
+class Group {
+    // id will iterate to allow each group to have a unique sequential id
+    static id = 1;
+
+    constructor(group, parent = null) {
+        this.id = Group.id++;
+        this.content = group.name;
+        this.isToggledOn = true;
+        this.isInRange = true;
+        this.parentId = parent;
+        this.className = group.tags.join(" ") + ` groupId-${this.id}`;
+        this.nestedGroups = null;
+    }
+
+    setNestedGroups(groups) {
+        this.nestedGroups = groups;
+    }
+}
+
+class Item {
+    // id will iterate to allow each item to have a unique sequential id
+    static #id = 1;
+
+    constructor(item, group) {
+        this.id = Item.#id++;
+        this.group = group;
+        this.content = item.name;
+        this.description = item.description;
+        this.start = new Date(item.start);
+        this.end = item.end && new Date(item.end);
+        this.type = item.displayMode ?? item.type;
+    }
+}
+
+export function flattened() {
+    // flat arrays of all groups and items
+    let groups = [];
+    let items = [];
+
+    function processGroups(groupsToProcess, parentId = null) {
+        // for nested groups to store Ids to pass to parent group
+        let groupIds = [];
+
+        for (const rawGroup of groupsToProcess) {
+            const group = new Group(rawGroup, parentId);
+            if ("subGroups" in rawGroup) {
+                // Recursive call to get subgroup IDs
+                group.setNestedGroups(processGroups(rawGroup.subGroups, group.id));
+            }
+
+            if ("items" in rawGroup) {
+                // Process the items and push them to the global flat item list
+                for (const item of rawGroup.items) {
+                    items.push(new Item(item, group.id));
+                }
+            }
+
+            // Push the fully processed group to the global flat list of groups
+            groups.push(group);
+            groupIds.push(group.id);
+        }
+
+        // Return the IDs of the groups processed at this level
+        return groupIds;
+    }
+
+    processGroups(data);
+
+    return {
+        groups: groups,
+        items: items,
+    };
+}
