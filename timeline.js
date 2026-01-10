@@ -17,72 +17,11 @@
  * random note: if it gets too laggy change rangechange to rangechanged
  */
 
+import * as data from "./data.js"
 
 /* =====================
  *  Definitions
  * ===================== */
-
-// Get timeline data from data file and format it for vis-js
-function processData(rawGroups) {
-    // store these globally to allow flat sequential ordering
-    let nextGroupId = 1;
-    let nextItemId = 1;
-
-    // flat arrays of all groups and items
-    let groups = [];
-    let items = [];
-
-    function processGroups(currentGroups, parentId) {
-        // for nested groups to store Ids to pass to parent group
-        let groupIds = [];
-
-        for (const rawGroup of currentGroups) {
-            const groupId = nextGroupId++;
-            let group = {
-                id: groupId,
-                content: rawGroup.name,
-                isToggledOn: true,
-                isInRange: true,
-                parentId: parentId,
-                // encode group id in a class Name
-                className: `${rawGroup.tags.join(" ")} groupId-${groupId}`
-            };
-            if (rawGroup.type === "superGroup") {
-                // Recursive call to get subgroup IDs
-                group.nestedGroups = processGroups(rawGroup.contents, groupId);
-            } else {
-                // Process the items and push them to the global flat item list
-                const processedItems = rawGroup.contents.map((item) => {
-                    return {
-                        id: nextItemId++,
-                        group: group.id,
-                        content: item.name,
-                        description: item.description,
-                        start: new Date(item.start),
-                        end: item.end && new Date(item.end),
-                        type: item.displayMode ?? item.type
-                    };
-                });
-                items.push(...processedItems);
-            }
-
-            // Push the fully processed group to the global flat list of groups
-            groups.push(group);
-            groupIds.push(group.id);
-        }
-
-        // Return the IDs of the groups processed at this level
-        return groupIds;
-    }
-
-    // parent id starts out as null, since top level items have no parent
-    processGroups(rawGroups, null);
-
-    return {
-        groups: groups,
-        items: items,
-    };
-}
 
 // Create visibility toggle controls and add them to the DOM
 function createVisibilityControls(groups) {
@@ -215,7 +154,7 @@ function toggleVisibilityControls(isOpen) {
 // DOM element where the Timeline will be attached
 const container = document.getElementById("visualization");
 
-const timelineData = processData(rawData);
+const timelineData = data.flattened();
 const groups = new vis.DataSet(timelineData.groups);
 const items = new vis.DataSet(timelineData.items);
 const groupsView = new vis.DataView(groups, {

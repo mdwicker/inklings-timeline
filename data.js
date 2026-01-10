@@ -1,4 +1,69 @@
-const rawData = [
+export function flattened(groupTree) {
+    // store these globally to allow flat sequential ordering
+    groupTree = allData;
+    let nextGroupId = 1;
+    let nextItemId = 1;
+
+    // flat arrays of all groups and items
+    let groups = [];
+    let items = [];
+
+    function processGroups(groupsToProcess, parentId) {
+        // for nested groups to store Ids to pass to parent group
+        let groupIds = [];
+
+        for (const rawGroup of groupsToProcess) {
+            const groupId = nextGroupId++;
+            let group = {
+                id: groupId,
+                content: rawGroup.name,
+                isToggledOn: true,
+                isInRange: true,
+                parentId: parentId,
+                // encode group id in a class Name
+                className: `${rawGroup.tags.join(" ")} groupId-${groupId}`
+            };
+            if (rawGroup.type === "superGroup") {
+                // Recursive call to get subgroup IDs
+                group.nestedGroups = processGroups(rawGroup.contents, groupId);
+            } else {
+                // Process the items and push them to the global flat item list
+                const processedItems = rawGroup.contents.map((item) => {
+                    return {
+                        id: nextItemId++,
+                        group: group.id,
+                        content: item.name,
+                        description: item.description,
+                        start: new Date(item.start),
+                        end: item.end && new Date(item.end),
+                        type: item.displayMode ?? item.type
+                    };
+                });
+                items.push(...processedItems);
+            }
+
+            // Push the fully processed group to the global flat list of groups
+            groups.push(group);
+            groupIds.push(group.id);
+        }
+
+        // Return the IDs of the groups processed at this level
+        return groupIds;
+    }
+
+    // parent id starts out as null, since top level items have no parent
+    processGroups(groupTree, null);
+
+    return {
+        groups: groups,
+        items: items,
+    };
+}
+
+
+
+
+export const allData = [
     {
         "name": "Tolkien",
         "type": "superGroup",
@@ -859,7 +924,7 @@ const rawData = [
                     {
                         "name": "Death of C.S. Lewis",
                         "start": "1963-11-22",
-                        "edtf": "1963-11-22T17:33",
+                        "edtf": "1963-11-22T17:33~",
                         "type": "point",
                         "source": "Chronologically Lewis"
                     }
@@ -1311,8 +1376,7 @@ const rawData = [
             },
             {
                 "name": "Warren Lewis army service",
-                "description": `Including a posting in Sierra Leone (Mar 9, 1921 to Mar 23, 1922)
-                                and two postings in China (Apr 11, 1927 to Feb 25, 1930 and Oct 9, 1931 to Oct 22, 1932)`,
+                "description": "Including a posting in Sierra Leone (Mar 9, 1921 to Mar 23, 1922) and two postings in China (Apr 11, 1927 to Feb 25, 1930 and Oct 9, 1931 to Oct 22, 1932)",
                 "start": "1914-01-09",
                 "end": "1932-12-14",
                 "type": "range",
@@ -1380,6 +1444,7 @@ const rawData = [
             {
                 "name": "Lewis and Barfield meet",
                 "start": "1919-11-15",
+                "edtf": "1919-11",
                 "type": "point",
                 "note": "month known, not date",
                 "source": "Chronologically Lewis"
@@ -1391,18 +1456,16 @@ const rawData = [
                 "start": "1929-12-01",
                 "end": "1949-10-27",
                 "type": "range",
-                "note": `Start date approximate and early, based on Tolkien
-                          sharing his mythology with Lewis. End date
-                          approximate and late, based on Warren recording
-                          a Thursday evening with Lewis where noone else came.`,
+                "note": "Start date approximate and early, based on Tolkien sharing his mythology with Lewis. End date approximate and late, based on Warren recording a Thursday evening with Lewis where noone else came.",
                 "source": "The Company They Keep"
             },
             {
                 "name": "Lewis & Barfield's Great War",
                 "start": "1922-01-01",
                 "end": "1931-12-31",
+                "edtf": "1922~/1931~",
                 "type": "range",
-                "note": "approximate years, dates indetermined",
+                "note": "approximate years, dates undetermined",
                 "source": "The Company They Keep"
             },
             {
