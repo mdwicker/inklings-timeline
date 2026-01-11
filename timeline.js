@@ -153,11 +153,8 @@ function toggleVisibilityControls(isOpen) {
 // DOM element where the Timeline will be attached
 const container = document.getElementById("visualization");
 
-// const timelineData = data.visFormatted();
-console.time("groups init");
-const groups = new vis.DataSet(data.visGroups);
-const items = new vis.DataSet(data.visItems);
-console.timeEnd("groups init");
+const groups = new vis.DataSet(data.groups);
+const items = new vis.DataSet(data.items);
 const groupsView = new vis.DataView(groups, {
     filter: (group) => {
         // Groups with parents should only display if parent is toggled on
@@ -189,9 +186,7 @@ const options = {
 };
 
 // Create a Timeline
-console.time("timeline init");
 const timeline = new vis.Timeline(container, items, groupsView, options);
-console.timeEnd("timeline init");
 
 /* =====================
  *  Initial render

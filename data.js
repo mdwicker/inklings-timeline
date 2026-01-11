@@ -1413,111 +1413,50 @@ const data = [
     }
 ]
 
-class Group {
-    // id will iterate to allow each group to have a unique sequential id
-    static #id = 1;
+let groupId = 1;
+let itemId = 1;
 
-    constructor(group, parent = null) {
-        this.id = Group.#id++;
-        this.name = group.name;
-        this.content = this.name;
-        this.parent = parent;
-        this.tags = group.tags;
-    }
+let groups = [];
+let items = [];
 
-    addSubGroups(groups) {
-        this.nestedGroups = groups;
-    }
-
-    addItems(items) {
-        this.items = items;
-    }
-
-    vis() {
-        return {
-            id: this.id,
-            content: this.name,
-            parent: this.parent,
+(function formatGroups(groupsData, parentId = null) {
+    const groupIds = [];
+    for (const groupData of groupsData) {
+        const newGroupId = groupId++;
+        const group = {
+            id: newGroupId,
+            content: groupData.name,
+            parent: parentId,
             isToggledOn: true,
             isInRange: true,
-            className: this.tags.join(" ") + ` groupId-${this.id}`,
-            nestedGroups: this.nestedGroups ? this.nestedGroups.map(group => group.id) : null
+            className: groupData.tags.join(" ") + ` groupId-${newGroupId}`,
         }
-    }
-}
+        if ("items" in groupData) {
+            const itemIds = [];
+            for (const itemData of groupData.items) {
+                const newItemId = itemId++;
+                const item = {
+                    id: newItemId,
+                    group: group.id,
+                    content: itemData.name,
+                    description: itemData.description,
+                    start: itemData.start,
+                    end: itemData.end ? itemData.end : null,
+                    type: itemData.displayMode ? itemData.displayMode : itemData.type
+                }
+                itemIds.push(item.id);
+                items.push(item);
+            }
 
-class Item {
-    // id will iterate to allow each item to have a unique sequential id
-    static #id = 1;
-
-    constructor(item, group) {
-        this.id = Item.#id++;
-        this.group = group;
-        this.name = item.name;
-        this.content = this.name;
-        this.description = item.description;
-        this.start = new Date(item.start);
-        this.end = item.end && new Date(item.end);
-        this.type = item.displayMode ?? item.type;
-    }
-
-    vis() {
-        return {
-            id: this.id,
-            group: this.group,
-            content: this.name,
-            description: this.description,
-            start: this.start,
-            end: this.end,
-            type: this.type
-        }
-    }
-}
-
-function makeTree(nodes, parentId = null) {
-    let groups = [];
-    for (const node of nodes) {
-        const group = new Group(node, parentId);
-        if ("items" in node) {
-            group.addItems(node.items.map((item) => new Item(item, group.id)));
-            groups.push(group);
-        } else if ("nestedGroups" in node) {
-            group.addSubGroups(makeTree(node.nestedGroups, group.id));
-            groups.push(group);
+        } else if ("nestedGroups" in groupData) {
+            group.nestedGroups = formatGroups(groupData.nestedGroups, group.id);
         } else {
-            console.log(`Recursion error with node ${node}.`);
+            console.log(`Recursion error with group ${groupData}.`);
         }
+        groups.push(group);
+        groupIds.push(group.id);
     }
-    return groups;
-}
+    return groupIds;
+})(data);
 
-function flattenGroups(groups) {
-    let flatGroups = [];
-    for (const group of groups) {
-        if (group.nestedGroups) {
-            flatGroups.push(group);
-            flatGroups.push(...flattenGroups(group.nestedGroups));
-        } else {
-            flatGroups.push(group);
-        }
-    }
-    return flatGroups;
-}
-
-function flattenItems(groups) {
-    let items = [];
-    for (const group of groups) {
-        if ("items" in group) {
-            items.push(...group.items);
-        } else if ("nestedGroups" in group) {
-            items.push(...flattenItems(group.nestedGroups));
-        }
-    }
-    return items;
-}
-
-
-const tree = makeTree(data);
-
-export const visGroups = flattenGroups(tree).map(group => group.vis());
-export const visItems = flattenItems(tree).map(item => item.vis());
+export { groups, items }
