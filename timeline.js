@@ -30,7 +30,7 @@ function createVisibilityControls(groups) {
 
     // skip nested groups, they will be added by their parent group
     groups.get({
-        filter: (group) => !group.parentId
+        filter: (group) => !group.parent
     }).forEach(group => {
         const groupName = group.content.toLowerCase().replace(" ", "-");
         // all groups at this level of the loop are top-level items
@@ -153,13 +153,15 @@ function toggleVisibilityControls(isOpen) {
 // DOM element where the Timeline will be attached
 const container = document.getElementById("visualization");
 
-const timelineData = data.flattened();
-const groups = new vis.DataSet(timelineData.groups);
-const items = new vis.DataSet(timelineData.items);
+// const timelineData = data.visFormatted();
+console.time("groups init");
+const groups = new vis.DataSet(data.visGroups);
+const items = new vis.DataSet(data.visItems);
+console.timeEnd("groups init");
 const groupsView = new vis.DataView(groups, {
     filter: (group) => {
         // Groups with parents should only display if parent is toggled on
-        if (group.parentId && !groups.get(group.parentId).isToggledOn) {
+        if (group.parent && !groups.get(group.parent).isToggledOn) {
             return false;
         }
         return group.isToggledOn && group.isInRange;
@@ -187,8 +189,9 @@ const options = {
 };
 
 // Create a Timeline
+console.time("timeline init");
 const timeline = new vis.Timeline(container, items, groupsView, options);
-
+console.timeEnd("timeline init");
 
 /* =====================
  *  Initial render

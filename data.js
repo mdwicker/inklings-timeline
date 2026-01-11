@@ -1,8 +1,9 @@
+
 const data = [
     {
         "name": "Tolkien",
         "tags": ["tolkien"],
-        "subGroups": [
+        "nestedGroups": [
             {
                 "name": "Location",
                 "tags": ["tolkien", "location"],
@@ -468,7 +469,7 @@ const data = [
     {
         "name": "Lewis",
         "tags": ["lewis"],
-        "subGroups": [
+        "nestedGroups": [
             {
                 "name": "Location",
                 "tags": ["lewis", "location"],
@@ -1414,20 +1415,34 @@ const data = [
 
 class Group {
     // id will iterate to allow each group to have a unique sequential id
-    static id = 1;
+    static #id = 1;
 
     constructor(group, parent = null) {
-        this.id = Group.id++;
-        this.content = group.name;
-        this.isToggledOn = true;
-        this.isInRange = true;
-        this.parentId = parent;
-        this.className = group.tags.join(" ") + ` groupId-${this.id}`;
-        this.nestedGroups = null;
+        this.id = Group.#id++;
+        this.name = group.name;
+        this.content = this.name;
+        this.parent = parent;
+        this.tags = group.tags;
     }
 
-    setNestedGroups(groups) {
+    addSubGroups(groups) {
         this.nestedGroups = groups;
+    }
+
+    addItems(items) {
+        this.items = items;
+    }
+
+    vis() {
+        return {
+            id: this.id,
+            content: this.name,
+            parent: this.parent,
+            isToggledOn: true,
+            isInRange: true,
+            className: this.tags.join(" ") + ` groupId-${this.id}`,
+            nestedGroups: this.nestedGroups ? this.nestedGroups.map(group => group.id) : null
+        }
     }
 }
 
@@ -1438,50 +1453,71 @@ class Item {
     constructor(item, group) {
         this.id = Item.#id++;
         this.group = group;
-        this.content = item.name;
+        this.name = item.name;
+        this.content = this.name;
         this.description = item.description;
         this.start = new Date(item.start);
         this.end = item.end && new Date(item.end);
         this.type = item.displayMode ?? item.type;
     }
-}
 
-export function flattened() {
-    // flat arrays of all groups and items
-    let groups = [];
-    let items = [];
-
-    function processGroups(groupsToProcess, parentId = null) {
-        // for nested groups to store Ids to pass to parent group
-        let groupIds = [];
-
-        for (const rawGroup of groupsToProcess) {
-            const group = new Group(rawGroup, parentId);
-            if ("subGroups" in rawGroup) {
-                // Recursive call to get subgroup IDs
-                group.setNestedGroups(processGroups(rawGroup.subGroups, group.id));
-            }
-
-            if ("items" in rawGroup) {
-                // Process the items and push them to the global flat item list
-                for (const item of rawGroup.items) {
-                    items.push(new Item(item, group.id));
-                }
-            }
-
-            // Push the fully processed group to the global flat list of groups
-            groups.push(group);
-            groupIds.push(group.id);
+    vis() {
+        return {
+            id: this.id,
+            group: this.group,
+            content: this.name,
+            description: this.description,
+            start: this.start,
+            end: this.end,
+            type: this.type
         }
-
-        // Return the IDs of the groups processed at this level
-        return groupIds;
     }
-
-    processGroups(data);
-
-    return {
-        groups: groups,
-        items: items,
-    };
 }
+
+function makeTree(nodes, parentId = null) {
+    let groups = [];
+    for (const node of nodes) {
+        const group = new Group(node, parentId);
+        if ("items" in node) {
+            group.addItems(node.items.map((item) => new Item(item, group.id)));
+            groups.push(group);
+        } else if ("nestedGroups" in node) {
+            group.addSubGroups(makeTree(node.nestedGroups, group.id));
+            groups.push(group);
+        } else {
+            console.log(`Recursion error with node ${node}.`);
+        }
+    }
+    return groups;
+}
+
+function flattenGroups(groups) {
+    let flatGroups = [];
+    for (const group of groups) {
+        if (group.nestedGroups) {
+            flatGroups.push(group);
+            flatGroups.push(...flattenGroups(group.nestedGroups));
+        } else {
+            flatGroups.push(group);
+        }
+    }
+    return flatGroups;
+}
+
+function flattenItems(groups) {
+    let items = [];
+    for (const group of groups) {
+        if ("items" in group) {
+            items.push(...group.items);
+        } else if ("nestedGroups" in group) {
+            items.push(...flattenItems(group.nestedGroups));
+        }
+    }
+    return items;
+}
+
+
+const tree = makeTree(data);
+
+export const visGroups = flattenGroups(tree).map(group => group.vis());
+export const visItems = flattenItems(tree).map(item => item.vis());
