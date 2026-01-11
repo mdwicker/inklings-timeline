@@ -1440,8 +1440,8 @@ let items = [];
                     group: group.id,
                     content: itemData.name,
                     description: itemData.description,
-                    start: itemData.start,
-                    end: itemData.end ? itemData.end : null,
+                    start: new Date(itemData.start),
+                    end: itemData.end ? new Date(itemData.end) : null,
                     type: itemData.displayMode ? itemData.displayMode : itemData.type
                 }
                 itemIds.push(item.id);
