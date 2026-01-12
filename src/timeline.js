@@ -17,8 +17,8 @@
  * random note: if it gets too laggy change rangechange to rangechanged
  */
 
-import * as data from "./data.js"
-import { Timeline, DataSet, DataView } from "./node_modules/vis-timeline/standalone"
+import * as data from "./dataProcessor.js"
+// import { Timeline, DataSet, DataView } from "./node_modules/vis-timeline/standalone"
 
 /* =====================
  *  Definitions

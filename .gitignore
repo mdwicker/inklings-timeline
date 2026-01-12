@@ -1,3 +1,19 @@
 chronologically-lewis.pdf
+
+
+# Node dependencies
 node_modules/
+
+# VSCode workspace files
 *.code-workspace
+.vscode/
+
+# Build output
+dist/
+
+# Environment files
+.env
+
+# OS junk files
+.DS_Store
+Thumbs.db
