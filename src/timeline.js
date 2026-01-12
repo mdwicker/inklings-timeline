@@ -20,6 +20,7 @@
 import "./styles.css";
 import "./vis-timeline-graph2d.min.css";
 import * as data from "./dataProcessor.js";
+
 import { Timeline } from "vis-timeline/peer"
 import { DataSet, DataView } from "vis-data/peer"
 
@@ -28,45 +29,52 @@ import { DataSet, DataView } from "vis-data/peer"
  * ===================== */
 
 // Create visibility toggle controls and add them to the DOM
+
+function createGroupVisibilityNode(group) {
+    const node = document.createElement("li");
+    const htmlName = group.content.toLowerCase().replace(" ", "-");
+
+    node.classList.add("group-list-item");
+    if (!group.parent) {
+        node.classList.add("top-level")
+    } else {
+        node.classList.add("subgroup")
+    }
+
+    const checkbox = createVisibilityCheckbox(htmlName, group.id);
+    const label = document.createElement("label");
+    label.setAttribute("for", htmlName);
+    label.textContent = group.content;
+    node.append(checkbox, label);
+
+    return node;
+}
+
+function createVisibilityCheckbox(groupName, groupId) {
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.name = groupName;
+    checkbox.dataset.groupId = groupId;
+    checkbox.checked = true;
+
+    return checkbox;
+}
+
 function createVisibilityControls(groups) {
     const groupList = document.querySelector(".visibility-controls .group-list");
-    groupList.innerHTML = '';
 
     // skip nested groups, they will be added by their parent group
-    groups.get({
-        filter: (group) => !group.parent
-    }).forEach(group => {
-        const groupName = group.content.toLowerCase().replace(" ", "-");
-        // all groups at this level of the loop are top-level items
-        let groupNode = document.createElement("li");
-        groupNode.classList.add("group-list-item", "top-level");
-        groupNode.innerHTML = `
-            <input type="checkbox"
-                   id="${groupName}-toggle"
-                   data-group-id="${group.id}"
-                   checked>
-            <label for="${groupName}-toggle">${group.content}</label>
-        `;
-
+    const topGroups = groups.get({ filter: group => !group.parent });
+    topGroups.forEach(group => {
+        const groupNode = createGroupVisibilityNode(group);
         if (group.nestedGroups) {
-            let subGroupList = document.createElement("ul");
-            subGroupList.classList.add("sub-group-list");
+            const subGroupList = document.createElement("ul");
+            subGroupList.classList.add("subgroup-list");
 
             for (const subGroupId of group.nestedGroups) {
-                const subGroup = groups.get(subGroupId);
-                const subGroupName = `${groupName}-${subGroup.content.toLowerCase().replace(" ", "-")}`;
-
-                // all groups at this level are sub-groups
-                let subGroupNode = document.createElement("li");
-                subGroupNode.classList.add("group-list-item", "sub-item");
-                subGroupNode.innerHTML = `
-                    <input type="checkbox"
-                           id="${subGroupName}-toggle"
-                           data-group-id="${subGroup.id}"
-                           checked>
-                    <label for="${subGroupName}-toggle">${subGroup.content}</label>
-                `;
-                subGroupList.appendChild(subGroupNode);
+                subGroupList.appendChild(
+                    createGroupVisibilityNode(
+                        groups.get(subGroupId)));
             }
             groupNode.appendChild(subGroupList);
         }

@@ -33,7 +33,7 @@
     margin-bottom: 15px;
 }
 
-.group-list, .sub-group-list {
+.group-list, .subgroup-list {
     list-style: none;
 }
 
@@ -63,12 +63,12 @@
     font-weight: 600;
 }
 
-.group-list-item.sub-item {
+.group-list-item.subgroup {
     font-size: 1rem;
     font-weight: normal;
 }
 
-.sub-group-list {
+.subgroup-list {
     margin: 5px 0 0 0;
     padding: 0 0 0 15px;
     border-left: 2px solid #cccccc;
