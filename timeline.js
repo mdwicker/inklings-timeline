@@ -18,6 +18,7 @@
  */
 
 import * as data from "./data.js"
+import { Timeline, DataSet, DataView } from "./node_modules/vis-timeline/standalone"
 
 /* =====================
  *  Definitions
@@ -153,9 +154,9 @@ function toggleVisibilityControls(isOpen) {
 // DOM element where the Timeline will be attached
 const container = document.getElementById("visualization");
 
-const groups = new vis.DataSet(data.groups);
-const items = new vis.DataSet(data.items);
-const groupsView = new vis.DataView(groups, {
+const groups = new DataSet(data.groups);
+const items = new DataSet(data.items);
+const groupsView = new DataView(groups, {
     filter: (group) => {
         // Groups with parents should only display if parent is toggled on
         if (group.parent && !groups.get(group.parent).isToggledOn) {
@@ -186,7 +187,7 @@ const options = {
 };
 
 // Create a Timeline
-const timeline = new vis.Timeline(container, items, groupsView, options);
+const timeline = new Timeline(container, items, groupsView, options);
 
 /* =====================
  *  Initial render

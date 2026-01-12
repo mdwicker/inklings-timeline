@@ -1,0 +1,23 @@
+{
+  "name": "inklings-timeline",
+  "version": "1.0.0",
+  "description": "*An interactive timeline of events in the life of the Inklings and its members.*",
+  "main": "data.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdwicker/inklings-timeline.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mdwicker/inklings-timeline/issues"
+  },
+  "homepage": "https://github.com/mdwicker/inklings-timeline#readme",
+  "dependencies": {
+    "vis-timeline": "^8.5.0"
+  }
+}
