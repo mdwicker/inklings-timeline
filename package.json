@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/mdwicker/inklings-timeline#readme",
   "dependencies": {
-    "vis-timeline": "^8.5.0"
+    "vis-timeline": "^8.5.0",
+    "vis-data": "^8.0.0"
   },
   "devDependencies": {
     "css-loader": "^7.1.2",

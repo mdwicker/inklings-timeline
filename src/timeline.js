@@ -20,7 +20,8 @@
 import "./styles.css";
 import "./vis-timeline-graph2d.min.css";
 import * as data from "./dataProcessor.js";
-import { Timeline, DataSet, DataView } from "vis-timeline/standalone"
+import { Timeline } from "vis-timeline/peer"
+import { DataSet, DataView } from "vis-data/peer"
 
 /* =====================
  *  Definitions
