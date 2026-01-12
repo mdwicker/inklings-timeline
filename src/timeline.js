@@ -31,11 +31,14 @@ import { DataSet, DataView } from "vis-data/peer"
 // Create visibility toggle controls and add them to the DOM
 
 
-
 function createVisibilityControls(groups) {
     function createGroupNode(group) {
         const node = document.createElement("li");
-        const htmlName = group.content.toLowerCase().replace(" ", "-");
+        const name = group.content
+            .toLowerCase()
+            .trim()
+            .replace(/\s+/g, "-")
+            .replace(/[^a-z0-9-]/g, "");
 
         node.classList.add("group-list-item");
         if (!group.parent) {
@@ -44,9 +47,10 @@ function createVisibilityControls(groups) {
             node.classList.add("subgroup")
         }
 
-        const checkbox = createVisibilityCheckbox(htmlName, group.id);
+        const checkbox = createVisibilityCheckbox(name, group.id);
+
         const label = document.createElement("label");
-        label.setAttribute("for", htmlName);
+        label.setAttribute("for", name);
         label.textContent = group.content;
         node.append(checkbox, label);
 
@@ -65,29 +69,22 @@ function createVisibilityControls(groups) {
 
     const groupList = document.querySelector(".visibility-controls .group-list");
 
-    const groupNodes = {}
-
     // Create nodes
-    groups.forEach((group) => {
-        const node = createGroupNode(group);
-        groupNodes[group.id] = node;
+    groups.get({ filter: (group) => !group.parent })
+        .forEach((group) => {
+            const node = createGroupNode(group);
 
-        if (group.nestedGroups) {
-            const subGroupList = document.createElement("ul");
-            subGroupList.classList.add("subgroup-list");
-            node.append(subGroupList);
-            groupNodes[`${group.id}-nested`] = subGroupList;
-        }
-    });
+            if (group.nestedGroups) {
+                const nestedList = document.createElement("ul");
+                nestedList.classList.add("subgroup-list");
+                for (const id of group.nestedGroups) {
+                    nestedList.append(createGroupNode(groups.get(id)));
+                }
+                node.append(nestedList);
+            }
 
-    // Append Nodes
-    groups.forEach((group) => {
-        if (group.parent === null) {
-            groupList.append(groupNodes[group.id]);
-        } else {
-            groupNodes[`${group.parent}-nested`].append(groupNodes[group.id]);
-        }
-    })
+            groupList.append(node);
+        });
 }
 
 // Toggle visibility of timeline items belonging to a given group
