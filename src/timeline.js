@@ -28,78 +28,21 @@ import { DataSet, DataView } from "vis-data/peer"
  *  Definitions
  * ===================== */
 
-// Create visibility toggle controls and add them to the DOM
-
-
-function createVisibilityControls(groups) {
-    function createGroupNode(group) {
-        const node = document.createElement("li");
-        const name = group.content
-            .toLowerCase()
-            .trim()
-            .replace(/\s+/g, "-")
-            .replace(/[^a-z0-9-]/g, "");
-
-        node.classList.add("group-list-item");
-        if (!group.parent) {
-            node.classList.add("top-level")
-        } else {
-            node.classList.add("subgroup")
-        }
-
-        const checkbox = createVisibilityCheckbox(name, group.id);
-
-        const label = document.createElement("label");
-        label.setAttribute("for", name);
-        label.textContent = group.content;
-        node.append(checkbox, label);
-
-        return node;
-    }
-
-    function createVisibilityCheckbox(groupName, groupId) {
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.name = groupName;
-        checkbox.dataset.groupId = groupId;
-        checkbox.checked = true;
-
-        return checkbox;
-    }
-
-    const groupList = document.querySelector(".visibility-controls .group-list");
-
-    // Create nodes
-    groups.get({ filter: (group) => !group.parent })
-        .forEach((group) => {
-            const node = createGroupNode(group);
-
-            if (group.nestedGroups) {
-                const nestedList = document.createElement("ul");
-                nestedList.classList.add("subgroup-list");
-                for (const id of group.nestedGroups) {
-                    nestedList.append(createGroupNode(groups.get(id)));
-                }
-                node.append(nestedList);
-            }
-
-            groupList.append(node);
-        });
-}
-
 // Toggle visibility of timeline items belonging to a given group
 function toggleGroupVisibility(groupId, toggleStatus) {
     groups.update({ id: groupId, isToggledOn: toggleStatus });
+    groupsView.refresh();
 
     const nestedGroups = groups.get(groupId).nestedGroups;
-    if (nestedGroups) {
-        for (const subGroupId of nestedGroups) {
-            const checkboxSelector =
-                `input[type='checkbox'][data-group-id='${subGroupId}']`;
-            document.querySelector(checkboxSelector).disabled = !toggleStatus;
-            const label = document.querySelector(`${checkboxSelector} + label`);
-            label.classList.toggle("parent-toggled-off", !toggleStatus);
-        }
+    if (!nestedGroups) {
+        return;
+    }
+
+    for (const id of nestedGroups) {
+        const checkboxSelector = `input[data-group-id='${id}']`;
+        document.querySelector(checkboxSelector).disabled = !toggleStatus;
+        document.querySelector(`${checkboxSelector} + label`)
+            .classList.toggle("parent-toggled-off", !toggleStatus);
     }
     groupsView.refresh();
 }
@@ -209,8 +152,61 @@ const timeline = new Timeline(container, items, groupsView, options);
  *  Initial render
  * ===================== */
 
-// Create visibility toggles
-createVisibilityControls(groups);
+(function createVisibilityControls(groups) {
+    function createGroupNode(group) {
+        const node = document.createElement("li");
+        const name = group.content
+            .toLowerCase()
+            .trim()
+            .replace(/\s+/g, "-")
+            .replace(/[^a-z0-9-]/g, "");
+
+        node.classList.add("group-list-item");
+        if (!group.parent) {
+            node.classList.add("top-level")
+        } else {
+            node.classList.add("subgroup")
+        }
+
+        const checkbox = createVisibilityCheckbox(name, group.id);
+
+        const label = document.createElement("label");
+        label.setAttribute("for", name);
+        label.textContent = group.content;
+        node.append(checkbox, label);
+
+        return node;
+    }
+
+    function createVisibilityCheckbox(groupName, groupId) {
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.name = groupName;
+        checkbox.dataset.groupId = groupId;
+        checkbox.checked = true;
+
+        return checkbox;
+    }
+
+    const groupList = document.querySelector(".visibility-controls .group-list");
+
+    // Create nodes
+    groups.get({ filter: (group) => !group.parent })
+        .forEach((group) => {
+            const node = createGroupNode(group);
+
+            if (group.nestedGroups) {
+                const nestedList = document.createElement("ul");
+                nestedList.classList.add("subgroup-list");
+                for (const id of group.nestedGroups) {
+                    nestedList.append(createGroupNode(groups.get(id)));
+                }
+                node.append(nestedList);
+            }
+
+            groupList.append(node);
+        });
+})(groups);
 
 
 /* =====================
@@ -218,12 +214,13 @@ createVisibilityControls(groups);
  * ===================== */
 
 // add Event Listeners to visibility toggles
-const visibilityControls = document.querySelectorAll(".group-list-item input[type='checkbox']");
-visibilityControls.forEach(checkbox => {
-    checkbox.addEventListener("change", () => {
-        toggleGroupVisibility(Number(checkbox.dataset.groupId), checkbox.checked);
-    })
+const visibilityControls = document.querySelector(".visibility-controls .group-list");
+visibilityControls.addEventListener("change", (e) => {
+    if (e.target.matches("input[type='checkbox']")) {
+        toggleGroupVisibility(Number(e.target.dataset.groupId), e.target.checked);
+    };
 });
+
 
 // Listen for range change to update displayed groups
 timeline.on("rangechange", (properties) => {
