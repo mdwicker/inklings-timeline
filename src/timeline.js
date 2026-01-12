@@ -33,18 +33,19 @@ function toggleGroupVisibility(groupId, toggleStatus) {
     groups.update({ id: groupId, isToggledOn: toggleStatus });
     groupsView.refresh();
 
-    const nestedGroups = groups.get(groupId).nestedGroups;
-    if (!nestedGroups) {
-        return;
-    }
+    updateVisibilityToggles(groupId, toggleStatus);
+}
 
-    for (const id of nestedGroups) {
+function updateVisibilityToggles(groupId, disabled) {
+    const nested = groups.get(groupId).nestedGroups;
+    if (!nested) return;
+
+    for (const id of nested) {
         const checkboxSelector = `input[data-group-id='${id}']`;
-        document.querySelector(checkboxSelector).disabled = !toggleStatus;
+        document.querySelector(checkboxSelector).disabled = disabled;
         document.querySelector(`${checkboxSelector} + label`)
             .classList.toggle("parent-toggled-off", !toggleStatus);
     }
-    groupsView.refresh();
 }
 
 // Update visible groups with only groups currently in range
