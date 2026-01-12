@@ -19,5 +19,13 @@
   "homepage": "https://github.com/mdwicker/inklings-timeline#readme",
   "dependencies": {
     "vis-timeline": "^8.5.0"
+  },
+  "devDependencies": {
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.5",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.104.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2"
   }
 }

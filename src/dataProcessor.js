@@ -46,6 +46,4 @@ let items = [];
     return groupIds;
 })(data.data);
 
-console.log(groups);
-
 export { groups, items }
