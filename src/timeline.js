@@ -33,18 +33,18 @@ function toggleGroupVisibility(groupId, toggleStatus) {
     groups.update({ id: groupId, isToggledOn: toggleStatus });
     groupsView.refresh();
 
-    updateVisibilityToggles(groupId, toggleStatus);
+    updateVisibilityToggles(groupId, !toggleStatus);
 }
 
-function updateVisibilityToggles(groupId, disabled) {
+function updateVisibilityToggles(groupId, isOff) {
     const nested = groups.get(groupId).nestedGroups;
     if (!nested) return;
 
     for (const id of nested) {
         const checkboxSelector = `input[data-group-id='${id}']`;
-        document.querySelector(checkboxSelector).disabled = disabled;
+        document.querySelector(checkboxSelector).disabled = isOff;
         document.querySelector(`${checkboxSelector} + label`)
-            .classList.toggle("parent-toggled-off", !toggleStatus);
+            .classList.toggle("parent-toggled-off", isOff);
     }
 }
 
@@ -98,11 +98,6 @@ function updateGroupsInRange(rangeStart, rangeEnd) {
     if (groupsToUpdate.length > 0) {
         groups.update(groupsToUpdate);
     }
-}
-
-function toggleVisibilityControls(isOpen) {
-    // display (or undisplay)
-    // change icon
 }
 
 
