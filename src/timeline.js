@@ -30,56 +30,64 @@ import { DataSet, DataView } from "vis-data/peer"
 
 // Create visibility toggle controls and add them to the DOM
 
-function createGroupVisibilityNode(group) {
-    const node = document.createElement("li");
-    const htmlName = group.content.toLowerCase().replace(" ", "-");
 
-    node.classList.add("group-list-item");
-    if (!group.parent) {
-        node.classList.add("top-level")
-    } else {
-        node.classList.add("subgroup")
-    }
-
-    const checkbox = createVisibilityCheckbox(htmlName, group.id);
-    const label = document.createElement("label");
-    label.setAttribute("for", htmlName);
-    label.textContent = group.content;
-    node.append(checkbox, label);
-
-    return node;
-}
-
-function createVisibilityCheckbox(groupName, groupId) {
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.name = groupName;
-    checkbox.dataset.groupId = groupId;
-    checkbox.checked = true;
-
-    return checkbox;
-}
 
 function createVisibilityControls(groups) {
+    function createGroupNode(group) {
+        const node = document.createElement("li");
+        const htmlName = group.content.toLowerCase().replace(" ", "-");
+
+        node.classList.add("group-list-item");
+        if (!group.parent) {
+            node.classList.add("top-level")
+        } else {
+            node.classList.add("subgroup")
+        }
+
+        const checkbox = createVisibilityCheckbox(htmlName, group.id);
+        const label = document.createElement("label");
+        label.setAttribute("for", htmlName);
+        label.textContent = group.content;
+        node.append(checkbox, label);
+
+        return node;
+    }
+
+    function createVisibilityCheckbox(groupName, groupId) {
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.name = groupName;
+        checkbox.dataset.groupId = groupId;
+        checkbox.checked = true;
+
+        return checkbox;
+    }
+
     const groupList = document.querySelector(".visibility-controls .group-list");
 
-    // skip nested groups, they will be added by their parent group
-    const topGroups = groups.get({ filter: group => !group.parent });
-    topGroups.forEach(group => {
-        const groupNode = createGroupVisibilityNode(group);
+    const groupNodes = {}
+
+    // Create nodes
+    groups.forEach((group) => {
+        const node = createGroupNode(group);
+        groupNodes[group.id] = node;
+
         if (group.nestedGroups) {
             const subGroupList = document.createElement("ul");
             subGroupList.classList.add("subgroup-list");
-
-            for (const subGroupId of group.nestedGroups) {
-                subGroupList.appendChild(
-                    createGroupVisibilityNode(
-                        groups.get(subGroupId)));
-            }
-            groupNode.appendChild(subGroupList);
+            node.append(subGroupList);
+            groupNodes[`${group.id}-nested`] = subGroupList;
         }
-        groupList.appendChild(groupNode);
     });
+
+    // Append Nodes
+    groups.forEach((group) => {
+        if (group.parent === null) {
+            groupList.append(groupNodes[group.id]);
+        } else {
+            groupNodes[`${group.parent}-nested`].append(groupNodes[group.id]);
+        }
+    })
 }
 
 // Toggle visibility of timeline items belonging to a given group
