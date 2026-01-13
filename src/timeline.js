@@ -25,20 +25,18 @@ import { Timeline } from "vis-timeline/peer"
 import { DataSet, DataView } from "vis-data/peer"
 
 /* =====================
- *  Definitions
+ *  Application Logic
  * ===================== */
 
-// Toggle visibility of timeline items belonging to a given group
+// Toggle visibility of a group and refresh views
 function toggleGroupVisibility(groupId, toggleStatus) {
     groups.updateOnly({ id: groupId, isToggledOn: toggleStatus });
     groupsView.refresh();
     VisibilityControls.updateNestedGroups(groupId);
 }
 
-// Update visible groups with only groups currently in range
-function updateGroupsInRange(rangeStart, rangeEnd) {
-    const groupsToUpdate = []
-
+// Update which groups are considered in range
+function updateGroupsInRange(currentGroups, rangeStart, rangeEnd) {
     const itemsInRange = items.get({
         filter: (item) => {
             const itemStart = item.start.valueOf();
@@ -62,24 +60,20 @@ function updateGroupsInRange(rangeStart, rangeEnd) {
         .map(group => group.id)
         .forEach(id => groupsInRange.add(id));
 
+    const groupsToUpdate = groupsInRange.symmetricDifference(
+        new Set(currentGroups.map((group) => group.id))
+    );
 
-    groups.forEach((group) => {
-        const isInRange = groupsInRange.has(group.id);
-
-        if (isInRange !== group.isInRange) {
-            groupsToUpdate.push({
-                id: group.id,
-                isInRange: isInRange
-            });
-
-            VisibilityControls.updateInRange(group.id, isInRange);
-        }
+    groupsToUpdate.forEach((id) => {
+        groups.updateOnly({ id, isInRange: groupsInRange.has(id) });
     });
-
-    if (groupsToUpdate.length > 0) {
-        groups.updateOnly(groupsToUpdate);
-    }
 }
+
+
+
+/* =====================
+ *  UI Factories
+ * ===================== */
 
 function createVisibilityControls(groups) {
     const groupList = document.querySelector(".visibility-controls .group-list");
@@ -194,16 +188,14 @@ function createVisibilityControls(groups) {
 
 
 /* =====================
- *  State creation
+ *  State initialization
  * ===================== */
 
-
-// DOM element where the Timeline will be attached
 const container = document.getElementById("visualization");
 
 const groups = new DataSet(data.groups);
-
 const items = new DataSet(data.items);
+
 const groupsView = new DataView(groups, {
     filter: (group) => {
         // Groups with parents should only display if parent is toggled on
@@ -214,8 +206,7 @@ const groupsView = new DataView(groups, {
     },
 });
 
-// Configuration for the Timeline
-const options = {
+const timeline = new Timeline(container, items, groupsView, {
     horizontalScroll: true,
     verticalScroll: false,
     zoomKey: "ctrlKey",
@@ -231,17 +222,18 @@ const options = {
     },
     tooltip: {
         template: (item) => item.description || item.content,
-    },
-};
+    }
+});
 
-// Create a Timeline
-const timeline = new Timeline(container, items, groupsView, options);
+
 
 /* =====================
- *  Initial Render
+ *  UI Initialization
  * ===================== */
 
 const VisibilityControls = createVisibilityControls(groups);
+
+
 
 /* =====================
  *  Event wiring
@@ -253,6 +245,8 @@ VisibilityControls.setToggleHandler(toggleGroupVisibility);
 // Listen for range change to update displayed groups
 timeline.on("rangechange", (properties) => {
     updateGroupsInRange(
-        properties.start.valueOf(), properties.end.valueOf()
+        groupsView.get(),
+        properties.start.valueOf(),
+        properties.end.valueOf()
     );
 });

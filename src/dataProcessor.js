@@ -34,7 +34,7 @@ let items = [];
                 itemIds.push(item.id);
                 items.push(item);
             }
-
+            group.items = itemIds;
         } else if ("nestedGroups" in groupData) {
             group.nestedGroups = formatGroups(groupData.nestedGroups, group.id);
         } else {
