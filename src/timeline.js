@@ -32,31 +32,7 @@ import { DataSet, DataView } from "vis-data/peer"
 function toggleGroupVisibility(groupId, toggleStatus) {
     groups.updateOnly({ id: groupId, isToggledOn: toggleStatus });
     groupsView.refresh();
-    updateNestedGroupToggles(groupId);
-}
-
-function updateNestedGroupToggles(groupId) {
-    const group = groups.get(groupId);
-    const parentOn = group.isToggledOn
-    const nested = group.nestedGroups;
-
-    if (!nested) return;
-
-    for (const id of nested) {
-        const checkbox = document.querySelector(`input[data-group-id='${id}']`);
-        const label = checkbox.nextElementSibling;
-        if (!checkbox || !label) return;
-
-        checkbox.disabled = !parentOn;
-        label.classList.toggle("parent-toggled-off", !parentOn);
-    }
-}
-
-function updateInRangeToggle(id, isInRange) {
-    const group = groups.get(id);
-    const label = document.querySelector(`input[data-group-id='${id}'] + label`);
-    if (!label) return;
-    label.classList.toggle("out-of-range", !isInRange);
+    VisibilityControls.updateNestedGroups(groupId);
 }
 
 // Update visible groups with only groups currently in range
@@ -96,7 +72,7 @@ function updateGroupsInRange(rangeStart, rangeEnd) {
                 isInRange: isInRange
             });
 
-            updateInRangeToggle(group.id, isInRange);
+            VisibilityControls.updateInRange(group.id, isInRange);
         }
     });
 
@@ -127,6 +103,100 @@ const groupsView = new DataView(groups, {
     },
 });
 
+function createVisibilityControls(groups) {
+    const groupList = document.querySelector(".visibility-controls .group-list");
+    const toggles = {}
+
+    function createGroupNode(group) {
+        const node = document.createElement("li");
+        const name = group.content
+            .toLowerCase()
+            .trim()
+            .replace(/\s+/g, "-")
+            .replace(/[^a-z0-9-]/g, "");
+
+        node.classList.add("group-list-item");
+        node.classList.add(group.parent ? "subgroup" : "top-level");
+
+        toggles[group.id] = {};
+        node.append(
+            createCheckbox(name, group.id),
+            createLabel(name, group.content, group.id)
+        );
+
+        return node;
+    }
+
+    function createCheckbox(name, id) {
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.name = name;
+        checkbox.dataset.groupId = id;
+        checkbox.checked = true;
+
+        toggles[id].checkbox = checkbox;
+        return checkbox;
+    }
+
+    function createLabel(name, content, id) {
+        const label = document.createElement("label");
+        label.setAttribute("for", name);
+        label.textContent = content;
+
+        toggles[id].label = label;
+        return label;
+    }
+
+    // Create nodes
+    groups.get({ filter: (group) => !group.parent })
+        .forEach((group) => {
+            const node = createGroupNode(group);
+
+            if (group.nestedGroups) {
+                const nestedList = document.createElement("ul");
+                nestedList.classList.add("subgroup-list");
+                for (const id of group.nestedGroups) {
+                    nestedList.append(createGroupNode(groups.get(id)));
+                }
+                node.append(nestedList);
+            }
+
+            groupList.append(node);
+        });
+
+    // Toggle visibility controls collapse state
+    document.querySelector("button.controls-toggle")
+        .addEventListener("click", function (e) {
+            const button = e.target;
+            const expanded = button.getAttribute("aria-expanded") === "true";
+
+            button.setAttribute("aria-expanded", !expanded);
+            groupList.classList.toggle("hidden", expanded);
+        });
+
+    const updateNestedGroups = function (parentId) {
+        const parent = groups.get(parentId);
+        const parentOn = parent.isToggledOn
+        const nested = parent.nestedGroups;
+
+        if (!parent || !nested) return;
+
+        for (const id of nested) {
+            const toggle = toggles[id];
+            if (!toggle) return;
+
+            toggle.checkbox.disabled = !parentOn;
+            toggle.label.classList.toggle("parent-toggled-off", !parentOn);
+        }
+    }
+
+    const updateInRange = function (id, isInRange) {
+        toggles[id].label.classList.toggle("out-of-range", !isInRange);
+    }
+
+    return { updateNestedGroups, updateInRange }
+};
+
 // Configuration for the Timeline
 const options = {
     horizontalScroll: true,
@@ -151,65 +221,10 @@ const options = {
 const timeline = new Timeline(container, items, groupsView, options);
 
 /* =====================
- *  Initial render
+ *  Initial Render
  * ===================== */
 
-(function createVisibilityControls(groups) {
-    function createGroupNode(group) {
-        const node = document.createElement("li");
-        const name = group.content
-            .toLowerCase()
-            .trim()
-            .replace(/\s+/g, "-")
-            .replace(/[^a-z0-9-]/g, "");
-
-        node.classList.add("group-list-item");
-        if (!group.parent) {
-            node.classList.add("top-level")
-        } else {
-            node.classList.add("subgroup")
-        }
-
-        const checkbox = createVisibilityCheckbox(name, group.id);
-
-        const label = document.createElement("label");
-        label.setAttribute("for", name);
-        label.textContent = group.content;
-        node.append(checkbox, label);
-
-        return node;
-    }
-
-    function createVisibilityCheckbox(groupName, groupId) {
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.name = groupName;
-        checkbox.dataset.groupId = groupId;
-        checkbox.checked = true;
-
-        return checkbox;
-    }
-
-    const groupList = document.querySelector(".visibility-controls .group-list");
-
-    // Create nodes
-    groups.get({ filter: (group) => !group.parent })
-        .forEach((group) => {
-            const node = createGroupNode(group);
-
-            if (group.nestedGroups) {
-                const nestedList = document.createElement("ul");
-                nestedList.classList.add("subgroup-list");
-                for (const id of group.nestedGroups) {
-                    nestedList.append(createGroupNode(groups.get(id)));
-                }
-                node.append(nestedList);
-            }
-
-            groupList.append(node);
-        });
-})(groups);
-
+const VisibilityControls = createVisibilityControls(groups);
 
 /* =====================
  *  Event wiring
@@ -230,15 +245,3 @@ timeline.on("rangechange", (properties) => {
         properties.start.valueOf(), properties.end.valueOf()
     );
 });
-
-// Toggle visibility controls collapse state
-document.querySelector("button.controls-toggle")
-    .addEventListener("click", function (e) {
-        const button = e.target;
-        const controls = document.querySelector(".visibility-controls .group-list");
-
-        const expanded = button.getAttribute("aria-expanded") === "true";
-
-        button.setAttribute("aria-expanded", !expanded);
-        controls.classList.toggle("hidden", expanded);
-    });
