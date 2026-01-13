@@ -81,28 +81,6 @@ function updateGroupsInRange(rangeStart, rangeEnd) {
     }
 }
 
-
-/* =====================
- *  State creation
- * ===================== */
-
-
-// DOM element where the Timeline will be attached
-const container = document.getElementById("visualization");
-
-const groups = new DataSet(data.groups);
-
-const items = new DataSet(data.items);
-const groupsView = new DataView(groups, {
-    filter: (group) => {
-        // Groups with parents should only display if parent is toggled on
-        if (group.parent && !groups.get(group.parent).isToggledOn) {
-            return false;
-        }
-        return group.isToggledOn && group.isInRange;
-    },
-});
-
 function createVisibilityControls(groups) {
     const groupList = document.querySelector(".visibility-controls .group-list");
     const toggles = {}
@@ -174,6 +152,18 @@ function createVisibilityControls(groups) {
             groupList.classList.toggle("hidden", expanded);
         });
 
+    let onToggle = null;
+
+    groupList.addEventListener("change", e => {
+        if (!e.target.matches("input[type='checkbox']")) return;
+        if (!onToggle) return;
+
+        const id = Number(e.target.dataset.groupId);
+        if (!id) return;
+
+        onToggle(id, e.target.checked);
+    })
+
     const updateNestedGroups = function (parentId) {
         const parent = groups.get(parentId);
         const parentOn = parent.isToggledOn
@@ -194,8 +184,35 @@ function createVisibilityControls(groups) {
         toggles[id].label.classList.toggle("out-of-range", !isInRange);
     }
 
-    return { updateNestedGroups, updateInRange }
+    const setToggleHandler = function (handler) {
+        onToggle = handler;
+    }
+
+    return { updateNestedGroups, updateInRange, setToggleHandler }
 };
+
+
+
+/* =====================
+ *  State creation
+ * ===================== */
+
+
+// DOM element where the Timeline will be attached
+const container = document.getElementById("visualization");
+
+const groups = new DataSet(data.groups);
+
+const items = new DataSet(data.items);
+const groupsView = new DataView(groups, {
+    filter: (group) => {
+        // Groups with parents should only display if parent is toggled on
+        if (group.parent && !groups.get(group.parent).isToggledOn) {
+            return false;
+        }
+        return group.isToggledOn && group.isInRange;
+    },
+});
 
 // Configuration for the Timeline
 const options = {
@@ -231,13 +248,7 @@ const VisibilityControls = createVisibilityControls(groups);
  * ===================== */
 
 // add Event Listeners to visibility toggles
-const visibilityControls = document.querySelector(".visibility-controls .group-list");
-visibilityControls.addEventListener("change", (e) => {
-    if (e.target.matches("input[type='checkbox']")) {
-        toggleGroupVisibility(Number(e.target.dataset.groupId), e.target.checked);
-    };
-});
-
+VisibilityControls.setToggleHandler(toggleGroupVisibility);
 
 // Listen for range change to update displayed groups
 timeline.on("rangechange", (properties) => {
