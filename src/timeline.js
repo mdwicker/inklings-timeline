@@ -30,22 +30,33 @@ import { DataSet, DataView } from "vis-data/peer"
 
 // Toggle visibility of timeline items belonging to a given group
 function toggleGroupVisibility(groupId, toggleStatus) {
-    groups.update({ id: groupId, isToggledOn: toggleStatus });
+    groups.updateOnly({ id: groupId, isToggledOn: toggleStatus });
     groupsView.refresh();
-
-    updateVisibilityToggles(groupId, !toggleStatus);
+    updateNestedGroupToggles(groupId);
 }
 
-function updateVisibilityToggles(groupId, isOff) {
-    const nested = groups.get(groupId).nestedGroups;
+function updateNestedGroupToggles(groupId) {
+    const group = groups.get(groupId);
+    const parentOn = group.isToggledOn
+    const nested = group.nestedGroups;
+
     if (!nested) return;
 
     for (const id of nested) {
-        const checkboxSelector = `input[data-group-id='${id}']`;
-        document.querySelector(checkboxSelector).disabled = isOff;
-        document.querySelector(`${checkboxSelector} + label`)
-            .classList.toggle("parent-toggled-off", isOff);
+        const checkbox = document.querySelector(`input[data-group-id='${id}']`);
+        const label = checkbox.nextElementSibling;
+        if (!checkbox || !label) return;
+
+        checkbox.disabled = !parentOn;
+        label.classList.toggle("parent-toggled-off", !parentOn);
     }
+}
+
+function updateInRangeToggle(id, isInRange) {
+    const group = groups.get(id);
+    const label = document.querySelector(`input[data-group-id='${id}'] + label`);
+    if (!label) return;
+    label.classList.toggle("out-of-range", !isInRange);
 }
 
 // Update visible groups with only groups currently in range
@@ -85,18 +96,12 @@ function updateGroupsInRange(rangeStart, rangeEnd) {
                 isInRange: isInRange
             });
 
-            // Update visibility controls to indicate out of range
-            const label = document.querySelector(
-                `input[type='checkbox'][data-group-id='${group.id}'] + label`
-            );
-            if (label) {
-                label.classList.toggle("out-of-range", !isInRange);
-            }
+            updateInRangeToggle(group.id, isInRange);
         }
     });
 
     if (groupsToUpdate.length > 0) {
-        groups.update(groupsToUpdate);
+        groups.updateOnly(groupsToUpdate);
     }
 }
 
@@ -110,6 +115,7 @@ function updateGroupsInRange(rangeStart, rangeEnd) {
 const container = document.getElementById("visualization");
 
 const groups = new DataSet(data.groups);
+
 const items = new DataSet(data.items);
 const groupsView = new DataView(groups, {
     filter: (group) => {
