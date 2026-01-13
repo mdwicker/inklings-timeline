@@ -17,8 +17,6 @@ const formattedData = (function (allGroups) {
                 id: newGroupId,
                 content: groupData.name,
                 parent: parentId,
-                isToggledOn: true,
-                isInRange: true,
                 className: groupData.tags.join(" ") + ` groupId-${newGroupId}`,
             }
             if ("items" in groupData) {
