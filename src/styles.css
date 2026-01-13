@@ -27,7 +27,7 @@
     border-bottom: 1px solid #bfbfbf;
 }
 
-.visibility-controls {
+.visibility-toggles {
     border: 1px solid black;
     border-radius: 6px;
     margin-bottom: 15px;
@@ -82,7 +82,7 @@
     color:#cccccc;
 }
 
-.controls-toggle {
+.collapse-toggles {
     background: none;
     border: none;
     padding: 0;
@@ -92,7 +92,7 @@
     cursor: pointer;
 }
 
-.controls-toggle::before {
+.collapse-toggles::before {
     content: "▶";
     display: inline-block;
     width: 1em;
@@ -101,11 +101,11 @@
     transform-origin: 50% 50%;
 }
 
-.controls-toggle[aria-expanded="true"]::before {
+.collapse-toggles[aria-expanded="true"]::before {
     transform: rotate(90deg);
 }
 
-.controls-toggle[aria-expanded="false"]::before {
+.collapse-toggles[aria-expanded="false"]::before {
     transform: rotate(0deg);
     transition-delay: 0.05s;
 }

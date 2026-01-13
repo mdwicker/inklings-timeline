@@ -32,8 +32,9 @@ import { DataSet, DataView } from "vis-data/peer"
 function toggleGroupVisibility(groupId, toggleStatus) {
     groups.updateOnly({ id: groupId, isToggledOn: toggleStatus });
     groupsView.refresh();
-    VisibilityControls.updateNestedGroups(groupId);
+    VisibilityToggles.updateNestedGroups(groupId);
 }
+
 
 // Update which groups are considered in range
 function updateGroupsInRange(currentGroups, rangeStart, rangeEnd) {
@@ -75,8 +76,8 @@ function updateGroupsInRange(currentGroups, rangeStart, rangeEnd) {
  *  UI Factories
  * ===================== */
 
-function createVisibilityControls(groups) {
-    const groupList = document.querySelector(".visibility-controls .group-list");
+function createVisibilityToggles(groups) {
+    const groupList = document.querySelector(".visibility-toggles .group-list");
     const toggles = {}
 
     function createGroupNode(group) {
@@ -136,8 +137,8 @@ function createVisibilityControls(groups) {
             groupList.append(node);
         });
 
-    // Toggle visibility controls collapse state
-    document.querySelector("button.controls-toggle")
+    // Control visibility toggles collapse state
+    document.querySelector("button.collapse-toggles")
         .addEventListener("click", function (e) {
             const button = e.target;
             const expanded = button.getAttribute("aria-expanded") === "true";
@@ -231,7 +232,7 @@ const timeline = new Timeline(container, items, groupsView, {
  *  UI Initialization
  * ===================== */
 
-const VisibilityControls = createVisibilityControls(groups);
+const VisibilityToggles = createVisibilityToggles(groups);
 
 
 
@@ -240,7 +241,7 @@ const VisibilityControls = createVisibilityControls(groups);
  * ===================== */
 
 // add Event Listeners to visibility toggles
-VisibilityControls.setToggleHandler(toggleGroupVisibility);
+VisibilityToggles.setToggleHandler(toggleGroupVisibility);
 
 // Listen for range change to update displayed groups
 timeline.on("rangechange", (properties) => {
