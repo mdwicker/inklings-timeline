@@ -47,7 +47,7 @@ import { DataView } from "vis-data/peer"
 
 const container = document.getElementById("visualization");
 
-const groupView = (function (groups, items) {
+const groupFilter = (function (groups, items) {
     const allIds = groups.get().map(group => group.id);
 
     let inRange = new Set(allIds);
@@ -111,7 +111,7 @@ const groupView = (function (groups, items) {
     return { view, updateRange, updateToggle, get };
 })(data.groups, data.items);
 
-const timeline = new Timeline(container, data.items, groupView.view, {
+const timeline = new Timeline(container, data.items, groupFilter.view, {
     horizontalScroll: true,
     verticalScroll: false,
     zoomKey: "ctrlKey",
@@ -253,12 +253,12 @@ const VisibilityToggles = (function (groups) {
 
 // add Event Listeners to visibility toggles
 VisibilityToggles.setToggleHandler((id, toggleStatus) => {
-    groupView.updateToggle(id, toggleStatus)
-    VisibilityToggles.refresh(groupView.get());
+    groupFilter.updateToggle(id, toggleStatus)
+    VisibilityToggles.refresh(groupFilter.get());
 });
 
 // Listen for range change to update displayed groups
 timeline.on("rangechange", (properties) => {
-    groupView.updateRange(properties.start.valueOf(), properties.end.valueOf());
-    VisibilityToggles.refresh(groupView.get());
+    groupFilter.updateRange(properties.start.valueOf(), properties.end.valueOf());
+    VisibilityToggles.refresh(groupFilter.get());
 });
