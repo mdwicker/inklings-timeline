@@ -17,12 +17,27 @@
  * random note: if it gets too laggy change rangechange to rangechanged
  */
 
+/*
+One idea: have the updateOnlys send a senderId, then subscribe to updates
+and do something ONLY when the sender id matches say "toggles" or
+"range"
+
+Another idea: try to store view settings somewhere OTHER than on the data. Duh.
+THEN the dataview takes the data and passes it through the viewsettings.
+SO what do I need to know for the dataview? I need to know what is in range,
+and I need to know what is toggled on. SO where would all this view information go?
+it is tightly coupled with the timeline, but could be loosely coupled with the data.
+right? Or honestly, it could probably be processed elsewhere and just have the
+timeline know where it is..... interesting idea.
+ */
+
+
 import "./styles.css";
 import "./vis-timeline-graph2d.min.css";
 import * as data from "./dataProcessor.js";
 
 import { Timeline } from "vis-timeline/peer"
-import { DataSet, DataView } from "vis-data/peer"
+import { DataView } from "vis-data/peer"
 
 /* =====================
  *  Application Logic
@@ -30,44 +45,16 @@ import { DataSet, DataView } from "vis-data/peer"
 
 // Toggle visibility of a group and refresh views
 function toggleGroupVisibility(groupId, toggleStatus) {
-    groups.updateOnly({ id: groupId, isToggledOn: toggleStatus });
-    groupsView.refresh();
-    VisibilityToggles.updateNestedGroups(groupId);
+    groupView.updateToggle(groupId, toggleStatus)
+    VisibilityToggles.refresh(groupView.get());
+    // VisibilityToggles.updateNestedGroups(groupId, toggleStatus);
 }
 
 
 // Update which groups are considered in range
-function updateGroupsInRange(currentGroups, rangeStart, rangeEnd) {
-    const itemsInRange = items.get({
-        filter: (item) => {
-            const itemStart = item.start.valueOf();
-            // Point items should use the same value for start and end
-            const itemEnd = item.end ? item.end.valueOf() : itemStart;
-
-            return itemStart < rangeEnd && itemEnd > rangeStart
-        }
-    })
-
-    let groupsInRange = new Set(itemsInRange.map(item => item.group));
-
-    // parent groups count as in range if their children are in range
-    groups.get({
-        filter: (group) => {
-            return (
-                group.nestedGroups?.some((id) => groupsInRange.has(id))
-            );
-        }
-    })
-        .map(group => group.id)
-        .forEach(id => groupsInRange.add(id));
-
-    const groupsToUpdate = groupsInRange.symmetricDifference(
-        new Set(currentGroups.map((group) => group.id))
-    );
-
-    groupsToUpdate.forEach((id) => {
-        groups.updateOnly({ id, isInRange: groupsInRange.has(id) });
-    });
+function updateGroupsInRange(rangeStart, rangeEnd) {
+    groupView.updateRange(rangeStart, rangeEnd);
+    VisibilityToggles.refresh(groupView.get());
 }
 
 
@@ -159,31 +146,30 @@ function createVisibilityToggles(groups) {
         onToggle(id, e.target.checked);
     })
 
-    const updateNestedGroups = function (parentId) {
-        const parent = groups.get(parentId);
-        const parentOn = parent.isToggledOn
-        const nested = parent.nestedGroups;
+    const refresh = function (currentState) {
+        const toggledOn = currentState.toggledOn;
+        const inRange = currentState.inRange;
 
-        if (!parent || !nested) return;
-
-        for (const id of nested) {
+        for (const group of groups.get()) {
+            const id = group.id;
             const toggle = toggles[id];
-            if (!toggle) return;
+            if (!toggle) continue;
 
-            toggle.checkbox.disabled = !parentOn;
-            toggle.label.classList.toggle("parent-toggled-off", !parentOn);
-        }
-    }
+            if (group.parent) {
+                const parentOn = toggledOn.includes(group.parent);
+                toggle.checkbox.disabled = !parentOn;
+                toggle.label.classList.toggle("parent-toggled-off", !parentOn);
+            }
 
-    const updateInRange = function (id, isInRange) {
-        toggles[id].label.classList.toggle("out-of-range", !isInRange);
-    }
+            toggles[id].label.classList.toggle("out-of-range", !inRange.includes(id));
+        };
+    };
 
     const setToggleHandler = function (handler) {
         onToggle = handler;
     }
 
-    return { updateNestedGroups, updateInRange, setToggleHandler }
+    return { setToggleHandler, refresh }
 };
 
 
@@ -194,20 +180,72 @@ function createVisibilityToggles(groups) {
 
 const container = document.getElementById("visualization");
 
-const groups = new DataSet(data.groups);
-const items = new DataSet(data.items);
+const groupView = (function (groups, items) {
+    const allIds = groups.get().map(group => group.id);
 
-const groupsView = new DataView(groups, {
-    filter: (group) => {
-        // Groups with parents should only display if parent is toggled on
-        if (group.parent && !groups.get(group.parent).isToggledOn) {
-            return false;
+    let inRange = new Set(allIds);
+    let toggledOn = new Set(allIds);
+
+    const view = new DataView(groups, {
+        filter: (group) => {
+            // Groups with parents should only display if parent is toggled on
+            if (group.parent && !toggledOn.has(group.parent)) {
+                return false;
+            }
+            return toggledOn.has(group.id) && inRange.has(group.id);
         }
-        return group.isToggledOn && group.isInRange;
-    },
-});
+    });
 
-const timeline = new Timeline(container, items, groupsView, {
+    function itemInRange(item, start, end) {
+        const itemStart = item.start.valueOf();
+        const itemEnd = item.end ? item.end.valueOf() : itemStart;
+        // console.log(`itemStart: ${itemStart}, itemEnd: ${itemEnd}`);
+        // console.log(`rangeStart: ${start}, rangeEnd: ${end}`);
+        return itemStart < end && itemEnd > start
+    }
+
+    const updateRange = function (start, end) {
+        const itemsInRange = items.get({
+            filter: item => itemInRange(item, start, end)
+        });
+
+        inRange = new Set(itemsInRange.map(item => item.group));
+
+        // parent groups count as in range if their children are in range
+        groups.get({
+            filter: (group) => {
+                return group.nestedGroups?.some((id) => inRange.has(id));
+            }
+        })
+            .forEach(group => inRange.add(group.id));
+
+        view.refresh();
+    };
+
+    const updateToggle = function (id, on) {
+        if (!on && toggledOn.has(id)) {
+            toggledOn.delete(id);
+        }
+
+        if (on && !toggledOn.has(id)) {
+            toggledOn.add(id);
+        }
+
+        view.refresh();
+    };
+
+    const get = function () {
+        return {
+            inRange: [...inRange],
+            toggledOn: [...toggledOn]
+        };
+    };
+
+    return { view, updateRange, updateToggle, get };
+})(data.groups, data.items);
+
+
+const timeline = new Timeline(container, data.items, groupView.view, {
     horizontalScroll: true,
     verticalScroll: false,
     zoomKey: "ctrlKey",
@@ -232,7 +270,7 @@ const timeline = new Timeline(container, items, groupsView, {
  *  UI Initialization
  * ===================== */
 
-const VisibilityToggles = createVisibilityToggles(groups);
+const VisibilityToggles = createVisibilityToggles(data.groups);
 
 
 
@@ -246,7 +284,6 @@ VisibilityToggles.setToggleHandler(toggleGroupVisibility);
 // Listen for range change to update displayed groups
 timeline.on("rangechange", (properties) => {
     updateGroupsInRange(
-        groupsView.get(),
         properties.start.valueOf(),
         properties.end.valueOf()
     );
