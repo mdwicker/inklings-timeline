@@ -29,6 +29,29 @@
           "type": "string",
           "maxLength": 20
         }
+      },
+      "address": {
+        "type": "string",
+        "anyOf": [
+          {
+            "pattern": "^tolkien(.(location|occupation|life|major-pub|minor-pub))?$"
+          },
+          {
+            "pattern": "^lewis(.(location|occupation|life|major-pub|minor-pub))?$"
+          },
+          {
+            "pattern": "^barfield$"
+          },
+          {
+            "pattern": "^williams$"
+          },
+          {
+            "pattern": "^warren-lewis$"
+          },
+          {
+            "pattern": "^inklings$"
+          }
+        ]
       }
     },
     "required": ["id", "name"]
