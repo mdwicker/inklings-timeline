@@ -1,4 +1,3 @@
-import rawData from './rawData.json'
 import rawGroups from './data/groups.json'
 import rawItems from './data/items.json'
 import { DataSet } from "vis-data/peer"
