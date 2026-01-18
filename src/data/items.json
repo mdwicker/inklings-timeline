@@ -593,7 +593,7 @@
     "edtf": "1898-11-29/1905-04-21",
     "type": "range",
     "source": "Chronologically Lewis",
-    "group": "lewis.life"
+    "group": "lewis.location"
   },
   {
     "id": 79,
@@ -604,7 +604,7 @@
     "edtf": "1905-04-21/1908-09-17",
     "type": "range",
     "source": "Chronologically Lewis",
-    "group": "lewis.life"
+    "group": "lewis.location"
   },
   {
     "id": 80,
@@ -616,7 +616,7 @@
     "type": "range",
     "note": "Lewis finished school on July 12, but we don't know exactly when he went back to Belfast. He may have gone back immediately, or he may have waited and gone back with Warnie (whose exams at Malvern started the 21st). All we know for certain is that he was in Belfast for school in September.",
     "source": "Chronologically Lewis",
-    "group": "lewis.life"
+    "group": "lewis.location"
   },
   {
     "id": 81,
@@ -627,7 +627,7 @@
     "type": "range",
     "note": "See note on previous location. We don't know exactly when he returned to Belfast. Also, Chronologically Lewis has his date of sailing to Malvern as likely January 10, but not documented for certain.",
     "source": "Chronologically Lewis",
-    "group": "lewis.life"
+    "group": "lewis.location"
   },
   {
     "id": 82,
@@ -638,7 +638,7 @@
     "type": "range",
     "note": "For uncertain start date, see note on previous event.",
     "source": "Chronologically Lewis",
-    "group": "lewis.life"
+    "group": "lewis.location"
   },
   {
     "id": 83,
@@ -649,7 +649,7 @@
     "edtf": "1914-09-19/1917-04-25",
     "type": "range",
     "source": "Chronologically Lewis",
-    "group": "lewis.life"
+    "group": "lewis.location"
   },
   {
     "id": 84,
@@ -659,7 +659,7 @@
     "edtf": "1917-04-26/1917-11-17",
     "type": "range",
     "source": "Chronologically Lewis",
-    "group": "lewis.life"
+    "group": "lewis.location"
   },
   {
     "id": 85,
@@ -670,7 +670,7 @@
     "type": "range",
     "note": "For end date, CL reports that Lewis \"probably\" crossed to England on May 24. He then spent some time in various hospitals and army bases, as well as some time at Little Lea.",
     "source": "Chronologically Lewis",
-    "group": "lewis.life"
+    "group": "lewis.location"
   },
   {
     "id": 86,
@@ -681,7 +681,7 @@
     "type": "range",
     "note": "Prior to his return to Oxford, he spent a small amount of time at Little Lea following his discharge and demobilization on December 24.",
     "source": "Chronologically Lewis",
-    "group": "lewis.life"
+    "group": "lewis.location"
   },
   {
     "id": 87,
@@ -692,7 +692,7 @@
     "type": "range",
     "note": "End date is the day Lewis moved to Cambridge part-time.",
     "source": "Chronologically Lewis",
-    "group": "lewis.life"
+    "group": "lewis.location"
   },
   {
     "id": 88,
@@ -704,7 +704,7 @@
     "type": "range",
     "note": "Start day is the beginning of his part-time residence in Cambridge, end date is his death. Note that he likely did not travel much to Cambridge in his last days.",
     "source": "Chronologically Lewis",
-    "group": "lewis.life"
+    "group": "lewis.location"
   },
   {
     "id": 89,
