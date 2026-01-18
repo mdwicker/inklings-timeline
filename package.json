@@ -4,7 +4,9 @@
   "description": "*An interactive timeline of events in the life of the Inklings and its members.*",
   "main": "data.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --config webpack.prod.js",
+    "dev": "webpack serve --open --config webpack.dev.js",
+    "deploy": "git subtree push --prefix dist origin gh-pages"
   },
   "repository": {
     "type": "git",
@@ -18,8 +20,8 @@
   },
   "homepage": "https://github.com/mdwicker/inklings-timeline#readme",
   "dependencies": {
-    "vis-timeline": "^8.5.0",
-    "vis-data": "^8.0.0"
+    "vis-data": "^8.0.0",
+    "vis-timeline": "^8.5.0"
   },
   "devDependencies": {
     "css-loader": "^7.1.2",
@@ -27,6 +29,7 @@
     "style-loader": "^4.0.0",
     "webpack": "^5.104.1",
     "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^5.2.2"
+    "webpack-dev-server": "^5.2.2",
+    "webpack-merge": "^6.0.1"
   }
 }
