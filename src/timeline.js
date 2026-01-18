@@ -4,31 +4,78 @@
  * scrolling vertical AND horizontal.
  * better color coding
  * labels for small ranges?
- * add icon to represent group visibility
- * add Inklings data
  * 
  * EVENTUALLY:
  * add zoom level detail adjustment (Google Maps style)
  * Full Detail mode
  * Scaling mode
  * Maybe Summary mode?
- * make line disappear when nothing's visible in it.
  * 
  * random note: if it gets too laggy change rangechange to rangechanged
  */
 
 /*
-One idea: have the updateOnlys send a senderId, then subscribe to updates
-and do something ONLY when the sender id matches say "toggles" or
-"range"
+ok, so I need to figure out the details of my priority levels.
+Priority 0-4 (can always add priority 5 later)
+0: Always display no matter what, basic life stuff
+    -Sketch out the basic facts of life (i.e., birth, death, wedding)
+    -For now, include all location/occupation info here as long as it is on one line
+1: Life era stuff, display per 10-20 years or so
+    -Flesh out with events of general interest (conversion, REALLY major publications)
+2: Display at 5-10 year range. More detailed life era stuff
+    -Fill out the details for less major publications, interest to fans
+3: Display at 1-5 year range. Important year-level stuff.
+    -Start to get nerdy. Minor publications, etc.
+4: Display at 1 year range and lower. Nerdy stuff.
+    -Stuff that I'm not sure anyone cares about, or the nitty-gritty stuff
+(5: month level, day-to-day details)?
 
-Another idea: try to store view settings somewhere OTHER than on the data. Duh.
-THEN the dataview takes the data and passes it through the viewsettings.
-SO what do I need to know for the dataview? I need to know what is in range,
-and I need to know what is toggled on. SO where would all this view information go?
-it is tightly coupled with the timeline, but could be loosely coupled with the data.
-right? Or honestly, it could probably be processed elsewhere and just have the
-timeline know where it is..... interesting idea.
+Here is an AI refinement that I like:
+Priority 0 — Structural anchors
+    -Always visible; never collapsed.
+    -Birth, death, marriage
+    -Major life boundaries (education period, career phases)
+    -Very long-running roles or locations only if summarized to one line
+
+    Rule: If this disappears, the timeline stops making sense.
+
+Priority 1 — Coarse life phases
+    -Visible at large zoom scales (≈ decades).
+    -Major life eras and transitions
+    -Conversions, relocations, major role changes
+    -Only the most significant publications
+
+    Rule: Recognizable to a well-read non-specialist.
+
+Priority 2 — Medium-grain structure
+    -Visible at medium zoom scales (≈ 5–10 years).
+    -Secondary publications
+    -Important friendships or institutional affiliations
+    -Appointments, societies, major ongoing projects
+
+    Rule: Meaningful to biography-level readers.
+
+Priority 3 — Fine-grain narrative
+    -Visible at close zoom scales (≈ 1–5 years).
+    -Minor publications
+    -Drafting milestones
+    -Lectures, correspondence clusters
+
+    Rule: Adds texture, not structure.
+
+Priority 4 — Archival / research detail
+    Visible only at very close zoom (≈ 1 year or less).
+    -Individual letters
+    -Short-term residences
+    -Draft revisions
+    -Uncertain or debated events
+
+    Rule: Primarily for specialists.
+
+Optional Priority 5 — Micro-detail
+    -Only if needed.
+    -Day-level or diary-like material
+    -Highly granular manuscript data
  */
 
 
