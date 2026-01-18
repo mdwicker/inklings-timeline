@@ -1,104 +1,84 @@
 import rawData from './rawData.json'
+import rawGroups from './data/groups.json'
+import rawItems from './data/items.json'
 import { DataSet } from "vis-data/peer"
 
-const formattedData = (function (allGroups) {
-  let groupId = 1;
-  let itemId = 1;
+function validateData(rawGroups, rawItems) {
+  // verify that all parentIds exist
+  // verify that all item groups exist
+  // verify that ids are sequential
+  // verify that nested groups are sequential with parent group IDs
+  // verify that edtf dates follow spec
+}
 
-  const groups = [];
-  const items = [];
+function getClasses(group) {
+  const classes = []
+  classes.push(...group.tags);
+  classes.push(`groupId-${group.id}`);
+  return classes.join(" ");
+}
 
-  (function formatGroups(groupsData, parentId = null) {
-    const groupIds = [];
+const formattedData = ((rawGroups, rawItems) => {
+  const groups = []
+  const items = []
 
-    for (const groupData of groupsData) {
-      const newGroupId = groupId++;
-      const group = {
-        id: newGroupId,
-        content: groupData.name,
-        parent: parentId,
-        className: groupData.tags.join(" ") + ` groupId-${newGroupId}`,
-      }
-      if ("items" in groupData) {
-        const itemIds = [];
-        for (const itemData of groupData.items) {
-          const newItemId = itemId++;
-          const item = {
-            id: newItemId,
-            group: group.id,
-            content: itemData.name,
-            description: itemData.description,
-            start: new Date(itemData.start),
-            end: itemData.end ? new Date(itemData.end) : null,
-            type: itemData.displayMode ? itemData.displayMode : itemData.type
-          }
-          itemIds.push(item.id);
-          items.push(item);
+  groups.push(
+    ...rawGroups.filter(group => !group.parentId)
+      .map((group) => {
+        return {
+          id: group.id,
+          content: group.name,
+          className: getClasses(group)
         }
-        group.items = itemIds;
-      } else if ("nestedGroups" in groupData) {
-        group.nestedGroups = formatGroups(groupData.nestedGroups, group.id);
-      } else {
-        console.log(`Recursion error with group ${groupData}.`);
-      }
-      groups.push(group);
-      groupIds.push(group.id);
+      })
+  )
+
+  for (const group of rawGroups.filter(group => group.parentId)) {
+    const parent = groups.find(parent => parent.id == group.parentId);
+    if (!parent) {
+      throw new Error(`Parent group ${group.parentId} not found for subgroup ${group.name}.`);
     }
-    return groupIds;
-  })(allGroups);
 
-  return { groups, items };
-})(rawData.data);
+    if (!parent.nestedGroups) parent.nestedGroups = [];
+    parent.nestedGroups.push(group.id);
 
-const flattenedData = function () {
-  const allGroups = rawData.data;
-  let groupId = 1;
-  let itemId = 1;
-
-  const groups = [];
-  const items = [];
-  const groupFields = [];
-  const itemFields = [];
-
-  (function formatGroups(groupsData, parentId = null) {
-    const groupIds = [];
-
-    for (const group of groupsData) {
-      const newGroupId = groupId++;
-      group.id = newGroupId;
-      if (parentId) {
-        group.parentId = parentId;
+    groups.push(
+      {
+        id: group.id,
+        parent: group.parentId,
+        content: group.name,
+        className: getClasses(group)
       }
-      groupFields.push(...Object.keys(group));
-      if ("items" in group) {
-        const itemIds = [];
-        for (const item of group.items) {
-          const newItemId = itemId++;
-          item.id = newItemId;
-          item.group = group.id;
-          itemFields.push(...Object.keys(item));
-          itemIds.push(item.id);
-          items.push(item);
-        }
-        group.items = itemIds;
-      } else if ("nestedGroups" in group) {
-        group.nestedGroups = formatGroups(group.nestedGroups, group.id);
-      } else {
-        console.log(`Recursion error with group ${group}.`);
-      }
-      groups.push(group);
-      groupIds.push(group.id);
+    )
+  }
+
+  for (const item of rawItems) {
+    const group = rawGroups.find(group => group.address === item.group);
+    if (!group) {
+      throw new Error(`Group address ${item.group} not found for item ${item.id}`);
     }
-    return groupIds;
-  })(allGroups);
 
-  groups.fields = [...new Set(groupFields)];
-  items.fields = [...new Set(itemFields)];
+    if (!group.items) group.items = [];
+    group.items.push(item.id);
 
-  return { groups, items };
-};
+    items.push(
+      {
+        id: item.id,
+        group: group.id,
+        content: item.name,
+        description: item.description,
+        start: new Date(item.start),
+        end: item.end ? new Date(item.end) : null,
+        type: item.displayMode ? item.displayMode : item.type
+      }
+    );
+  }
 
-// window.flattenedData = flattenedData;
+  return {
+    groups: groups.sort((a, b) => a.id - b.id),
+    items: items.sort((a, b) => a.id - b.id)
+  };
+})(rawGroups, rawItems);
 
 export const groups = new DataSet(formattedData.groups);
 export const items = new DataSet(formattedData.items);
