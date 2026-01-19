@@ -4,7 +4,6 @@ import { DataView } from "vis-data/peer";
 const groupIds = groups.get().map(group => group.id);
 const itemIds = items.get().map(item => item.id);
 
-
 const itemView = new DataView(items);
 
 // Start with all groups displayed by default

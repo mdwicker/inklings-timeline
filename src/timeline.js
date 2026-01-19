@@ -45,6 +45,7 @@ Priority 4: Incidental or Niche Information
 import "./styles.css";
 import "./vis-timeline-graph2d.min.css";
 import * as filter from "./filter.js";
+import { pubSub } from "./pubSub.js";
 
 import { Timeline } from "vis-timeline/peer"
 
@@ -56,24 +57,23 @@ import { Timeline } from "vis-timeline/peer"
 const container = document.getElementById("visualization");
 
 const timeline = new Timeline(container, filter.itemView, filter.groupView, {
-    horizontalScroll: true,
-    verticalScroll: false,
-    zoomKey: "ctrlKey",
-    min: "1880-01-01",
-    max: "2000-01-01",
-    start: "1930-01-01",
-    end: "1940-12-31",
-    groupOrder: "id",
-    margin: {
-        item: {
-            horizontal: 0,
-        },
+  horizontalScroll: true,
+  verticalScroll: false,
+  zoomKey: "ctrlKey",
+  min: "1880-01-01",
+  max: "2000-01-01",
+  start: "1930-01-01",
+  end: "1940-12-31",
+  groupOrder: "id",
+  margin: {
+    item: {
+      horizontal: 0,
     },
-    tooltip: {
-        template: (item) => item.description || item.content,
-    }
+  },
+  tooltip: {
+    template: (item) => item.description || item.content,
+  }
 });
-
 
 
 /* =====================
@@ -81,115 +81,113 @@ const timeline = new Timeline(container, filter.itemView, filter.groupView, {
  * ===================== */
 
 const VisibilityToggles = (function (groups) {
-    const groupList = document.querySelector(".visibility-toggles .group-list");
-    const toggles = {}
+  const groupList = document.querySelector(".visibility-toggles .group-list");
+  const toggles = {}
 
-    function createGroupNode(group) {
-        const node = document.createElement("li");
-        const name = group.content
-            .toLowerCase()
-            .trim()
-            .replace(/\s+/g, "-")
-            .replace(/[^a-z0-9-]/g, "");
+  function createGroupNode(group) {
+    const node = document.createElement("li");
+    const name = group.content
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9-]/g, "");
 
-        node.classList.add("group-list-item");
-        node.classList.add(group.parent ? "subgroup" : "top-level");
+    node.classList.add("group-list-item");
+    node.classList.add(group.parent ? "subgroup" : "top-level");
 
-        toggles[group.id] = {};
-        node.append(
-            createCheckbox(name, group.id),
-            createLabel(name, group.content, group.id)
-        );
+    toggles[group.id] = {};
+    node.append(
+      createCheckbox(name, group.id),
+      createLabel(name, group.content, group.id)
+    );
 
-        return node;
-    }
+    return node;
+  }
 
-    function createCheckbox(name, id) {
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.name = name;
-        checkbox.dataset.groupId = id;
-        checkbox.checked = true;
+  function createCheckbox(name, id) {
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.name = name;
+    checkbox.dataset.groupId = id;
+    checkbox.checked = true;
 
-        toggles[id].checkbox = checkbox;
-        return checkbox;
-    }
+    toggles[id].checkbox = checkbox;
+    return checkbox;
+  }
 
-    function createLabel(name, content, id) {
-        const label = document.createElement("label");
-        label.setAttribute("for", name);
-        label.textContent = content;
+  function createLabel(name, content, id) {
+    const label = document.createElement("label");
+    label.setAttribute("for", name);
+    label.textContent = content;
 
-        toggles[id].label = label;
-        return label;
-    }
+    toggles[id].label = label;
+    return label;
+  }
 
-    // Create nodes
-    groups.get({ filter: (group) => !group.parent })
-        .forEach((group) => {
-            const node = createGroupNode(group);
+  // Create nodes
+  groups.get({ filter: (group) => !group.parent })
+    .forEach((group) => {
+      const node = createGroupNode(group);
 
-            if (group.nestedGroups) {
-                const nestedList = document.createElement("ul");
-                nestedList.classList.add("subgroup-list");
-                for (const id of group.nestedGroups) {
-                    nestedList.append(createGroupNode(groups.get(id)));
-                }
-                node.append(nestedList);
-            }
+      if (group.nestedGroups) {
+        const nestedList = document.createElement("ul");
+        nestedList.classList.add("subgroup-list");
+        for (const id of group.nestedGroups) {
+          nestedList.append(createGroupNode(groups.get(id)));
+        }
+        node.append(nestedList);
+      }
 
-            groupList.append(node);
-        });
+      groupList.append(node);
+    });
 
-    // Control visibility toggles collapse state
-    document.querySelector("button.collapse-toggles")
-        .addEventListener("click", function (e) {
-            const button = e.target;
-            const expanded = button.getAttribute("aria-expanded") === "true";
+  // Control visibility toggles collapse state
+  document.querySelector("button.collapse-toggles")
+    .addEventListener("click", function (e) {
+      const button = e.target;
+      const expanded = button.getAttribute("aria-expanded") === "true";
 
-            button.setAttribute("aria-expanded", !expanded);
-            groupList.classList.toggle("hidden", expanded);
-        });
+      button.setAttribute("aria-expanded", !expanded);
+      groupList.classList.toggle("hidden", expanded);
+    });
 
-    let onToggle = null;
+  let onToggle = null;
 
-    groupList.addEventListener("change", e => {
-        if (!e.target.matches("input[type='checkbox']")) return;
-        if (!onToggle) return;
+  groupList.addEventListener("change", e => {
+    if (!e.target.matches("input[type='checkbox']")) return;
+    if (!onToggle) return;
 
-        const id = Number(e.target.dataset.groupId);
-        if (!id) return;
+    const id = Number(e.target.dataset.groupId);
+    if (!id) return;
 
-        onToggle(id, e.target.checked);
-    })
+    onToggle(id, e.target.checked);
+  })
 
-    const refresh = function (currentState) {
-        const toggledOn = currentState.toggledOn;
-        const inRange = currentState.inRange;
+  const refresh = function (currentState) {
+    const toggledOn = currentState.toggledOn;
+    const inRange = currentState.inRange;
 
-        for (const group of groups.get()) {
-            const id = group.id;
-            const toggle = toggles[id];
-            if (!toggle) continue;
+    for (const group of groups.get()) {
+      const id = group.id;
+      const toggle = toggles[id];
+      if (!toggle) continue;
 
-            if (group.parent) {
-                const parentOn = toggledOn.includes(group.parent);
-                toggle.checkbox.disabled = !parentOn;
-                toggle.label.classList.toggle("parent-toggled-off", !parentOn);
-            }
+      if (group.parent) {
+        const parentOn = toggledOn.includes(group.parent);
+        toggle.checkbox.disabled = !parentOn;
+        toggle.label.classList.toggle("parent-toggled-off", !parentOn);
+      }
 
-            toggles[id].label.classList.toggle("out-of-range", !inRange.includes(id));
-        };
+      toggles[id].label.classList.toggle("out-of-range", !inRange.includes(id));
     };
+  };
 
-    const setToggleHandler = function (handler) {
-        onToggle = handler;
-    }
+  const setToggleHandler = function (handler) {
+    onToggle = handler;
+  }
 
-    return { setToggleHandler, refresh }
+  return { setToggleHandler, refresh }
 })(filter.groupView);
-
-
 
 /* =====================
  *  Event wiring
@@ -197,12 +195,12 @@ const VisibilityToggles = (function (groups) {
 
 // add Event Listeners to visibility toggles
 VisibilityToggles.setToggleHandler((id, toggleStatus) => {
-    filter.toggleGroup(id, toggleStatus)
-    VisibilityToggles.refresh(filter.get());
+  filter.toggleGroup(id, toggleStatus)
+  VisibilityToggles.refresh(filter.get());
 });
 
 // Listen for range change to update displayed groups
 timeline.on("rangechange", (properties) => {
-    filter.updateRange(properties.start.valueOf(), properties.end.valueOf());
-    VisibilityToggles.refresh(filter.get());
+  filter.updateRange(properties.start.valueOf(), properties.end.valueOf());
+  VisibilityToggles.refresh(filter.get());
 });
