@@ -61,9 +61,9 @@ const timeline = new Timeline(container, items, groups, {
   verticalScroll: false,
   zoomKey: "ctrlKey",
   min: "1880-01-01",
-  max: "2000-01-01",
-  start: "1930-01-01",
-  end: "1940-12-31",
+  max: "2010-01-01",
+  start: "1920-01-01",
+  end: "1945-12-31",
   groupOrder: "id",
   margin: {
     item: {

@@ -2,14 +2,23 @@ import { groups, items } from "./data/dataProcessor.js";
 import { pubSub, events } from "./pubSub.js";
 import { DataView } from "vis-data/peer";
 
-const groupIds = groups.get().map(group => group.id);
-const itemIds = items.get().map(item => item.id);
+const groupIds = groups.get().map(group => group.id)
 
-const itemView = new DataView(items);
-
-// Start with all groups displayed by default
+// Start with all groups and items displayed by default
 let groupsInRange = new Set(groupIds);
 let groupsToggledOn = new Set(groupIds);
+let priority = 1;
+
+const itemView = new DataView(items, {
+    filter: (item) => {
+        // priority = "all" includes all items
+        if (priority === "all") return true;
+
+        return (item.priority <= priority);
+    }
+});
+
+
 
 const groupView = new DataView(groups, {
     filter: (group) => {
@@ -20,6 +29,40 @@ const groupView = new DataView(groups, {
         return groupsToggledOn.has(group.id) && groupsInRange.has(group.id);
     }
 });
+
+// update items and groupsrange change
+pubSub.subscribe(events.rangeChange, (range) => {
+    updateRange(range)
+})
+
+// update toggled groups
+pubSub.subscribe(events.requestGroupToggle, (e) => {
+    toggleGroup(e.id, e.toggleStatus);
+    groupView.refresh();
+});
+
+function updateRange(range) {
+    updatePriority(range.lengthInDays);
+    itemView.refresh();
+
+    updateGroupsInRange(range.start, range.end);
+    groupView.refresh();
+}
+
+function updatePriority(daysInRange) {
+    if (daysInRange > (365 * 30)) {
+        priority = 0;
+    } else if (daysInRange > (365 * 10)) {
+        priority = 1;
+    } else if (daysInRange > (365 * 7)) {
+        priority = 2;
+    } else if (daysInRange > (365 * 2)) {
+        priority = 3;
+    } else {
+        priority = 4;
+    }
+    console.log(priority);
+}
 
 function updateGroupsInRange(start, end) {
     const newInRange = getGroupsInRange(start, end);
@@ -68,15 +111,6 @@ function toggleGroup(id, toggleStatus) {
     pubSub.publish(events.toggleGroup, { id, toggleStatus })
 }
 
-pubSub.subscribe(events.rangeChange, (range) => {
-    updateGroupsInRange(range.start, range.end);
-    groupView.refresh();
-})
-
-pubSub.subscribe(events.requestGroupToggle, (e) => {
-    toggleGroup(e.id, e.toggleStatus);
-    groupView.refresh();
-});
 
 export { itemView, groupView }
 

@@ -62,7 +62,8 @@ const formattedData = ((rawGroups, rawItems) => {
       description: item.description,
       start: new Date(item.start),
       end: item.end ? new Date(item.end) : null,
-      type: item.displayMode ? item.displayMode : item.type
+      type: item.displayMode ? item.displayMode : item.type,
+      priority: item.priority
     }
   }
 
