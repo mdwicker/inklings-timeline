@@ -44,11 +44,9 @@ Priority 4: Incidental or Niche Information
 
 import "./styles.css";
 import "./vis-timeline-graph2d.min.css";
-import * as data from "./data/dataProcessor.js";
+import * as filter from "./filter.js";
 
 import { Timeline } from "vis-timeline/peer"
-import { DataView } from "vis-data/peer"
-
 
 
 /* =====================
@@ -57,70 +55,7 @@ import { DataView } from "vis-data/peer"
 
 const container = document.getElementById("visualization");
 
-const GroupFilter = (function (groups, items) {
-    const allIds = groups.get().map(group => group.id);
-
-    // Start out with all groups in range
-    let inRange = new Set(allIds);
-    let toggledOn = new Set(allIds);
-
-    const view = new DataView(groups, {
-        filter: (group) => {
-            // Groups with parents should only display if parent is toggled on
-            if (group.parent && !toggledOn.has(group.parent)) {
-                return false;
-            }
-            return toggledOn.has(group.id) && inRange.has(group.id);
-        }
-    });
-
-    function itemInRange(item, start, end) {
-        const itemStart = item.start.valueOf();
-        const itemEnd = item.end ? item.end.valueOf() : itemStart;
-        return itemStart < end && itemEnd > start
-    }
-
-    const updateRange = function (start, end) {
-        const itemsInRange = items.get({
-            filter: item => itemInRange(item, start, end)
-        });
-
-        inRange = new Set(itemsInRange.map(item => item.group));
-
-        // parent groups count as in range if their children are in range
-        groups.get({
-            filter: (group) => {
-                return group.nestedGroups?.some((id) => inRange.has(id));
-            }
-        })
-            .forEach(group => inRange.add(group.id));
-
-        view.refresh();
-    };
-
-    const updateToggle = function (id, on) {
-        if (!on && toggledOn.has(id)) {
-            toggledOn.delete(id);
-        }
-
-        if (on && !toggledOn.has(id)) {
-            toggledOn.add(id);
-        }
-
-        view.refresh();
-    };
-
-    const get = function () {
-        return {
-            inRange: [...inRange],
-            toggledOn: [...toggledOn]
-        };
-    };
-
-    return { view, updateRange, updateToggle, get };
-})(data.groups, data.items);
-
-const timeline = new Timeline(container, data.items, GroupFilter.view, {
+const timeline = new Timeline(container, filter.itemView, filter.groupView, {
     horizontalScroll: true,
     verticalScroll: false,
     zoomKey: "ctrlKey",
@@ -252,7 +187,7 @@ const VisibilityToggles = (function (groups) {
     }
 
     return { setToggleHandler, refresh }
-})(data.groups);
+})(filter.groupView);
 
 
 
@@ -262,12 +197,12 @@ const VisibilityToggles = (function (groups) {
 
 // add Event Listeners to visibility toggles
 VisibilityToggles.setToggleHandler((id, toggleStatus) => {
-    GroupFilter.updateToggle(id, toggleStatus)
-    VisibilityToggles.refresh(GroupFilter.get());
+    filter.toggleGroup(id, toggleStatus)
+    VisibilityToggles.refresh(filter.get());
 });
 
 // Listen for range change to update displayed groups
 timeline.on("rangechange", (properties) => {
-    GroupFilter.updateRange(properties.start.valueOf(), properties.end.valueOf());
-    VisibilityToggles.refresh(GroupFilter.get());
+    filter.updateRange(properties.start.valueOf(), properties.end.valueOf());
+    VisibilityToggles.refresh(filter.get());
 });
