@@ -4,7 +4,7 @@
     "name": "Bloemfontein, South Africa",
     "start": "1892-01-01",
     "end": "1895-12-31",
-    "priority": 0,
+    "priority": 1,
     "type": "range",
     "group": "tolkien.location"
   },
@@ -13,7 +13,7 @@
     "name": "Birmingham and suburbs",
     "start": "1896-01-01",
     "end": "1911-09-30",
-    "priority": 0,
+    "priority": 1,
     "type": "range",
     "group": "tolkien.location"
   },
@@ -22,7 +22,7 @@
     "name": "Oxford",
     "start": "1911-10-01",
     "end": "1915-04-01",
-    "priority": 0,
+    "priority": 1,
     "type": "range",
     "group": "tolkien.location"
   },
@@ -32,7 +32,7 @@
     "description": "Mostly training around Bedford and Staffordshire",
     "start": "1915-04-01",
     "end": "1916-11-08",
-    "priority": 0,
+    "priority": 1,
     "type": "range",
     "group": "tolkien.location"
   },
@@ -40,7 +40,7 @@
     "id": 5,
     "name": "France",
     "start": "1916-06-06",
-    "priority": 0,
+    "priority": 1,
     "type": "point",
     "group": "tolkien.location"
   },
@@ -50,7 +50,7 @@
     "description": "Great Haywood, various camps and hospitals",
     "start": "1916-11-09",
     "end": "1918-10-31",
-    "priority": 0,
+    "priority": 1,
     "type": "range",
     "group": "tolkien.location"
   },
@@ -59,7 +59,7 @@
     "name": "Oxford",
     "start": "1918-11-01",
     "end": "1920-09-01",
-    "priority": 0,
+    "priority": 1,
     "type": "range",
     "group": "tolkien.location"
   },
@@ -68,7 +68,7 @@
     "name": "Leeds",
     "start": "1920-09-01",
     "end": "1926-01-07",
-    "priority": 0,
+    "priority": 1,
     "type": "range",
     "group": "tolkien.location"
   },
@@ -104,7 +104,7 @@
     "name": "22 Northmoor Road, Oxford",
     "start": "1926-01-07",
     "end": "1930-01-14",
-    "priority": 0,
+    "priority": 1,
     "type": "range",
     "group": "tolkien.location"
   },
@@ -113,7 +113,7 @@
     "name": "20 Northmoor Road, Oxford",
     "start": "1930-01-14",
     "end": "1947-03-01",
-    "priority": 0,
+    "priority": 1,
     "type": "range",
     "group": "tolkien.location"
   },
@@ -122,7 +122,7 @@
     "name": "3 Manor Road, Oxford",
     "start": "1947-03-01",
     "end": "1953-03-30",
-    "priority": 0,
+    "priority": 1,
     "type": "range",
     "group": "tolkien.location"
   },
@@ -131,7 +131,7 @@
     "name": "76 Sandfield Road, Oxford",
     "start": "1953-03-30",
     "end": "1968-06-01",
-    "priority": 0,
+    "priority": 1,
     "type": "range",
     "group": "tolkien.location"
   },
@@ -140,7 +140,7 @@
     "name": "19 Lakeside Road, Poole",
     "start": "1968-06-01",
     "end": "1972-03-13",
-    "priority": 0,
+    "priority": 1,
     "type": "range",
     "group": "tolkien.location"
   },
@@ -149,7 +149,7 @@
     "name": "21 Merton Street, Oxford",
     "start": "1972-03-13",
     "end": "1973-09-02",
-    "priority": 0,
+    "priority": 1,
     "type": "range",
     "group": "tolkien.location"
   },
@@ -176,7 +176,7 @@
     "name": "King Edward's School",
     "start": "1902-11-01",
     "end": "1911-09-30",
-    "priority": 0,
+    "priority": 2,
     "type": "range",
     "group": "tolkien.occupation"
   },
@@ -186,7 +186,7 @@
     "description": "Student",
     "start": "1911-10-01",
     "end": "1915-04-01",
-    "priority": 0,
+    "priority": 2,
     "type": "range",
     "group": "tolkien.occupation"
   },
@@ -195,7 +195,7 @@
     "name": "Army training",
     "start": "1915-04-01",
     "end": "1916-06-06",
-    "priority": 0,
+    "priority": 3,
     "type": "range",
     "group": "tolkien.occupation"
   },
@@ -204,7 +204,7 @@
     "name": "Army service",
     "start": "1916-06-06",
     "end": "1916-11-09",
-    "priority": 0,
+    "priority": 2,
     "type": "range",
     "group": "tolkien.occupation"
   },
@@ -214,7 +214,7 @@
     "description": "Some garrison duties when able",
     "start": "1916-11-09",
     "end": "1919-07-16",
-    "priority": 0,
+    "priority": 3,
     "type": "range",
     "group": "tolkien.occupation"
   },
@@ -223,7 +223,7 @@
     "name": "O.E.D.",
     "start": "1919-07-16",
     "end": "1920-06-30",
-    "priority": 0,
+    "priority": 2,
     "type": "range",
     "group": "tolkien.occupation"
   },
@@ -233,7 +233,7 @@
     "description": "Reader in English Language",
     "start": "1920-10-01",
     "end": "1925-09-30",
-    "priority": 0,
+    "priority": 1,
     "type": "range",
     "group": "tolkien.occupation"
   },
