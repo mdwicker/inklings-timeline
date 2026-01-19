@@ -15,73 +15,36 @@
  */
 
 /*
-ok, so I need to figure out the details of my priority levels.
-Priority 0-4 (can always add priority 5 later)
-0: Always display no matter what, basic life stuff
-    -Sketch out the basic facts of life (i.e., birth, death, wedding)
-    -For now, include all location/occupation info here as long as it is on one line
-1: Life era stuff, display per 10-20 years or so
-    -Flesh out with events of general interest (conversion, REALLY major publications)
-2: Display at 5-10 year range. More detailed life era stuff
-    -Fill out the details for less major publications, interest to fans
-3: Display at 1-5 year range. Important year-level stuff.
-    -Start to get nerdy. Minor publications, etc.
-4: Display at 1 year range and lower. Nerdy stuff.
-    -Stuff that I'm not sure anyone cares about, or the nitty-gritty stuff
-(5: month level, day-to-day details)?
+Priority 0: Essential Milestones
+    Question: Is this a "Top 10" life event (Birth, Death, Marriage, Masterpiece)?
+    Scale Check: Does the timeline "break" without this?
+    Summary: Fundamental milestones that define a person's global reputation.
 
-Here is an AI refinement that I like:
-Priority 0 — Structural anchors
-    -Always visible; never collapsed.
-    -Birth, death, marriage
-    -Major life boundaries (education period, career phases)
-    -Very long-running roles or locations only if summarized to one line
+Priority 1: Major Life Events
+    Question: Is this a defining pillar of their career or a primary residence?
+    Scale Check: Is this recognizable to a well-read non-specialist?
+    Summary: The primary structure of a career; significant shifts and transitions.
 
-    Rule: If this disappears, the timeline stops making sense.
+Priority 2: Notable Developments
+    Question: Is this an important family or professional highlight?
+    Scale Check: Does this add biographical "why" to their story?
+    Summary: Important context for scholars and fans that isn't necessarily "world-famous."
 
-Priority 1 — Coarse life phases
-    -Visible at large zoom scales (≈ decades).
-    -Major life eras and transitions
-    -Conversions, relocations, major role changes
-    -Only the most significant publications
+Priority 3: Granular Details
+    Question: Is this an interesting detail for a dedicated fan?
+    Scale Check: Is this "texture" rather than "structure"?
+    Summary: Specific addresses, minor publications, and personal anecdotes that add color.
 
-    Rule: Recognizable to a well-read non-specialist.
-
-Priority 2 — Medium-grain structure
-    -Visible at medium zoom scales (≈ 5–10 years).
-    -Secondary publications
-    -Important friendships or institutional affiliations
-    -Appointments, societies, major ongoing projects
-
-    Rule: Meaningful to biography-level readers.
-
-Priority 3 — Fine-grain narrative
-    -Visible at close zoom scales (≈ 1–5 years).
-    -Minor publications
-    -Drafting milestones
-    -Lectures, correspondence clusters
-
-    Rule: Adds texture, not structure.
-
-Priority 4 — Archival / research detail
-    Visible only at very close zoom (≈ 1 year or less).
-    -Individual letters
-    -Short-term residences
-    -Draft revisions
-    -Uncertain or debated events
-
-    Rule: Primarily for specialists.
-
-Optional Priority 5 — Micro-detail
-    -Only if needed.
-    -Day-level or diary-like material
-    -Highly granular manuscript data
+Priority 4: Incidental or Niche Information
+    Question: Is this a "deep-cut" fact or minor piece of trivia?
+    Scale Check: Is this purely for archival or specialized research?
+    Summary: Trivia, short-term trips, or very early/obscure works that don't impact the overall narrative.
  */
 
 
 import "./styles.css";
 import "./vis-timeline-graph2d.min.css";
-import * as data from "./dataProcessor.js";
+import * as data from "./data/dataProcessor.js";
 
 import { Timeline } from "vis-timeline/peer"
 import { DataView } from "vis-data/peer"
@@ -94,9 +57,10 @@ import { DataView } from "vis-data/peer"
 
 const container = document.getElementById("visualization");
 
-const groupFilter = (function (groups, items) {
+const GroupFilter = (function (groups, items) {
     const allIds = groups.get().map(group => group.id);
 
+    // Start out with all groups in range
     let inRange = new Set(allIds);
     let toggledOn = new Set(allIds);
 
@@ -113,8 +77,6 @@ const groupFilter = (function (groups, items) {
     function itemInRange(item, start, end) {
         const itemStart = item.start.valueOf();
         const itemEnd = item.end ? item.end.valueOf() : itemStart;
-        // console.log(`itemStart: ${itemStart}, itemEnd: ${itemEnd}`);
-        // console.log(`rangeStart: ${start}, rangeEnd: ${end}`);
         return itemStart < end && itemEnd > start
     }
 
@@ -158,7 +120,7 @@ const groupFilter = (function (groups, items) {
     return { view, updateRange, updateToggle, get };
 })(data.groups, data.items);
 
-const timeline = new Timeline(container, data.items, groupFilter.view, {
+const timeline = new Timeline(container, data.items, GroupFilter.view, {
     horizontalScroll: true,
     verticalScroll: false,
     zoomKey: "ctrlKey",
@@ -300,12 +262,12 @@ const VisibilityToggles = (function (groups) {
 
 // add Event Listeners to visibility toggles
 VisibilityToggles.setToggleHandler((id, toggleStatus) => {
-    groupFilter.updateToggle(id, toggleStatus)
-    VisibilityToggles.refresh(groupFilter.get());
+    GroupFilter.updateToggle(id, toggleStatus)
+    VisibilityToggles.refresh(GroupFilter.get());
 });
 
 // Listen for range change to update displayed groups
 timeline.on("rangechange", (properties) => {
-    groupFilter.updateRange(properties.start.valueOf(), properties.end.valueOf());
-    VisibilityToggles.refresh(groupFilter.get());
+    GroupFilter.updateRange(properties.start.valueOf(), properties.end.valueOf());
+    VisibilityToggles.refresh(GroupFilter.get());
 });
