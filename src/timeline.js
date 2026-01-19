@@ -120,13 +120,15 @@ const VisibilityToggles = (function (groups) {
     const id = Number(e.target.dataset.groupId);
     if (!id) return;
 
-    pubSub.publish(events.toggleGroup, { id, checked: e.target.checked });
+    pubSub.publish(events.requestGroupToggle, { id, toggleStatus: e.target.checked });
   })
 
-  // update child toggles
+  // update toggle status
   pubSub.subscribe(events.toggleGroup, (e) => {
+    toggles[e.id].checkbox.checked = e.toggleStatus;
+
     if (toggles[e.id].nestedGroups) {
-      updateChildToggles(e.id, e.checked);
+      updateChildToggles(e.id, e.toggleStatus);
     }
   });
 

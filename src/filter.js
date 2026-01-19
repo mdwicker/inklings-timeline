@@ -56,14 +56,16 @@ function updateGroupsInRange(start, end) {
     }
 }
 
-function toggleGroup(id, toggleOn) {
+function toggleGroup(id, toggleStatus) {
     const isOn = groupsToggledOn.has(id);
 
-    if (isOn && !toggleOn) {
+    if (isOn && !toggleStatus) {
         groupsToggledOn.delete(id);
-    } else if (!isOn && toggleOn) {
+    } else if (!isOn && toggleStatus) {
         groupsToggledOn.add(id);
     }
+
+    pubSub.publish(events.toggleGroup, { id, toggleStatus })
 }
 
 pubSub.subscribe(events.rangeChange, (range) => {
@@ -71,8 +73,8 @@ pubSub.subscribe(events.rangeChange, (range) => {
     groupView.refresh();
 })
 
-pubSub.subscribe(events.toggleGroup, (id, toggleOn) => {
-    toggleGroup(id, toggleOn);
+pubSub.subscribe(events.requestGroupToggle, (e) => {
+    toggleGroup(e.id, e.toggleStatus);
     groupView.refresh();
 });
 
