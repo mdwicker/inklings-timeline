@@ -1,3 +1,5 @@
+// taken from https://medium.com/@ignatovich.dm/implementing-the-pub-sub-pattern-in-javascript-a-guide-for-beginners-44714a76d8c7
+
 class PubSub {
     constructor() {
         this.events = {};
@@ -25,3 +27,7 @@ class PubSub {
 }
 
 export const pubSub = new PubSub();
+export const events = {
+    toggleGroup: "toggleGroup",
+    rangeChange: "rangeChange"
+}

@@ -45,7 +45,7 @@ Priority 4: Incidental or Niche Information
 import "./styles.css";
 import "./vis-timeline-graph2d.min.css";
 import * as filter from "./filter.js";
-import { pubSub } from "./pubSub.js";
+import { pubSub, events } from "./pubSub.js";
 
 import { Timeline } from "vis-timeline/peer"
 
@@ -151,16 +151,13 @@ const VisibilityToggles = (function (groups) {
       groupList.classList.toggle("hidden", expanded);
     });
 
-  let onToggle = null;
-
   groupList.addEventListener("change", e => {
     if (!e.target.matches("input[type='checkbox']")) return;
-    if (!onToggle) return;
 
     const id = Number(e.target.dataset.groupId);
     if (!id) return;
 
-    onToggle(id, e.target.checked);
+    pubSub.publish(events.toggleGroup, { id, toggleStatus: e.target.checked });
   })
 
   const refresh = function (currentState) {
@@ -182,25 +179,22 @@ const VisibilityToggles = (function (groups) {
     };
   };
 
-  const setToggleHandler = function (handler) {
-    onToggle = handler;
-  }
-
-  return { setToggleHandler, refresh }
+  return { refresh }
 })(filter.groupView);
 
 /* =====================
  *  Event wiring
  * ===================== */
 
-// add Event Listeners to visibility toggles
-VisibilityToggles.setToggleHandler((id, toggleStatus) => {
-  filter.toggleGroup(id, toggleStatus)
-  VisibilityToggles.refresh(filter.get());
-});
 
 // Listen for range change to update displayed groups
 timeline.on("rangechange", (properties) => {
-  filter.updateRange(properties.start.valueOf(), properties.end.valueOf());
-  VisibilityToggles.refresh(filter.get());
+  const start = properties.start.valueOf();
+  const end = properties.end.valueOf();
+  const lengthInMs = Math.abs(start - end);
+  const lengthInDays = Math.ceil(lengthInMs / (1000 * 60 * 60 * 24));
+
+  pubSub.publish(events.rangeChange, { start, end, lengthInMs, lengthInDays });
+  // filter.updateRange(properties.start.valueOf(), properties.end.valueOf());
+  // VisibilityToggles.refresh(filter.get());
 });

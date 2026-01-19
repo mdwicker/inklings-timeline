@@ -1,4 +1,5 @@
 import { groups, items } from "./data/dataProcessor.js";
+import { pubSub, events } from "./pubSub.js";
 import { DataView } from "vis-data/peer";
 
 const groupIds = groups.get().map(group => group.id);
@@ -20,23 +21,26 @@ const groupView = new DataView(groups, {
     }
 });
 
-const updateRange = function (start, end) {
+pubSub.subscribe(events.rangeChange, (range) => {
+    setGroupsInRange(range.start, range.end);
+    groupView.refresh();
+})
+
+function setGroupsInRange(start, end) {
     const itemsInRange = items.get({
         filter: item => itemInRange(item, start, end)
     });
 
     groupsInRange = new Set(itemsInRange.map(item => item.group));
 
-    // parent groups count as in range if their children are in range
     groups.get({
         filter: (group) => {
             return group.nestedGroups?.some((id) => groupsInRange.has(id));
         }
     })
         .forEach(group => groupsInRange.add(group.id));
+}
 
-    groupView.refresh();
-};
 
 function itemInRange(item, start, end) {
     const itemStart = item.start.valueOf();
@@ -64,5 +68,5 @@ const get = function () {
     };
 };
 
-export { itemView, groupView, updateRange, toggleGroup, get }
+export { itemView, groupView, toggleGroup, get }
 
