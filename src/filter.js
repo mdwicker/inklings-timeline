@@ -21,52 +21,60 @@ const groupView = new DataView(groups, {
     }
 });
 
+function updateGroupsInRange(start, end) {
+    const newInRange = getGroupsInRange(start, end);
+
+    const left = groupsInRange.difference(newInRange);
+    const entered = newInRange.difference(groupsInRange);
+
+    if (left || entered) {
+        pubSub.publish(events.groupRangeChange, { left, entered });
+    }
+
+    groupsInRange = newInRange;
+
+    function getGroupsInRange(start, end) {
+        const itemsInRange = itemView.get({
+            filter: item => itemInRange(item, start, end)
+        });
+
+        let inRange = new Set(itemsInRange.map(item => item.group));
+
+        // parents count as in range if their children are in range
+        const parentsInRange = groups.get({
+            filter: (group) => group.nestedGroups?.some((id) => inRange.has(id))
+        });
+        parentsInRange.forEach(group => inRange.add(group.id));
+
+        return inRange;
+    }
+
+    function itemInRange(item, start, end) {
+        const itemStart = item.start.valueOf();
+        const itemEnd = item.end ? item.end.valueOf() : itemStart;
+        return itemStart < end && itemEnd > start
+    }
+}
+
+function toggleGroup(id, toggleOn) {
+    const isOn = groupsToggledOn.has(id);
+
+    if (isOn && !toggleOn) {
+        groupsToggledOn.delete(id);
+    } else if (!isOn && toggleOn) {
+        groupsToggledOn.add(id);
+    }
+}
+
 pubSub.subscribe(events.rangeChange, (range) => {
-    setGroupsInRange(range.start, range.end);
+    updateGroupsInRange(range.start, range.end);
     groupView.refresh();
 })
 
-function setGroupsInRange(start, end) {
-    const itemsInRange = items.get({
-        filter: item => itemInRange(item, start, end)
-    });
-
-    groupsInRange = new Set(itemsInRange.map(item => item.group));
-
-    groups.get({
-        filter: (group) => {
-            return group.nestedGroups?.some((id) => groupsInRange.has(id));
-        }
-    })
-        .forEach(group => groupsInRange.add(group.id));
-}
-
-
-function itemInRange(item, start, end) {
-    const itemStart = item.start.valueOf();
-    const itemEnd = item.end ? item.end.valueOf() : itemStart;
-    return itemStart < end && itemEnd > start
-}
-
-
-const toggleGroup = function (id, forcedState = null) {
-    const isOn = groupsToggledOn.has(id);
-
-    if (isOn && forcedState !== true) {
-        groupsToggledOn.delete(id);
-    } else if (!isOn && forcedState !== false) {
-        groupsToggledOn.add(id);
-    }
-
+pubSub.subscribe(events.toggleGroup, (id, toggleOn) => {
+    toggleGroup(id, toggleOn);
     groupView.refresh();
-};
+});
 
-const get = function () {
-    return {
-        inRange: [...groupsInRange],
-        toggledOn: [...groupsToggledOn]
-    };
-};
-
-export { itemView, groupView, toggleGroup, get }
+export { itemView, groupView }
 

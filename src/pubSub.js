@@ -29,5 +29,6 @@ class PubSub {
 export const pubSub = new PubSub();
 export const events = {
     toggleGroup: "toggleGroup",
-    rangeChange: "rangeChange"
+    rangeChange: "rangeChange",
+    groupRangeChange: "groupRangeChange"
 }
