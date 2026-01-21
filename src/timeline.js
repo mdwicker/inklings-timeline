@@ -1,44 +1,13 @@
 /**
  * TO-DO
- * Implement visualization of timeline width (or maybe scrollbar....)
- * scrolling vertical AND horizontal.
- * better color coding
- * labels for small ranges?
+ *  -Improve visuals: color, fonts, etc
+ *  -Test scrolling and zooming behavior on different devices
+ *  -Implement visualization of timeline width (or maybe scrollbar....)
  * 
- * EVENTUALLY:
- * add zoom level detail adjustment (Google Maps style)
- * Full Detail mode
- * Scaling mode
- * Maybe Summary mode?
- * 
- * random note: if it gets too laggy change rangechange to rangechanged
- */
-
-/*
-Priority 0: Essential Milestones
-    Question: Is this a "Top 10" life event (Birth, Death, Marriage, Masterpiece)?
-    Scale Check: Does the timeline "break" without this?
-    Summary: Fundamental milestones that define a person's global reputation.
-
-Priority 1: Major Life Events
-    Question: Is this a defining pillar of their career or a primary residence?
-    Scale Check: Is this recognizable to a well-read non-specialist?
-    Summary: The primary structure of a career; significant shifts and transitions.
-
-Priority 2: Notable Developments
-    Question: Is this an important family or professional highlight?
-    Scale Check: Does this add biographical "why" to their story?
-    Summary: Important context for scholars and fans that isn't necessarily "world-famous."
-
-Priority 3: Granular Details
-    Question: Is this an interesting detail for a dedicated fan?
-    Scale Check: Is this "texture" rather than "structure"?
-    Summary: Specific addresses, minor publications, and personal anecdotes that add color.
-
-Priority 4: Incidental or Niche Information
-    Question: Is this a "deep-cut" fact or minor piece of trivia?
-    Scale Check: Is this purely for archival or specialized research?
-    Summary: Trivia, short-term trips, or very early/obscure works that don't impact the overall narrative.
+ * Notes:
+ *  -Consider changing group behavior: get rid of subgroups,
+ *   leave all groups always visible (UNLESS they get collapsed at certain
+ *   zoom leveels, maybe).
  */
 
 
