@@ -13,7 +13,7 @@
 
 import "./styles.css";
 import "./vis-timeline-graph2d.min.css";
-import { createViews, allGroups } from "./filter.js";
+import { createItemView, createGroupView } from "./filter.js";
 import { pubSub, events } from "./pubSub.js";
 
 import { Timeline } from "vis-timeline/peer"
@@ -28,7 +28,8 @@ const initialEnd = "1945-12-31";
 
 const container = document.getElementById("visualization");
 
-const { items, groups } = createViews({ initialStart, initialEnd });
+const items = createItemView({ initialStart, initialEnd });
+const groups = createGroupView({ initialStart, initialEnd }).view;
 const timeline = new Timeline(container, items, groups, {
   horizontalScroll: true,
   verticalScroll: false,
@@ -162,7 +163,7 @@ const VisibilityToggles = (function (groups) {
       toggle.label.classList.toggle("parent-toggled-off", !toggleOn);
     });
   }
-})(allGroups);
+})(groups);
 
 /* =====================
  *  Event wiring
@@ -173,6 +174,5 @@ const VisibilityToggles = (function (groups) {
 timeline.on("rangechange", (properties) => {
   const start = properties.start.valueOf();
   const end = properties.end.valueOf();
-
   pubSub.publish(events.rangeChange, { start, end });
 });

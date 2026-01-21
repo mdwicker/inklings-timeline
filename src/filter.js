@@ -30,145 +30,103 @@ function getDaysInRange({ start, end } = {}) {
   return Math.ceil(lengthInMs / (1000 * 60 * 60 * 24));
 }
 
+export const createItemView = function ({ initialStart, initialEnd } = {}) {
+  let priority;
 
-export const createViews = function ({ initialStart, initialEnd } = {}) {
-  const itemView = (function () {
-    let priority;
+  const view = new DataView(
+    items,
+    {
+      filter: (item) => {
+        // priority = "all" includes all items
+        if (priority === "all") return true;
 
-    const view = new DataView(
-      items,
-      {
-        filter: (item) => {
-          // priority = "all" includes all items
-          if (priority === "all") return true;
-
-          return (item.priority <= priority);
-        }
+        return (item.priority <= priority);
       }
-    );
+    }
+  );
 
-    const getItemsInRange = function ({ start, end } = {}) {
-      return view.get({
-        filter: item => isInRange({ item, start, end })
-      });
-    };
-
-    const isInRange = function ({ item, start, end, overlap = false } = {}) {
-      const itemStart = item.start.valueOf();
-      const itemEnd = item.end ? item.end.valueOf() : itemStart;
-
-      if (overlap) {
-        // Range items will return true if they are visible anywhere in the range,
-        // even if they are not fully enclosed
-        return itemStart < end && itemEnd > start
-      }
-
-      return itemStart > start && itemEnd < end
-    };
-
-    const updatePriority = function ({ start, end } = {}) {
-      const daysInRange = getDaysInRange({ start, end });
-
-      if (daysInRange > (365 * 30)) {
-        priority = 0;
-      } else if (daysInRange > (365 * 10)) {
-        priority = 1;
-      } else if (daysInRange > (365 * 7)) {
-        priority = 2;
-      } else if (daysInRange > (365 * 2)) {
-        priority = 3;
-      } else {
-        priority = 4;
-      }
-    };
-
-    // Initialize with starting range
-    initialStart = new Date(initialStart);
-    initialEnd = new Date(initialEnd);
-    updatePriority({ start: initialStart.valueOf(), end: initialEnd.valueOf() });
-
-    return { view, getItemsInRange, updatePriority }
-  })();
-
-  const groupView = (function () {
-    const groupIds = groups.get().map(group => group.id)
-    let groupsInRange = new Set(groupIds);
-    let groupsToggledOn = new Set(groupIds);
-
-    const view = new DataView(groups, {
-      filter: (group) => {
-        // Groups with parents should only display if parent is toggled on
-        if (group.parent && !groupsToggledOn.has(group.parent)) {
-          return false;
-        }
-        return groupsToggledOn.has(group.id) && groupsInRange.has(group.id);
-      }
+  const getItemsInRange = function ({ start, end } = {}) {
+    return view.get({
+      filter: item => isInRange({ item, start, end })
     });
+  };
 
-    const updateGroupsInRange = function ({ start, end } = {}) {
-      const newInRange = getGroupsInRange({ start, end });
+  const isInRange = function ({ item, start, end, overlap = false } = {}) {
+    const itemStart = item.start.valueOf();
+    const itemEnd = item.end ? item.end.valueOf() : itemStart;
 
-      const left = groupsInRange.difference(newInRange);
-      const entered = newInRange.difference(groupsInRange);
-
-      if (left || entered) {
-        pubSub.publish(events.groupRangeChange, { left, entered });
-      }
-
-      groupsInRange = newInRange;
-    };
-
-    function getGroupsInRange({ start, end } = {}) {
-      let inRange = new Set(
-        itemView.getItemsInRange({ start, end })
-          .map(item => item.group)
-      );
-
-      // parents count as in range if their children are in range
-      const parentsInRange = groups.get({
-        filter: (group) => group.nestedGroups?.some((id) => inRange.has(id))
-      });
-      parentsInRange.forEach(group => inRange.add(group.id));
-
-      return inRange;
+    if (overlap) {
+      // Range items will return true if they are visible anywhere in the range,
+      // even if they are not fully enclosed
+      return itemStart < end && itemEnd > start
     }
 
-    function toggleGroup({ id, toggleStatus } = {}) {
-      const isOn = groupsToggledOn.has(id);
+    return itemStart > start && itemEnd < end
+  };
 
-      if (isOn && !toggleStatus) {
-        groupsToggledOn.delete(id);
-      } else if (!isOn && toggleStatus) {
-        groupsToggledOn.add(id);
-      }
+  const updatePriority = function ({ start, end } = {}) {
+    const daysInRange = getDaysInRange({ start, end });
 
-      pubSub.publish(events.toggleGroup, { id, toggleStatus })
+    if (daysInRange > (365 * 30)) {
+      priority = 0;
+    } else if (daysInRange > (365 * 10)) {
+      priority = 1;
+    } else if (daysInRange > (365 * 7)) {
+      priority = 2;
+    } else if (daysInRange > (365 * 2)) {
+      priority = 3;
+    } else {
+      priority = 4;
     }
+  };
 
-    // toggle group upon request
-    pubSub.subscribe(events.requestGroupToggle, (e) => {
-      toggleGroup({ id: e.id, toggleStatus: e.toggleStatus });
-      view.refresh();
-    });
-
-    // Initialize with starting range parameters
-    updateGroupsInRange({ start: initialStart, end: initialEnd });
-
-    return { view, updateGroupsInRange };
-  })();
-
-  // Update on range change
   pubSub.subscribe(events.rangeChange, (range) => {
-    itemView.updatePriority(range);
-    itemView.view.refresh();
-    groupView.updateGroupsInRange(range);
-    groupView.view.refresh();
+    updatePriority(range);
+    view.refresh();
   })
 
-  return {
-    items: itemView.view,
-    groups: groupView.view
+  // Initialize with starting range
+  initialStart = new Date(initialStart);
+  initialEnd = new Date(initialEnd);
+  updatePriority({ start: initialStart.valueOf(), end: initialEnd.valueOf() });
+  view.refresh();
+
+  return view;
+};
+
+export const createGroupView = function ({ initialStart, initialEnd } = {}) {
+  const groupIds = groups.get().map(group => group.id)
+  let groupsToggledOn = new Set(groupIds);
+
+  const view = new DataView(groups, {
+    filter: (group) => {
+      // Groups with parents should only display if parent is toggled on
+      if (group.parent && !groupsToggledOn.has(group.parent)) {
+        return false;
+      }
+      return groupsToggledOn.has(group.id);
+    }
+  });
+
+  function toggleGroup({ id, toggleStatus } = {}) {
+    const isOn = groupsToggledOn.has(id);
+
+    if (isOn && !toggleStatus) {
+      groupsToggledOn.delete(id);
+    } else if (!isOn && toggleStatus) {
+      groupsToggledOn.add(id);
+    }
+
+    pubSub.publish(events.toggleGroup, { id, toggleStatus })
   }
+
+  // toggle group upon request
+  pubSub.subscribe(events.requestGroupToggle, (e) => {
+    toggleGroup({ id: e.id, toggleStatus: e.toggleStatus });
+    view.refresh();
+  });
+
+  return { view };
 };
 
 export { groups as allGroups }
