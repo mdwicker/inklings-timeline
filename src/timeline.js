@@ -13,10 +13,13 @@
 
 import "./styles.css";
 import "./vis-timeline-graph2d.min.css";
-import { groupView as groups, itemView as items } from "./filter.js";
+import { createViews, allGroups } from "./filter.js";
 import { pubSub, events } from "./pubSub.js";
 
 import { Timeline } from "vis-timeline/peer"
+
+const initialStart = "1920-01-01";
+const initialEnd = "1945-12-31";
 
 
 /* =====================
@@ -25,14 +28,15 @@ import { Timeline } from "vis-timeline/peer"
 
 const container = document.getElementById("visualization");
 
+const { items, groups } = createViews({ initialStart, initialEnd });
 const timeline = new Timeline(container, items, groups, {
   horizontalScroll: true,
   verticalScroll: false,
   zoomKey: "ctrlKey",
   min: "1880-01-01",
   max: "2010-01-01",
-  start: "1920-01-01",
-  end: "1945-12-31",
+  start: initialStart,
+  end: initialEnd,
   groupOrder: "id",
   margin: {
     item: {
@@ -158,7 +162,7 @@ const VisibilityToggles = (function (groups) {
       toggle.label.classList.toggle("parent-toggled-off", !toggleOn);
     });
   }
-})(groups);
+})(allGroups);
 
 /* =====================
  *  Event wiring
@@ -169,8 +173,6 @@ const VisibilityToggles = (function (groups) {
 timeline.on("rangechange", (properties) => {
   const start = properties.start.valueOf();
   const end = properties.end.valueOf();
-  const lengthInMs = Math.abs(start - end);
-  const lengthInDays = Math.ceil(lengthInMs / (1000 * 60 * 60 * 24));
 
-  pubSub.publish(events.rangeChange, { start, end, lengthInMs, lengthInDays });
+  pubSub.publish(events.rangeChange, { start, end });
 });
