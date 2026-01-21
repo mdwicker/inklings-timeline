@@ -13,7 +13,7 @@
 
 import "./styles.css";
 import "./vis-timeline-graph2d.min.css";
-import { createItemView, createGroupView } from "./filter.js";
+import { createItemView, createGroupView, allGroups } from "./filter.js";
 import { pubSub, events } from "./pubSub.js";
 
 import { Timeline } from "vis-timeline/peer"
@@ -59,16 +59,17 @@ const VisibilityToggles = (function (groups) {
   const toggles = {}
 
   // Create nodes
-  groups.get({ filter: (group) => !group.parent })
+  groups.filter(group => !group.parent)
     .forEach((group) => {
       const node = createGroupNode(group);
-
-      if (group.nestedGroups) {
+      if (group.nestedGroups != undefined) {
         toggles[group.id].nestedGroups = [];
         const nestedList = document.createElement("ul");
         nestedList.classList.add("subgroup-list");
         for (const id of group.nestedGroups) {
-          nestedList.append(createGroupNode(groups.get(id)));
+          nestedList.append(
+            createGroupNode(groups.find(subGroup => subGroup.id == id))
+          );
           toggles[group.id].nestedGroups.push(id);
         }
         node.append(nestedList);
@@ -163,7 +164,7 @@ const VisibilityToggles = (function (groups) {
       toggle.label.classList.toggle("parent-toggled-off", !toggleOn);
     });
   }
-})(groups);
+})(allGroups);
 
 /* =====================
  *  Event wiring

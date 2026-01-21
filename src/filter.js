@@ -21,8 +21,8 @@ import { groups, items } from "./data/dataProcessor.js";
 import { pubSub, events } from "./pubSub.js";
 import { DataView } from "vis-data/peer";
 
-const rangeDivisions = 4; // Number of "chunks" to split the range into for event budgeting
-const eventsPerDivision = 10; // Number of events per range "chunk"
+const numberOfSections = 2; // Number of "chunks" to split the range into for event budgeting
+const itemsPerSection = 10; // Number of events per range "chunk"
 const showAll = false; // Force all events to be shown regardless of filtering rules
 
 function getDaysInRange({ start, end } = {}) {
@@ -31,27 +31,17 @@ function getDaysInRange({ start, end } = {}) {
 }
 
 export const createItemView = function ({ initialStart, initialEnd } = {}) {
-  let priority;
+  let itemsToDisplay = [];
+  const view = new DataView(items, { filter: item => itemsToDisplay.includes(item.id) });
 
-  const view = new DataView(
-    items,
-    {
-      filter: (item) => {
-        // priority = "all" includes all items
-        if (priority === "all") return true;
-
-        return (item.priority <= priority);
-      }
-    }
-  );
-
-  const getItemsInRange = function ({ start, end } = {}) {
-    return view.get({
+  function getItemsInRange({ start, end } = {}) {
+    console.log(start, end);
+    return items.get({
       filter: item => isInRange({ item, start, end })
     });
-  };
+  }
 
-  const isInRange = function ({ item, start, end, overlap = false } = {}) {
+  function isInRange({ item, start, end, overlap = false } = {}) {
     const itemStart = item.start.valueOf();
     const itemEnd = item.end ? item.end.valueOf() : itemStart;
 
@@ -62,33 +52,76 @@ export const createItemView = function ({ initialStart, initialEnd } = {}) {
     }
 
     return itemStart > start && itemEnd < end
-  };
+  }
 
-  const updatePriority = function ({ start, end } = {}) {
-    const daysInRange = getDaysInRange({ start, end });
-
-    if (daysInRange > (365 * 30)) {
-      priority = 0;
-    } else if (daysInRange > (365 * 10)) {
-      priority = 1;
-    } else if (daysInRange > (365 * 7)) {
-      priority = 2;
-    } else if (daysInRange > (365 * 2)) {
-      priority = 3;
-    } else {
-      priority = 4;
+  function updateItems({ start, end } = {}) {
+    itemsToDisplay = [];
+    const sections = divideRange({ start, end, divisions: numberOfSections });
+    for (const section of sections) {
+      const itemsInRange = getItemsInRange({ start: section.start, end: section.end });
+      itemsToDisplay.push(...getBestItems({ items: itemsInRange, number: itemsPerSection }))
     }
-  };
+  }
+
+  function divideRange({ start, end, divisions } = {}) {
+    const sections = [];
+    const sectionSize = Math.abs(end - start) / divisions;
+
+    for (let sectionStart = start; sectionStart < end; sectionStart += sectionSize) {
+      sections.push({
+        start: sectionStart, end: sectionStart + sectionSize
+      });
+    }
+    return sections;
+  }
+
+  function getBestItems({ items, number } = {}) {
+    const bestItems = [];
+
+    let priority = 0;
+    let itemsTried = 0;
+    let numberNeeded = number;
+
+    while (
+      numberNeeded &&
+      itemsTried < items.length &&
+      priority < 5
+    ) {
+      const itemsToTry = items.filter(item => item.priority == priority);
+
+      if (itemsToTry.length <= numberNeeded) {
+        bestItems.push(...itemsToTry);
+      } else {
+        bestItems.push(...getRandomItems({ items: [...itemsToTry], number: numberNeeded }));
+      }
+
+      itemsTried += itemsToTry.length;
+      numberNeeded = number - bestItems.length;
+      priority++;
+    }
+    return bestItems.map(item => item.id);
+  }
+
+  function getRandomItems({ items, number } = {}) {
+    const randomItems = [];
+
+    for (let i = 0; i < number; i++) {
+      const randomIndex = Math.floor(Math.random() * items.length);
+      randomItems.push(items.splice(randomIndex, 1)[0])
+    }
+
+    return randomItems;
+  }
 
   pubSub.subscribe(events.rangeChange, (range) => {
-    updatePriority(range);
+    updateItems({ start: range.start, end: range.end });
     view.refresh();
   })
 
   // Initialize with starting range
-  initialStart = new Date(initialStart);
-  initialEnd = new Date(initialEnd);
-  updatePriority({ start: initialStart.valueOf(), end: initialEnd.valueOf() });
+  // initialStart = new Date(initialStart);
+  // initialEnd = new Date(initialEnd);
+  // updatePriority({ start: initialStart.valueOf(), end: initialEnd.valueOf() });
   view.refresh();
 
   return view;
@@ -129,4 +162,4 @@ export const createGroupView = function ({ initialStart, initialEnd } = {}) {
   return { view };
 };
 
-export { groups as allGroups }
+export const allGroups = groups.get();
