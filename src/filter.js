@@ -3,10 +3,12 @@ import { pubSub, events } from "./pubSub.js";
 import { DataView } from "vis-data/peer";
 
 const numberOfSections = 4; // Number of "chunks" to split the range into for event budgeting
-const itemsPerSection = 7; // Number of events per range "chunk"
+const itemsPerSection = 6; // Number of events per range "chunk"
 const showAll = false; // Force all events to be shown regardless of filtering rules
 
 export const createItemView = function () {
+  let minDate, maxDate;
+
   let itemsToDisplay = [];
   const view = new DataView(items, { filter: item => itemsToDisplay.includes(item.id) });
 
@@ -33,20 +35,13 @@ export const createItemView = function () {
     const sections = [];
     const size = Math.abs(end - start) / divisions;
 
-    // Divisions should start at the next lowest multiple of the section size
-    // in order to preserve conbsistent section boundaries
-    let sectionStart = start - Math.abs(start % size);
+    let sectionStart = minDate;
 
-    while (sectionStart < end) {
+    while (sectionStart < maxDate) {
       sections.push({ start: sectionStart, end: sectionStart + size });
       sectionStart += size;
     }
-    const sectionDates = sections.map(section => {
-      return {
-        start: new Date(section.start),
-        end: new Date(section.end)
-      }
-    });
+
     return sections;
   }
 
@@ -70,7 +65,10 @@ export const createItemView = function () {
 
   // initialize with starting range values
   pubSub.subscribe(events.initializeTimeline, (range) => {
-    refreshView({ start: range.start, end: range.end });
+    minDate = range.start;
+    maxDate = range.end;
+
+    refreshView({ start: range.initialStart, end: range.initialEnd });
   })
 
   // refresh on range change

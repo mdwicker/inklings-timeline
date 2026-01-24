@@ -23,6 +23,9 @@ import { Timeline } from "vis-timeline/peer"
  *  State initialization
  * ===================== */
 
+const MINDATE = "1880-01-01";
+const MAXDATE = "2010-01-01";
+
 const container = document.getElementById("visualization");
 
 const items = createItemView();
@@ -31,8 +34,8 @@ const timeline = new Timeline(container, items, groups, {
   horizontalScroll: true,
   verticalScroll: false,
   zoomKey: "ctrlKey",
-  min: "1880-01-01",
-  max: "2010-01-01",
+  min: MINDATE,
+  max: MAXDATE,
   start: "1920-01-01",
   end: "1945-12-31",
   groupOrder: "id",
@@ -51,8 +54,10 @@ const initialRange = timeline.getWindow();
 pubSub.publish(
   events.initializeTimeline,
   {
-    start: initialRange.start.valueOf(),
-    end: initialRange.end.valueOf()
+    start: new Date(MINDATE).valueOf(),
+    end: new Date(MAXDATE).valueOf(),
+    initialStart: initialRange.start.valueOf(),
+    initialEnd: initialRange.end.valueOf()
   }
 );
 
