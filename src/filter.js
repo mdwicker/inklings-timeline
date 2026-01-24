@@ -1,22 +1,3 @@
-/*
-Implementing scaled zooming
-
-Range Change -> Divide into chunks -> Send chunks to budgeter
-Budgeter: Find items in range -> pick best x items in range -> return
-Item Picker: Filter by priority, then just random for now (TO BE IMPROVED).
-  Could be recursive eventually? Performance implications?
-WHO HANDLES RANGES? 
-Option 1: ranges are free
-Option 2: ranges belong to a chunk (based on start, or end, or middle)
-Option 3: ranges are budgeted separately
-Option 4: Mix of the above.
-I THINK that ranges that FULLY belong in a chunk are part of that chunk.
-  Other ranges are budgeted separately, or even maybe free? I intend to rather limit the number of large ranges.
-  BUT maybe for now we limit it to no more than....6 large ranges? That would
-  allow for say, T & L occupation and location, inklings meetings, and great war when zoomed majorly in.
-  OH but for ranges, the budget counts non-overlapping ranges as identical. For now maybe big ranges are free.
-*/
-
 import { groups, items } from "./data/dataProcessor.js";
 import { pubSub, events } from "./pubSub.js";
 import { DataView } from "vis-data/peer";

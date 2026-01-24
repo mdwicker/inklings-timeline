@@ -120,5 +120,21 @@ const formattedData = ((rawGroups, rawItems) => {
   };
 })(rawGroups, rawItems);
 
-export const groups = new DataSet(formattedData.groups);
-export const items = new DataSet(formattedData.items);
+const groups = new DataSet(formattedData.groups);
+const items = new DataSet(formattedData.items);
+
+const sortedItems = items.get({
+  filter: (item) => item.type !== "range",
+  order: (a, b) => {
+    if (a.priority < b.priority) {
+      return 1;
+    } else if (a.priority > b.priority) {
+      return -1;
+    }
+
+    // more sort logic. alphabetical for now
+    return a.content > b.content;
+  }
+});
+
+export { groups, items, sortedItems }
