@@ -1,25 +1,19 @@
-import { groups, items } from "./data/dataProcessor.js";
+import { groups, items, sortedItems } from "./data/dataProcessor.js";
 import { pubSub, events } from "./pubSub.js";
 import { DataView } from "vis-data/peer";
 
-const numberOfSections = 2; // Number of "chunks" to split the range into for event budgeting
-const itemsPerSection = 10; // Number of events per range "chunk"
+const numberOfSections = 4; // Number of "chunks" to split the range into for event budgeting
+const itemsPerSection = 7; // Number of events per range "chunk"
 const showAll = false; // Force all events to be shown regardless of filtering rules
 
-function getDaysInRange({ start, end } = {}) {
-  const lengthInMs = Math.abs(start - end);
-  return Math.ceil(lengthInMs / (1000 * 60 * 60 * 24));
-}
-
-export const createItemView = function ({ initialStart, initialEnd } = {}) {
+export const createItemView = function () {
   let itemsToDisplay = [];
   const view = new DataView(items, { filter: item => itemsToDisplay.includes(item.id) });
 
-  function getItemsInRange({ start, end } = {}) {
-    console.log(start, end);
+  function getIdsInRange({ start, end } = {}) {
     return items.get({
       filter: item => isInRange({ item, start, end })
-    });
+    }).map(item => item.id);
   }
 
   function isInRange({ item, start, end, overlap = false } = {}) {
@@ -35,80 +29,64 @@ export const createItemView = function ({ initialStart, initialEnd } = {}) {
     return itemStart > start && itemEnd < end
   }
 
-  function updateItems({ start, end } = {}) {
-    itemsToDisplay = [];
-    const sections = divideRange({ start, end, divisions: numberOfSections });
-    for (const section of sections) {
-      const itemsInRange = getItemsInRange({ start: section.start, end: section.end });
-      itemsToDisplay.push(...getBestItems({ items: itemsInRange, number: itemsPerSection }))
-    }
-  }
-
   function divideRange({ start, end, divisions } = {}) {
     const sections = [];
-    const sectionSize = Math.abs(end - start) / divisions;
+    const size = Math.abs(end - start) / divisions;
 
-    for (let sectionStart = start; sectionStart < end; sectionStart += sectionSize) {
-      sections.push({
-        start: sectionStart, end: sectionStart + sectionSize
-      });
+    // Divisions should start at the next lowest multiple of the section size
+    // in order to preserve conbsistent section boundaries
+    let sectionStart = start - Math.abs(start % size);
+
+    while (sectionStart < end) {
+      sections.push({ start: sectionStart, end: sectionStart + size });
+      sectionStart += size;
     }
+    const sectionDates = sections.map(section => {
+      return {
+        start: new Date(section.start),
+        end: new Date(section.end)
+      }
+    });
     return sections;
   }
 
-  function getBestItems({ items, number } = {}) {
-    const bestItems = [];
-
-    let priority = 0;
-    let itemsTried = 0;
-    let numberNeeded = number;
-
-    while (
-      numberNeeded &&
-      itemsTried < items.length &&
-      priority < 5
-    ) {
-      const itemsToTry = items.filter(item => item.priority == priority);
-
-      if (itemsToTry.length <= numberNeeded) {
-        bestItems.push(...itemsToTry);
-      } else {
-        bestItems.push(...getRandomItems({ items: [...itemsToTry], number: numberNeeded }));
-      }
-
-      itemsTried += itemsToTry.length;
-      numberNeeded = number - bestItems.length;
-      priority++;
+  function updateItemsToDisplay({ start, end } = {}) {
+    itemsToDisplay = [];
+    const sections = divideRange({ start, end, divisions: numberOfSections });
+    for (const section of sections) {
+      const idsInRange = getIdsInRange({ start: section.start, end: section.end });
+      const bestItems = sortedItems
+        .filter(item => idsInRange.includes(item.id))
+        .slice(0, itemsPerSection)
+        .map(item => item.id);
+      itemsToDisplay.push(...bestItems);
     }
-    return bestItems.map(item => item.id);
   }
 
-  function getRandomItems({ items, number } = {}) {
-    const randomItems = [];
-
-    for (let i = 0; i < number; i++) {
-      const randomIndex = Math.floor(Math.random() * items.length);
-      randomItems.push(items.splice(randomIndex, 1)[0])
-    }
-
-    return randomItems;
-  }
-
-  pubSub.subscribe(events.rangeChange, (range) => {
-    updateItems({ start: range.start, end: range.end });
+  function refreshView({ start, end } = {}) {
+    updateItemsToDisplay({ start, end });
     view.refresh();
+  }
+
+  // initialize with starting range values
+  pubSub.subscribe(events.initializeTimeline, (range) => {
+    refreshView({ start: range.start, end: range.end });
   })
 
-  // Initialize with starting range
-  // initialStart = new Date(initialStart);
-  // initialEnd = new Date(initialEnd);
-  // updatePriority({ start: initialStart.valueOf(), end: initialEnd.valueOf() });
-  view.refresh();
+  // refresh on range change
+  pubSub.subscribe(events.rangeChange, (range) => {
+    refreshView({ start: range.start, end: range.end });
+  })
 
   return view;
 };
 
-export const createGroupView = function ({ initialStart, initialEnd } = {}) {
+function getDaysInRange({ start, end } = {}) {
+  const lengthInMs = Math.abs(start - end);
+  return Math.ceil(lengthInMs / (1000 * 60 * 60 * 24));
+}
+
+export const createGroupView = function () {
   const groupIds = groups.get().map(group => group.id)
   let groupsToggledOn = new Set(groupIds);
 

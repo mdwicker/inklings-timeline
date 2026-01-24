@@ -31,5 +31,6 @@ export const events = {
   requestGroupToggle: "requestGroupToggle",
   toggleGroup: "toggleGroup",
   rangeChange: "rangeChange",
-  groupRangeChange: "groupRangeChange"
+  groupRangeChange: "groupRangeChange",
+  initializeTimeline: "initialize"
 }

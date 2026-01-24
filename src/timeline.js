@@ -18,9 +18,6 @@ import { pubSub, events } from "./pubSub.js";
 
 import { Timeline } from "vis-timeline/peer"
 
-const initialStart = "1920-01-01";
-const initialEnd = "1945-12-31";
-
 
 /* =====================
  *  State initialization
@@ -28,16 +25,16 @@ const initialEnd = "1945-12-31";
 
 const container = document.getElementById("visualization");
 
-const items = createItemView({ initialStart, initialEnd });
-const groups = createGroupView({ initialStart, initialEnd }).view;
+const items = createItemView();
+const groups = createGroupView().view;
 const timeline = new Timeline(container, items, groups, {
   horizontalScroll: true,
   verticalScroll: false,
   zoomKey: "ctrlKey",
   min: "1880-01-01",
   max: "2010-01-01",
-  start: initialStart,
-  end: initialEnd,
+  start: "1920-01-01",
+  end: "1945-12-31",
   groupOrder: "id",
   margin: {
     item: {
@@ -48,6 +45,16 @@ const timeline = new Timeline(container, items, groups, {
     template: (item) => item.description || item.content,
   }
 });
+
+const initialRange = timeline.getWindow();
+
+pubSub.publish(
+  events.initializeTimeline,
+  {
+    start: initialRange.start.valueOf(),
+    end: initialRange.end.valueOf()
+  }
+);
 
 
 /* =====================
@@ -170,10 +177,18 @@ const VisibilityToggles = (function (groups) {
  *  Event wiring
  * ===================== */
 
+let currentRange = initialRange.start.valueOf() - initialRange.end.valueOf();
 
-// Listen for range change to update displayed groups
+// Listen for range change
 timeline.on("rangechange", (properties) => {
   const start = properties.start.valueOf();
   const end = properties.end.valueOf();
-  pubSub.publish(events.rangeChange, { start, end });
+
+  const range = start - end;
+  const zoomChange = !(currentRange === range);
+  currentRange = range;
+
+  pubSub.publish(events.rangeChange, { start, end, zoomChange });
 });
+
+// Listen for zooming in and out

@@ -29,6 +29,8 @@ import rawGroups from './groups.json'
 import rawItems from './items.json'
 import { DataSet } from "vis-data/peer"
 
+const ignoreSubGroups = true;
+
 function validateData(rawGroups, rawItems) {
   // verify that all parentIds exist
   // verify that all item groups exist
@@ -38,16 +40,34 @@ function validateData(rawGroups, rawItems) {
 }
 
 const formattedData = ((rawGroups, rawItems) => {
-  const groups = rawGroups.map(group => createVisGroup(group));
-  addNestedGroups(groups);
+  let groups;
+  if (ignoreSubGroups) {
+    groups = rawGroups.filter(group => !group.parentId).map(group => createVisGroup(group));
+  } else {
+    groups = rawGroups.map(group => createVisGroup(group));
+    addNestedGroups(groups);
+  }
 
   const items = []
   rawItems.forEach(rawItem => {
     const groupId = getIdFromAddress(rawItem.group);
     const item = createVisItem(rawItem, groupId);
-    addLinkToParentGroup(item);
+    addLinkInParentGroup(item);
     items.push(item);
   });
+
+  // find all subgroups and add links to them in their parent group
+  function addNestedGroups(groups) {
+    groups.filter(group => group.parent).forEach(subgroup => {
+      const parent = groups.find(group => group.id == subgroup.parent);
+      if (!parent) {
+        throw new Error(`Parent group ${subgroup.parent} not found for ${subgroup.name}.`);
+      }
+
+      if (!parent.nestedGroups) parent.nestedGroups = [];
+      parent.nestedGroups.push(subgroup.id);
+    });
+  }
 
   function getClasses(group) {
     const classes = []
@@ -68,19 +88,6 @@ const formattedData = ((rawGroups, rawItems) => {
     return visGroup;
   }
 
-  // find all subgroups and add links to them in their parent group
-  function addNestedGroups(groups) {
-    groups.filter(group => group.parent).forEach(subgroup => {
-      const parent = groups.find(group => group.id == subgroup.parent);
-      if (!parent) {
-        throw new Error(`Parent group ${subgroup.parent} not found for ${subgroup.name}.`);
-      }
-
-      if (!parent.nestedGroups) parent.nestedGroups = [];
-      parent.nestedGroups.push(subgroup.id);
-    });
-  }
-
   function createVisItem(item, groupId) {
     return {
       id: item.id,
@@ -96,6 +103,8 @@ const formattedData = ((rawGroups, rawItems) => {
 
   // convert human-readable group address into group id number
   function getIdFromAddress(address) {
+    address = ignoreSubGroups ? address.split(".")[0] : address;
+
     const group = rawGroups.find(group => group.address == address);
     if (!group) {
       throw new Error(`Group ${address} not found.`);
@@ -105,7 +114,7 @@ const formattedData = ((rawGroups, rawItems) => {
   }
 
   // Look up an item's parent group and add a link to the item in it
-  function addLinkToParentGroup(item) {
+  function addLinkInParentGroup(item) {
     const group = groups.find(group => group.id == item.group);
     if (!group) {
       throw new Error(`Group ${item.group} not found for item ${item.id}`);
@@ -127,9 +136,9 @@ const sortedItems = items.get({
   filter: (item) => item.type !== "range",
   order: (a, b) => {
     if (a.priority < b.priority) {
-      return 1;
-    } else if (a.priority > b.priority) {
       return -1;
+    } else if (a.priority > b.priority) {
+      return 1;
     }
 
     // more sort logic. alphabetical for now
