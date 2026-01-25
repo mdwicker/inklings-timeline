@@ -1,21 +1,27 @@
-import { groups, items, sortedItems } from "./data/dataProcessor.js";
+import { groups, items, prioritizedItems } from "./data/dataProcessor.js";
 import { pubSub, events } from "./pubSub.js";
 import { DataView } from "vis-data/peer";
 
-const numberOfSections = 4; // Number of "chunks" to split the range into for event budgeting
-const itemsPerSection = 6; // Number of events per range "chunk"
+const numberOfSections = 3; // Number of "chunks" to split the range into for event budgeting
+const itemsPerSection = 8; // Number of events per range "chunk"
 const showAll = false; // Force all events to be shown regardless of filtering rules
 
 export const createItemView = function () {
   let minDate, maxDate;
 
   let itemsToDisplay = [];
-  const view = new DataView(items, { filter: item => itemsToDisplay.includes(item.id) });
+  const view = new DataView(items, {
+    filter: item => {
+      // for now, include all range items
+      if (item.type === "range") return true;
+      if (item.type === "background") return true;
 
-  function getIdsInRange({ start, end } = {}) {
-    return items.get({
-      filter: item => isInRange({ item, start, end })
-    }).map(item => item.id);
+      return itemsToDisplay.includes(item.id);
+    }
+  });
+
+  function getItemsInRange({ start, end, itemPool = items } = {}) {
+    return itemPool.filter(item => isInRange({ item, start, end }));
   }
 
   function isInRange({ item, start, end, overlap = false } = {}) {
@@ -47,14 +53,24 @@ export const createItemView = function () {
 
   function updateItemsToDisplay({ start, end } = {}) {
     itemsToDisplay = [];
+
     const sections = divideRange({ start, end, divisions: numberOfSections });
+
     for (const section of sections) {
-      const idsInRange = getIdsInRange({ start: section.start, end: section.end });
-      const bestItems = sortedItems
-        .filter(item => idsInRange.includes(item.id))
-        .slice(0, itemsPerSection)
-        .map(item => item.id);
-      itemsToDisplay.push(...bestItems);
+      const itemsInRange = getItemsInRange({
+        start: section.start,
+        end: section.end,
+        itemPool: prioritizedItems
+      });
+
+
+      // add prioritized point events
+      itemsToDisplay.push(
+        ...itemsInRange
+          .filter(item => item.type === "point")
+          .slice(0, itemsPerSection)
+          .map(item => item.id)
+      );
     }
   }
 
@@ -73,7 +89,9 @@ export const createItemView = function () {
 
   // refresh on range change
   pubSub.subscribe(events.rangeChange, (range) => {
-    refreshView({ start: range.start, end: range.end });
+    if (range.zoomChange) {
+      refreshView({ start: range.start, end: range.end });
+    }
   })
 
   return view;

@@ -39,6 +39,17 @@ function validateData(rawGroups, rawItems) {
   // verify that edtf dates follow spec
 }
 
+function sortItems(a, b) {
+  if (a.priority < b.priority) {
+    return -1;
+  } else if (a.priority > b.priority) {
+    return 1;
+  }
+
+  // more sort logic. alphabetical for now
+  return a.content > b.content;
+}
+
 const formattedData = ((rawGroups, rawItems) => {
   let groups;
   if (ignoreSubGroups) {
@@ -96,8 +107,8 @@ const formattedData = ((rawGroups, rawItems) => {
       description: item.description,
       start: new Date(item.start),
       end: item.end ? new Date(item.end) : null,
+      priority: item.priority,
       type: item.displayMode ? item.displayMode : item.type,
-      priority: item.priority
     }
   }
 
@@ -132,18 +143,6 @@ const formattedData = ((rawGroups, rawItems) => {
 const groups = new DataSet(formattedData.groups);
 const items = new DataSet(formattedData.items);
 
-const sortedItems = items.get({
-  filter: (item) => item.type !== "range",
-  order: (a, b) => {
-    if (a.priority < b.priority) {
-      return -1;
-    } else if (a.priority > b.priority) {
-      return 1;
-    }
+const prioritizedItems = items.get({ order: sortItems });
 
-    // more sort logic. alphabetical for now
-    return a.content > b.content;
-  }
-});
-
-export { groups, items, sortedItems }
+export { groups, items, prioritizedItems }
