@@ -17,6 +17,7 @@ import { createItemView, createGroupView, allGroups } from "./filter.js";
 import { pubSub, events } from "./pubSub.js";
 
 import { Timeline } from "vis-timeline/peer"
+import { prioritizedItems } from "./data/dataProcessor.js";
 
 
 /* =====================
@@ -39,8 +40,11 @@ const timeline = new Timeline(container, items, groups, {
   start: "1920-01-01",
   end: "1945-12-31",
   groupOrder: "id",
+  stack: true,
+  stackSubgroups: true,
   margin: {
     item: {
+      vertical: 3,
       horizontal: 0,
     },
   },
@@ -195,5 +199,3 @@ timeline.on("rangechange", (properties) => {
 
   pubSub.publish(events.rangeChange, { start, end, zoomChange });
 });
-
-// Listen for zooming in and out

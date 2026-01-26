@@ -27,24 +27,14 @@
   border-bottom: 1px solid #bfbfbf;
 }
 
-.vis-background .vis-group {
-  position: relative !important;
+.vis-timeline .vis-item.background {
+  line-height: 0.8rem;
+  font-size: 0.9rem;
 }
 
-.vis-item.sticky-label {
-  background-color: transparent;
-  border: none !important;
-}
-
-.vis-item.vis-background.bottom-half {
-  height: 50% !important;
-  top: auto !important;
-  bottom: 0 !important;
-}
-
-.vis-item.vis-background.top-half {
-  height: 50% !important;
-  top: 0 !important;
+.vis-item {
+  /* overflow: hidden;
+  white-space: nowrap; */
 }
 
 .visibility-toggles {

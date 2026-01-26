@@ -12,80 +12,18 @@ export const createItemView = function () {
   let itemsToDisplay = [];
   let rangesToDisplay = [];
 
-  prepareBackgroundItems();
-
   const view = new DataView(items, {
     filter: item => {
-      // for now, include all range items
-      if (item.type === "range" || item.type === "background") return true;
+      // for now, include all range items of level 1 priority or higher
+      if (item.type === "range"
+        || item.subgroup === "location"
+        || item.subgroup === "occupation") {
+        return item.priority < 2;
+      }
 
       return itemsToDisplay.includes(item.id);
     }
   });
-
-  function prepareBackgroundItems() {
-    const backgroundItems = items.get({
-      filter: item => {
-        return (item.category === "location" || item.category === "occupation");
-      }
-    });
-
-    backgroundItems.forEach(item => {
-      // add colored background that covers entire range
-      items.add({
-        id: `${item.id}-background`,
-        group: item.group,
-        category: item.category,
-        type: "background",
-        start: item.start,
-        end: item.end,
-        className: item.category === "location" ? "top-half" : 'bottom-half'
-      });
-
-      // make label that sticks to the edge of the screen
-      const prefix = item.category === "location" ? "🏠 " : "🎓 "
-      items.update({
-        id: item.id,
-        content: prefix + item.content,
-        className: "sticky-label",
-        realStart: item.start,
-        realEnd: item.end,
-        sticky: true
-      });
-    });
-
-    pubSub.subscribe(events.rangeChange, (range) => {
-      updateStickyLabels({ ...range });
-    })
-    pubSub.subscribe(events.initializeTimeline, (range) => {
-      updateStickyLabels({ start: range.initialStart, end: range.initialEnd, });
-    })
-
-    function updateStickyLabels({ start, end } = {}) {
-      const stickyItems = items.get({ filter: item => item.sticky });
-      stickyItems.forEach(item => {
-        if (!isInRange({ item, start, end, overlap: true })) return;
-
-        let newStart = item.realStart;
-        let newEnd = item.realEnd;
-
-        // if an item is currently overlapping with the beginning of the range,
-        // keep it in view
-        if (item.realStart.valueOf() < start && item.realEnd.valueOf() > start) {
-          newStart = new Date(start);
-        }
-
-        // keep a constant size for the label
-        const size = Math.abs(end - start) / 7;
-        newEnd = new Date(newStart.valueOf() + size);
-        if (item.realEnd < newEnd) {
-          newEnd = item.realEnd;
-        }
-
-        items.update({ id: item.id, end: newEnd });
-      });
-    }
-  }
 
   function getItemsInRange({ start, end, itemPool = items } = {}) {
     return itemPool.filter(item => isInRange({ item, start, end }));

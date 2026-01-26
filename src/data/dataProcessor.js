@@ -59,15 +59,15 @@ const formattedData = ((rawGroups, rawItems) => {
     addNestedGroups(groups);
   }
 
-  const items = []
+  const items = [];
   rawItems.forEach(rawItem => {
     const groupId = getIdFromAddress(rawItem.group);
     const item = createVisItem(rawItem, groupId);
     addLinkInParentGroup(item);
     items.push(item);
+    console.log(item);
   });
 
-  // find all subgroups and add links to them in their parent group
   function addNestedGroups(groups) {
     groups.filter(group => group.parent).forEach(subgroup => {
       const parent = groups.find(group => group.id == subgroup.parent);
@@ -92,6 +92,19 @@ const formattedData = ((rawGroups, rawItems) => {
       id: group.id,
       content: group.name,
       className: getClasses(group),
+      subgroupOrder: (a, b) => {
+        const ordering = {
+          'location': 2,
+          'occupation': 1,
+          'normal': 0
+        };
+        return ordering[a.subgroup] - ordering[b.subgroup];
+      },
+      subgroupStack: {
+        "location": true,
+        "occupation": true,
+        "normal": true
+      }
     };
 
     if (group.parentId) visGroup.parent = group.parentId;
@@ -102,22 +115,33 @@ const formattedData = ((rawGroups, rawItems) => {
   function createVisItem(item, groupId) {
     const groupTags = item.group.split(".");
     let person = groupTags[0];
-    let category;
+    let subgroup = "normal";
+    let content = item.name;
+    let category, className;
+
     if (groupTags.length === 2) {
+      if (groupTags[1] === "location") {
+        subgroup = groupTags[1];
+        content = "🏠 " + item.name;
+        className = "background";
+      } else if (groupTags[1] === "occupation") {
+        content = "🎓 " + item.name;
+        subgroup = groupTags[1];
+        className = "background";
+      }
       category = groupTags[1];
     }
-    const visItem = {
+
+    return {
       id: item.id,
       group: groupId,
-      content: item.name,
-      person, category,
+      content, person, subgroup, category, className,
       description: item.description,
       start: new Date(item.start),
       end: item.end ? new Date(item.end) : null,
       priority: item.priority,
-      type: item.displayMode ? item.displayMode : item.type,
+      type: item.displayMode ? item.displayMode : item.type
     }
-    return visItem;
   }
 
   // convert human-readable group address into group id number
