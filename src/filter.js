@@ -43,10 +43,48 @@ export const createItemView = function () {
       });
 
       // make label that sticks to the edge of the screen
-      item.className = "sticky-label";
-      item.end = new Date(item.start);
-      item.end.setDate(item.end.getDate() + 1);
+      const prefix = item.category === "location" ? "🏠 " : "🎓 "
+      items.update({
+        id: item.id,
+        content: prefix + item.content,
+        className: "sticky-label",
+        realStart: item.start,
+        realEnd: item.end,
+        sticky: true
+      });
     });
+
+    pubSub.subscribe(events.rangeChange, (range) => {
+      updateStickyLabels({ ...range });
+    })
+    pubSub.subscribe(events.initializeTimeline, (range) => {
+      updateStickyLabels({ start: range.initialStart, end: range.initialEnd, });
+    })
+
+    function updateStickyLabels({ start, end } = {}) {
+      const stickyItems = items.get({ filter: item => item.sticky });
+      stickyItems.forEach(item => {
+        if (!isInRange({ item, start, end, overlap: true })) return;
+
+        let newStart = item.realStart;
+        let newEnd = item.realEnd;
+
+        // if an item is currently overlapping with the beginning of the range,
+        // keep it in view
+        if (item.realStart.valueOf() < start && item.realEnd.valueOf() > start) {
+          newStart = new Date(start);
+        }
+
+        // keep a constant size for the label
+        const size = Math.abs(end - start) / 7;
+        newEnd = new Date(newStart.valueOf() + size);
+        if (item.realEnd < newEnd) {
+          newEnd = item.realEnd;
+        }
+
+        items.update({ id: item.id, end: newEnd });
+      });
+    }
   }
 
   function getItemsInRange({ start, end, itemPool = items } = {}) {
