@@ -31,6 +31,15 @@
   position: relative !important;
 }
 
+.vis-item.sticky-label {
+  background-color: transparent;
+  border: none !important;
+}
+
+.vis-item.sticky-label .vis-item-overflow {
+  overflow: visible;
+}
+
 .vis-item.vis-background.bottom-half {
   height: 50% !important;
   top: auto !important;

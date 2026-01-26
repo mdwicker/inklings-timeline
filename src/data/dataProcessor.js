@@ -100,27 +100,23 @@ const formattedData = ((rawGroups, rawItems) => {
   }
 
   function createVisItem(item, groupId) {
+    const groupTags = item.group.split(".");
+    let person = groupTags[0];
+    let category;
+    if (groupTags.length === 2) {
+      category = groupTags[1];
+    }
     const visItem = {
       id: item.id,
       group: groupId,
       content: item.name,
+      person, category,
       description: item.description,
       start: new Date(item.start),
       end: item.end ? new Date(item.end) : null,
       priority: item.priority,
       type: item.displayMode ? item.displayMode : item.type,
     }
-
-    if (item.group.endsWith("location")) {
-      visItem.className = "top-half";
-      visItem.type = "background";
-    }
-
-    if (item.group.endsWith("occupation")) {
-      visItem.className = "bottom-half";
-      visItem.type = "background";
-    }
-
     return visItem;
   }
 

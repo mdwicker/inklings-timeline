@@ -12,15 +12,42 @@ export const createItemView = function () {
   let itemsToDisplay = [];
   let rangesToDisplay = [];
 
+  prepareBackgroundItems();
+
   const view = new DataView(items, {
     filter: item => {
       // for now, include all range items
-      if (item.type === "range") return true;
-      if (item.type === "background") return true;
+      if (item.type === "range" || item.type === "background") return true;
 
       return itemsToDisplay.includes(item.id);
     }
   });
+
+  function prepareBackgroundItems() {
+    const backgroundItems = items.get({
+      filter: item => {
+        return (item.category === "location" || item.category === "occupation");
+      }
+    });
+
+    backgroundItems.forEach(item => {
+      // add colored background that covers entire range
+      items.add({
+        id: `${item.id}-background`,
+        group: item.group,
+        category: item.category,
+        type: "background",
+        start: item.start,
+        end: item.end,
+        className: item.category === "location" ? "top-half" : 'bottom-half'
+      });
+
+      // make label that sticks to the edge of the screen
+      item.className = "sticky-label";
+      item.end = new Date(item.start);
+      item.end.setDate(item.end.getDate() + 1);
+    });
+  }
 
   function getItemsInRange({ start, end, itemPool = items } = {}) {
     return itemPool.filter(item => isInRange({ item, start, end }));
