@@ -10,6 +10,8 @@ export const createItemView = function () {
   let minDate, maxDate;
 
   let itemsToDisplay = [];
+  let rangesToDisplay = [];
+
   const view = new DataView(items, {
     filter: item => {
       // for now, include all range items
@@ -74,8 +76,32 @@ export const createItemView = function () {
     }
   }
 
+  function updateRangesToDisplay({ start, end } = {}) {
+    rangesToDisplay = [];
+
+    const sections = divideRange({ start, end, divisions: numberOfSections });
+
+    for (const section of sections) {
+      const itemsInRange = getItemsInRange({
+        start: section.start,
+        end: section.end,
+        itemPool: prioritizedItems
+      });
+
+
+      // add prioritized point events
+      itemsToDisplay.push(
+        ...itemsInRange
+          .filter(item => item.type === "range")
+          .slice(0, itemsPerSection)
+          .map(item => item.id)
+      );
+    }
+  }
+
   function refreshView({ start, end } = {}) {
     updateItemsToDisplay({ start, end });
+    updateRangesToDisplay({ start, end });
     view.refresh();
   }
 

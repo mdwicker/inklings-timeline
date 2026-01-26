@@ -100,7 +100,7 @@ const formattedData = ((rawGroups, rawItems) => {
   }
 
   function createVisItem(item, groupId) {
-    return {
+    const visItem = {
       id: item.id,
       group: groupId,
       content: item.name,
@@ -110,6 +110,18 @@ const formattedData = ((rawGroups, rawItems) => {
       priority: item.priority,
       type: item.displayMode ? item.displayMode : item.type,
     }
+
+    if (item.group.endsWith("location")) {
+      visItem.className = "top-half";
+      visItem.type = "background";
+    }
+
+    if (item.group.endsWith("occupation")) {
+      visItem.className = "bottom-half";
+      visItem.type = "background";
+    }
+
+    return visItem;
   }
 
   // convert human-readable group address into group id number
