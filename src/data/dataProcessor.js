@@ -29,9 +29,20 @@ import rawGroups from './groups.json'
 import rawItems from './items.json'
 import { DataSet } from "vis-data/peer"
 
-const ignoreSubGroups = true;
 
-function validateData(rawGroups, rawItems) {
+const flattenNestedGroups = true;
+const backgroundCategories = ["location", "occupation"];
+const categoryPrefixes = {
+  "location": "🏠",
+  "occupation": "🎓"
+};
+
+const formattedData = format({ groups: rawGroups, items: rawItems });
+
+const visData = toVis({ groups: formattedData.groups, items: formattedData.items, flattenNestedGroups });
+
+
+function validateData({ groups, items } = {}) {
   // verify that all parentIds exist
   // verify that all item groups exist
   // verify that ids are sequential
@@ -39,142 +50,234 @@ function validateData(rawGroups, rawItems) {
   // verify that edtf dates follow spec
 }
 
-function sortItems(a, b) {
-  if (a.priority < b.priority) {
-    return -1;
-  } else if (a.priority > b.priority) {
-    return 1;
-  }
+function format({ groups, items } = {}) {
+  const addressBook = groups.reduce((addresses, group) => {
+    addresses[group.address] = group.id
+    return addresses;
+  }, {});
+  const relationships = getRelationships({ groups, items, addressBook });
 
-  // more sort logic. alphabetical for now
-  return a.content > b.content;
-}
-
-const formattedData = ((rawGroups, rawItems) => {
-  let groups;
-  if (ignoreSubGroups) {
-    groups = rawGroups.filter(group => !group.parentId).map(group => createVisGroup(group));
-  } else {
-    groups = rawGroups.map(group => createVisGroup(group));
-    addNestedGroups(groups);
-  }
-
-  const items = [];
-  rawItems.forEach(rawItem => {
-    const groupId = getIdFromAddress(rawItem.group);
-    const item = createVisItem(rawItem, groupId);
-    addLinkInParentGroup(item);
-    items.push(item);
-    console.log(item);
+  const formattedGroups = groups.map(group => {
+    return normalizeGroup({ group, relationships: relationships[group.id] });
   });
 
-  function addNestedGroups(groups) {
-    groups.filter(group => group.parent).forEach(subgroup => {
-      const parent = groups.find(group => group.id == subgroup.parent);
-      if (!parent) {
-        throw new Error(`Parent group ${subgroup.parent} not found for ${subgroup.name}.`);
-      }
-
-      if (!parent.nestedGroups) parent.nestedGroups = [];
-      parent.nestedGroups.push(subgroup.id);
-    });
-  }
-
-  function getClasses(group) {
-    const classes = []
-    classes.push(...group.tags);
-    classes.push(`groupId-${group.id}`);
-    return classes.join(" ");
-  }
-
-  function createVisGroup(group) {
-    const visGroup = {
-      id: group.id,
-      content: group.name,
-      className: getClasses(group),
-      subgroupOrder: (a, b) => {
-        const ordering = {
-          'location': 2,
-          'occupation': 1,
-          'normal': 0
-        };
-        return ordering[a.subgroup] - ordering[b.subgroup];
-      },
-      subgroupStack: {
-        "location": true,
-        "occupation": true,
-        "normal": true
-      }
-    };
-
-    if (group.parentId) visGroup.parent = group.parentId;
-
-    return visGroup;
-  }
-
-  function createVisItem(item, groupId) {
-    const groupTags = item.group.split(".");
-    let person = groupTags[0];
-    let subgroup = "normal";
-    let content = item.name;
-    let category, className;
-
-    if (groupTags.length === 2) {
-      if (groupTags[1] === "location") {
-        subgroup = groupTags[1];
-        content = "🏠 " + item.name;
-        className = "background";
-      } else if (groupTags[1] === "occupation") {
-        content = "🎓 " + item.name;
-        subgroup = groupTags[1];
-        className = "background";
-      }
-      category = groupTags[1];
-    }
-
-    return {
-      id: item.id,
-      group: groupId,
-      content, person, subgroup, category, className,
-      description: item.description,
-      start: new Date(item.start),
-      end: item.end ? new Date(item.end) : null,
-      priority: item.priority,
-      type: item.displayMode ? item.displayMode : item.type
-    }
-  }
-
-  // convert human-readable group address into group id number
-  function getIdFromAddress(address) {
-    address = ignoreSubGroups ? address.split(".")[0] : address;
-
-    const group = rawGroups.find(group => group.address == address);
-    if (!group) {
-      throw new Error(`Group ${address} not found.`);
-    }
-
-    return group.id
-  }
-
-  // Look up an item's parent group and add a link to the item in it
-  function addLinkInParentGroup(item) {
-    const group = groups.find(group => group.id == item.group);
-    if (!group) {
-      throw new Error(`Group ${item.group} not found for item ${item.id}`);
-    }
-    if (!group.items) group.items = [];
-    group.items.push(item.id);
-  }
+  const formattedItems = items.map(item => {
+    return normalizeItem({ item, groupId: addressBook[item.address] });
+  });
 
   return {
-    groups: groups.sort((a, b) => a.id - b.id),
-    items: items.sort((a, b) => a.id - b.id)
+    groups: formattedGroups, items: formattedItems
   };
-})(rawGroups, rawItems);
+}
 
-const groups = new DataSet(formattedData.groups);
-const items = new DataSet(formattedData.items);
+function toVis({ groups, items, flattenNestedGroups } = {}) {
+  let processedGroups = groups;
+  let processedItems = items;
 
-const prioritizedItems = items.get({ order: sortItems });
+  if (flattenNestedGroups) {
+    const data = removeNestedGroups({ groups, items });
+    processedGroups = data.groups;
+    processedItems = data.items;
+  }
 
-export { groups, items, prioritizedItems }
+  const visGroups = processedGroups.map(group => formatVisGroup({ group }));
+  const visItems = processedItems.map(item => formatVisItem({ item }));
+
+  return { groups: visGroups, items: visItems };
+}
+
+function getRelationships({ groups, items, addressBook } = {}) {
+  // initialize with empty arrays;
+  const relationships = {};
+  groups.forEach(group => {
+    relationships[group.id] = { nestedGroups: [], items: [] };
+  })
+
+  groups.forEach(group => {
+    if (!group.parentId) return;
+    relationships[group.parentId].nestedGroups.push(group.id);
+  });
+
+  items.forEach(item => {
+    const groupId = addressBook[item.address];
+    if (!groupId) {
+      throw new Error(`Address ${item.address} not found for item ${item.name}`);
+    }
+    relationships[groupId].items.push(item.id);
+  })
+
+  return relationships;
+}
+
+function normalizeGroup({ group, relationships } = {}) {
+  const normalized = normalize({ object: group });
+
+  if (relationships) {
+    const nestedGroups = relationships.nestedGroups;
+    if (nestedGroups) normalized.nestedGroups = [...nestedGroups];
+
+    const items = relationships.items;
+    if (items) normalized.items = [...items];
+  }
+
+  return normalized;
+}
+
+function normalizeItem({ item, groupId } = {}) {
+  const normalized = normalize({ object: item });
+
+  normalized.start = new Date(normalized.start);
+
+  if (normalized.end) {
+    normalized.end = new Date(normalized.end);
+  }
+
+  normalized.group = groupId;
+
+
+  return normalized;
+}
+
+function normalize({ object } = {}) {
+  const normalized = { ...object };
+  // copy arrays to avoid mutating raw data
+  Object.keys(normalized).forEach(key => {
+    if (Array.isArray(normalized[key])) {
+      normalized[key] = [...normalized[key]];
+    }
+  });
+
+  if (normalized.address) {
+    const addressParts = normalized.address.split(".");
+    if (addressParts.length === 0 || !addressParts[0]) {
+      throw new Error(`No address parts found for group ${normalized.name}`);
+    }
+
+    const person = addressParts[0];
+    let category = "general";
+
+    if (addressParts.length > 1) {
+      category = addressParts[1];
+    }
+
+    normalized.person = person;
+    normalized.category = category;
+  }
+
+  return normalized;
+}
+
+function getClasses(group) {
+  const classes = []
+  classes.push(...group.tags);
+  classes.push(`groupId-${group.id}`);
+  return classes.join(" ");
+}
+
+function formatVisItem({ item } = {}) {
+  const { id, name, start, priority, type, address, group, person, category } = item;
+
+  const visItem = {
+    id, group, start, priority, type, address, person, category,
+    content: name,
+  };
+
+  if (item.end) visItem.end = item.end;
+  if (item.edtf) visItem.edtf = item.edtf;
+  if (item.description) visItem.description = item.description;
+  if (item.source) visItem.source = item.source;
+  if (item.note) visItem.note = item.note;
+  if (item.tags) visItem.tags = [...item.tags];
+
+  if (backgroundCategories.includes(item.category)) {
+    visItem.subgroup = item.category;
+    visItem.className = "background";
+  } else {
+    visItem.subgroup = "normal";
+  }
+
+  if (item.category in categoryPrefixes) {
+    visItem.content = `${categoryPrefixes[item.category]} ${visItem.content}`;
+  }
+
+  return visItem;
+}
+
+function formatVisGroup({ group } = {}) {
+  const { person, category, address, name, id, items } = group;
+
+  const visGroup = {
+    id, person, category, address,
+    content: name,
+    className: getClasses(group),
+  };
+
+  if (group.parentId) visGroup.parentId = group.parentId;
+  if (group.tags) visGroup.tags = [...group.tags];
+  if (items) visGroup.items = [...group.items];
+  if (group.nestedGroups) visGroup.nestedGroups = [...group.nestedGroups];
+
+  visGroup.subgroupOrder = (a, b) => {
+    const ordering = { "normal": 0 };
+    let priority = 1
+    // reverse the array so that the first items in the array are on top
+    for (const category of backgroundCategories.toReversed()) {
+      ordering[category] = priority;
+      priority++;
+    }
+
+    return ordering[a.subgroup] - ordering[b.subgroup];
+  };
+
+  const subgroupStack = { "normal": true };
+  for (const category of backgroundCategories) {
+    subgroupStack[category] = true;
+  }
+  visGroup.subgroupStack = subgroupStack;
+
+  return visGroup;
+}
+
+function removeNestedGroups({ groups, items }) {
+  // Map every group to its root (parent or itself)
+  const rootOf = {};
+  for (const group of groups) {
+    rootOf[group.id] = group.parentId ?? group.id;
+  }
+
+  // Create root groups
+  const roots = {};
+  for (const group of groups) {
+    if (!group.parentId) {
+      roots[group.id] = {
+        ...group,
+        items: [...(group.items ?? [])],
+      };
+    }
+  }
+
+  // Push nestedGroup items into their parent
+  for (const group of groups) {
+    if (group.parentId) {
+      delete roots[group.parentId].nestedGroups;
+      roots[group.parentId].items.push(...(group.items ?? []));
+    }
+  }
+
+  const processedGroups = Object.values(roots);
+
+  // Remap items to parent groups
+  const processedItems = items.map(item => ({
+    ...item,
+    group: rootOf[item.group],
+  }));
+
+  return { groups: processedGroups, items: processedItems };
+}
+
+const groups = new DataSet(visData.groups);
+const items = new DataSet(visData.items);
+
+console.log(groups.get());
+
+export { groups, items }

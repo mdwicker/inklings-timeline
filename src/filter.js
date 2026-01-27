@@ -1,10 +1,23 @@
-import { groups, items, prioritizedItems } from "./data/dataProcessor.js";
+import { groups, items } from "./data/dataProcessor.js";
 import { pubSub, events } from "./pubSub.js";
 import { DataView } from "vis-data/peer";
 
 const numberOfSections = 3; // Number of "chunks" to split the range into for event budgeting
 const itemsPerSection = 8; // Number of events per range "chunk"
 const showAll = false; // Force all events to be shown regardless of filtering rules
+
+const prioritizedItems = items.get({ order: sortItems });
+
+function sortItems(a, b) {
+  if (a.priority < b.priority) {
+    return -1;
+  } else if (a.priority > b.priority) {
+    return 1;
+  }
+
+  // more sort logic. alphabetical for now
+  return a.content > b.content;
+}
 
 export const createItemView = function () {
   let minDate, maxDate;
@@ -138,7 +151,7 @@ export const createGroupView = function () {
   const view = new DataView(groups, {
     filter: (group) => {
       // Groups with parents should only display if parent is toggled on
-      if (group.parent && !groupsToggledOn.has(group.parent)) {
+      if (group.parentId && !groupsToggledOn.has(group.parentId)) {
         return false;
       }
       return groupsToggledOn.has(group.id);

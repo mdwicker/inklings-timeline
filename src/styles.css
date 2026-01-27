@@ -32,11 +32,6 @@
   font-size: 0.9rem;
 }
 
-.vis-item {
-  /* overflow: hidden;
-  white-space: nowrap; */
-}
-
 .visibility-toggles {
   border: 1px solid black;
   border-radius: 6px;
