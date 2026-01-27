@@ -13,11 +13,10 @@
 
 import "./styles.css";
 import "./vis-timeline-graph2d.min.css";
-import { createItemView, createGroupView, allGroups } from "./filter.js";
+import { createItemView, createGroupView, allGroups } from "./displayCoordinator.js";
 import { pubSub, events } from "./pubSub.js";
 
 import { Timeline } from "vis-timeline/peer"
-import { prioritizedItems } from "./data/dataProcessor.js";
 
 
 /* =====================
