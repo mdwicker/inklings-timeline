@@ -44,8 +44,8 @@ function createLodManager(
   function getIdsAtZoomLevel({ windowSize } = {}) {
     return new Set([
       ...getPointIdsAtZoomLevel({ windowSize }),
-      // ...getRangeIdsAtZoomLevel({ windowSize }),
-      // ...getBackgroundIdsAtZoomLevel({ windowSize }),
+      ...getRangeIdsAtZoomLevel({ windowSize }),
+      ...getBackgroundIdsAtZoomLevel({ windowSize }),
     ]);
   }
 
@@ -62,7 +62,21 @@ function createLodManager(
     }
 
     return ids;
-  } // Tested
+  }
+
+  function getRangeIdsAtZoomLevel({ windowSize } = {}) {
+    const items = itemSet.get({ filter: item => !item.isBackground && item.type === "range" });
+    return items.map(item => item.id);
+  }
+
+  function getBackgroundIdsAtZoomLevel({ windowSize } = {}) {
+    const items = itemSet.get({
+      filter: item => {
+        return item.isBackground && item.priority < 2;
+      }
+    });
+    return items.map(item => item.id);
+  }
 
   const getIds = function ({ windowRange }) {
     const windowSize = Math.abs(windowRange.end - windowRange.start);
@@ -159,7 +173,7 @@ function getTotalRange({ itemSet } = {}) {
   }
 
   return { start: new Date(min), end: new Date(max) };
-} // Tested
+}
 
 function getRangeSections({ totalRange, windowSize, sectionsPerWindow } = {}) {
   const sections = [];
@@ -174,7 +188,7 @@ function getRangeSections({ totalRange, windowSize, sectionsPerWindow } = {}) {
   }
 
   return sections;
-} // Tested
+}
 
 function isInRange({ item, range, overlap = false } = {}) {
   const itemStart = item.start;
@@ -187,7 +201,7 @@ function isInRange({ item, range, overlap = false } = {}) {
   }
 
   return itemStart > range.start && itemEnd < range.end;
-} // Tested
+}
 
 function getItemsInRange({ items, range, type = false } = {}) {
   const inRange = items.filter(item => isInRange({ item, range }));
@@ -195,7 +209,7 @@ function getItemsInRange({ items, range, type = false } = {}) {
   if (!type) return inRange;
 
   return inRange.filter(item => item.type === type);
-} // Tested
+}
 
 
 // Item sorting
@@ -226,7 +240,7 @@ function getPrioritizedItems({ itemSet, type = false } = {}) {
   }
 
   return prioritizedItems;
-} // Tested
+}
 
 
 const LodManager = createLodManager({
