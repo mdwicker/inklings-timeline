@@ -13,7 +13,7 @@
 
 import "./styles.css";
 import "./vis-timeline-graph2d.min.css";
-import { createItemView, createGroupView, allGroups } from "./displayCoordinator.js";
+import { itemView, groupView, allGroups } from "./displayCoordinator.js";
 import { pubSub, events } from "./pubSub.js";
 
 import { Timeline } from "vis-timeline/peer"
@@ -23,19 +23,14 @@ import { Timeline } from "vis-timeline/peer"
  *  State initialization
  * ===================== */
 
-const MINDATE = "1880-01-01";
-const MAXDATE = "2010-01-01";
-
 const container = document.getElementById("visualization");
 
-const items = createItemView();
-const groups = createGroupView().view;
-const timeline = new Timeline(container, items, groups, {
+const timeline = new Timeline(container, itemView, groupView, {
   horizontalScroll: true,
   verticalScroll: false,
   zoomKey: "ctrlKey",
-  min: MINDATE,
-  max: MAXDATE,
+  min: "1880-01-01",
+  max: "2010-01-01",
   start: "1920-01-01",
   end: "1945-12-31",
   groupOrder: "id",
@@ -54,15 +49,7 @@ const timeline = new Timeline(container, items, groups, {
 
 const initialRange = timeline.getWindow();
 
-pubSub.publish(
-  events.initializeTimeline,
-  {
-    start: new Date(MINDATE).valueOf(),
-    end: new Date(MAXDATE).valueOf(),
-    initialStart: initialRange.start.valueOf(),
-    initialEnd: initialRange.end.valueOf()
-  }
-);
+
 
 
 /* =====================
@@ -184,17 +171,24 @@ const VisibilityToggles = (function (groups) {
 /* =====================
  *  Event wiring
  * ===================== */
+const initialWindow = timeline.getWindow();
+let currentWindow = initialWindow;
 
-let currentRange = initialRange.start.valueOf() - initialRange.end.valueOf();
+pubSub.publish(
+  events.initializeTimeline,
+  {
+    start: initialWindow.start,
+    end: initialWindow.end,
+  }
+);
 
 // Listen for range change
 timeline.on("rangechange", (properties) => {
-  const start = properties.start.valueOf();
-  const end = properties.end.valueOf();
+  const start = properties.start;
+  const end = properties.end;
 
-  const range = start - end;
-  const zoomChange = !(currentRange === range);
-  currentRange = range;
+  const zoomChange = (currentWindow.start !== start && currentWindow.end !== end);
+  currentWindow = { start, end };
 
   pubSub.publish(events.rangeChange, { start, end, zoomChange });
 });

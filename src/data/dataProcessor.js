@@ -37,6 +37,8 @@ const categoryPrefixes = {
   "occupation": "🎓"
 };
 
+validateData({ groups: rawGroups, items: rawItems });
+
 const formattedData = format({ groups: rawGroups, items: rawItems });
 
 const visData = toVis({ groups: formattedData.groups, items: formattedData.items, flattenNestedGroups });
@@ -192,6 +194,7 @@ function formatVisItem({ item } = {}) {
   if (backgroundCategories.includes(item.category)) {
     visItem.subgroup = item.category;
     visItem.className = "background";
+    visItem.isBackground = true;
   } else {
     visItem.subgroup = "normal";
   }
@@ -277,7 +280,5 @@ function removeNestedGroups({ groups, items }) {
 
 const groups = new DataSet(visData.groups);
 const items = new DataSet(visData.items);
-
-console.log(groups.get());
 
 export { groups, items }

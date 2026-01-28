@@ -1,154 +1,103 @@
-import { groups, items } from "./data/dataProcessor.js";
+import { groups as groupSet, items as itemSet } from "./data/dataProcessor.js";
 import { pubSub, events } from "./pubSub.js";
 import { DataView } from "vis-data/peer";
 
-const numberOfSections = 3; // Number of "chunks" to split the range into for event budgeting
-const itemsPerSection = 8; // Number of events per range "chunk"
 const showAll = false; // Force all events to be shown regardless of filtering rules
+const currentRangeWindow = {};
 
-const prioritizedItems = items.get({ order: sortItems });
 
-function sortItems(a, b) {
-  if (a.priority < b.priority) {
-    return -1;
-  } else if (a.priority > b.priority) {
-    return 1;
+const totalRange = getTotalRange({ itemSet });
+const size = Math.abs(totalRange.end - totalRange.start) / 20;
+const sections = getRangeSections({ totalRange, windowSize: size, sectionsPerWindow: 3 });
+
+const backgroundEvent = itemSet.get(3); // enclosed
+const overlapEvent = itemSet.get(7);
+const pointEvent = itemSet.get(34);
+const outOfRange = itemSet.get(100);
+const testRange = { start: new Date("1900-01-01"), end: new Date("1920-01-01") };
+
+
+// Factory Functions, etc
+
+function createLodManager(
+  { itemSet,
+    numberOfSteps = 23,
+    stepSize = 1.5,
+    sectionsPerWindow = 3,
+    itemsPerSection = 8
+  } = {}
+) {
+  const idsByZoomLevel = {};
+  const totalRange = getTotalRange({ itemSet });
+
+  // populate ids for each zoom level
+  let windowSize = Math.abs(totalRange.end - totalRange.start);
+  for (let i = numberOfSteps; i > 0; i--) {
+    idsByZoomLevel[windowSize] = getIdsAtZoomLevel({ windowSize });
+    windowSize = Math.floor(windowSize / stepSize);
   }
 
-  // more sort logic. alphabetical for now
-  return a.content > b.content;
+  // Set up a normalized array of the zoomLevel values
+  const zoomLevels = Object.keys(idsByZoomLevel).map(level => Number(level));
+
+
+  function getIdsAtZoomLevel({ windowSize } = {}) {
+    return new Set([
+      ...getPointIdsAtZoomLevel({ windowSize }),
+      // ...getRangeIdsAtZoomLevel({ windowSize }),
+      // ...getBackgroundIdsAtZoomLevel({ windowSize }),
+    ]);
+  }
+
+  function getPointIdsAtZoomLevel({ windowSize } = {}) {
+    const ids = [];
+
+    const itemPool = getPrioritizedItems({ itemSet, type: "point" });
+    const sections = getRangeSections({ totalRange, windowSize, sectionsPerWindow });
+
+    for (const section of sections) {
+      const pointsInRange = getItemsInRange({ range: section, items: itemPool });
+
+      ids.push(...pointsInRange.slice(0, itemsPerSection).map(item => item.id));
+    }
+
+    return ids;
+  } // Tested
+
+  const getIds = function ({ windowRange }) {
+    const windowSize = Math.abs(windowRange.end - windowRange.start);
+    const zoomLevel = Math.max(...zoomLevels.filter(level => level <= windowSize));
+    return idsByZoomLevel[zoomLevel];
+  }
+
+  return { getIds };
 }
 
-export const createItemView = function () {
-  let minDate, maxDate;
+function createItemViewManager({ itemSet } = {}) {
+  let idsToDisplay = new Set();
 
-  let itemsToDisplay = [];
-  let rangesToDisplay = [];
-
-  const view = new DataView(items, {
+  const view = new DataView(itemSet, {
     filter: item => {
-      // for now, include all range items of level 1 priority or higher
-      if (item.type === "range"
-        || item.subgroup === "location"
-        || item.subgroup === "occupation") {
-        return item.priority < 2;
-      }
-
-      return itemsToDisplay.includes(item.id);
+      // THIS LINE MUST CHANGE WHEN AGGREGATION IS INTRODUCED.
+      // Otherwise, parent and child items will display simultaneously.
+      if (showAll) return true;
+      return (idsToDisplay.has(item.id));
     }
   });
 
-  function getItemsInRange({ start, end, itemPool = items } = {}) {
-    return itemPool.filter(item => isInRange({ item, start, end }));
-  }
-
-  function isInRange({ item, start, end, overlap = false } = {}) {
-    const itemStart = item.start.valueOf();
-    const itemEnd = item.end ? item.end.valueOf() : itemStart;
-
-    if (overlap) {
-      // Range items will return true if they are visible anywhere in the range,
-      // even if they are not fully enclosed
-      return itemStart < end && itemEnd > start
-    }
-
-    return itemStart > start && itemEnd < end
-  }
-
-  function divideRange({ start, end, divisions } = {}) {
-    const sections = [];
-    const size = Math.abs(end - start) / divisions;
-
-    let sectionStart = minDate;
-
-    while (sectionStart < maxDate) {
-      sections.push({ start: sectionStart, end: sectionStart + size });
-      sectionStart += size;
-    }
-
-    return sections;
-  }
-
-  function updateItemsToDisplay({ start, end } = {}) {
-    itemsToDisplay = [];
-
-    const sections = divideRange({ start, end, divisions: numberOfSections });
-
-    for (const section of sections) {
-      const itemsInRange = getItemsInRange({
-        start: section.start,
-        end: section.end,
-        itemPool: prioritizedItems
-      });
-
-
-      // add prioritized point events
-      itemsToDisplay.push(
-        ...itemsInRange
-          .filter(item => item.type === "point")
-          .slice(0, itemsPerSection)
-          .map(item => item.id)
-      );
-    }
-  }
-
-  function updateRangesToDisplay({ start, end } = {}) {
-    rangesToDisplay = [];
-
-    const sections = divideRange({ start, end, divisions: numberOfSections });
-
-    for (const section of sections) {
-      const itemsInRange = getItemsInRange({
-        start: section.start,
-        end: section.end,
-        itemPool: prioritizedItems
-      });
-
-
-      // add prioritized point events
-      itemsToDisplay.push(
-        ...itemsInRange
-          .filter(item => item.type === "range")
-          .slice(0, itemsPerSection)
-          .map(item => item.id)
-      );
-    }
-  }
-
-  function refreshView({ start, end } = {}) {
-    updateItemsToDisplay({ start, end });
-    updateRangesToDisplay({ start, end });
+  const refreshVisibleIds = function ({ ids }) {
+    idsToDisplay = new Set([...ids]);
     view.refresh();
   }
 
-  // initialize with starting range values
-  pubSub.subscribe(events.initializeTimeline, (range) => {
-    minDate = range.start;
-    maxDate = range.end;
-
-    refreshView({ start: range.initialStart, end: range.initialEnd });
-  })
-
-  // refresh on range change
-  pubSub.subscribe(events.rangeChange, (range) => {
-    if (range.zoomChange) {
-      refreshView({ start: range.start, end: range.end });
-    }
-  })
-
-  return view;
-};
-
-function getDaysInRange({ start, end } = {}) {
-  const lengthInMs = Math.abs(start - end);
-  return Math.ceil(lengthInMs / (1000 * 60 * 60 * 24));
+  return { view, refreshVisibleIds };
 }
 
-export const createGroupView = function () {
-  const groupIds = groups.get().map(group => group.id)
+const createGroupViewManager = function ({ groupSet } = {}) {
+  const groupIds = groupSet.get().map(group => group.id)
   let groupsToggledOn = new Set(groupIds);
 
-  const view = new DataView(groups, {
+  const view = new DataView(groupSet, {
     filter: (group) => {
       // Groups with parents should only display if parent is toggled on
       if (group.parentId && !groupsToggledOn.has(group.parentId)) {
@@ -158,7 +107,7 @@ export const createGroupView = function () {
     }
   });
 
-  function toggleGroup({ id, toggleStatus } = {}) {
+  const toggleGroup = function ({ id, toggleStatus } = {}) {
     const isOn = groupsToggledOn.has(id);
 
     if (isOn && !toggleStatus) {
@@ -170,13 +119,130 @@ export const createGroupView = function () {
     pubSub.publish(events.toggleGroup, { id, toggleStatus })
   }
 
-  // toggle group upon request
-  pubSub.subscribe(events.requestGroupToggle, (e) => {
-    toggleGroup({ id: e.id, toggleStatus: e.toggleStatus });
-    view.refresh();
-  });
-
-  return { view };
+  return { view, toggleGroup };
 };
 
-export const allGroups = groups.get();
+function setupEventWiring({ LodManager, itemViewManager, groupViewManager } = {}) {
+  // initialize with starting range values
+  pubSub.subscribe(events.initializeTimeline, (range) => {
+    const visibleIds = LodManager.getIds({ windowRange: range });
+    itemViewManager.refreshVisibleIds({ ids: visibleIds });
+  })
+
+  // refresh on range change
+  pubSub.subscribe(events.rangeChange, (range) => {
+    const visibleIds = LodManager.getIds({ windowRange: range });
+    itemViewManager.refreshVisibleIds({ ids: visibleIds });
+  })
+
+  // toggle group upon request
+  pubSub.subscribe(events.requestGroupToggle, (e) => {
+    groupViewManager.toggleGroup({ id: e.id, toggleStatus: e.toggleStatus });
+    groupViewManager.view.refresh();
+  });
+}
+
+
+// Utility functions
+
+function getTotalRange({ itemSet } = {}) {
+  let min = Infinity;
+  let max = -Infinity;
+
+  for (const item of itemSet.get()) {
+    const start = item.start.valueOf();
+    const end = item.end ? item.end.valueOf() : start;
+
+
+    if (start < min) min = start;
+    if (end > max) max = end;
+  }
+
+  return { start: new Date(min), end: new Date(max) };
+} // Tested
+
+function getRangeSections({ totalRange, windowSize, sectionsPerWindow } = {}) {
+  const sections = [];
+  const size = windowSize / sectionsPerWindow;
+
+  let sectionStart = totalRange.start.valueOf();
+  let end = totalRange.end.valueOf();
+
+  while (sectionStart < end) {
+    sections.push({ start: new Date(sectionStart), end: new Date(sectionStart + size) });
+    sectionStart += size;
+  }
+
+  return sections;
+} // Tested
+
+function isInRange({ item, range, overlap = false } = {}) {
+  const itemStart = item.start;
+  const itemEnd = item.end ? item.end : item.start;
+
+  if (overlap) {
+    // Range items will return true if they are visible anywhere in the range,
+    // even if they are not fully enclosed
+    return itemStart < range.end && itemEnd > range.start;
+  }
+
+  return itemStart > range.start && itemEnd < range.end;
+} // Tested
+
+function getItemsInRange({ items, range, type = false } = {}) {
+  const inRange = items.filter(item => isInRange({ item, range }));
+
+  if (!type) return inRange;
+
+  return inRange.filter(item => item.type === type);
+} // Tested
+
+
+// Item sorting
+
+function getPrioritizedItems({ itemSet, type = false } = {}) {
+  const prioritizedItems = itemSet.get({
+    order: sortItems,
+    filter: filterByType
+  });
+
+  function sortItems(a, b) {
+    if (a.priority < b.priority) {
+      return -1;
+    } else if (a.priority > b.priority) {
+      return 1;
+    }
+
+    return a.content - b.content;
+  }
+
+  function filterByType(item) {
+    if (!type) return true;
+    if (type === "background") {
+      return item.isBackground
+    } else {
+      return !item.isBackground && item.type === type;
+    }
+  }
+
+  return prioritizedItems;
+} // Tested
+
+
+const LodManager = createLodManager({
+  itemSet,
+  numberOfSteps: 23,
+  stepSize: 1.5,
+  sectionsPerWindow: 3,
+  itemsPerSection: 8
+});
+
+const itemViewManager = createItemViewManager({ itemSet });
+
+const groupViewManager = createGroupViewManager({ groupSet });
+
+setupEventWiring({ LodManager, itemViewManager, groupViewManager });
+
+export const allGroups = groupSet.get();
+export const groupView = groupViewManager.view;
+export const itemView = itemViewManager.view;
