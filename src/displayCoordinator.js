@@ -11,8 +11,8 @@ const LodManager = createLodManager({
   itemSet,
   numberOfSteps: 23,
   stepSize: 1.5,
-  sectionsPerWindow: 5,
-  itemsPerSection: 5
+  sectionsPerWindow: 3,
+  itemsPerSection: 9
 });
 
 const itemViewManager = createItemViewManager({ itemSet });
