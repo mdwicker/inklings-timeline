@@ -1,4 +1,4 @@
-import { groups as groupSet, items as itemSet } from "./data/dataProcessor.js";
+import { groups as groupSet, items as itemSet } from "./dataProcessor.js";
 import { pubSub, events } from "./pubSub.js";
 import { DataView } from "vis-data/peer";
 

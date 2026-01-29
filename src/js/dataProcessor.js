@@ -25,8 +25,8 @@ Priority 4: Incidental or Niche Information
     Summary: Trivia, short-term trips, or very early/obscure works that don't impact the overall narrative.
  */
 
-import rawGroups from './groups.json'
-import rawItems from './items.json'
+import rawGroups from '../data/groups.json'
+import rawItems from '../data/items.json'
 import { DataSet } from "vis-data/peer"
 
 

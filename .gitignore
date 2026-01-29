@@ -19,6 +19,4 @@ dist/
 Thumbs.db
 
 # Obsidian files
-obsidian/.obsidian/workspace
-obsidian/.obsidian/cache/
-obsidian/.obsidian/local-plugins/
+obsidian/.obsidian/

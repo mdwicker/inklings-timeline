@@ -10,9 +10,9 @@
  *   zoom leveels, maybe).
  */
 
+import "../styles/vis-timeline-graph2d.min.css";
+import "../styles/styles.css";
 
-import "./styles.css";
-import "./vis-timeline-graph2d.min.css";
 import { itemView, groupView, allGroups } from "./displayCoordinator.js";
 import { pubSub, events } from "./pubSub.js";
 
