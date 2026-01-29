@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "dev": "webpack serve --open --config webpack.dev.js",
-    "deploy": "git push origin $(git subtree split --prefix dist):gh-pages --force"
+    "deploy": "git push origin $(git subtree split --prefix dist):gh-pages --force",
+    "sync": "python3 scripts/sync_items.py"
   },
   "repository": {
     "type": "git",

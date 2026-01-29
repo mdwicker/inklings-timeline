@@ -3,8 +3,15 @@ import yaml
 import re
 from pathlib import Path
 
-json_file = Path('../src/data/items.json')
-vault_folder = Path('../obsidian/events/')
+json_file = Path('./src/data/items.json')
+vault_folder = Path('./obsidian/events/')
+
+def safe_title(title: str) -> str:
+    """Turn a title into a filename-friendly string."""
+    s = title.lower()
+    s = re.sub(r"[^\w\s-]", "", s)  # remove special characters
+    s = re.sub(r"\s+", "_", s)      # spaces → underscores
+    return s
 
 with open(json_file, 'r', encoding="utf-8") as f:
     items = json.load(f)
@@ -14,12 +21,7 @@ for item in items:
     person_folder = vault_folder / person
     person_folder.mkdir(parents=True, exist_ok=True)
 
-    safe_title = item["name"].lower()
-    safe_title = re.sub(r"[^\w\s-]", "", safe_title)   # remove special characters
-    safe_title = re.sub(r"\s+", "_", safe_title)       # spaces → underscore
-
-    filename = person_folder / f"EVT{item['id']}_{safe_title}.md"
-
+    filename = person_folder / f"EVT{item['id']}_{safe_title(item['name'])}.md"
 
     yaml_front = yaml.safe_dump(item, sort_keys=False, allow_unicode=True)
     content = f"---\n{yaml_front}---\n\n"
