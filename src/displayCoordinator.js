@@ -82,6 +82,13 @@ function createLodManager(
 
   const getIds = function ({ windowRange }) {
     const windowSize = Math.abs(windowRange.end - windowRange.start);
+
+    // if window Size is smaller than 1 month, show all events
+    if (inDays(windowSize) < 30) {
+      return itemSet.get().map(item => item.id);
+    }
+
+    // otherwise, show the appropriate zoom level
     const zoomLevel = Math.max(...zoomLevels.filter(level => level <= windowSize));
     return idsByZoomLevel[zoomLevel];
   }
@@ -214,6 +221,14 @@ function getItemsInRange({ items, range, type = false, rangeMode = "enclose" } =
   if (!type) return inRange;
 
   return inRange.filter(item => item.type === type);
+}
+
+function inDays(dateValue) {
+  return dateValue / 1000 / 60 / 60 / 24;
+}
+
+function inYears(dateValue) {
+  return inDays(dateValue) / 365;
 }
 
 
