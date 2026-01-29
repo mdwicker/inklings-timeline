@@ -3,19 +3,23 @@ import { pubSub, events } from "./pubSub.js";
 import { DataView } from "vis-data/peer";
 
 const showAll = false; // Force all events to be shown regardless of filtering rules
-const currentRangeWindow = {};
 
 
-const totalRange = getTotalRange({ itemSet });
-const size = Math.abs(totalRange.end - totalRange.start) / 20;
-const sections = getRangeSections({ totalRange, windowSize: size, sectionsPerWindow: 3 });
+// Initialize Managers and Event Wiring
 
-const backgroundEvent = itemSet.get(3); // enclosed
-const overlapEvent = itemSet.get(7);
-const pointEvent = itemSet.get(34);
-const outOfRange = itemSet.get(100);
-const testRange = { start: new Date("1900-01-01"), end: new Date("1920-01-01") };
+const LodManager = createLodManager({
+  itemSet,
+  numberOfSteps: 23,
+  stepSize: 1.5,
+  sectionsPerWindow: 5,
+  itemsPerSection: 5
+});
 
+const itemViewManager = createItemViewManager({ itemSet });
+
+const groupViewManager = createGroupViewManager({ groupSet });
+
+setupEventWiring({ LodManager, itemViewManager, groupViewManager });
 
 // Factory Functions, etc
 
@@ -24,11 +28,15 @@ function createLodManager(
     numberOfSteps = 23,
     stepSize = 1.5,
     sectionsPerWindow = 3,
-    itemsPerSection = 8
+    itemsPerSection = 9
   } = {}
 ) {
   const idsByZoomLevel = {};
   const totalRange = getTotalRange({ itemSet });
+
+  // extend total range slightly to include items at the outer limits
+  totalRange.start = new Date(totalRange.start.valueOf() - 1);
+  totalRange.end = new Date(totalRange.end.valueOf() + 1);
 
   // populate ids for each zoom level
   let windowSize = Math.abs(totalRange.end - totalRange.start);
@@ -43,30 +51,24 @@ function createLodManager(
 
   function getIdsAtZoomLevel({ windowSize } = {}) {
     return new Set([
-      ...getPointIdsAtZoomLevel({ windowSize }),
-      ...getRangeIdsAtZoomLevel({ windowSize }),
+      ...getForegroundIdsAtZoomLevel({ windowSize }),
       ...getBackgroundIdsAtZoomLevel({ windowSize }),
     ]);
   }
 
-  function getPointIdsAtZoomLevel({ windowSize } = {}) {
+  function getForegroundIdsAtZoomLevel({ windowSize } = {}) {
     const ids = [];
 
-    const itemPool = getPrioritizedItems({ itemSet, type: "point" });
+    const itemPool = getPrioritizedItems({ itemSet });
     const sections = getRangeSections({ totalRange, windowSize, sectionsPerWindow });
 
     for (const section of sections) {
-      const pointsInRange = getItemsInRange({ range: section, items: itemPool });
+      const itemsInRange = getItemsInRange({ range: section, items: itemPool, rangeMode: "start" });
 
-      ids.push(...pointsInRange.slice(0, itemsPerSection).map(item => item.id));
+      ids.push(...itemsInRange.slice(0, itemsPerSection).map(item => item.id));
     }
 
     return ids;
-  }
-
-  function getRangeIdsAtZoomLevel({ windowSize } = {}) {
-    const items = itemSet.get({ filter: item => !item.isBackground && item.type === "range" });
-    return items.map(item => item.id);
   }
 
   function getBackgroundIdsAtZoomLevel({ windowSize } = {}) {
@@ -107,7 +109,7 @@ function createItemViewManager({ itemSet } = {}) {
   return { view, refreshVisibleIds };
 }
 
-const createGroupViewManager = function ({ groupSet } = {}) {
+function createGroupViewManager({ groupSet } = {}) {
   const groupIds = groupSet.get().map(group => group.id)
   let groupsToggledOn = new Set(groupIds);
 
@@ -190,21 +192,24 @@ function getRangeSections({ totalRange, windowSize, sectionsPerWindow } = {}) {
   return sections;
 }
 
-function isInRange({ item, range, overlap = false } = {}) {
+function isInRange({ item, range, rangeMode = "enclose" } = {}) {
   const itemStart = item.start;
   const itemEnd = item.end ? item.end : item.start;
 
-  if (overlap) {
-    // Range items will return true if they are visible anywhere in the range,
-    // even if they are not fully enclosed
-    return itemStart < range.end && itemEnd > range.start;
+  if (rangeMode === "overlap") {
+    // Range items will return true if they are visible anywhere in the range
+    return itemStart <= range.end && itemEnd > range.start;
+  } else if (rangeMode === "start") {
+    // Range items will return true if their start date is visible in the range
+    return itemStart <= range.end && itemEnd > range.start;
   }
 
-  return itemStart > range.start && itemEnd < range.end;
+  // By default, range items return true if they are fully enclosed by the range
+  return itemStart > range.start && itemEnd <= range.end;
 }
 
-function getItemsInRange({ items, range, type = false } = {}) {
-  const inRange = items.filter(item => isInRange({ item, range }));
+function getItemsInRange({ items, range, type = false, rangeMode = "enclose" } = {}) {
+  const inRange = items.filter(item => isInRange({ item, range, rangeMode }));
 
   if (!type) return inRange;
 
@@ -214,26 +219,30 @@ function getItemsInRange({ items, range, type = false } = {}) {
 
 // Item sorting
 
-function getPrioritizedItems({ itemSet, type = false } = {}) {
+function getPrioritizedItems({ itemSet, type = false, background = false } = {}) {
   const prioritizedItems = itemSet.get({
     order: sortItems,
     filter: filterByType
   });
 
   function sortItems(a, b) {
-    if (a.priority < b.priority) {
-      return -1;
-    } else if (a.priority > b.priority) {
-      return 1;
+    if (a.priority != b.priority) {
+      return a.priority - b.priority;
+    }
+
+    if (a.type != b.type) {
+      if (a.type === "range") return -1;
+      else if (b.type === "range") return 1;
     }
 
     return a.content - b.content;
   }
 
   function filterByType(item) {
-    if (!type) return true;
-    if (type === "background") {
+    if (type === "background" || background) {
       return item.isBackground
+    } else if (!type) {
+      return !item.isBackground;
     } else {
       return !item.isBackground && item.type === type;
     }
@@ -241,21 +250,6 @@ function getPrioritizedItems({ itemSet, type = false } = {}) {
 
   return prioritizedItems;
 }
-
-
-const LodManager = createLodManager({
-  itemSet,
-  numberOfSteps: 23,
-  stepSize: 1.5,
-  sectionsPerWindow: 3,
-  itemsPerSection: 8
-});
-
-const itemViewManager = createItemViewManager({ itemSet });
-
-const groupViewManager = createGroupViewManager({ groupSet });
-
-setupEventWiring({ LodManager, itemViewManager, groupViewManager });
 
 export const allGroups = groupSet.get();
 export const groupView = groupViewManager.view;
