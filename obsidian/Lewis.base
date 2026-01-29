@@ -4,6 +4,7 @@ views:
     filters:
       and:
         - file.ext != "base"
+        - address.startsWith("lewis")
     order:
       - id
       - address
@@ -14,10 +15,14 @@ views:
       - description
       - edtf
       - source
+      - page
       - note.note
       - type
       - file.name
     columnSize:
       note.address: 132
       note.priority: 2
+      note.start: 105
+      note.end: 111
       note.description: 175
+      note.note: 310
