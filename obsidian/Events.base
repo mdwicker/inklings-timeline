@@ -1,0 +1,19 @@
+views:
+  - type: table
+    name: Table
+    order:
+      - id
+      - address
+      - priority
+      - name
+      - start
+      - end
+      - type
+      - description
+      - edtf
+      - source
+      - note.note
+      - file.name
+    columnSize:
+      note.priority: 2
+      note.description: 175
