@@ -23,25 +23,29 @@ for i, item in enumerate(items):
         changed = False
 
         # MAKE CHANGES TO TEMP_ITEM BELOW
-        address = temp_item.get('address', '')
-        if not address:
+        person_map = {
+            "lewis": "C.S. Lewis",
+            "tolkien": "J.R.R. Tolkien",
+            "barfield": "Owen Barfield",
+            "williams": "Charles Williams",
+            "warren-lewis": "Warren Lewis",
+            "inklings": "Inklings"
+        }
+
+        person = temp_item.get('person', '')
+        if not person:
             continue
 
-        address_parts = address.split(".", 1)
-        person = address_parts[0].strip()
-        category = address_parts[1].strip() if len(address_parts) > 1 else None
-        
-        if temp_item.get('person') != person:
-            temp_item['person'] = person
+        if person in person_map:
             changed = True
-        if category is not None and temp_item.get('category') != category:
-            temp_item['category'] = category
-            changed = True
+            temp_item['person'] = person_map[person]
+            temp_item['people'] = [person_map[person]]
+
+
+        # END OF CHANGES
 
         if not changed:
             continue
-
-        # END OF CHANGES
 
         jsonschema.validate(instance=temp_item, schema=item_schema)
 
@@ -49,7 +53,7 @@ for i, item in enumerate(items):
         items_modified += 1
         modified_indices.append(i)
     except jsonschema.ValidationError as e:
-        print(f"Validation error for item {item.get("id")}: {e.message}")
+        print(f"Validation error for item {item.get('id')}: {e.message}")
         continue  # skip invalid changes
 
 
