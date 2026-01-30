@@ -34,16 +34,16 @@
         "type": "string",
         "anyOf": [
           {
-            "pattern": "^tolkien(.(location|occupation|life|major-pub|minor-pub))?$"
+            "pattern": "^jrr-tolkien(.(location|occupation|life|major-pub|minor-pub))?$"
           },
           {
-            "pattern": "^lewis(.(location|occupation|life|major-pub|minor-pub))?$"
+            "pattern": "^cs-lewis(.(location|occupation|life|major-pub|minor-pub))?$"
           },
           {
-            "pattern": "^barfield$"
+            "pattern": "^owen-barfield$"
           },
           {
-            "pattern": "^williams$"
+            "pattern": "^charles-williams$"
           },
           {
             "pattern": "^warren-lewis$"

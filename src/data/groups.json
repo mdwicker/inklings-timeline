@@ -2,95 +2,95 @@
   {
     "name": "Tolkien",
     "tags": ["tolkien"],
-    "address": "tolkien",
+    "address": "jrr-tolkien",
     "id": 1
   },
   {
     "name": "Location",
     "tags": ["tolkien", "location"],
-    "address": "tolkien.location",
+    "address": "jrr-tolkien.location",
     "id": 2,
     "parentId": 1
   },
   {
     "name": "Occupation",
     "tags": ["tolkien", "occupation"],
-    "address": "tolkien.occupation",
+    "address": "jrr-tolkien.occupation",
     "id": 3,
     "parentId": 1
   },
   {
     "name": "Life Events",
     "tags": ["tolkien", "life"],
-    "address": "tolkien.life",
+    "address": "jrr-tolkien.life",
     "id": 4,
     "parentId": 1
   },
   {
     "name": "Major Publications",
     "tags": ["tolkien", "major-publications"],
-    "address": "tolkien.major-pub",
+    "address": "jrr-tolkien.major-pub",
     "id": 5,
     "parentId": 1
   },
   {
     "name": "Minor Publications",
     "tags": ["tolkien", "minor-publications"],
-    "address": "tolkien.minor-pub",
+    "address": "jrr-tolkien.minor-pub",
     "id": 6,
     "parentId": 1
   },
   {
     "name": "Lewis",
     "tags": ["lewis"],
-    "address": "lewis",
+    "address": "cs-lewis",
     "id": 7
   },
   {
     "name": "Location",
     "tags": ["lewis", "location"],
-    "address": "lewis.location",
+    "address": "cs-lewis.location",
     "id": 8,
     "parentId": 7
   },
   {
     "name": "Occupation",
     "tags": ["lewis", "occupation"],
-    "address": "lewis.occupation",
+    "address": "cs-lewis.occupation",
     "id": 9,
     "parentId": 7
   },
   {
     "name": "Life Events",
     "tags": ["lewis", "life"],
-    "address": "lewis.life",
+    "address": "cs-lewis.life",
     "id": 10,
     "parentId": 7
   },
   {
     "name": "Major Publications",
     "tags": ["lewis", "major-publications"],
-    "address": "lewis.major-pub",
+    "address": "cs-lewis.major-pub",
     "id": 11,
     "parentId": 7
   },
   {
     "name": "Minor Publications",
     "tags": ["lewis", "minor-publications"],
-    "address": "lewis.minor-pub",
+    "address": "cs-lewis.minor-pub",
     "id": 12,
     "parentId": 7
   },
   {
     "name": "Barfield",
     "tags": ["barfield"],
-    "address": "barfield",
+    "address": "owen-barfield",
     "id": 13
   },
   {
     "name": "Williams",
     "tags": ["williams"],
-    "address": "williams",
+    "address": "charles-williams",
     "id": 14
   },
   {
