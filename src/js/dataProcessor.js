@@ -64,7 +64,7 @@ function format({ groups, items } = {}) {
   });
 
   const formattedItems = items.map(item => {
-    return normalizeItem({ item, groupId: addressBook[item.address] });
+    return normalizeItem({ item, groupId: addressBook[getAddress(item)] });
   });
 
   return {
@@ -101,18 +101,11 @@ function getRelationships({ groups, items, addressBook } = {}) {
   });
 
   items.forEach(item => {
-    let itemAddress;
+    const address = getAddress(item);
 
-    if (item.address) itemAddress = item.address;
-    else {
-      const itemAddressElements = [item.person];
-      if (item.category) itemAddress.push(item.category)
-      itemAddress = itemAddressElements.join(".");
-    }
-
-    const groupId = addressBook[itemAddress];
+    const groupId = addressBook[address];
     if (!groupId) {
-      throw new Error(`Address ${itemAddress} not found for item ${item.name}`);
+      throw new Error(`Address ${address} not found for item ${item.name}`);
     }
     relationships[groupId].items.push(item.id);
   })
@@ -158,26 +151,26 @@ function normalize({ object } = {}) {
     }
   });
 
-  if (normalized.address) {
-    const addressParts = normalized.address.split(".");
-    if (addressParts.length === 0 || !addressParts[0]) {
-      throw new Error(`No address parts found for group ${normalized.name}`);
-    }
+  // if (normalized.address) {
+  //   const addressParts = normalized.address.split(".");
+  //   if (addressParts.length === 0 || !addressParts[0]) {
+  //     throw new Error(`No address parts found for group ${normalized.name}`);
+  //   }
 
-    const person = addressParts[0];
-    let category = "general";
+  //   const person = addressParts[0];
+  //   let category = "general";
 
-    if (addressParts.length > 1) {
-      category = addressParts[1];
-    }
+  //   if (addressParts.length > 1) {
+  //     category = addressParts[1];
+  //   }
 
-    normalized.person = person;
-    normalized.category = category;
-  } else if (normalized.person) {
-    const addressParts = [normalized.person];
-    if (normalized.category) addressParts.push(normalized.category);
-    normalized.address = addressParts.join(".");
-  }
+  //   normalized.person = person;
+  //   normalized.category = category;
+  // } else if (normalized.person) {
+  //   const addressParts = [normalized.person];
+  //   if (normalized.category) addressParts.push(normalized.category);
+  //   normalized.address = addressParts.join(".");
+  // }
 
   return normalized;
 }
@@ -189,11 +182,17 @@ function getClasses(group) {
   return classes.join(" ");
 }
 
+function getAddress(item) {
+  const itemAddressElements = [slugify(item.person)];
+  if (item.category) itemAddressElements.push(item.category)
+  return itemAddressElements.join(".");
+}
+
 function formatVisItem({ item } = {}) {
-  const { id, name, start, priority, type, address, group, person, category } = item;
+  const { id, name, start, priority, type, group, person, category } = item;
 
   const visItem = {
-    id, group, start, priority, type, address, person, category,
+    id, group, start, priority, type, person, category,
     content: name,
   };
 
@@ -289,6 +288,14 @@ function removeNestedGroups({ groups, items }) {
   }));
 
   return { groups: processedGroups, items: processedItems };
+}
+
+function slugify(name) {
+  return name
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w-]/g, '');
 }
 
 const groups = new DataSet(visData.groups);
