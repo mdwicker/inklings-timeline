@@ -151,27 +151,6 @@ function normalize({ object } = {}) {
     }
   });
 
-  // if (normalized.address) {
-  //   const addressParts = normalized.address.split(".");
-  //   if (addressParts.length === 0 || !addressParts[0]) {
-  //     throw new Error(`No address parts found for group ${normalized.name}`);
-  //   }
-
-  //   const person = addressParts[0];
-  //   let category = "general";
-
-  //   if (addressParts.length > 1) {
-  //     category = addressParts[1];
-  //   }
-
-  //   normalized.person = person;
-  //   normalized.category = category;
-  // } else if (normalized.person) {
-  //   const addressParts = [normalized.person];
-  //   if (normalized.category) addressParts.push(normalized.category);
-  //   normalized.address = addressParts.join(".");
-  // }
-
   return normalized;
 }
 

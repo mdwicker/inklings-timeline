@@ -23,24 +23,15 @@ for i, item in enumerate(items):
         changed = False
 
         # MAKE CHANGES TO TEMP_ITEM BELOW
-        person_map = {
-            "lewis": "C.S. Lewis",
-            "tolkien": "J.R.R. Tolkien",
-            "barfield": "Owen Barfield",
-            "williams": "Charles Williams",
-            "warren-lewis": "Warren Lewis",
-            "inklings": "Inklings"
-        }
-
-        person = temp_item.get('person', '')
-        if not person:
+        name = temp_item.get('name')
+        
+        if not name:
             continue
 
-        if person in person_map:
+        if not temp_item['title']:
             changed = True
-            temp_item['person'] = person_map[person]
-            temp_item['people'] = [person_map[person]]
-
+            temp_item['title'] = name
+            temp_item.pop('name')
 
         # END OF CHANGES
         
