@@ -1,6 +1,6 @@
 [
   {
-    "name": "Tolkien",
+    "name": "J.R.R. Tolkien",
     "tags": ["tolkien"],
     "address": "jrr-tolkien",
     "id": 1
@@ -41,7 +41,7 @@
     "parentId": 1
   },
   {
-    "name": "Lewis",
+    "name": "C.S. Lewis",
     "tags": ["lewis"],
     "address": "cs-lewis",
     "id": 7
@@ -82,13 +82,13 @@
     "parentId": 7
   },
   {
-    "name": "Barfield",
+    "name": "Owen Barfield",
     "tags": ["barfield"],
     "address": "owen-barfield",
     "id": 13
   },
   {
-    "name": "Williams",
+    "name": "Charles Williams",
     "tags": ["williams"],
     "address": "charles-williams",
     "id": 14
