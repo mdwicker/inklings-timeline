@@ -53,7 +53,7 @@
           }
         ]
       },
-      "name": {
+      "title": {
         "type": "string",
         "maxLength": 100
       },
@@ -87,6 +87,6 @@
         "type": "string"
       }
     },
-    "required": ["id", "person", "name", "start", "priority", "type"]
+    "required": ["id", "person", "title", "start", "priority", "type"]
   }
 }

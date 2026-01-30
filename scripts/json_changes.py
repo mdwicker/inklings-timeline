@@ -24,7 +24,7 @@ for i, item in enumerate(items):
 
         # MAKE CHANGES TO TEMP_ITEM BELOW
         name = temp_item.get('name')
-        
+
         if not name:
             continue
 
@@ -34,7 +34,7 @@ for i, item in enumerate(items):
             temp_item.pop('name')
 
         # END OF CHANGES
-        
+
         if not changed:
             continue
 

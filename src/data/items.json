@@ -1,7 +1,6 @@
 [
   {
     "id": 1,
-    "name": "Bloemfontein, South Africa",
     "start": "1892-01-01",
     "end": "1895-12-31",
     "priority": 1,
@@ -11,11 +10,11 @@
     "category": "location",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Bloemfontein, South Africa"
   },
   {
     "id": 2,
-    "name": "Birmingham and suburbs",
     "start": "1896-01-01",
     "end": "1911-09-30",
     "priority": 1,
@@ -25,11 +24,11 @@
     "category": "location",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Birmingham and suburbs"
   },
   {
     "id": 3,
-    "name": "Oxford",
     "start": "1911-10-01",
     "end": "1915-04-01",
     "priority": 1,
@@ -39,11 +38,11 @@
     "category": "location",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Oxford"
   },
   {
     "id": 4,
-    "name": "Army",
     "description": "Mostly training around Bedford and Staffordshire",
     "start": "1915-04-01",
     "end": "1916-11-08",
@@ -54,11 +53,11 @@
     "category": "location",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Army"
   },
   {
     "id": 5,
-    "name": "France",
     "start": "1916-06-06",
     "end": "1916-11-08",
     "priority": 2,
@@ -68,11 +67,11 @@
     "category": "location",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "France"
   },
   {
     "id": 6,
-    "name": "Recovery",
     "description": "Great Haywood, various camps and hospitals",
     "start": "1916-11-09",
     "end": "1918-10-31",
@@ -83,11 +82,11 @@
     "category": "location",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Recovery"
   },
   {
     "id": 7,
-    "name": "Oxford",
     "start": "1918-11-01",
     "end": "1920-09-01",
     "priority": 1,
@@ -97,11 +96,11 @@
     "category": "location",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Oxford"
   },
   {
     "id": 8,
-    "name": "Leeds",
     "start": "1920-09-01",
     "end": "1926-01-07",
     "priority": 1,
@@ -111,11 +110,11 @@
     "category": "location",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Leeds"
   },
   {
     "id": 9,
-    "name": "5 Holly Bank",
     "start": "1921-03-01",
     "end": "1921-08-01",
     "priority": 3,
@@ -125,11 +124,11 @@
     "category": "location",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "5 Holly Bank"
   },
   {
     "id": 10,
-    "name": "11 St Marks Terrace",
     "start": "1921-08-01",
     "end": "1924-03-17",
     "priority": 3,
@@ -139,11 +138,11 @@
     "category": "location",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "11 St Marks Terrace"
   },
   {
     "id": 11,
-    "name": "2 Darnley Road",
     "start": "1924-03-17",
     "end": "1926-01-07",
     "priority": 3,
@@ -153,11 +152,11 @@
     "category": "location",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "2 Darnley Road"
   },
   {
     "id": 12,
-    "name": "22 Northmoor Road, Oxford",
     "start": "1926-01-07",
     "end": "1930-01-14",
     "priority": 1,
@@ -167,11 +166,11 @@
     "category": "location",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "22 Northmoor Road, Oxford"
   },
   {
     "id": 13,
-    "name": "20 Northmoor Road, Oxford",
     "start": "1930-01-14",
     "end": "1947-03-01",
     "priority": 1,
@@ -181,11 +180,11 @@
     "category": "location",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "20 Northmoor Road, Oxford"
   },
   {
     "id": 14,
-    "name": "3 Manor Road, Oxford",
     "start": "1947-03-01",
     "end": "1953-03-30",
     "priority": 1,
@@ -195,11 +194,11 @@
     "category": "location",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "3 Manor Road, Oxford"
   },
   {
     "id": 15,
-    "name": "76 Sandfield Road, Oxford",
     "start": "1953-03-30",
     "end": "1968-06-01",
     "priority": 1,
@@ -209,11 +208,11 @@
     "category": "location",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "76 Sandfield Road, Oxford"
   },
   {
     "id": 16,
-    "name": "19 Lakeside Road, Poole",
     "start": "1968-06-01",
     "end": "1972-03-13",
     "priority": 1,
@@ -223,11 +222,11 @@
     "category": "location",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "19 Lakeside Road, Poole"
   },
   {
     "id": 17,
-    "name": "21 Merton Street, Oxford",
     "start": "1972-03-13",
     "end": "1973-09-02",
     "priority": 1,
@@ -237,11 +236,11 @@
     "category": "location",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "21 Merton Street, Oxford"
   },
   {
     "id": 18,
-    "name": "King Edward's School",
     "start": "1900-01-01",
     "end": "1901-12-31",
     "priority": 3,
@@ -251,11 +250,11 @@
     "category": "occupation",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "King Edward's School"
   },
   {
     "id": 19,
-    "name": "St. Phillip's School",
     "start": "1902-01-01",
     "end": "1902-11-01",
     "priority": 3,
@@ -265,11 +264,11 @@
     "category": "occupation",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "St. Phillip's School"
   },
   {
     "id": 20,
-    "name": "King Edward's School",
     "start": "1902-11-01",
     "end": "1911-09-30",
     "priority": 2,
@@ -279,11 +278,11 @@
     "category": "occupation",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "King Edward's School"
   },
   {
     "id": 21,
-    "name": "Exeter College",
     "description": "Student",
     "start": "1911-10-01",
     "end": "1915-04-01",
@@ -294,11 +293,11 @@
     "category": "occupation",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Exeter College"
   },
   {
     "id": 22,
-    "name": "Army training",
     "start": "1915-04-01",
     "end": "1916-06-06",
     "priority": 3,
@@ -308,11 +307,11 @@
     "category": "occupation",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Army training"
   },
   {
     "id": 23,
-    "name": "Army service",
     "start": "1916-06-06",
     "end": "1916-11-09",
     "priority": 2,
@@ -322,11 +321,11 @@
     "category": "occupation",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Army service"
   },
   {
     "id": 24,
-    "name": "Convalescence",
     "description": "Some garrison duties when able",
     "start": "1916-11-09",
     "end": "1919-07-16",
@@ -337,11 +336,11 @@
     "category": "occupation",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Convalescence"
   },
   {
     "id": 25,
-    "name": "O.E.D.",
     "start": "1919-07-16",
     "end": "1920-06-30",
     "priority": 2,
@@ -351,11 +350,11 @@
     "category": "occupation",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "O.E.D."
   },
   {
     "id": 26,
-    "name": "Leeds University",
     "description": "Reader in English Language",
     "start": "1920-10-01",
     "end": "1925-09-30",
@@ -366,11 +365,11 @@
     "category": "occupation",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Leeds University"
   },
   {
     "id": 27,
-    "name": "Pembroke College",
     "description": "Rawlinson and Bosworth Professor of Anglo-Saxon",
     "start": "1925-10-01",
     "end": "1945-09-30",
@@ -381,11 +380,11 @@
     "category": "occupation",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Pembroke College"
   },
   {
     "id": 28,
-    "name": "Merton College",
     "description": "Merton Professor of English Language and Literature",
     "start": "1945-10-01",
     "end": "1959-12-31",
@@ -396,11 +395,11 @@
     "category": "occupation",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Merton College"
   },
   {
     "id": 29,
-    "name": "Retirement",
     "start": "1960-01-01",
     "end": "1973-09-02",
     "priority": 0,
@@ -410,11 +409,11 @@
     "category": "occupation",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Retirement"
   },
   {
     "id": 30,
-    "name": "Birth of J.R.R. Tolkien",
     "start": "1892-01-03",
     "priority": 0,
     "type": "point",
@@ -423,11 +422,11 @@
     "category": "life",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Birth of J.R.R. Tolkien"
   },
   {
     "id": 31,
-    "name": "Death of Arthur Tolkien",
     "description": "J.R.R. Tolkien's father",
     "start": "1896-02-15",
     "priority": 2,
@@ -437,11 +436,11 @@
     "category": "life",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Death of Arthur Tolkien"
   },
   {
     "id": 32,
-    "name": "Marriage of J.R.R. Tolkien & Edith Bratt",
     "start": "1916-03-22",
     "priority": 0,
     "type": "point",
@@ -450,11 +449,11 @@
     "category": "life",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Marriage of J.R.R. Tolkien & Edith Bratt"
   },
   {
     "id": 33,
-    "name": "Tolkiens convert to Catholicism",
     "start": "1900-06-01",
     "priority": 2,
     "type": "point",
@@ -463,11 +462,11 @@
     "category": "life",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Tolkiens convert to Catholicism"
   },
   {
     "id": 34,
-    "name": "Death of Mabel Tolkien",
     "description": "J.R.R. Tolkien's mother",
     "start": "1904-11-01",
     "priority": 1,
@@ -477,11 +476,11 @@
     "category": "life",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Death of Mabel Tolkien"
   },
   {
     "id": 35,
-    "name": "Tolkien meets Edith",
     "start": "1908-01-01",
     "priority": 2,
     "type": "point",
@@ -490,11 +489,11 @@
     "category": "life",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Tolkien meets Edith"
   },
   {
     "id": 36,
-    "name": "Communication with Edith forbidden",
     "start": "1910-01-21",
     "priority": 3,
     "type": "point",
@@ -503,11 +502,11 @@
     "category": "life",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Communication with Edith forbidden"
   },
   {
     "id": 37,
-    "name": "T.C.B.S. formed",
     "start": "1911-07-01",
     "priority": 2,
     "type": "point",
@@ -516,11 +515,11 @@
     "category": "life",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "T.C.B.S. formed"
   },
   {
     "id": 38,
-    "name": "Tolkien visits Switzerland",
     "start": "1911-08-01",
     "priority": 3,
     "type": "point",
@@ -529,11 +528,11 @@
     "category": "life",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Tolkien visits Switzerland"
   },
   {
     "id": 39,
-    "name": "Tolkien writes to Edith",
     "start": "1913-01-03",
     "priority": 3,
     "type": "point",
@@ -542,11 +541,11 @@
     "category": "life",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Tolkien writes to Edith"
   },
   {
     "id": 40,
-    "name": "Tolkien joins army",
     "description": "Receives commission in Lancashire Fusiliers",
     "start": "1915-07-15",
     "priority": 2,
@@ -556,11 +555,11 @@
     "category": "life",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Tolkien joins army"
   },
   {
     "id": 41,
-    "name": "Final T.C.B.S. meeting",
     "start": "1915-09-26",
     "priority": 3,
     "type": "point",
@@ -569,11 +568,11 @@
     "category": "life",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Final T.C.B.S. meeting"
   },
   {
     "id": 42,
-    "name": "Edith dances in glade",
     "start": "1917-05-01",
     "priority": 3,
     "type": "point",
@@ -582,11 +581,11 @@
     "category": "life",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Edith dances in glade"
   },
   {
     "id": 43,
-    "name": "John Tolkien born",
     "start": "1917-11-16",
     "priority": 2,
     "type": "point",
@@ -595,11 +594,11 @@
     "category": "life",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "John Tolkien born"
   },
   {
     "id": 44,
-    "name": "Michael Tolkien born",
     "start": "1920-10-22",
     "priority": 2,
     "type": "point",
@@ -608,11 +607,11 @@
     "category": "life",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Michael Tolkien born"
   },
   {
     "id": 45,
-    "name": "Christopher Tolkien born",
     "start": "1924-11-21",
     "priority": 1,
     "type": "point",
@@ -621,11 +620,11 @@
     "category": "life",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Christopher Tolkien born"
   },
   {
     "id": 46,
-    "name": "Priscilla Tolkien born",
     "start": "1929-06-18",
     "priority": 2,
     "type": "point",
@@ -634,11 +633,11 @@
     "category": "life",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Priscilla Tolkien born"
   },
   {
     "id": 47,
-    "name": "Tolkiens' Mediterranean cruise",
     "start": "1966-09-14",
     "end": "1966-10-06",
     "priority": 4,
@@ -648,11 +647,11 @@
     "category": "life",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Tolkiens' Mediterranean cruise"
   },
   {
     "id": 48,
-    "name": "Death of Edith Tolkien",
     "start": "1971-11-29",
     "priority": 0,
     "type": "point",
@@ -661,11 +660,11 @@
     "category": "life",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Death of Edith Tolkien"
   },
   {
     "id": 49,
-    "name": "Tolkien receives CBE",
     "start": "1972-01-01",
     "priority": 3,
     "type": "point",
@@ -674,11 +673,11 @@
     "category": "life",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Tolkien receives CBE"
   },
   {
     "id": 50,
-    "name": "Death of J.R.R. Tolkien",
     "start": "1973-09-02",
     "priority": 0,
     "type": "point",
@@ -687,11 +686,11 @@
     "category": "life",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Death of J.R.R. Tolkien"
   },
   {
     "id": 51,
-    "name": "The Hobbit",
     "start": "1937-09-21",
     "priority": 0,
     "type": "point",
@@ -700,11 +699,11 @@
     "category": "major-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "The Hobbit"
   },
   {
     "id": 52,
-    "name": "Leaf by Niggle",
     "start": "1945-01-01",
     "priority": 2,
     "type": "point",
@@ -713,11 +712,11 @@
     "category": "major-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Leaf by Niggle"
   },
   {
     "id": 53,
-    "name": "On Fairy Stories",
     "description": "Essays Presented to Charles Williams",
     "start": "1947-12-04",
     "priority": 2,
@@ -727,11 +726,11 @@
     "category": "major-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "On Fairy Stories"
   },
   {
     "id": 54,
-    "name": "Farmer Giles of Ham",
     "start": "1949-10-20",
     "priority": 2,
     "type": "point",
@@ -740,11 +739,11 @@
     "category": "major-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Farmer Giles of Ham"
   },
   {
     "id": 55,
-    "name": "The Fellowship of the Ring",
     "start": "1954-07-29",
     "priority": 0,
     "type": "point",
@@ -753,11 +752,11 @@
     "category": "major-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "The Fellowship of the Ring"
   },
   {
     "id": 56,
-    "name": "The Two Towers",
     "start": "1954-11-11",
     "priority": 0,
     "type": "point",
@@ -766,11 +765,11 @@
     "category": "major-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "The Two Towers"
   },
   {
     "id": 57,
-    "name": "The Return of the King",
     "start": "1955-10-20",
     "priority": 0,
     "type": "point",
@@ -779,11 +778,11 @@
     "category": "major-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "The Return of the King"
   },
   {
     "id": 58,
-    "name": "Smith of Wooton Major",
     "start": "1967-11-09",
     "priority": 2,
     "type": "point",
@@ -792,11 +791,11 @@
     "category": "major-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Smith of Wooton Major"
   },
   {
     "id": 59,
-    "name": "The Silmarillion",
     "start": "1977-09-15",
     "priority": 1,
     "type": "point",
@@ -805,11 +804,11 @@
     "category": "major-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "The Silmarillion"
   },
   {
     "id": 60,
-    "name": "Unfinished Tales",
     "start": "1980-10-02",
     "priority": 1,
     "type": "point",
@@ -818,11 +817,11 @@
     "category": "major-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Unfinished Tales"
   },
   {
     "id": 61,
-    "name": "Goblin Feet",
     "description": "Oxford Poetry 1915",
     "start": "1915-12-01",
     "priority": 4,
@@ -832,11 +831,11 @@
     "category": "minor-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Goblin Feet"
   },
   {
     "id": 62,
-    "name": "A Middle English Vocabulary",
     "start": "1922-05-11",
     "priority": 4,
     "type": "point",
@@ -845,11 +844,11 @@
     "category": "minor-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "A Middle English Vocabulary"
   },
   {
     "id": 63,
-    "name": "Sir Gawain and the Green Knight",
     "description": "with E.V. Gordon (Clarendon Press)",
     "start": "1925-04-23",
     "priority": 3,
@@ -859,11 +858,11 @@
     "category": "minor-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Sir Gawain and the Green Knight"
   },
   {
     "id": 64,
-    "name": "Errantry",
     "description": "The Oxford Magazine",
     "start": "1933-11-09",
     "priority": 3,
@@ -873,11 +872,11 @@
     "category": "minor-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Errantry"
   },
   {
     "id": 65,
-    "name": "Beowulf: The Monsters and the Critics",
     "start": "1937-07-01",
     "priority": 2,
     "type": "point",
@@ -886,11 +885,11 @@
     "category": "minor-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Beowulf: The Monsters and the Critics"
   },
   {
     "id": 66,
-    "name": "The Homecoming of Beorhtnoth Beorhthelm's Son",
     "start": "1953-10-01",
     "priority": 3,
     "type": "point",
@@ -899,11 +898,11 @@
     "category": "minor-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "The Homecoming of Beorhtnoth Beorhthelm's Son"
   },
   {
     "id": 67,
-    "name": "Sir Gawain and the Green Knight broadcast on BBC Radio",
     "start": "1953-12-06",
     "priority": 3,
     "type": "point",
@@ -912,11 +911,11 @@
     "category": "minor-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Sir Gawain and the Green Knight broadcast on BBC Radio"
   },
   {
     "id": 68,
-    "name": "The Adventures of Tom Bombadil",
     "start": "1962-11-22",
     "priority": 3,
     "type": "point",
@@ -925,11 +924,11 @@
     "category": "minor-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "The Adventures of Tom Bombadil"
   },
   {
     "id": 69,
-    "name": "English and Welsh",
     "start": "1963-07-08",
     "priority": 3,
     "type": "point",
@@ -938,11 +937,11 @@
     "category": "minor-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "English and Welsh"
   },
   {
     "id": 70,
-    "name": "Tree and Leaf",
     "start": "1964-05-28",
     "priority": 3,
     "type": "point",
@@ -951,11 +950,11 @@
     "category": "minor-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Tree and Leaf"
   },
   {
     "id": 71,
-    "name": "Ace Books LOTR",
     "description": "unauthorized",
     "start": "1965-07-01",
     "priority": 3,
@@ -965,11 +964,11 @@
     "category": "minor-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Ace Books LOTR"
   },
   {
     "id": 72,
-    "name": "Ballantine Books LOTR",
     "start": "1965-12-01",
     "priority": 3,
     "type": "point",
@@ -978,11 +977,11 @@
     "category": "minor-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Ballantine Books LOTR"
   },
   {
     "id": 73,
-    "name": "The Jerusalem Bible",
     "description": "Jonah by Tolkien",
     "start": "1966-01-01",
     "priority": 4,
@@ -992,11 +991,11 @@
     "category": "minor-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "The Jerusalem Bible"
   },
   {
     "id": 74,
-    "name": "LOTR 2ed.",
     "start": "1966-10-27",
     "priority": 3,
     "type": "point",
@@ -1005,11 +1004,11 @@
     "category": "minor-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "LOTR 2ed."
   },
   {
     "id": 75,
-    "name": "The Road Goes Ever On",
     "start": "1967-10-31",
     "priority": 3,
     "type": "point",
@@ -1018,11 +1017,11 @@
     "category": "minor-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "The Road Goes Ever On"
   },
   {
     "id": 76,
-    "name": "Father Christmas Letters",
     "start": "1976-09-02",
     "priority": 2,
     "type": "point",
@@ -1031,11 +1030,11 @@
     "category": "minor-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "Father Christmas Letters"
   },
   {
     "id": 77,
-    "name": "J.R.R. Tolkien: A Biography",
     "description": "Carpenter",
     "start": "1977-05-05",
     "priority": 2,
@@ -1045,11 +1044,11 @@
     "category": "minor-pub",
     "people": [
       "J.R.R. Tolkien"
-    ]
+    ],
+    "title": "J.R.R. Tolkien: A Biography"
   },
   {
     "id": 78,
-    "name": "Belfast",
     "description": "Dundela Villas, near Holywood Road in East Belfast",
     "start": "1898-11-29",
     "end": "1905-04-21",
@@ -1062,11 +1061,11 @@
     "category": "location",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Belfast"
   },
   {
     "id": 79,
-    "name": "Little Lea",
     "description": "76 Circular Road, Belfast, Northern Ireland",
     "start": "1905-04-21",
     "end": "1908-09-17",
@@ -1079,11 +1078,11 @@
     "category": "location",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Little Lea"
   },
   {
     "id": 80,
-    "name": "Watford",
     "description": "Hertfordshire",
     "start": "1908-09-18",
     "end": "1910-07-31",
@@ -1097,11 +1096,11 @@
     "category": "location",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Watford"
   },
   {
     "id": 81,
-    "name": "Little Lea",
     "start": "1910-07-13",
     "end": "1911-01-10",
     "edtf": "1910-07-13?/1911-01-10?",
@@ -1114,11 +1113,11 @@
     "category": "location",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Little Lea"
   },
   {
     "id": 82,
-    "name": "Malvern, England",
     "start": "1911-01-10",
     "end": "1914-07-29",
     "edtf": "1911-01-10?/1914-07-29",
@@ -1131,11 +1130,11 @@
     "category": "location",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Malvern, England"
   },
   {
     "id": 83,
-    "name": "Great Bookham",
     "description": "Surrey",
     "start": "1914-09-19",
     "end": "1917-04-25",
@@ -1148,11 +1147,11 @@
     "category": "location",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Great Bookham"
   },
   {
     "id": 84,
-    "name": "Oxford",
     "start": "1917-04-26",
     "end": "1917-11-17",
     "edtf": "1917-04-26/1917-11-17",
@@ -1164,11 +1163,11 @@
     "category": "location",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Oxford"
   },
   {
     "id": 85,
-    "name": "France",
     "start": "1917-11-17",
     "end": "1918-05-24",
     "edtf": "1917-11-17/1918-05-24?",
@@ -1181,11 +1180,11 @@
     "category": "location",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "France"
   },
   {
     "id": 86,
-    "name": "Oxford",
     "start": "1919-01-13",
     "end": "1930-10-11",
     "edtf": "1919-01-13/1930-10-11",
@@ -1198,11 +1197,11 @@
     "category": "location",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Oxford"
   },
   {
     "id": 87,
-    "name": "The Kilns",
     "start": "1930-10-11",
     "end": "1963-11-22",
     "edtf": "1930-10-11/1963-11-22",
@@ -1215,11 +1214,11 @@
     "category": "location",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "The Kilns"
   },
   {
     "id": 88,
-    "name": "Cambridge",
     "description": "Cambridge for academic duties and writing, the Kilns for weekends and holidays",
     "start": "1955-01-01",
     "end": "1963-11-22",
@@ -1233,11 +1232,11 @@
     "category": "location",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Cambridge"
   },
   {
     "id": 89,
-    "name": "Wynyard School",
     "start": "1908-09-18",
     "end": "1910-07-12",
     "edtf": "1908-09-18/1910-07-12",
@@ -1249,11 +1248,11 @@
     "category": "occupation",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Wynyard School"
   },
   {
     "id": 90,
-    "name": "Campbell College",
     "start": "1910-09-01",
     "end": "1910-11-15",
     "edtf": "1910-09/1910-11-15",
@@ -1266,11 +1265,11 @@
     "category": "occupation",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Campbell College"
   },
   {
     "id": 91,
-    "name": "Cherbourg House",
     "start": "1911-01-10",
     "end": "1913-07-29",
     "edtf": "1911-01-10?-1913-07-29",
@@ -1283,11 +1282,11 @@
     "category": "occupation",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Cherbourg House"
   },
   {
     "id": 92,
-    "name": "Malvern College",
     "start": "1913-09-18",
     "end": "1914-07-28",
     "edtf": "1913-09-18/1914-07-28",
@@ -1299,11 +1298,11 @@
     "category": "occupation",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Malvern College"
   },
   {
     "id": 93,
-    "name": "Kirkpatrick",
     "description": "private study with William T. Kirkpatrick, \"The Great Knock\"",
     "start": "1914-09-14",
     "end": "1917-04-25",
@@ -1316,11 +1315,11 @@
     "category": "occupation",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Kirkpatrick"
   },
   {
     "id": 94,
-    "name": "University College",
     "description": "Student",
     "start": "1917-04-29",
     "end": "1917-06-05",
@@ -1333,11 +1332,11 @@
     "category": "occupation",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "University College"
   },
   {
     "id": 95,
-    "name": "Army",
     "start": "1917-06-05",
     "end": "1918-12-24",
     "edtf": "1917-06-05/1918-12-24",
@@ -1348,11 +1347,11 @@
     "category": "occupation",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Army"
   },
   {
     "id": 96,
-    "name": "University College",
     "description": "Student: Honour Moderations, Greats, English",
     "start": "1919-01-14",
     "end": "1924-07-16",
@@ -1366,11 +1365,11 @@
     "category": "occupation",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "University College"
   },
   {
     "id": 97,
-    "name": "University College",
     "description": "Filling in as Philosophy lecturer",
     "start": "1924-10-14",
     "end": "1925-06-15",
@@ -1384,11 +1383,11 @@
     "category": "occupation",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "University College"
   },
   {
     "id": 98,
-    "name": "Magdalen College, Oxford",
     "description": "Fellow and Tutor in English",
     "start": "1925-06-15",
     "end": "1954-06-04",
@@ -1402,11 +1401,11 @@
     "category": "occupation",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Magdalen College, Oxford"
   },
   {
     "id": 99,
-    "name": "Magdalene College, Cambridge",
     "description": "Professor of Medieval and Renaissance Literature",
     "start": "1954-06-04",
     "end": "1963-08-11",
@@ -1420,11 +1419,11 @@
     "category": "occupation",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Magdalene College, Cambridge"
   },
   {
     "id": 100,
-    "name": "Birth of C.S. Lewis",
     "start": "1898-11-29",
     "edtf": "1898-11-29",
     "priority": 0,
@@ -1434,11 +1433,11 @@
     "category": "life",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Birth of C.S. Lewis"
   },
   {
     "id": 101,
-    "name": "Death of Mabel Lewis",
     "description": "C.S. Lewis's mother",
     "start": "1908-08-23",
     "edtf": "1908-08-23T06:30",
@@ -1450,11 +1449,11 @@
     "category": "life",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Death of Mabel Lewis"
   },
   {
     "id": 102,
-    "name": "Lewis has lung troubles",
     "start": "1910-11-01",
     "edtf": "1910-11",
     "source": "Chronologically Lewis",
@@ -1465,11 +1464,11 @@
     "category": "life",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Lewis has lung troubles"
   },
   {
     "id": 103,
-    "name": "Lewis meets Arthur Greeves",
     "start": "1914-04-05",
     "edtf": "1914-04-15~",
     "priority": 2,
@@ -1481,11 +1480,11 @@
     "category": "life",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Lewis meets Arthur Greeves"
   },
   {
     "id": 104,
-    "name": "Lewis joins army",
     "description": "Lewis Joins the No.4 Officer Cadet Battalion (Company E) as No.738 Cadet under Lieutenant Colonel J.F. Stenning. He rooms with Paddy Moore at Keble College.",
     "start": "1917-06-05",
     "edtf": "1917-06-05",
@@ -1497,11 +1496,11 @@
     "category": "life",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Lewis joins army"
   },
   {
     "id": 105,
-    "name": "Lewis comissioned as officer",
     "description": "Second Lieutenant",
     "start": "1917-09-26",
     "edtf": "1917-09-26",
@@ -1513,11 +1512,11 @@
     "category": "life",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Lewis comissioned as officer"
   },
   {
     "id": 106,
-    "name": "Lewis posted to Somerset Light Infantry",
     "description": "3rd Batallion",
     "start": "1917-10-16",
     "edtf": "1917-10-16",
@@ -1529,11 +1528,11 @@
     "category": "life",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Lewis posted to Somerset Light Infantry"
   },
   {
     "id": 107,
-    "name": "Paddy Moore dies",
     "description": "First reported missing, later confirmed dead.",
     "start": "1918-03-24",
     "edtf": "1918-03-24",
@@ -1545,11 +1544,11 @@
     "category": "life",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Paddy Moore dies"
   },
   {
     "id": 108,
-    "name": "Lewis injured in Battle of Arras",
     "description": "Wounded in left hand, left leg, and left side on Mount Bernenchon near Lillers, France.",
     "start": "1918-04-15",
     "edtf": "1918-04-15",
@@ -1561,11 +1560,11 @@
     "category": "life",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Lewis injured in Battle of Arras"
   },
   {
     "id": 109,
-    "name": "Lewis discharged from Army",
     "start": "1918-12-24",
     "edtf": "1918-12-24",
     "priority": 2,
@@ -1576,11 +1575,11 @@
     "category": "life",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Lewis discharged from Army"
   },
   {
     "id": 110,
-    "name": "Lewis moves in with Moores",
     "start": "1920-05-03",
     "edtf": "1920-05-03~",
     "priority": 3,
@@ -1592,11 +1591,11 @@
     "category": "life",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Lewis moves in with Moores"
   },
   {
     "id": 111,
-    "name": "Lewis becomes theist",
     "description": "\"Most reluctant convert.\" He reports the date to be Trinity Term 1929, but most scholars believe he is off by a year.",
     "start": "1930-07-20",
     "edtf": "1930-07-20%",
@@ -1609,11 +1608,11 @@
     "category": "life",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Lewis becomes theist"
   },
   {
     "id": 112,
-    "name": "Lewis becomes Christian",
     "description": "Lewis professes faith in Christ in Warren's sidecar on the way to Whipsnade Zoo.",
     "start": "1931-09-28",
     "edtf": "1931-09-28?",
@@ -1626,11 +1625,11 @@
     "category": "life",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Lewis becomes Christian"
   },
   {
     "id": 113,
-    "name": "Lewis receives first letter from Joy Davidman",
     "start": "1950-01-10",
     "edtf": "1950-01-10",
     "priority": 3,
@@ -1641,11 +1640,11 @@
     "category": "life",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Lewis receives first letter from Joy Davidman"
   },
   {
     "id": 114,
-    "name": "Death of Mrs. Moore",
     "start": "1951-01-12",
     "edtf": "1951-01-12T17:00",
     "priority": 3,
@@ -1656,11 +1655,11 @@
     "category": "life",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Death of Mrs. Moore"
   },
   {
     "id": 115,
-    "name": "Lewis loses election to Poetry Chair",
     "start": "1951-02-08",
     "edtf": "1951-02-08",
     "priority": 2,
@@ -1671,11 +1670,11 @@
     "category": "life",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Lewis loses election to Poetry Chair"
   },
   {
     "id": 116,
-    "name": "Lewis declines O.B.E.",
     "description": "Responding to a letter from Winston Churchill received the previous day.",
     "start": "1951-12-04",
     "edtf": "1951-12-04",
@@ -1687,11 +1686,11 @@
     "category": "life",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Lewis declines O.B.E."
   },
   {
     "id": 117,
-    "name": "Lewis meets Joy Davidman",
     "description": "Lewis and George Sayer meet Joy and Phyllis Williams for lunch",
     "start": "1952-09-24",
     "edtf": "1952-09-24",
@@ -1703,11 +1702,11 @@
     "category": "life",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Lewis meets Joy Davidman"
   },
   {
     "id": 118,
-    "name": "Marriage of C.S. Lewis and Joy Davidman",
     "description": "Civil marriage at Oxford Registry Office",
     "start": "1956-04-23",
     "edtf": "1956-04-23",
@@ -1719,11 +1718,11 @@
     "category": "life",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Marriage of C.S. Lewis and Joy Davidman"
   },
   {
     "id": 119,
-    "name": "Joy diagnosed with cancer",
     "description": "Joy broke her femur on October 18, and the x-rays the following day revealed an advanced case of cancer.",
     "start": "1956-10-19",
     "edtf": "1956-10-19",
@@ -1735,11 +1734,11 @@
     "category": "life",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Joy diagnosed with cancer"
   },
   {
     "id": 120,
-    "name": "Death of Joy Davidman",
     "start": "1960-07-13",
     "edtf": "1960-07-13T22:15",
     "priority": 2,
@@ -1750,11 +1749,11 @@
     "category": "life",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Death of Joy Davidman"
   },
   {
     "id": 121,
-    "name": "Death of C.S. Lewis",
     "start": "1963-11-22",
     "edtf": "1963-11-22T17:33~",
     "priority": 0,
@@ -1765,11 +1764,11 @@
     "category": "life",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Death of C.S. Lewis"
   },
   {
     "id": 122,
-    "name": "Out of the Silent Planet",
     "start": "1938-09-23",
     "priority": 1,
     "type": "point",
@@ -1780,11 +1779,11 @@
     "category": "major-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Out of the Silent Planet"
   },
   {
     "id": 123,
-    "name": "The Problem of Pain",
     "start": "1940-10-18",
     "priority": 2,
     "type": "point",
@@ -1795,11 +1794,11 @@
     "category": "major-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "The Problem of Pain"
   },
   {
     "id": 124,
-    "name": "The Screwtape Letters",
     "description": "in book form",
     "start": "1942-02-09",
     "priority": 1,
@@ -1811,11 +1810,11 @@
     "category": "major-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "The Screwtape Letters"
   },
   {
     "id": 125,
-    "name": "Perelandra",
     "start": "1943-04-20",
     "priority": 1,
     "type": "point",
@@ -1826,11 +1825,11 @@
     "category": "major-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Perelandra"
   },
   {
     "id": 126,
-    "name": "The Abolition of Man",
     "start": "1944-01-06",
     "priority": 2,
     "type": "point",
@@ -1841,11 +1840,11 @@
     "category": "major-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "The Abolition of Man"
   },
   {
     "id": 127,
-    "name": "That Hideous Strength",
     "start": "1945-08-16",
     "priority": 1,
     "type": "point",
@@ -1856,11 +1855,11 @@
     "category": "major-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "That Hideous Strength"
   },
   {
     "id": 128,
-    "name": "The Great Divorce",
     "description": "published in serial form in the Guardian from Nov. 10 1944 to Apr. 13 1945",
     "start": "1946-01-14",
     "priority": 1,
@@ -1872,11 +1871,11 @@
     "category": "major-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "The Great Divorce"
   },
   {
     "id": 129,
-    "name": "Miracles",
     "start": "1947-05-12",
     "priority": 2,
     "type": "point",
@@ -1887,11 +1886,11 @@
     "category": "major-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Miracles"
   },
   {
     "id": 130,
-    "name": "The Lion, the Witch, and the Wardrobe",
     "start": "1950-10-16",
     "priority": 0,
     "type": "point",
@@ -1902,11 +1901,11 @@
     "category": "major-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "The Lion, the Witch, and the Wardrobe"
   },
   {
     "id": 131,
-    "name": "Prince Caspian",
     "start": "1951-10-15",
     "priority": 2,
     "type": "point",
@@ -1917,11 +1916,11 @@
     "category": "major-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Prince Caspian"
   },
   {
     "id": 132,
-    "name": "Mere Christianity",
     "description": "Compiling his talks from the war",
     "start": "1952-07-07",
     "priority": 0,
@@ -1933,11 +1932,11 @@
     "category": "major-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Mere Christianity"
   },
   {
     "id": 133,
-    "name": "The Voyage of the Dawn Treader",
     "start": "1952-09-15",
     "priority": 2,
     "type": "point",
@@ -1948,11 +1947,11 @@
     "category": "major-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "The Voyage of the Dawn Treader"
   },
   {
     "id": 134,
-    "name": "The Silver Chair",
     "start": "1953-09-07",
     "priority": 2,
     "type": "point",
@@ -1963,11 +1962,11 @@
     "category": "major-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "The Silver Chair"
   },
   {
     "id": 135,
-    "name": "The Horse and His Boy",
     "start": "1954-09-06",
     "priority": 2,
     "type": "point",
@@ -1978,11 +1977,11 @@
     "category": "major-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "The Horse and His Boy"
   },
   {
     "id": 136,
-    "name": "Surprised by Joy",
     "start": "1955-01-01",
     "priority": 2,
     "type": "point",
@@ -1993,11 +1992,11 @@
     "category": "major-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Surprised by Joy"
   },
   {
     "id": 137,
-    "name": "The Magicians Nephew",
     "start": "1955-05-02",
     "priority": 2,
     "type": "point",
@@ -2008,11 +2007,11 @@
     "category": "major-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "The Magicians Nephew"
   },
   {
     "id": 138,
-    "name": "Till We Have Faces",
     "start": "1956-09-10",
     "priority": 2,
     "type": "point",
@@ -2023,11 +2022,11 @@
     "category": "major-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Till We Have Faces"
   },
   {
     "id": 139,
-    "name": "The Last Battle",
     "start": "1956-03-19",
     "priority": 1,
     "type": "point",
@@ -2036,11 +2035,11 @@
     "category": "major-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "The Last Battle"
   },
   {
     "id": 140,
-    "name": "The Four Loves",
     "start": "1960-03-28",
     "priority": 2,
     "type": "point",
@@ -2051,11 +2050,11 @@
     "category": "major-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "The Four Loves"
   },
   {
     "id": 141,
-    "name": "A Grief Observed",
     "description": "Under the name N.W. Clerk",
     "start": "1961-09-29",
     "priority": 2,
@@ -2067,11 +2066,11 @@
     "category": "major-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "A Grief Observed"
   },
   {
     "id": 142,
-    "name": "The Discarded Image",
     "description": "Posthumous",
     "start": "1964-05-07",
     "priority": 3,
@@ -2083,11 +2082,11 @@
     "category": "major-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "The Discarded Image"
   },
   {
     "id": 143,
-    "name": "The Pilgrim's Regress",
     "description": "J.M. Dent, published under Clive Hamliton",
     "start": "1933-05-25",
     "priority": 3,
@@ -2099,11 +2098,11 @@
     "category": "minor-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "The Pilgrim's Regress"
   },
   {
     "id": 144,
-    "name": "The Allegory of Love",
     "description": "Clarendon Press",
     "start": "1936-05-21",
     "priority": 3,
@@ -2115,11 +2114,11 @@
     "category": "minor-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "The Allegory of Love"
   },
   {
     "id": 145,
-    "name": "Spirits in Bondage: A Cycle of Lyrics",
     "description": "Heinemann, published under Clive Hamilton",
     "start": "1919-03-20",
     "priority": 3,
@@ -2131,11 +2130,11 @@
     "category": "minor-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Spirits in Bondage: A Cycle of Lyrics"
   },
   {
     "id": 146,
-    "name": "Dymer",
     "description": "J.M. Dent, published under Clive Hamilton",
     "start": "1926-09-08",
     "priority": 4,
@@ -2147,11 +2146,11 @@
     "category": "minor-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Dymer"
   },
   {
     "id": 147,
-    "name": "The Screwtape Letters",
     "description": "Serial format in Anglican newspaper The Guardian",
     "start": "1941-05-02",
     "end": "1941-11-28",
@@ -2164,11 +2163,11 @@
     "category": "minor-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "The Screwtape Letters"
   },
   {
     "id": 148,
-    "name": "A Preface to Paradise Lost",
     "start": "1942-10-08",
     "priority": 3,
     "type": "point",
@@ -2179,11 +2178,11 @@
     "category": "minor-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "A Preface to Paradise Lost"
   },
   {
     "id": 149,
-    "name": "Broadcast Talks",
     "description": "1st part of Mere Christianity",
     "start": "1942-07-13",
     "priority": 3,
@@ -2195,11 +2194,11 @@
     "category": "minor-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Broadcast Talks"
   },
   {
     "id": 150,
-    "name": "Christian Behavior",
     "description": "2nd part of Mere Christianity",
     "start": "1944-01-18",
     "priority": 3,
@@ -2211,11 +2210,11 @@
     "category": "minor-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Christian Behavior"
   },
   {
     "id": 151,
-    "name": "Beyond Personality",
     "description": "3rd part of Mere Christianity",
     "start": "1944-10-09",
     "priority": 3,
@@ -2227,11 +2226,11 @@
     "category": "minor-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Beyond Personality"
   },
   {
     "id": 152,
-    "name": "Essays Presented to Charles Williams",
     "start": "1947-12-04",
     "priority": 4,
     "type": "point",
@@ -2242,11 +2241,11 @@
     "category": "minor-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Essays Presented to Charles Williams"
   },
   {
     "id": 153,
-    "name": "Arthurian Torso",
     "start": "1948-10-21",
     "priority": 4,
     "type": "point",
@@ -2257,11 +2256,11 @@
     "category": "minor-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Arthurian Torso"
   },
   {
     "id": 154,
-    "name": "Transposition and Other Addresses",
     "start": "1949-07-02",
     "priority": 3,
     "type": "point",
@@ -2272,11 +2271,11 @@
     "category": "minor-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Transposition and Other Addresses"
   },
   {
     "id": 155,
-    "name": "English Literature in the 16th Century, Excluding Drama",
     "description": "Oxford History of English Literature",
     "start": "1954-09-16",
     "priority": 3,
@@ -2288,11 +2287,11 @@
     "category": "minor-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "English Literature in the 16th Century, Excluding Drama"
   },
   {
     "id": 156,
-    "name": "Reflections on the Psalms",
     "start": "1958-09-08",
     "priority": 3,
     "type": "point",
@@ -2303,11 +2302,11 @@
     "category": "minor-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Reflections on the Psalms"
   },
   {
     "id": 157,
-    "name": "Screwtape Proposes a Toast",
     "start": "1959-12-19",
     "description": "Article in the Saturday Evening Post",
     "priority": 3,
@@ -2319,11 +2318,11 @@
     "category": "minor-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Screwtape Proposes a Toast"
   },
   {
     "id": 158,
-    "name": "The World's Last Night and Other Essays",
     "start": "1960-02-10",
     "priority": 3,
     "type": "point",
@@ -2334,11 +2333,11 @@
     "category": "minor-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "The World's Last Night and Other Essays"
   },
   {
     "id": 159,
-    "name": "Studies in Words",
     "start": "1960-09-09",
     "priority": 3,
     "type": "point",
@@ -2349,11 +2348,11 @@
     "category": "minor-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Studies in Words"
   },
   {
     "id": 160,
-    "name": "Letters to Malcom: Chiefly on Prayer",
     "description": "Posthumous",
     "start": "1964-01-27",
     "priority": 3,
@@ -2365,11 +2364,11 @@
     "category": "minor-pub",
     "people": [
       "C.S. Lewis"
-    ]
+    ],
+    "title": "Letters to Malcom: Chiefly on Prayer"
   },
   {
     "id": 161,
-    "name": "Birth of Owen Barfield",
     "start": "1898-11-09",
     "priority": 0,
     "type": "point",
@@ -2379,11 +2378,11 @@
     "person": "Owen Barfield",
     "people": [
       "Owen Barfield"
-    ]
+    ],
+    "title": "Birth of Owen Barfield"
   },
   {
     "id": 162,
-    "name": "Marriage of Owen Barfield and Maud Douie",
     "start": "1923-04-11",
     "priority": 1,
     "type": "point",
@@ -2393,11 +2392,11 @@
     "person": "Owen Barfield",
     "people": [
       "Owen Barfield"
-    ]
+    ],
+    "title": "Marriage of Owen Barfield and Maud Douie"
   },
   {
     "id": 163,
-    "name": "Barfield becomes Anthroposophist",
     "start": "1923-06-01",
     "priority": 2,
     "type": "point",
@@ -2407,11 +2406,11 @@
     "person": "Owen Barfield",
     "people": [
       "Owen Barfield"
-    ]
+    ],
+    "title": "Barfield becomes Anthroposophist"
   },
   {
     "id": 164,
-    "name": "Poetic Diction",
     "start": "1928-05-01",
     "priority": 2,
     "type": "point",
@@ -2421,11 +2420,11 @@
     "person": "Owen Barfield",
     "people": [
       "Owen Barfield"
-    ]
+    ],
+    "title": "Poetic Diction"
   },
   {
     "id": 165,
-    "name": "This Ever Diverse Pair",
     "start": "1950-01-01",
     "priority": 3,
     "type": "point",
@@ -2435,11 +2434,11 @@
     "person": "Owen Barfield",
     "people": [
       "Owen Barfield"
-    ]
+    ],
+    "title": "This Ever Diverse Pair"
   },
   {
     "id": 166,
-    "name": "Saving the Appearances",
     "start": "1957-01-01",
     "priority": 3,
     "type": "point",
@@ -2449,11 +2448,11 @@
     "person": "Owen Barfield",
     "people": [
       "Owen Barfield"
-    ]
+    ],
+    "title": "Saving the Appearances"
   },
   {
     "id": 167,
-    "name": "Barfield retires from the law",
     "start": "1959-01-01",
     "priority": 2,
     "type": "point",
@@ -2463,11 +2462,11 @@
     "person": "Owen Barfield",
     "people": [
       "Owen Barfield"
-    ]
+    ],
+    "title": "Barfield retires from the law"
   },
   {
     "id": 168,
-    "name": "Death of Owen Barfield",
     "start": "1997-12-14",
     "priority": 0,
     "type": "point",
@@ -2477,11 +2476,11 @@
     "person": "Owen Barfield",
     "people": [
       "Owen Barfield"
-    ]
+    ],
+    "title": "Death of Owen Barfield"
   },
   {
     "id": 169,
-    "name": "Birth of Charles Williams",
     "start": "1886-09-20",
     "priority": 0,
     "type": "point",
@@ -2491,11 +2490,11 @@
     "person": "Charles Williams",
     "people": [
       "Charles Williams"
-    ]
+    ],
+    "title": "Birth of Charles Williams"
   },
   {
     "id": 170,
-    "name": "Started work at Oxford University Press",
     "description": "Amen House",
     "start": "1908-06-09",
     "priority": 1,
@@ -2506,11 +2505,11 @@
     "person": "Charles Williams",
     "people": [
       "Charles Williams"
-    ]
+    ],
+    "title": "Started work at Oxford University Press"
   },
   {
     "id": 171,
-    "name": "Williams joins the Fellowship of the Rosy Cross",
     "start": "1917-09-23",
     "priority": 2,
     "type": "point",
@@ -2520,11 +2519,11 @@
     "person": "Charles Williams",
     "people": [
       "Charles Williams"
-    ]
+    ],
+    "title": "Williams joins the Fellowship of the Rosy Cross"
   },
   {
     "id": 172,
-    "name": "Place of the Lion published",
     "start": "1931-01-01",
     "priority": 1,
     "type": "point",
@@ -2534,11 +2533,11 @@
     "person": "Charles Williams",
     "people": [
       "Charles Williams"
-    ]
+    ],
+    "title": "Place of the Lion published"
   },
   {
     "id": 173,
-    "name": "Descent into Hell published",
     "start": "1937-01-01",
     "priority": 2,
     "type": "point",
@@ -2548,11 +2547,11 @@
     "person": "Charles Williams",
     "people": [
       "Charles Williams"
-    ]
+    ],
+    "title": "Descent into Hell published"
   },
   {
     "id": 174,
-    "name": "Williams moves to Oxford",
     "start": "1939-09-07",
     "priority": 1,
     "type": "point",
@@ -2562,11 +2561,11 @@
     "person": "Charles Williams",
     "people": [
       "Charles Williams"
-    ]
+    ],
+    "title": "Williams moves to Oxford"
   },
   {
     "id": 175,
-    "name": "All Hallows' Eve published",
     "start": "1945-01-01",
     "priority": 3,
     "type": "point",
@@ -2576,11 +2575,11 @@
     "person": "Charles Williams",
     "people": [
       "Charles Williams"
-    ]
+    ],
+    "title": "All Hallows' Eve published"
   },
   {
     "id": 176,
-    "name": "Death of Charles Williams",
     "start": "1945-05-15",
     "priority": 0,
     "type": "point",
@@ -2590,11 +2589,11 @@
     "person": "Charles Williams",
     "people": [
       "Charles Williams"
-    ]
+    ],
+    "title": "Death of Charles Williams"
   },
   {
     "id": 177,
-    "name": "Birth of Warren Lewis",
     "start": "1895-06-15",
     "priority": 0,
     "type": "point",
@@ -2604,11 +2603,11 @@
     "person": "Warren Lewis",
     "people": [
       "Warren Lewis"
-    ]
+    ],
+    "title": "Birth of Warren Lewis"
   },
   {
     "id": 178,
-    "name": "Warren Lewis army service",
     "description": "Including a posting in Sierra Leone (Mar 9, 1921 to Mar 23, 1922) and two postings in China (Apr 11, 1927 to Feb 25, 1930 and Oct 9, 1931 to Oct 22, 1932)",
     "start": "1914-01-09",
     "end": "1932-12-14",
@@ -2620,11 +2619,11 @@
     "person": "Warren Lewis",
     "people": [
       "Warren Lewis"
-    ]
+    ],
+    "title": "Warren Lewis army service"
   },
   {
     "id": 179,
-    "name": "Warren Lewis returns to Christianity",
     "start": "1931-05-09",
     "priority": 2,
     "type": "point",
@@ -2634,11 +2633,11 @@
     "person": "Warren Lewis",
     "people": [
       "Warren Lewis"
-    ]
+    ],
+    "title": "Warren Lewis returns to Christianity"
   },
   {
     "id": 180,
-    "name": "Warren Lewis moves into the Kilns",
     "start": "1932-12-21",
     "priority": 2,
     "type": "point",
@@ -2648,11 +2647,11 @@
     "person": "Warren Lewis",
     "people": [
       "Warren Lewis"
-    ]
+    ],
+    "title": "Warren Lewis moves into the Kilns"
   },
   {
     "id": 181,
-    "name": "Warren Lewis begins The Lewis Papers",
     "start": "1930-12-01",
     "priority": 3,
     "type": "point",
@@ -2662,11 +2661,11 @@
     "person": "Warren Lewis",
     "people": [
       "Warren Lewis"
-    ]
+    ],
+    "title": "Warren Lewis begins The Lewis Papers"
   },
   {
     "id": 182,
-    "name": "The Splendid Century published",
     "start": "1953-11-01",
     "priority": 3,
     "type": "point",
@@ -2676,11 +2675,11 @@
     "person": "Warren Lewis",
     "people": [
       "Warren Lewis"
-    ]
+    ],
+    "title": "The Splendid Century published"
   },
   {
     "id": 183,
-    "name": "Memoirs of the Duc de Saint-Simon published",
     "start": "1964-01-01",
     "priority": 4,
     "type": "point",
@@ -2690,11 +2689,11 @@
     "person": "Warren Lewis",
     "people": [
       "Warren Lewis"
-    ]
+    ],
+    "title": "Memoirs of the Duc de Saint-Simon published"
   },
   {
     "id": 184,
-    "name": "Letters of C.S. Lewis published",
     "start": "1966-04-18",
     "priority": 2,
     "type": "point",
@@ -2704,11 +2703,11 @@
     "person": "Warren Lewis",
     "people": [
       "Warren Lewis"
-    ]
+    ],
+    "title": "Letters of C.S. Lewis published"
   },
   {
     "id": 185,
-    "name": "Death of Warren Lewis",
     "description": "Walter Hooper goes to visit him at the Kilns and finds he has just died.",
     "start": "1973-04-09",
     "priority": 0,
@@ -2719,11 +2718,11 @@
     "person": "Warren Lewis",
     "people": [
       "Warren Lewis"
-    ]
+    ],
+    "title": "Death of Warren Lewis"
   },
   {
     "id": 186,
-    "name": "Lewis and Barfield meet",
     "start": "1919-11-15",
     "edtf": "1919-11",
     "priority": 1,
@@ -2734,11 +2733,11 @@
     "person": "Inklings",
     "people": [
       "Inklings"
-    ]
+    ],
+    "title": "Lewis and Barfield meet"
   },
   {
     "id": 187,
-    "name": "Inklings weekly meetings",
     "description": "Thursday nights ~1929-",
     "start": "1929-12-01",
     "end": "1949-10-27",
@@ -2750,11 +2749,11 @@
     "person": "Inklings",
     "people": [
       "Inklings"
-    ]
+    ],
+    "title": "Inklings weekly meetings"
   },
   {
     "id": 188,
-    "name": "Lewis & Barfield's Great War",
     "start": "1922-01-01",
     "end": "1931-12-31",
     "edtf": "1922~/1931~",
@@ -2766,11 +2765,11 @@
     "person": "Inklings",
     "people": [
       "Inklings"
-    ]
+    ],
+    "title": "Lewis & Barfield's Great War"
   },
   {
     "id": 189,
-    "name": "Lewis and Tolkien meet",
     "start": "1926-05-11",
     "priority": 1,
     "type": "point",
@@ -2780,11 +2779,11 @@
     "person": "Inklings",
     "people": [
       "Inklings"
-    ]
+    ],
+    "title": "Lewis and Tolkien meet"
   },
   {
     "id": 190,
-    "name": "Addison's Walk",
     "start": "1931-09-19",
     "priority": 1,
     "type": "point",
@@ -2794,11 +2793,11 @@
     "person": "Inklings",
     "people": [
       "Inklings"
-    ]
+    ],
+    "title": "Addison's Walk"
   },
   {
     "id": 191,
-    "name": "Lewis and Williams begin correspondence",
     "start": "1936-03-11",
     "priority": 2,
     "type": "point",
@@ -2808,6 +2807,7 @@
     "person": "Inklings",
     "people": [
       "Inklings"
-    ]
+    ],
+    "title": "Lewis and Williams begin correspondence"
   }
 ]
