@@ -68,7 +68,7 @@ def update_items():
                             print(f"Validation error in {md_file}: {e.message}")
                             continue  # skip invalid data
 
-                        expected_name = f"EVT{data['id']}_{safe_title(data['name'])}.md"
+                        expected_name = f"EVT{data['id']}_{safe_title(data['title'])}.md"
                         expected_path = person_folder / expected_name
 
                         if md_file.name != expected_name:
