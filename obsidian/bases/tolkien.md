@@ -5,23 +5,22 @@ views:
     filters:
       and:
         - file.path.startsWith("events/")
+        - person == "J.R.R. Tolkien"
     order:
-      - status
       - person
       - category
       - title
+	  - status
+	  - source
+	  - note.note
       - start
       - end
       - description
       - edtf
-      - source
-      - note.note
       - type
       - file.name
     sort:
-      - property: status
+      - property: source
         direction: ASC
 
 ```
-
-

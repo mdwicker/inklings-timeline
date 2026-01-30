@@ -4,9 +4,10 @@ person: J.R.R. Tolkien
 category: major-pub
 title: Unfinished Tales
 priority: 1
-start: '1980-10-02'
+start: 1980-10-02
 people:
-- J.R.R. Tolkien
+  - J.R.R. Tolkien
 type: point
+status: Fact-check
 ---
 

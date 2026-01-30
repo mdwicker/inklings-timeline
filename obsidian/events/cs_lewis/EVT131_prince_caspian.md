@@ -4,11 +4,12 @@ person: C.S. Lewis
 category: major-pub
 title: Prince Caspian
 priority: 2
-start: '1951-10-15'
+start: 1951-10-15
 people:
-- C.S. Lewis
+  - C.S. Lewis
 source: Chronologically Lewis
 note: date exact
 type: point
+status: Check source trail
 ---
 

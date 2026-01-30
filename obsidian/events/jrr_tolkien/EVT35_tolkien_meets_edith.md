@@ -4,9 +4,10 @@ person: J.R.R. Tolkien
 category: life
 title: Tolkien meets Edith
 priority: 2
-start: '1908-01-01'
+start: 1908-01-01
 people:
-- J.R.R. Tolkien
+  - J.R.R. Tolkien
 type: point
+status: Fact-check
 ---
 

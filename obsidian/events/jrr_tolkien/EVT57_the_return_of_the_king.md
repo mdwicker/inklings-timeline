@@ -4,9 +4,10 @@ person: J.R.R. Tolkien
 category: major-pub
 title: The Return of the King
 priority: 0
-start: '1955-10-20'
+start: 1955-10-20
 people:
-- J.R.R. Tolkien
+  - J.R.R. Tolkien
 type: point
+status: Fact-check
 ---
 

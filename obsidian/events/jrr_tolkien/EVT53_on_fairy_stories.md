@@ -4,10 +4,11 @@ person: J.R.R. Tolkien
 category: major-pub
 title: On Fairy Stories
 priority: 2
-start: '1947-12-04'
+start: 1947-12-04
 description: Essays Presented to Charles Williams
 people:
-- J.R.R. Tolkien
+  - J.R.R. Tolkien
 type: point
+status: Fact-check
 ---
 

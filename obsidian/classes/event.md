@@ -20,7 +20,7 @@ fields:
         "6": Inklings
     path: ""
     id: Xj4OSJ
-  - name: name
+  - name: title
     type: Input
     options: {}
     path: ""
@@ -80,11 +80,6 @@ fields:
       linkPath: ""
     path: ""
     id: fFqZY3
-  - name: address
-    type: Input
-    options: {}
-    path: ""
-    id: nOzhnX
   - name: category
     type: Select
     options:
@@ -117,13 +112,13 @@ fields:
         "5": Final
     path: ""
     id: 7UvjJj
-version: "2.137"
+version: "2.140"
 limit: 20
 mapWithTag: false
 icon: package
 tagNames:
 filesPaths:
-  - Events
+  - events
 bookmarksGroups:
 excludes:
 extends:
@@ -143,6 +138,5 @@ fieldsOrder:
   - PyN1tw
   - fW1utv
   - cVvCTg
-  - nOzhnX
   - 7UvjJj
 ---

@@ -4,11 +4,12 @@ person: C.S. Lewis
 category: major-pub
 title: The Horse and His Boy
 priority: 2
-start: '1954-09-06'
+start: 1954-09-06
 people:
-- C.S. Lewis
+  - C.S. Lewis
 source: Chronologically Lewis
 note: date exact
 type: point
+status: Check source trail
 ---
 

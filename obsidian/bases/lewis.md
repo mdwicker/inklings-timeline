@@ -5,8 +5,8 @@ views:
     filters:
       and:
         - file.path.startsWith("events/")
+        - person == "C.S. Lewis"
     order:
-      - status
       - person
       - category
       - title
@@ -14,14 +14,13 @@ views:
       - end
       - description
       - edtf
+      - status
       - source
       - note.note
       - type
       - file.name
     sort:
-      - property: status
+      - property: source
         direction: ASC
 
 ```
-
-

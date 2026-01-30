@@ -4,11 +4,12 @@ person: C.S. Lewis
 category: major-pub
 title: The Silver Chair
 priority: 2
-start: '1953-09-07'
+start: 1953-09-07
 people:
-- C.S. Lewis
+  - C.S. Lewis
 source: Chronologically Lewis
 note: date exact
 type: point
+status: Check source trail
 ---
 

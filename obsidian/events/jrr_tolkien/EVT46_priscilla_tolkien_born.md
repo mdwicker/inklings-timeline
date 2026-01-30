@@ -4,9 +4,10 @@ person: J.R.R. Tolkien
 category: life
 title: Priscilla Tolkien born
 priority: 2
-start: '1929-06-18'
+start: 1929-06-18
 people:
-- J.R.R. Tolkien
+  - J.R.R. Tolkien
 type: point
+status: Fact-check
 ---
 

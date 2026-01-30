@@ -5,12 +5,13 @@ category: location
 title: Great Bookham
 priority: 1
 edtf: 1914-09-19/1917-04-25
-start: '1914-09-19'
-end: '1917-04-25'
+start: 1914-09-19
+end: 1917-04-25
 description: Surrey
 people:
-- C.S. Lewis
+  - C.S. Lewis
 source: Chronologically Lewis
 type: range
+status: Check source trail
 ---
 

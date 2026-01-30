@@ -4,10 +4,11 @@ person: J.R.R. Tolkien
 category: minor-pub
 title: Errantry
 priority: 3
-start: '1933-11-09'
+start: 1933-11-09
 description: The Oxford Magazine
 people:
-- J.R.R. Tolkien
+  - J.R.R. Tolkien
 type: point
+status: Fact-check
 ---
 

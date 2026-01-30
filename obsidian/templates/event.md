@@ -1,12 +1,12 @@
 ---
-id: 
+id:
 person:
-category: 
+category:
+title:
 priority:
 start:
 people: []
 source:
-status: Draft
-name:
 type:
+status: Draft
 ---

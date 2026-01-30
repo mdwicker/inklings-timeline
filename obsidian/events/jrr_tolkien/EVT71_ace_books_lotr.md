@@ -4,10 +4,11 @@ person: J.R.R. Tolkien
 category: minor-pub
 title: Ace Books LOTR
 priority: 3
-start: '1965-07-01'
+start: 1965-07-01
 description: unauthorized
 people:
-- J.R.R. Tolkien
+  - J.R.R. Tolkien
 type: point
+status: Fact-check
 ---
 

@@ -4,11 +4,12 @@ person: C.S. Lewis
 category: major-pub
 title: The Problem of Pain
 priority: 2
-start: '1940-10-18'
+start: 1940-10-18
 people:
-- C.S. Lewis
+  - C.S. Lewis
 source: Chronologically Lewis
 note: date exact
 type: point
+status: Check source trail
 ---
 

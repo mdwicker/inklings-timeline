@@ -4,12 +4,13 @@ person: C.S. Lewis
 category: minor-pub
 title: Christian Behavior
 priority: 3
-start: '1944-01-18'
+start: 1944-01-18
 description: 2nd part of Mere Christianity
 people:
-- C.S. Lewis
+  - C.S. Lewis
 source: Chronologically Lewis
 note: date exact
 type: point
+status: Check source trail
 ---
 

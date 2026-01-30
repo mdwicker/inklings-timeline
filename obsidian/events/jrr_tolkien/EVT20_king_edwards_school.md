@@ -4,10 +4,11 @@ person: J.R.R. Tolkien
 category: occupation
 title: King Edward's School
 priority: 2
-start: '1902-11-01'
-end: '1911-09-30'
+start: 1902-11-01
+end: 1911-09-30
 people:
-- J.R.R. Tolkien
+  - J.R.R. Tolkien
 type: range
+status: Fact-check
 ---
 

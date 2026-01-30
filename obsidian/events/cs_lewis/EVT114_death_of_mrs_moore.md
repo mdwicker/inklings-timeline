@@ -5,10 +5,11 @@ category: life
 title: Death of Mrs. Moore
 priority: 3
 edtf: 1951-01-12T17:00
-start: '1951-01-12'
+start: 1951-01-12
 people:
-- C.S. Lewis
+  - C.S. Lewis
 source: Chronologically Lewis
 type: point
+status: Check source trail
 ---
 
