@@ -1,11 +1,13 @@
 ---
 id: 190
-name: Addison's Walk
-start: '1931-09-19'
+person: Inklings
+title: Addison's Walk
 priority: 1
-type: point
-note: date exact
+start: '1931-09-19'
+people:
+- Inklings
 source: Chronologically Lewis
-address: inklings
+note: date exact
+type: point
 ---
 

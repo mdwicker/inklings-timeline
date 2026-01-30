@@ -17,11 +17,11 @@ with open(json_file, 'r', encoding="utf-8") as f:
     items = json.load(f)
 
 for item in items:
-    person = item['address'].split(".")[0]
-    person_folder = vault_folder / person
+    person = item['person']
+    person_folder = vault_folder / safe_title(person)
     person_folder.mkdir(parents=True, exist_ok=True)
 
-    filename = person_folder / f"EVT{item['id']}_{safe_title(item['name'])}.md"
+    filename = person_folder / f"EVT{item['id']}_{safe_title(item['title'])}.md"
 
     yaml_front = yaml.safe_dump(item, sort_keys=False, allow_unicode=True)
     content = f"---\n{yaml_front}---\n\n"

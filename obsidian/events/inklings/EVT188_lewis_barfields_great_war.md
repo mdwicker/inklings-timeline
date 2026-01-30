@@ -1,13 +1,15 @@
 ---
 id: 188
-name: Lewis & Barfield's Great War
+person: Inklings
+title: Lewis & Barfield's Great War
+priority: 2
+edtf: 1922~/1931~
 start: '1922-01-01'
 end: '1931-12-31'
-edtf: 1922~/1931~
-priority: 2
-type: range
-note: approximate years, dates undetermined
+people:
+- Inklings
 source: The Company They Keep
-address: inklings
+note: approximate years, dates undetermined
+type: range
 ---
 

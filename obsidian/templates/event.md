@@ -2,11 +2,11 @@
 id: 
 person:
 category: 
-name:
+priority:
 start:
 people: []
-priority:
-type:
 source:
 status: Draft
+name:
+type:
 ---

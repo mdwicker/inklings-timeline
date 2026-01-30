@@ -1,12 +1,14 @@
 ---
 id: 186
-name: Lewis and Barfield meet
-start: '1919-11-15'
-edtf: 1919-11
+person: Inklings
+title: Lewis and Barfield meet
 priority: 1
-type: point
-note: month known, not date
+edtf: 1919-11
+start: '1919-11-15'
+people:
+- Inklings
 source: Chronologically Lewis
-address: inklings
+note: month known, not date
+type: point
 ---
 

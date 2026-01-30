@@ -1,11 +1,13 @@
 ---
 id: 189
-name: Lewis and Tolkien meet
-start: '1926-05-11'
+person: Inklings
+title: Lewis and Tolkien meet
 priority: 1
-type: point
-note: date exact
+start: '1926-05-11'
+people:
+- Inklings
 source: Chronologically Lewis
-address: inklings
+note: date exact
+type: point
 ---
 

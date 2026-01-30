@@ -1,11 +1,13 @@
 ---
 id: 191
-name: Lewis and Williams begin correspondence
-start: '1936-03-11'
+person: Inklings
+title: Lewis and Williams begin correspondence
 priority: 2
-type: point
-note: date exact
+start: '1936-03-11'
+people:
+- Inklings
 source: Chronologically Lewis
-address: inklings
+note: date exact
+type: point
 ---
 

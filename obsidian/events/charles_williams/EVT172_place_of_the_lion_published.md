@@ -1,0 +1,13 @@
+---
+id: 172
+person: Charles Williams
+title: Place of the Lion published
+priority: 1
+start: '1931-01-01'
+people:
+- Charles Williams
+source: Charles Williams Society
+note: Only year known.
+type: point
+---
+
