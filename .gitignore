@@ -19,4 +19,16 @@ dist/
 Thumbs.db
 
 # Obsidian files
-obsidian/.obsidian/
+
+# Ignore volatile workspace state (window layout, open files, etc.)
+obsidian/.obsidian/workspace.json
+obsidian/.obsidian/workspace-mobile.json
+
+# Ignore cache and local storage
+obsidian/.obsidian/cache/
+obsidian/.obsidian/indexedDB/
+
+# OPTIONAL: Ignore heavy plugin folders
+obsidian/.obsidian/plugins/*
+# Keep plugin data
+!obsidian/.obsidian/plugins/*/data.json 
