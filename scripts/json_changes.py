@@ -28,7 +28,7 @@ for i, item in enumerate(items):
         if not name:
             continue
 
-        if not temp_item['title']:
+        if "title" not in temp_item:
             changed = True
             temp_item['title'] = name
             temp_item.pop('name')
