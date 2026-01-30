@@ -8,6 +8,28 @@
         "type": "integer",
         "maximum": 9999
       },
+      "person": {
+        "type": "string",
+        "enum": [
+          "lewis",
+          "tolkien",
+          "barfield",
+          "williams",
+          "warren-lewis",
+          "inklings"
+        ]
+      },
+      "category": {
+        "type": "string",
+        "enum": [
+          "location",
+          "occupation",
+          "life",
+          "major-pub",
+          "minor-pub",
+          "publication"
+        ]
+      },
       "address": {
         "type": "string",
         "anyOf": [
@@ -65,6 +87,6 @@
         "type": "string"
       }
     },
-    "required": ["id", "address", "name", "start", "priority", "type"]
+    "required": ["id", "person", "name", "start", "priority", "type"]
   }
 }

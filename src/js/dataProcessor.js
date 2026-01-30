@@ -101,9 +101,18 @@ function getRelationships({ groups, items, addressBook } = {}) {
   });
 
   items.forEach(item => {
-    const groupId = addressBook[item.address];
+    let itemAddress;
+
+    if (item.address) itemAddress = item.address;
+    else {
+      const itemAddressElements = [item.person];
+      if (item.category) itemAddress.push(item.category)
+      itemAddress = itemAddressElements.join(".");
+    }
+
+    const groupId = addressBook[itemAddress];
     if (!groupId) {
-      throw new Error(`Address ${item.address} not found for item ${item.name}`);
+      throw new Error(`Address ${itemAddress} not found for item ${item.name}`);
     }
     relationships[groupId].items.push(item.id);
   })
@@ -164,6 +173,10 @@ function normalize({ object } = {}) {
 
     normalized.person = person;
     normalized.category = category;
+  } else if (normalized.person) {
+    const addressParts = [normalized.person];
+    if (normalized.category) addressParts.push(normalized.category);
+    normalized.address = addressParts.join(".");
   }
 
   return normalized;
