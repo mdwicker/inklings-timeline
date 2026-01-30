@@ -11,12 +11,12 @@
       "person": {
         "type": "string",
         "enum": [
-          "lewis",
-          "tolkien",
-          "barfield",
-          "williams",
-          "warren-lewis",
-          "inklings"
+          "C.S. Lewis",
+          "J.R.R. Tolkien",
+          "Owen Barfield",
+          "Charles Williams",
+          "Warren Lewis",
+          "Inklings"
         ]
       },
       "category": {
