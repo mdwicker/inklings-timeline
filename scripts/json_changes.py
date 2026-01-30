@@ -31,7 +31,7 @@ for i, item in enumerate(items):
         if not temp_item['title']:
             changed = True
             temp_item['title'] = name
-            temp_item.pop('name')s
+            temp_item.pop('name')
 
         # END OF CHANGES
         
