@@ -105,7 +105,7 @@ function getRelationships({ groups, items, addressBook } = {}) {
 
     const groupId = addressBook[address];
     if (!groupId) {
-      throw new Error(`Address ${address} not found for item ${item.name}`);
+      throw new Error(`Address ${address} not found for item ${item.title}`);
     }
     relationships[groupId].items.push(item.id);
   })
@@ -168,11 +168,11 @@ function getAddress(item) {
 }
 
 function formatVisItem({ item } = {}) {
-  const { id, name, start, priority, type, group, person, category } = item;
+  const { id, title, start, priority, type, group, person, category } = item;
 
   const visItem = {
     id, group, start, priority, type, person, category,
-    content: name,
+    content: title,
   };
 
   if (item.end) visItem.end = item.end;
