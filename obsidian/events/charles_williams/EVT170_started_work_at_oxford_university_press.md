@@ -6,11 +6,10 @@ priority: 1
 start: 1908-06-09
 description: Amen House
 people:
-- Charles Williams
-source:
+  - Charles Williams
 note: exact date
+sourcename: The Fellowship
 type: point
 status: Fact-check
-oldsource: The Fellowship
 ---
 

@@ -8,7 +8,6 @@ start: 1919-07-16
 end: 1920-06-30
 people:
   - J.R.R. Tolkien
-source:
 type: range
 status: Fact-check
 ---

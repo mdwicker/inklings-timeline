@@ -8,10 +8,8 @@ start: 1919-03-20
 description: Heinemann, published under Clive Hamilton
 people:
 - C.S. Lewis
-source:
 note: date exact
 type: point
 status: Check source trail
-oldsource: Chronologically Lewis
 ---
 

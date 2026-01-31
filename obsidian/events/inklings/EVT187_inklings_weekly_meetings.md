@@ -7,13 +7,10 @@ start: 1929-12-01
 end: 1949-10-27
 description: Thursday nights ~1929-
 people:
-- Inklings
-source:
-note: Start date approximate and early, based on Tolkien sharing his mythology with
-  Lewis. End date approximate and late, based on Warren recording a Thursday evening
-  with Lewis where noone else came.
+  - Inklings
+note: Start date approximate and early, based on Tolkien sharing his mythology with Lewis. End date approximate and late, based on Warren recording a Thursday evening with Lewis where noone else came.
+sourcename: The Company They Keep
 type: range
 status: Fact-check
-oldsource: The Company They Keep
 ---
 

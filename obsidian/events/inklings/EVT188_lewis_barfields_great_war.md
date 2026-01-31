@@ -7,11 +7,10 @@ edtf: 1922~/1931~
 start: 1922-01-01
 end: 1931-12-31
 people:
-- Inklings
-source:
+  - Inklings
 note: approximate years, dates undetermined
+sourcename: The Company They Keep
 type: range
 status: Fact-check
-oldsource: The Company They Keep
 ---
 

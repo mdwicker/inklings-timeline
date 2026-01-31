@@ -8,11 +8,10 @@ edtf: 1930-10-11/1963-11-22
 start: 1930-10-11
 end: 1963-11-22
 people:
-- C.S. Lewis
-source:
+  - C.S. Lewis
 note: Moved part-time to Cambridge in 1955
+sourcename: Chronologically Lewis
 type: range
 status: Check source trail
-oldsource: Chronologically Lewis
 ---
 

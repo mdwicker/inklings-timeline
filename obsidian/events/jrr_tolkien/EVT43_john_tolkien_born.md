@@ -7,7 +7,6 @@ priority: 2
 start: 1917-11-16
 people:
   - J.R.R. Tolkien
-source:
 type: point
 status: Fact-check
 ---

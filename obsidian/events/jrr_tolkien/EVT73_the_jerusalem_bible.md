@@ -8,7 +8,6 @@ start: 1966-01-01
 description: Jonah by Tolkien
 people:
   - J.R.R. Tolkien
-source:
 type: point
 status: Fact-check
 ---

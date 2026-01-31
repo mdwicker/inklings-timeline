@@ -5,11 +5,10 @@ title: Williams joins the Fellowship of the Rosy Cross
 priority: 2
 start: 1917-09-23
 people:
-- Charles Williams
-source:
+  - Charles Williams
 note: date exact (autumn equinox)
+sourcename: The Fellowship
 type: point
 status: Fact-check
-oldsource: The Fellowship
 ---
 

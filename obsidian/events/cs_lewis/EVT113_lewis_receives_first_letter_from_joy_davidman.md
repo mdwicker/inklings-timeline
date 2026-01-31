@@ -7,10 +7,9 @@ priority: 3
 edtf: 1950-01-10
 start: 1950-01-10
 people:
-- C.S. Lewis
-source:
+  - C.S. Lewis
+sourcename: Chronologically Lewis
 type: point
 status: Check source trail
-oldsource: Chronologically Lewis
 ---
 

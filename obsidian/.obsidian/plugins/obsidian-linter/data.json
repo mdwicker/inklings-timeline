@@ -31,8 +31,8 @@
       "force-multi-line-array-style": ""
     },
     "insert-yaml-attributes": {
-      "enabled": true,
-      "text-to-insert": "source: {name, page}"
+      "enabled": false,
+      "text-to-insert": "aliases: \ntags: "
     },
     "move-tags-to-yaml": {
       "enabled": false,
@@ -41,7 +41,7 @@
     },
     "remove-yaml-keys": {
       "enabled": true,
-      "yaml-keys-to-remove": "address"
+      "yaml-keys-to-remove": "source\noldsource"
     },
     "sort-yaml-array-values": {
       "enabled": false,
@@ -53,7 +53,7 @@
     },
     "yaml-key-sort": {
       "enabled": true,
-      "yaml-key-priority-sort-order": "id\nperson\ncategory\ntitle\npriority\nedtf\nstart\nend\ndescription\npeople\nsource\noldsource\nsourcename\nsourcepage\nsourceaccessed\nsourcecomment\nnote\ntype\nstatus",
+      "yaml-key-priority-sort-order": "id\nperson\ncategory\ntitle\npriority\nedtf\nstart\nend\ndescription\npeople\nnote\nsourcename\nsourcepage\nsourceaccessed\nsourcecomment\ntype\nstatus",
       "priority-keys-at-start-of-yaml": true,
       "yaml-sort-order-for-other-keys": "None"
     },

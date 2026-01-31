@@ -7,11 +7,10 @@ priority: 3
 start: 1964-05-07
 description: Posthumous
 people:
-- C.S. Lewis
-source:
+  - C.S. Lewis
 note: date exact
+sourcename: Chronologically Lewis
 type: point
 status: Check source trail
-oldsource: Chronologically Lewis
 ---
 

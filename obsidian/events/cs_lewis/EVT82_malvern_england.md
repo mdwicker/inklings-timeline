@@ -8,11 +8,10 @@ edtf: 1911-01-10?/1914-07-29
 start: 1911-01-10
 end: 1914-07-29
 people:
-- C.S. Lewis
-source:
+  - C.S. Lewis
 note: For uncertain start date, see note on previous event.
+sourcename: Chronologically Lewis
 type: range
 status: Check source trail
-oldsource: Chronologically Lewis
 ---
 

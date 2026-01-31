@@ -5,11 +5,10 @@ title: Memoirs of the Duc de Saint-Simon published
 priority: 4
 start: 1964-01-01
 people:
-- Warren Lewis
-source:
+  - Warren Lewis
 note: year only
+sourcename: Chronologically Lewis
 type: point
 status: Fact-check
-oldsource: Chronologically Lewis
 ---
 

@@ -8,10 +8,8 @@ start: 1942-07-13
 description: 1st part of Mere Christianity
 people:
 - C.S. Lewis
-source:
 note: date exact
 type: point
 status: Check source trail
-oldsource: Chronologically Lewis
 ---
 

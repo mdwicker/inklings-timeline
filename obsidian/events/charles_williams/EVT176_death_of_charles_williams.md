@@ -6,10 +6,8 @@ priority: 0
 start: 1945-05-15
 people:
 - Charles Williams
-source:
 note: exact date
 type: point
 status: Fact-check
-oldsource: Charles Williams Society
 ---
 

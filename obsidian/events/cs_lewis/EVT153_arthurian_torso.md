@@ -7,10 +7,8 @@ priority: 4
 start: 1948-10-21
 people:
 - C.S. Lewis
-source:
 note: date exact
 type: point
 status: Check source trail
-oldsource: Chronologically Lewis
 ---
 

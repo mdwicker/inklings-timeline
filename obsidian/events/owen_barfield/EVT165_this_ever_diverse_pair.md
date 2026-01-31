@@ -6,10 +6,9 @@ priority: 3
 start: 1950-01-01
 people:
 - Owen Barfield
-source:
 note: year only
+sourcename: Owen Barfield Literary Estate
 type: point
 status: Fact-check
-oldsource: Owen Barfield Literary Estate
 ---
 

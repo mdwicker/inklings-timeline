@@ -7,15 +7,12 @@ priority: 2
 edtf: 1955-01-01/1963-11-22
 start: 1955-01-01
 end: 1963-11-22
-description: Cambridge for academic duties and writing, the Kilns for weekends and
-  holidays
+description: Cambridge for academic duties and writing, the Kilns for weekends and holidays
 people:
-- C.S. Lewis
-source:
-note: Start day is the beginning of his part-time residence in Cambridge, end date
-  is his death. Note that he likely did not travel much to Cambridge in his last days.
+  - C.S. Lewis
+note: Start day is the beginning of his part-time residence in Cambridge, end date is his death. Note that he likely did not travel much to Cambridge in his last days.
+sourcename: Chronologically Lewis
 type: range
 status: Check source trail
-oldsource: Chronologically Lewis
 ---
 

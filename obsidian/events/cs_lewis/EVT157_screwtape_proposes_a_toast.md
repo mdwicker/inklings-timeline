@@ -8,10 +8,8 @@ start: 1959-12-19
 description: Article in the Saturday Evening Post
 people:
 - C.S. Lewis
-source:
 note: date exact
 type: point
 status: Check source trail
-oldsource: Chronologically Lewis
 ---
 

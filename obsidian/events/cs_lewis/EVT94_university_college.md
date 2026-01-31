@@ -10,7 +10,6 @@ end: 1917-06-05
 description: Student
 people:
   - C.S. Lewis
-source:
 note: Start date is date of enrolment, end date is when he joined the Army.
 type: range
 status: Fact-check

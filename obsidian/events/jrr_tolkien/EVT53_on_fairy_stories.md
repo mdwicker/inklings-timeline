@@ -8,7 +8,6 @@ start: 1947-12-04
 description: Essays Presented to Charles Williams
 people:
   - J.R.R. Tolkien
-source:
 type: point
 status: Fact-check
 ---

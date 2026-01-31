@@ -8,7 +8,6 @@ start: 1968-06-01
 end: 1972-03-13
 people:
   - J.R.R. Tolkien
-source:
 type: range
 status: Fact-check
 ---

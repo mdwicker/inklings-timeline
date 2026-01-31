@@ -9,7 +9,6 @@ end: 1959-12-31
 description: Merton Professor of English Language and Literature
 people:
   - J.R.R. Tolkien
-source:
 type: range
 status: Fact-check
 ---

@@ -7,11 +7,10 @@ priority: 3
 edtf: 1920-05-03~
 start: 1920-05-03
 people:
-- C.S. Lewis
-source:
+  - C.S. Lewis
 note: By May 3 they had moved to a new address together.
+sourcename: Chronologically Lewis
 type: point
 status: Check source trail
-oldsource: Chronologically Lewis
 ---
 

@@ -7,10 +7,8 @@ priority: 2
 start: 1951-10-15
 people:
 - C.S. Lewis
-source:
 note: date exact
 type: point
 status: Check source trail
-oldsource: Chronologically Lewis
 ---
 

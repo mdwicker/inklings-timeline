@@ -9,7 +9,6 @@ end: 1918-10-31
 description: Great Haywood, various camps and hospitals
 people:
   - J.R.R. Tolkien
-source:
 type: range
 status: Fact-check
 ---

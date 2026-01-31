@@ -6,10 +6,8 @@ priority: 1
 start: 1931-01-01
 people:
 - Charles Williams
-source:
 note: Only year known.
 type: point
 status: Fact-check
-oldsource: Charles Williams Society
 ---
 

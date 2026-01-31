@@ -9,7 +9,6 @@ end: 1919-07-16
 description: Some garrison duties when able
 people:
   - J.R.R. Tolkien
-source:
 type: range
 status: Fact-check
 ---

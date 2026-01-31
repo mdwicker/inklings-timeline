@@ -6,11 +6,10 @@ priority: 0
 start: 1886-09-20
 people:
   - Charles Williams
-source:
 note: exact date
+sourcename: The Fellowship
 type: point
 status: Fact-check
-oldsource: The Fellowship
 source.name:
 ---
 

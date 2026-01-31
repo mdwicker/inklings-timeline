@@ -6,10 +6,8 @@ priority: 1
 start: 1939-09-07
 people:
 - Charles Williams
-source:
 note: date exact
 type: point
 status: Fact-check
-oldsource: Chronologically Lewis
 ---
 

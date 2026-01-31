@@ -9,9 +9,7 @@ start: 1951-12-04
 description: Responding to a letter from Winston Churchill received the previous day.
 people:
 - C.S. Lewis
-source:
 type: point
 status: Check source trail
-oldsource: Chronologically Lewis
 ---
 

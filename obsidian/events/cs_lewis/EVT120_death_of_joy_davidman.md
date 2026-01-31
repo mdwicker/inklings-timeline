@@ -8,9 +8,7 @@ edtf: 1960-07-13T22:15
 start: 1960-07-13
 people:
 - C.S. Lewis
-source:
 type: point
 status: Check source trail
-oldsource: Chronologically Lewis
 ---
 

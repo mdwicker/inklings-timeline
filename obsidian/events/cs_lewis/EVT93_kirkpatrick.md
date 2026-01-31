@@ -9,10 +9,9 @@ start: 1914-09-14
 end: 1917-04-25
 description: private study with William T. Kirkpatrick, "The Great Knock"
 people:
-- C.S. Lewis
-source:
+  - C.S. Lewis
+sourcename: Chronologically Lewis
 type: range
 status: Check source trail
-oldsource: Chronologically Lewis
 ---
 

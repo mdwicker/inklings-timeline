@@ -9,7 +9,6 @@ end: 1916-11-08
 description: Mostly training around Bedford and Staffordshire
 people:
   - J.R.R. Tolkien
-source:
 type: range
 status: Fact-check
 ---

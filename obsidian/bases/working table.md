@@ -14,6 +14,7 @@ views:
       - note.note
       - oldsource
       - sourcename
+      - file.name
     sort:
       - property: oldsource
         direction: DESC

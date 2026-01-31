@@ -7,7 +7,6 @@ priority: 0
 start: 1971-11-29
 people:
   - J.R.R. Tolkien
-source:
 type: point
 status: Fact-check
 ---

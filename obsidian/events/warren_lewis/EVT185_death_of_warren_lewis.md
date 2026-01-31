@@ -6,11 +6,10 @@ priority: 0
 start: 1973-04-09
 description: Walter Hooper goes to visit him at the Kilns and finds he has just died.
 people:
-- Warren Lewis
-source:
+  - Warren Lewis
 note: exact date
+sourcename: Chronologically Lewis
 type: point
 status: Fact-check
-oldsource: Chronologically Lewis
 ---
 

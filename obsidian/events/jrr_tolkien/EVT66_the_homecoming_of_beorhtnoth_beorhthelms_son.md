@@ -7,7 +7,6 @@ priority: 3
 start: 1953-10-01
 people:
   - J.R.R. Tolkien
-source:
 type: point
 status: Fact-check
 ---

@@ -9,7 +9,6 @@ end: 1915-04-01
 description: Student
 people:
   - J.R.R. Tolkien
-source:
 type: range
 status: Fact-check
 ---

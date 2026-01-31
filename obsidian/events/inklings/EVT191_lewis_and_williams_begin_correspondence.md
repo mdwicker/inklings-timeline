@@ -6,10 +6,8 @@ priority: 2
 start: 1936-03-11
 people:
 - Inklings
-source:
 note: date exact
 type: point
 status: Fact-check
-oldsource: Chronologically Lewis
 ---
 

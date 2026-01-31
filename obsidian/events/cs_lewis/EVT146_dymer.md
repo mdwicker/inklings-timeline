@@ -8,10 +8,8 @@ start: 1926-09-08
 description: J.M. Dent, published under Clive Hamilton
 people:
 - C.S. Lewis
-source:
 note: date exact
 type: point
 status: Check source trail
-oldsource: Chronologically Lewis
 ---
 

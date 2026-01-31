@@ -7,7 +7,6 @@ priority: 1
 start: 1956-03-19
 people:
   - C.S. Lewis
-source:
 type: point
 status: Fact-check
 ---

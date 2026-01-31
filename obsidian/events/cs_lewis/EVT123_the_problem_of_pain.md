@@ -7,10 +7,8 @@ priority: 2
 start: 1940-10-18
 people:
 - C.S. Lewis
-source:
 note: date exact
 type: point
 status: Check source trail
-oldsource: Chronologically Lewis
 ---
 

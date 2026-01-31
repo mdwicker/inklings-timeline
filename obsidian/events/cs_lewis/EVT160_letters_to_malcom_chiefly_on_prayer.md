@@ -8,10 +8,8 @@ start: 1964-01-27
 description: Posthumous
 people:
 - C.S. Lewis
-source:
 note: date exact
 type: point
 status: Check source trail
-oldsource: Chronologically Lewis
 ---
 

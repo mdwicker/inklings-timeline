@@ -8,7 +8,6 @@ start: 1925-04-23
 description: with E.V. Gordon (Clarendon Press)
 people:
   - J.R.R. Tolkien
-source:
 type: point
 status: Fact-check
 ---

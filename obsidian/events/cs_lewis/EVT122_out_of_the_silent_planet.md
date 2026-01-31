@@ -7,10 +7,8 @@ priority: 1
 start: 1938-09-23
 people:
 - C.S. Lewis
-source:
 note: date exact
 type: point
 status: Check source trail
-oldsource: Chronologically Lewis
 ---
 

@@ -7,7 +7,6 @@ priority: 2
 start: 1920-10-22
 people:
   - J.R.R. Tolkien
-source:
 type: point
 status: Fact-check
 ---
