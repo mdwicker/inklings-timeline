@@ -8,9 +8,9 @@ edtf: 1917-10-16
 start: 1917-10-16
 description: 3rd Batallion
 people:
-  - C.S. Lewis
-source: Chronologically Lewis
+- C.S. Lewis
 type: point
 status: Check source trail
+oldsource: Chronologically Lewis
 ---
 

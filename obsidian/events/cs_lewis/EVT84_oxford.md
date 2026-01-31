@@ -8,9 +8,9 @@ edtf: 1917-04-26/1917-11-17
 start: 1917-04-26
 end: 1917-11-17
 people:
-  - C.S. Lewis
-source: Chronologically Lewis
+- C.S. Lewis
 type: range
 status: Check source trail
+oldsource: Chronologically Lewis
 ---
 

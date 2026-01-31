@@ -7,9 +7,9 @@ priority: 0
 edtf: 1963-11-22T17:33~
 start: 1963-11-22
 people:
-  - C.S. Lewis
-source: Chronologically Lewis
+- C.S. Lewis
 type: point
 status: Check source trail
+oldsource: Chronologically Lewis
 ---
 

@@ -8,9 +8,9 @@ edtf: 1908-09-18/1910-07-12
 start: 1908-09-18
 end: 1910-07-12
 people:
-  - C.S. Lewis
-source: Chronologically Lewis
+- C.S. Lewis
 type: range
 status: Check source trail
+oldsource: Chronologically Lewis
 ---
 

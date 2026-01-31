@@ -5,10 +5,10 @@ title: Williams moves to Oxford
 priority: 1
 start: 1939-09-07
 people:
-  - Charles Williams
-source: Chronologically Lewis
+- Charles Williams
 note: date exact
 type: point
 status: Fact-check
+oldsource: Chronologically Lewis
 ---
 

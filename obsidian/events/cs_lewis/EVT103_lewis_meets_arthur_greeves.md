@@ -7,10 +7,10 @@ priority: 2
 edtf: 1914-04-15~
 start: 1914-04-05
 people:
-  - C.S. Lewis
-source: Chronologically Lewis
+- C.S. Lewis
 note: Sometime "mid-April" according to CL
 type: point
 status: Check source trail
+oldsource: Chronologically Lewis
 ---
 

@@ -7,10 +7,10 @@ priority: 3
 start: 1936-05-21
 description: Clarendon Press
 people:
-  - C.S. Lewis
-source: Chronologically Lewis
+- C.S. Lewis
 note: date exact
 type: point
 status: Check source trail
+oldsource: Chronologically Lewis
 ---
 

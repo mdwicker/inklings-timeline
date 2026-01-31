@@ -6,10 +6,10 @@ title: The Silver Chair
 priority: 2
 start: 1953-09-07
 people:
-  - C.S. Lewis
-source: Chronologically Lewis
+- C.S. Lewis
 note: date exact
 type: point
 status: Check source trail
+oldsource: Chronologically Lewis
 ---
 

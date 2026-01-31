@@ -5,10 +5,10 @@ title: Marriage of Owen Barfield and Maud Douie
 priority: 1
 start: 1923-04-11
 people:
-  - Owen Barfield
-source: Chronologically Lewis
+- Owen Barfield
 note: exact date
 type: point
 status: Fact-check
+oldsource: Chronologically Lewis
 ---
 

@@ -8,9 +8,9 @@ edtf: 1908-08-23T06:30
 start: 1908-08-23
 description: C.S. Lewis's mother
 people:
-  - C.S. Lewis
-source: Chronologically Lewis
+- C.S. Lewis
 type: point
 status: Check source trail
+oldsource: Chronologically Lewis
 ---
 

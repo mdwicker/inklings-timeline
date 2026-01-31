@@ -7,9 +7,9 @@ priority: 2
 edtf: 1951-02-08
 start: 1951-02-08
 people:
-  - C.S. Lewis
-source: Chronologically Lewis
+- C.S. Lewis
 type: point
 status: Check source trail
+oldsource: Chronologically Lewis
 ---
 

@@ -5,10 +5,10 @@ title: Lewis and Williams begin correspondence
 priority: 2
 start: 1936-03-11
 people:
-  - Inklings
-source: Chronologically Lewis
+- Inklings
 note: date exact
 type: point
 status: Fact-check
+oldsource: Chronologically Lewis
 ---
 

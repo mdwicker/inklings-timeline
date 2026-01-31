@@ -8,10 +8,10 @@ start: 1941-05-02
 end: 1941-11-28
 description: Serial format in Anglican newspaper The Guardian
 people:
-  - C.S. Lewis
-source: Chronologically Lewis
+- C.S. Lewis
 note: dates exact
 type: range
 status: Check source trail
+oldsource: Chronologically Lewis
 ---
 

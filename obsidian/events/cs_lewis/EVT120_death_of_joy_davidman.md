@@ -7,9 +7,9 @@ priority: 2
 edtf: 1960-07-13T22:15
 start: 1960-07-13
 people:
-  - C.S. Lewis
-source: Chronologically Lewis
+- C.S. Lewis
 type: point
 status: Check source trail
+oldsource: Chronologically Lewis
 ---
 

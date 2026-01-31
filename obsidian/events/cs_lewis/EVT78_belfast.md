@@ -9,9 +9,9 @@ start: 1898-11-29
 end: 1905-04-21
 description: Dundela Villas, near Holywood Road in East Belfast
 people:
-  - C.S. Lewis
-source: Chronologically Lewis
+- C.S. Lewis
 type: range
 status: Check source trail
+oldsource: Chronologically Lewis
 ---
 

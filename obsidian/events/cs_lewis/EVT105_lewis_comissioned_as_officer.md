@@ -8,9 +8,9 @@ edtf: 1917-09-26
 start: 1917-09-26
 description: Second Lieutenant
 people:
-  - C.S. Lewis
-source: Chronologically Lewis
+- C.S. Lewis
 type: point
 status: Check source trail
+oldsource: Chronologically Lewis
 ---
 

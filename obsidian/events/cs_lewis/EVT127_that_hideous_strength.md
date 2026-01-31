@@ -6,10 +6,10 @@ title: That Hideous Strength
 priority: 1
 start: 1945-08-16
 people:
-  - C.S. Lewis
-source: Chronologically Lewis
+- C.S. Lewis
 note: date exact
 type: point
 status: Check source trail
+oldsource: Chronologically Lewis
 ---
 

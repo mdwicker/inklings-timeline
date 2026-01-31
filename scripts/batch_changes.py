@@ -14,8 +14,9 @@ def batch_modify(data: dict) -> tuple[dict, bool]:
 
     # CHANGE DATA BELOW
 
-    if 'address' in temp_data:
-        temp_data.pop('address')
+    if 'source' in temp_data:
+        temp_data['oldsource'] = temp_data['source']
+        temp_data.pop('source')
         modified = True
 
 

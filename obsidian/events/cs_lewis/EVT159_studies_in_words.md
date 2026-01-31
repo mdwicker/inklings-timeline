@@ -6,10 +6,10 @@ title: Studies in Words
 priority: 3
 start: 1960-09-09
 people:
-  - C.S. Lewis
-source: Chronologically Lewis
+- C.S. Lewis
 note: date exact
 type: point
 status: Check source trail
+oldsource: Chronologically Lewis
 ---
 

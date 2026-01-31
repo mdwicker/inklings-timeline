@@ -6,10 +6,10 @@ title: A Preface to Paradise Lost
 priority: 3
 start: 1942-10-08
 people:
-  - C.S. Lewis
-source: Chronologically Lewis
+- C.S. Lewis
 note: date exact
 type: point
 status: Check source trail
+oldsource: Chronologically Lewis
 ---
 

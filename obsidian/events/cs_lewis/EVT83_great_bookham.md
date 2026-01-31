@@ -9,9 +9,9 @@ start: 1914-09-19
 end: 1917-04-25
 description: Surrey
 people:
-  - C.S. Lewis
-source: Chronologically Lewis
+- C.S. Lewis
 type: range
 status: Check source trail
+oldsource: Chronologically Lewis
 ---
 

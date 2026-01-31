@@ -8,9 +8,9 @@ edtf: 1951-12-04
 start: 1951-12-04
 description: Responding to a letter from Winston Churchill received the previous day.
 people:
-  - C.S. Lewis
-source: Chronologically Lewis
+- C.S. Lewis
 type: point
 status: Check source trail
+oldsource: Chronologically Lewis
 ---
 
