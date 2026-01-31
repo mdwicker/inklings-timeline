@@ -9,6 +9,6 @@ people:
 note: date approximate, joined Anthroposophic Society of Great Britain in January 1924
 sourcename: Owen Barfield Literary Estate
 type: point
-status: Fact-check
+status: Check source trail
 ---
 

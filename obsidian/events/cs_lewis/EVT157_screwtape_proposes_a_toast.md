@@ -7,9 +7,10 @@ priority: 3
 start: 1959-12-19
 description: Article in the Saturday Evening Post
 people:
-- C.S. Lewis
+  - C.S. Lewis
 note: date exact
 type: point
 status: Check source trail
+sourcename: Chronologically Lewis
 ---
 

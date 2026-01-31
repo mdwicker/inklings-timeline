@@ -9,7 +9,7 @@ people:
 note: exact date
 sourcename: The Fellowship
 type: point
-status: Fact-check
+status: Check source trail
 source.name:
 ---
 

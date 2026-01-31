@@ -11,6 +11,6 @@ people:
 note: exact start date of receiving entrance exam results, exact end date of final arrival back in England
 sourcename: Chronologically Lewis
 type: range
-status: Fact-check
+status: Check source trail
 ---
 

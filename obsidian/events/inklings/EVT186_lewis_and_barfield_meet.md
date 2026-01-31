@@ -6,9 +6,10 @@ priority: 1
 edtf: 1919-11
 start: 1919-11-15
 people:
-- Inklings
+  - Inklings
 note: month known, not date
 type: point
-status: Fact-check
+status: Check source trail
+sourcename: Chronologically Lewis
 ---
 

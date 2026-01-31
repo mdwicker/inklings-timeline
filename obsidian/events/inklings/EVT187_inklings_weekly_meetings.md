@@ -11,6 +11,6 @@ people:
 note: Start date approximate and early, based on Tolkien sharing his mythology with Lewis. End date approximate and late, based on Warren recording a Thursday evening with Lewis where noone else came.
 sourcename: The Company They Keep
 type: range
-status: Fact-check
+status: Check source trail
 ---
 

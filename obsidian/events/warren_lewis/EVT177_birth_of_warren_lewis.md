@@ -9,6 +9,6 @@ people:
 note: exact date
 sourcename: Chronologically Lewis
 type: point
-status: Fact-check
+status: Check source trail
 ---
 

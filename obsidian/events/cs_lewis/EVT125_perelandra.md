@@ -6,9 +6,10 @@ title: Perelandra
 priority: 1
 start: 1943-04-20
 people:
-- C.S. Lewis
+  - C.S. Lewis
 note: date exact
 type: point
 status: Check source trail
+sourcename: Chronologically Lewis
 ---
 

@@ -6,11 +6,11 @@ title: Lewis injured in Battle of Arras
 priority: 3
 edtf: 1918-04-15
 start: 1918-04-15
-description: Wounded in left hand, left leg, and left side on Mount Bernenchon near
-  Lillers, France.
+description: Wounded in left hand, left leg, and left side on Mount Bernenchon near Lillers, France.
 people:
-- C.S. Lewis
+  - C.S. Lewis
 type: point
 status: Check source trail
+sourcename: Chronologically Lewis
 ---
 

@@ -5,9 +5,10 @@ title: Lewis and Tolkien meet
 priority: 1
 start: 1926-05-11
 people:
-- Inklings
+  - Inklings
 note: date exact
 type: point
-status: Fact-check
+status: Check source trail
+sourcename: Chronologically Lewis
 ---
 

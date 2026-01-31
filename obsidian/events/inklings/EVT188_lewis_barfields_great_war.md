@@ -11,6 +11,6 @@ people:
 note: approximate years, dates undetermined
 sourcename: The Company They Keep
 type: range
-status: Fact-check
+status: Check source trail
 ---
 

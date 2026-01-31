@@ -4,6 +4,9 @@
     "cssclasses": "multitext",
     "tags": "tags",
     "start": "text",
-    "end": "text"
+    "end": "text",
+    "edtf": "text",
+    "sourcepage": "number",
+    "sourceaccessed": "date"
   }
 }

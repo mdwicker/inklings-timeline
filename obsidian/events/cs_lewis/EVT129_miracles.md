@@ -6,9 +6,10 @@ title: Miracles
 priority: 2
 start: 1947-05-12
 people:
-- C.S. Lewis
+  - C.S. Lewis
 note: date exact
 type: point
 status: Check source trail
+sourcename: Chronologically Lewis
 ---
 

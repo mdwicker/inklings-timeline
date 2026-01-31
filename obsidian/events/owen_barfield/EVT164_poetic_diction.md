@@ -9,6 +9,6 @@ people:
 note: Only year known. Lewis purchased a copy at the end of May
 sourcename: Chronologically Lewis
 type: point
-status: Fact-check
+status: Check source trail
 ---
 

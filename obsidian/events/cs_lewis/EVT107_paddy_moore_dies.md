@@ -8,8 +8,9 @@ edtf: 1918-03-24
 start: 1918-03-24
 description: First reported missing, later confirmed dead.
 people:
-- C.S. Lewis
+  - C.S. Lewis
 type: point
 status: Check source trail
+sourcename: Chronologically Lewis
 ---
 

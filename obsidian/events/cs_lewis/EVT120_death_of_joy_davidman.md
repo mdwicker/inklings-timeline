@@ -4,11 +4,12 @@ person: C.S. Lewis
 category: life
 title: Death of Joy Davidman
 priority: 2
-edtf: 1960-07-13T22:15
+edtf: 1960-07-13
 start: 1960-07-13
 people:
-- C.S. Lewis
+  - C.S. Lewis
 type: point
 status: Check source trail
+sourcename: Chronologically Lewis
 ---
 

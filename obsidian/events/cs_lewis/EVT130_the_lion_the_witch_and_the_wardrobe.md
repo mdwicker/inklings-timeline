@@ -6,9 +6,10 @@ title: The Lion, the Witch, and the Wardrobe
 priority: 0
 start: 1950-10-16
 people:
-- C.S. Lewis
+  - C.S. Lewis
 note: date exact
 type: point
 status: Check source trail
+sourcename: Chronologically Lewis
 ---
 

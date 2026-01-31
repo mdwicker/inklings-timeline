@@ -8,8 +8,9 @@ edtf: 1956-04-23
 start: 1956-04-23
 description: Civil marriage at Oxford Registry Office
 people:
-- C.S. Lewis
+  - C.S. Lewis
 type: point
 status: Check source trail
+sourcename: Chronologically Lewis
 ---
 

@@ -13,5 +13,6 @@ people:
 note: Start date is date of enrolment, end date is when he joined the Army.
 type: range
 status: Fact-check
+sourcename: Chronologically Lewis
 ---
 

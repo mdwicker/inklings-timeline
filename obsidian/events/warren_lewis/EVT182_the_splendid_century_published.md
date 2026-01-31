@@ -9,6 +9,6 @@ people:
 note: sometime this year after October 17
 sourcename: Chronologically Lewis
 type: point
-status: Fact-check
+status: Check source trail
 ---
 

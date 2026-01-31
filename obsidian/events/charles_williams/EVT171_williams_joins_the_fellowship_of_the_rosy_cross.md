@@ -9,6 +9,6 @@ people:
 note: date exact (autumn equinox)
 sourcename: The Fellowship
 type: point
-status: Fact-check
+status: Check source trail
 ---
 

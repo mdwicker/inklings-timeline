@@ -9,6 +9,6 @@ people:
 note: year only
 sourcename: Owen Barfield Literary Estate
 type: point
-status: Fact-check
+status: Check source trail
 ---
 

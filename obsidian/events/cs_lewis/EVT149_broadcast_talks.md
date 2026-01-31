@@ -7,9 +7,10 @@ priority: 3
 start: 1942-07-13
 description: 1st part of Mere Christianity
 people:
-- C.S. Lewis
+  - C.S. Lewis
 note: date exact
 type: point
 status: Check source trail
+sourcename: Chronologically Lewis
 ---
 
