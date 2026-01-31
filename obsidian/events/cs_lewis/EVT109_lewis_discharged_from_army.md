@@ -10,6 +10,8 @@ people:
   - C.S. Lewis
 sourcename: Chronologically Lewis
 type: point
-status: Check source trail
+status: Add detail
+description: Lewis is discharged from the hospital and demobilized.
+sourceaccessed: 2026-01-31
 ---
 

@@ -10,7 +10,8 @@ description: 3rd Batallion
 people:
   - C.S. Lewis
 type: point
-status: Check source trail
-sourcename: Chronologically Lewis
+status: Add detail
+sourcename: Collected Letters of C.S. Lewis, Vol. 1
+sourcepage: 338
 ---
 

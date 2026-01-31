@@ -8,9 +8,10 @@ edtf: 1920-05-03~
 start: 1920-05-03
 people:
   - C.S. Lewis
-note: By May 3 they had moved to a new address together.
+note: The exact date isn't known, but had moved with the Moores to 131 Osler Road, Headington by May 3.
 sourcename: Chronologically Lewis
 type: point
-status: Check source trail
+status: Add detail
+sourceaccessed: 2026-01-31
 ---
 

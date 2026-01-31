@@ -112,12 +112,6 @@ fields:
         "5": Final
     path: ""
     id: 7UvjJj
-  - name: sourcepage
-    type: Number
-    options:
-      step: 1
-    path: ""
-    id: qPfSnC
   - name: sourcecomment
     type: Input
     options: {}
@@ -140,7 +134,12 @@ fields:
       linkPath: ""
     path: ""
     id: 5fpPgf
-version: "2.174"
+  - name: sourcepage
+    type: Input
+    options: {}
+    path: ""
+    id: ihtgyi
+version: "2.176"
 limit: 20
 mapWithTag: false
 icon: package
@@ -153,10 +152,10 @@ extends:
 savedViews: []
 favoriteView:
 fieldsOrder:
+  - ihtgyi
   - Tep3UM
   - 5fpPgf
   - fW1utv
-  - qPfSnC
   - bti6O7
   - zYB2TC
   - Xj4OSJ

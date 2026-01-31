@@ -13,6 +13,7 @@ people:
 note: Lewis finished school on July 12, but we don't know exactly when he went back to Belfast. He may have gone back immediately, or he may have waited and gone back with Warnie (whose exams at Malvern started the 21st). All we know for certain is that he was in Belfast for school in September.
 sourcename: Chronologically Lewis
 type: range
-status: Check source trail
+status: Add detail
+sourceaccessed: 2026-01-31
 ---
 

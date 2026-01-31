@@ -9,9 +9,10 @@ start: 1911-01-10
 end: 1914-07-29
 people:
   - C.S. Lewis
-note: For uncertain start date, see note on previous event.
+note: His date of sailing to Malvern in 1911 is not known for certain.
 sourcename: Chronologically Lewis
 type: range
-status: Check source trail
+status: Add detail
+sourceaccessed: 2026-01-31
 ---
 

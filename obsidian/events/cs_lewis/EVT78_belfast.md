@@ -12,6 +12,8 @@ people:
   - C.S. Lewis
 sourcename: Chronologically Lewis
 type: range
-status: Check source trail
+status: Add detail
+sourceaccessed: 2026-01-31
+sourcecomment: Collected Letters, Vol. 1 claims that the move to Little Lea happened on April 18.
 ---
 
