@@ -14,11 +14,13 @@ views:
       - end
       - description
       - edtf
-      - source
       - note.note
       - type
       - file.name
+      - source
     sort:
+      - property: source
+        direction: ASC
       - property: status
         direction: ASC
 
