@@ -52,10 +52,10 @@ fields:
       max: 5
     path: ""
     id: PyN1tw
-  - name: source
+  - name: oldsource
     type: Input
     options: {}
-    path: ""
+    path: NI4ifM
     id: fW1utv
   - name: note
     type: Input
@@ -112,7 +112,41 @@ fields:
         "5": Final
     path: ""
     id: 7UvjJj
-version: "2.140"
+  - name: source
+    type: Object
+    options:
+      displayTemplate: ""
+    path: ""
+    id: NI4ifM
+  - name: page
+    type: Number
+    options:
+      step: 1
+    path: NI4ifM
+    id: qPfSnC
+  - name: comment
+    type: Input
+    options: {}
+    path: NI4ifM
+    id: Tep3UM
+  - name: name
+    type: Select
+    options:
+      sourceType: ValuesListNotePath
+      valuesList: {}
+      valuesListNotePath: other/sources.md
+    path: NI4ifM
+    id: bti6O7
+  - name: accessed
+    type: Date
+    options:
+      dateShiftInterval: 1 day
+      dateFormat: YYYY-MM-DD
+      defaultInsertAsLink: false
+      linkPath: ""
+    path: NI4ifM
+    id: 5fpPgf
+version: "2.162"
 limit: 20
 mapWithTag: false
 icon: package
@@ -125,6 +159,12 @@ extends:
 savedViews: []
 favoriteView:
 fieldsOrder:
+  - NI4ifM
+  - bti6O7
+  - qPfSnC
+  - fW1utv
+  - 5fpPgf
+  - Tep3UM
   - zYB2TC
   - Xj4OSJ
   - uua7xK
@@ -136,7 +176,6 @@ fieldsOrder:
   - AIBLFG
   - zSESLR
   - PyN1tw
-  - fW1utv
   - cVvCTg
   - 7UvjJj
 ---

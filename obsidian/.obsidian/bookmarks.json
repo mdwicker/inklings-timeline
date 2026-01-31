@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "type": "folder",
+      "ctime": 1769864339800,
+      "path": "events",
+      "title": "events"
+    },
+    {
+      "type": "file",
+      "ctime": 1769864368993,
+      "path": "templates/event.md",
+      "title": "event template"
+    },
+    {
+      "type": "file",
+      "ctime": 1769864381413,
+      "path": "other/sources.md",
+      "title": "source list"
+    },
+    {
+      "type": "folder",
+      "ctime": 1769864389147,
+      "path": "bases",
+      "title": "bases"
+    },
+    {
+      "type": "file",
+      "ctime": 1769864396135,
+      "path": "classes/event.md",
+      "title": "event class"
+    }
+  ]
+}
