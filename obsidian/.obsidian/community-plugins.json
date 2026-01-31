@@ -1,4 +1,6 @@
 [
   "obsidian-git",
-  "obsidian-linter"
+  "obsidian-linter",
+  "metadata-menu",
+  "dataview"
 ]
