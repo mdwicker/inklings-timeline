@@ -31,4 +31,5 @@ obsidian/.obsidian/indexedDB/
 # OPTIONAL: Ignore heavy plugin folders
 obsidian/.obsidian/plugins/*
 # Keep plugin data
+!obsidian/.obsidian/plugins/*/
 !obsidian/.obsidian/plugins/*/data.json 
