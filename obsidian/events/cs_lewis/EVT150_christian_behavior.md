@@ -8,6 +8,7 @@ start: 1944-01-18
 description: 2nd part of Mere Christianity
 people:
 - C.S. Lewis
+source:
 note: date exact
 type: point
 status: Check source trail

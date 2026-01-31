@@ -8,6 +8,7 @@ start: 1961-09-29
 description: Under the name N.W. Clerk
 people:
 - C.S. Lewis
+source:
 note: date exact
 type: point
 status: Check source trail

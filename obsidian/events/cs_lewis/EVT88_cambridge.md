@@ -11,6 +11,7 @@ description: Cambridge for academic duties and writing, the Kilns for weekends a
   holidays
 people:
 - C.S. Lewis
+source:
 note: Start day is the beginning of his part-time residence in Cambridge, end date
   is his death. Note that he likely did not travel much to Cambridge in his last days.
 type: range

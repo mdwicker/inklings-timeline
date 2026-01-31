@@ -8,6 +8,7 @@ edtf: 1920-05-03~
 start: 1920-05-03
 people:
 - C.S. Lewis
+source:
 note: By May 3 they had moved to a new address together.
 type: point
 status: Check source trail

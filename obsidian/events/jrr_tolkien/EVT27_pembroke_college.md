@@ -9,6 +9,7 @@ end: 1945-09-30
 description: Rawlinson and Bosworth Professor of Anglo-Saxon
 people:
   - J.R.R. Tolkien
+source:
 type: range
 status: Fact-check
 ---

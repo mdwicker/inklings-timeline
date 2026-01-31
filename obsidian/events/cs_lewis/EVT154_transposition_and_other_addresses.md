@@ -7,6 +7,7 @@ priority: 3
 start: 1949-07-02
 people:
 - C.S. Lewis
+source:
 note: unknown date in 1949
 type: point
 status: Check source trail

@@ -10,6 +10,7 @@ end: 1908-09-17
 description: 76 Circular Road, Belfast, Northern Ireland
 people:
 - C.S. Lewis
+source:
 type: range
 status: Check source trail
 oldsource: Chronologically Lewis

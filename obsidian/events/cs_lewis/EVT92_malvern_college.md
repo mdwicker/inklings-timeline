@@ -9,6 +9,7 @@ start: 1913-09-18
 end: 1914-07-28
 people:
 - C.S. Lewis
+source:
 type: range
 status: Check source trail
 oldsource: Chronologically Lewis

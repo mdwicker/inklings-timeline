@@ -8,6 +8,7 @@ start: 1936-05-21
 description: Clarendon Press
 people:
 - C.S. Lewis
+source:
 note: date exact
 type: point
 status: Check source trail

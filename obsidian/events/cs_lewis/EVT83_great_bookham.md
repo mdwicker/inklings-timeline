@@ -10,6 +10,7 @@ end: 1917-04-25
 description: Surrey
 people:
 - C.S. Lewis
+source:
 type: range
 status: Check source trail
 oldsource: Chronologically Lewis

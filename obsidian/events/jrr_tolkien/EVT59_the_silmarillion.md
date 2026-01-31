@@ -7,6 +7,7 @@ priority: 1
 start: 1977-09-15
 people:
   - J.R.R. Tolkien
+source:
 type: point
 status: Fact-check
 ---

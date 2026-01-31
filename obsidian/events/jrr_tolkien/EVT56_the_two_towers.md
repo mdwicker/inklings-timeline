@@ -7,6 +7,7 @@ priority: 0
 start: 1954-11-11
 people:
   - J.R.R. Tolkien
+source:
 type: point
 status: Fact-check
 ---

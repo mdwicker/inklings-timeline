@@ -10,16 +10,13 @@ views:
       - person
       - category
       - title
-      - start
-      - end
-      - description
       - edtf
       - note.note
-      - type
-      - file.name
       - oldsource
-      - source.name
+      - sourcename
     sort:
+      - property: oldsource
+        direction: DESC
       - property: source
         direction: DESC
       - property: status

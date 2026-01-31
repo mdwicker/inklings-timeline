@@ -8,6 +8,7 @@ edtf: 1950-01-10
 start: 1950-01-10
 people:
 - C.S. Lewis
+source:
 type: point
 status: Check source trail
 oldsource: Chronologically Lewis

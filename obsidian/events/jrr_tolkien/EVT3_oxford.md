@@ -8,6 +8,7 @@ start: 1911-10-01
 end: 1915-04-01
 people:
   - J.R.R. Tolkien
+source:
 type: range
 status: Fact-check
 ---

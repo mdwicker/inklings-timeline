@@ -8,6 +8,7 @@ edtf: 1914-04-15~
 start: 1914-04-05
 people:
 - C.S. Lewis
+source:
 note: Sometime "mid-April" according to CL
 type: point
 status: Check source trail

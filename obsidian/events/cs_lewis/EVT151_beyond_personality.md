@@ -8,6 +8,7 @@ start: 1944-10-09
 description: 3rd part of Mere Christianity
 people:
 - C.S. Lewis
+source:
 note: date exact
 type: point
 status: Check source trail

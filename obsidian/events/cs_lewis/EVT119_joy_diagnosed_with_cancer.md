@@ -10,6 +10,7 @@ description: Joy broke her femur on October 18, and the x-rays the following day
   an advanced case of cancer.
 people:
 - C.S. Lewis
+source:
 type: point
 status: Check source trail
 oldsource: Chronologically Lewis

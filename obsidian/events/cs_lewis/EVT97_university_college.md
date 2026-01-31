@@ -10,6 +10,7 @@ end: 1925-06-15
 description: Filling in as Philosophy lecturer
 people:
 - C.S. Lewis
+source:
 note: Start date is date of Lewis's first lecture. He agreed to the job on May 5.
   End date was July 11, the last day of term that school year. Timeline display uses
   earlier date to avoid overlap with Magdalen Fellowship

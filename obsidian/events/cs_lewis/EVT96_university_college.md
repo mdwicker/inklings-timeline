@@ -10,6 +10,7 @@ end: 1924-07-16
 description: 'Student: Honour Moderations, Greats, English'
 people:
 - C.S. Lewis
+source:
 note: Arrived in Oxford on the 13th, term started on the 14th. End date is when Lewis
   learned he had received First Class Honours. End date of actual studies unclear.
 type: range

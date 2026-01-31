@@ -9,6 +9,7 @@ start: 1911-01-10
 end: 1913-07-29
 people:
 - C.S. Lewis
+source:
 note: CL lists start date as uncertain.
 type: range
 status: Check source trail

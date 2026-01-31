@@ -6,6 +6,7 @@ priority: 2
 start: 1966-04-18
 people:
 - Warren Lewis
+source:
 note: exact date
 type: point
 status: Fact-check

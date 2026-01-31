@@ -7,6 +7,7 @@ edtf: 1919-11
 start: 1919-11-15
 people:
 - Inklings
+source:
 note: month known, not date
 type: point
 status: Fact-check

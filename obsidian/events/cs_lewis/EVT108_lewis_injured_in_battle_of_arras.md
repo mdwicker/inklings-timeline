@@ -10,6 +10,7 @@ description: Wounded in left hand, left leg, and left side on Mount Bernenchon n
   Lillers, France.
 people:
 - C.S. Lewis
+source:
 type: point
 status: Check source trail
 oldsource: Chronologically Lewis

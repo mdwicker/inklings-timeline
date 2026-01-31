@@ -9,6 +9,7 @@ start: 1917-09-26
 description: Second Lieutenant
 people:
 - C.S. Lewis
+source:
 type: point
 status: Check source trail
 oldsource: Chronologically Lewis

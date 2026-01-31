@@ -9,6 +9,7 @@ start: 1917-11-17
 end: 1918-05-24
 people:
 - C.S. Lewis
+source:
 note: For end date, CL reports that Lewis "probably" crossed to England on May 24.
   He then spent some time in various hospitals and army bases, as well as some time
   at Little Lea.

@@ -7,6 +7,7 @@ priority: 2
 start: 1949-10-20
 people:
   - J.R.R. Tolkien
+source:
 type: point
 status: Fact-check
 ---

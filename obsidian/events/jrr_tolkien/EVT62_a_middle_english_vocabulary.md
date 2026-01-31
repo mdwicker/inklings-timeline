@@ -7,6 +7,7 @@ priority: 4
 start: 1922-05-11
 people:
   - J.R.R. Tolkien
+source:
 type: point
 status: Fact-check
 ---

@@ -8,6 +8,7 @@ start: 1902-01-01
 end: 1902-11-01
 people:
   - J.R.R. Tolkien
+source:
 type: range
 status: Fact-check
 ---

@@ -8,6 +8,7 @@ start: 1896-02-15
 description: J.R.R. Tolkien's father
 people:
   - J.R.R. Tolkien
+source:
 type: point
 status: Fact-check
 ---

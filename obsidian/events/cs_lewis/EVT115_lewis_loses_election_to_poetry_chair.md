@@ -8,6 +8,7 @@ edtf: 1951-02-08
 start: 1951-02-08
 people:
 - C.S. Lewis
+source:
 type: point
 status: Check source trail
 oldsource: Chronologically Lewis

@@ -7,6 +7,7 @@ priority: 3
 start: 1960-09-09
 people:
 - C.S. Lewis
+source:
 note: date exact
 type: point
 status: Check source trail

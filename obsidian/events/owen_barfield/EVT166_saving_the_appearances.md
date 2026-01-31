@@ -6,6 +6,7 @@ priority: 3
 start: 1957-01-01
 people:
 - Owen Barfield
+source:
 note: year only
 type: point
 status: Fact-check

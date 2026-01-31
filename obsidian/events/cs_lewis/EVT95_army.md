@@ -9,6 +9,7 @@ start: 1917-06-05
 end: 1918-12-24
 people:
   - C.S. Lewis
+source:
 type: range
 status: Fact-check
 ---

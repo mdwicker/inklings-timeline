@@ -7,6 +7,7 @@ priority: 0
 start: 1955-10-20
 people:
   - J.R.R. Tolkien
+source:
 type: point
 status: Fact-check
 ---

@@ -7,6 +7,7 @@ priority: 0
 start: 1950-10-16
 people:
 - C.S. Lewis
+source:
 note: date exact
 type: point
 status: Check source trail

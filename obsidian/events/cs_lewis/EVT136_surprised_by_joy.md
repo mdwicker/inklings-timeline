@@ -7,6 +7,7 @@ priority: 2
 start: 1955-01-01
 people:
 - C.S. Lewis
+source:
 note: date approximate
 type: point
 status: Check source trail

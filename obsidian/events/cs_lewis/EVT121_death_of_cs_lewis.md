@@ -8,6 +8,7 @@ edtf: 1963-11-22T17:33~
 start: 1963-11-22
 people:
 - C.S. Lewis
+source:
 type: point
 status: Check source trail
 oldsource: Chronologically Lewis

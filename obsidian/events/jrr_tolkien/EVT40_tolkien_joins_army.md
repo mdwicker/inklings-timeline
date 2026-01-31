@@ -8,6 +8,7 @@ start: 1915-07-15
 description: Receives commission in Lancashire Fusiliers
 people:
   - J.R.R. Tolkien
+source:
 type: point
 status: Fact-check
 ---

@@ -8,6 +8,7 @@ edtf: 1898-11-29
 start: 1898-11-29
 people:
   - C.S. Lewis
+source:
 type: point
 status: Fact-check
 ---

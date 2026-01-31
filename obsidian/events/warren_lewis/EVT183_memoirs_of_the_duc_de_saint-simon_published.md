@@ -6,6 +6,7 @@ priority: 4
 start: 1964-01-01
 people:
 - Warren Lewis
+source:
 note: year only
 type: point
 status: Fact-check

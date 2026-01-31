@@ -9,6 +9,7 @@ start: 1952-09-24
 description: Lewis and George Sayer meet Joy and Phyllis Williams for lunch
 people:
 - C.S. Lewis
+source:
 type: point
 status: Check source trail
 oldsource: Chronologically Lewis

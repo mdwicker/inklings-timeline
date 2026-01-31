@@ -10,6 +10,7 @@ description: Lewis professes faith in Christ in Warren's sidecar on the way to W
   Zoo.
 people:
 - C.S. Lewis
+source:
 note: Some scholars think this could have been in 1932. Sayer inaccurately dates this
   to September 22 with no explanation. Warren's diary supports the given date.
 type: point

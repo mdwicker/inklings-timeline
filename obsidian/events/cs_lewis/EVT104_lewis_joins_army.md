@@ -10,6 +10,7 @@ description: Lewis Joins the No.4 Officer Cadet Battalion (Company E) as No.738 
   under Lieutenant Colonel J.F. Stenning. He rooms with Paddy Moore at Keble College.
 people:
 - C.S. Lewis
+source:
 type: point
 status: Check source trail
 oldsource: Chronologically Lewis

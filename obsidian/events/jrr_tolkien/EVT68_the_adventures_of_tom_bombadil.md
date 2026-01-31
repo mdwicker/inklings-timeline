@@ -7,6 +7,7 @@ priority: 3
 start: 1962-11-22
 people:
   - J.R.R. Tolkien
+source:
 type: point
 status: Fact-check
 ---

@@ -6,6 +6,7 @@ priority: 1
 start: 1931-09-19
 people:
 - Inklings
+source:
 note: date exact
 type: point
 status: Fact-check

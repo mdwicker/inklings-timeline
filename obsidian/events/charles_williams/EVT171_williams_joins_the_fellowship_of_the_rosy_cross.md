@@ -6,6 +6,7 @@ priority: 2
 start: 1917-09-23
 people:
 - Charles Williams
+source:
 note: date exact (autumn equinox)
 type: point
 status: Fact-check

@@ -10,6 +10,7 @@ end: 1963-08-11
 description: Professor of Medieval and Renaissance Literature
 people:
 - C.S. Lewis
+source:
 note: Start date is the day he wrote to accept the post. End date is the latest possible
   date for his resignation.
 type: range

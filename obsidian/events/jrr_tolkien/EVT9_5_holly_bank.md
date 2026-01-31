@@ -8,6 +8,7 @@ start: 1921-03-01
 end: 1921-08-01
 people:
   - J.R.R. Tolkien
+source:
 type: range
 status: Fact-check
 ---

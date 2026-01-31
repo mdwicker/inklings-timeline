@@ -9,6 +9,7 @@ start: 1930-10-11
 end: 1963-11-22
 people:
 - C.S. Lewis
+source:
 note: Moved part-time to Cambridge in 1955
 type: range
 status: Check source trail

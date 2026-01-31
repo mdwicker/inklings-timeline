@@ -6,6 +6,7 @@ priority: 0
 start: 1997-12-14
 people:
 - Owen Barfield
+source:
 note: exact date
 type: point
 status: Fact-check

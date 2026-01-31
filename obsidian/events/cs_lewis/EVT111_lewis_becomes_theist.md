@@ -10,6 +10,7 @@ description: '"Most reluctant convert." He reports the date to be Trinity Term 1
   but most scholars believe he is off by a year.'
 people:
 - C.S. Lewis
+source:
 note: Sources vary, but CL takes July 17-26 sometime as the most likely date. Sometime
   in June 1-6 is also possible but less likely. Lewis's own reported date of Trinity
   Term 1929 is very likely incorrect.

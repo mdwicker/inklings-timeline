@@ -7,6 +7,7 @@ priority: 3
 start: 1942-10-08
 people:
 - C.S. Lewis
+source:
 note: date exact
 type: point
 status: Check source trail
