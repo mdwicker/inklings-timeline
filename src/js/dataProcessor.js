@@ -25,6 +25,49 @@ Priority 4: Incidental or Niche Information
     Summary: Trivia, short-term trips, or very early/obscure works that don't impact the overall narrative.
  */
 
+/*
+Outputs:
+  Dataset of groups with the following fields:
+    {
+      -REQUIRED-
+      id (unique positive integer)
+      content (String with group's name)
+      className (String with html classes for styling)
+      subgroupOrder (rules that correctly position bgnd events)
+      subgroupStack (required to enforce correct stacking behavior)
+
+      -REQUIRED FOR SUBGROUPS-
+      parentId (int of  parent group's id)
+
+      -REQUIRED FOR PARENT GROUPS-
+      nestedGroups (array of subgroup ids)
+    }
+
+  Dataset of items with the following fields:
+    {
+      -REQUIRED, WILL BREAK BEHAVIOR-
+      id (unique positive integer)
+      content (string with the event's name)
+      start (ISO date)
+      type (vis event type: point or range. could use others in future)
+      subgroup ("background" for bgnd events, otherwise "normal")
+      isBackground (boolean)
+      ?className (not currently required, maybe should be?)
+
+      -REQUIRED FOR BGND EVENTS-
+      className ("background", this is needed for styling)
+
+      -REQUIRED FOR RANGE EVENTS-
+      end (ISO date)
+
+      -OPTIONAL-
+      description (string with further details about event)
+      source (string with bibliographic info)
+      note (string with bibliographic commentary)
+      ...other metadata fields, potentially
+    }
+*/
+
 import rawGroups from '../data/groups.json'
 import rawItems from '../data/items.json'
 import { DataSet } from "vis-data/peer"
@@ -36,6 +79,9 @@ const categoryPrefixes = {
   "location": "🏠",
   "occupation": "🎓"
 };
+
+
+// MAIN PIPELINE
 
 validateData({ groups: rawGroups, items: rawItems });
 
@@ -53,6 +99,14 @@ function validateData({ groups, items } = {}) {
 }
 
 function format({ groups, items } = {}) {
+  /**
+   * GROUP input fields
+   *  -address (reconsider this. consider forming it from slugified name.)
+   *  -id (unique)
+   *  -tags (array, will be converted into HTML class names)
+   * ...I genuinely can't tell if anything else is needed lol. annoying.
+   */
+
   const addressBook = groups.reduce((addresses, group) => {
     addresses[group.address] = group.id
     return addresses;
