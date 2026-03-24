@@ -61,7 +61,7 @@ const VisibilityToggles = (function (groups) {
   const toggles = {}
 
   // Create nodes
-  groups.filter(group => !group.parent)
+  groups.filter(group => !group.parentId)
     .forEach((group) => {
       const node = createGroupNode(group);
       if (group.nestedGroups != undefined) {
@@ -128,7 +128,7 @@ const VisibilityToggles = (function (groups) {
       .replace(/[^a-z0-9-]/g, "");
 
     node.classList.add("group-list-item");
-    node.classList.add(group.parent ? "subgroup" : "top-level");
+    node.classList.add(group.parentId ? "subgroup" : "top-level");
 
     toggles[group.id] = {};
     node.append(
