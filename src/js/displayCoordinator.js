@@ -208,7 +208,7 @@ function isInRange({ item, range, rangeMode = "enclose" } = {}) {
     return itemStart <= range.end && itemEnd > range.start;
   } else if (rangeMode === "start") {
     // Range items will return true if their start date is visible in the range
-    return itemStart <= range.end && itemEnd > range.start;
+    return itemStart <= range.end && itemStart > range.start;
   }
 
   // By default, range items return true if they are fully enclosed by the range
