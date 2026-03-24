@@ -230,7 +230,6 @@ function formatVisItem({ item } = {}) {
   };
 
   if (item.end) visItem.end = item.end;
-  if (item.edtf) visItem.edtf = item.edtf;
   if (item.description) visItem.description = item.description;
   if (item.source) visItem.source = item.source;
   if (item.note) visItem.note = item.note;
@@ -242,6 +241,7 @@ function formatVisItem({ item } = {}) {
     visItem.isBackground = true;
   } else {
     visItem.subgroup = "normal";
+    visItem.isBackground = false;
   }
 
   if (item.category in categoryPrefixes) {
@@ -261,8 +261,6 @@ function formatVisGroup({ group } = {}) {
   };
 
   if (group.parentId) visGroup.parentId = group.parentId;
-  if (group.tags) visGroup.tags = [...group.tags];
-  if (items) visGroup.items = [...group.items];
   if (group.nestedGroups) visGroup.nestedGroups = [...group.nestedGroups];
 
   visGroup.subgroupOrder = (a, b) => {
