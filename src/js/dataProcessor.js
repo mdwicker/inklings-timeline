@@ -47,12 +47,15 @@ Outputs:
     {
       -REQUIRED, WILL BREAK BEHAVIOR-
       id (unique positive integer)
+      group (id of parent group)
       content (string with the event's name)
+      subject (person, group, etc. the main domain of the event)
+      category (type of event: location, occupation, publication, etc)
+      priority (integer from 0-4)
       start (ISO date)
       type (vis event type: point or range. could use others in future)
-      subgroup ("background" for bgnd events, otherwise "normal")
+      subgroup (specify type of bgnd event, otherwise "normal")
       isBackground (boolean)
-      ?className (not currently required, maybe should be?)
 
       -REQUIRED FOR BGND EVENTS-
       className ("background", this is needed for styling)
