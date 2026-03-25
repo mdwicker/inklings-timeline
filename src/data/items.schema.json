@@ -8,17 +8,6 @@
         "type": "integer",
         "maximum": 9999
       },
-      "person": {
-        "type": "string",
-        "enum": [
-          "C.S. Lewis",
-          "J.R.R. Tolkien",
-          "Owen Barfield",
-          "Charles Williams",
-          "Warren Lewis",
-          "Inklings"
-        ]
-      },
       "category": {
         "type": "string",
         "enum": [
@@ -28,29 +17,6 @@
           "major-pub",
           "minor-pub",
           "publication"
-        ]
-      },
-      "address": {
-        "type": "string",
-        "anyOf": [
-          {
-            "pattern": "^tolkien.(location|occupation|life|major-pub|minor-pub)$"
-          },
-          {
-            "pattern": "^lewis.(location|occupation|life|major-pub|minor-pub)$"
-          },
-          {
-            "pattern": "^barfield$"
-          },
-          {
-            "pattern": "^williams$"
-          },
-          {
-            "pattern": "^warren-lewis$"
-          },
-          {
-            "pattern": "^inklings$"
-          }
         ]
       },
       "title": {
@@ -87,6 +53,6 @@
         "type": "string"
       }
     },
-    "required": ["id", "person", "title", "start", "priority", "type"]
+    "required": ["id", "title", "start", "priority", "type"]
   }
 }

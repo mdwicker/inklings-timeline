@@ -8,52 +8,11 @@
         "type": "integer",
         "maximum": 200
       },
-      "parentId": {
-        "type": "integer",
-        "maximum": 200
-      },
-      "nestedGroups": {
-        "type": "array",
-        "items": {
-          "type": "integer",
-          "maximum": 200
-        }
-      },
       "name": {
         "type": "string",
         "maxLength": 50
-      },
-      "tags": {
-        "type": "array",
-        "items": {
-          "type": "string",
-          "maxLength": 20
-        }
-      },
-      "address": {
-        "type": "string",
-        "anyOf": [
-          {
-            "pattern": "^jrr-tolkien(.(location|occupation|life|major-pub|minor-pub))?$"
-          },
-          {
-            "pattern": "^cs-lewis(.(location|occupation|life|major-pub|minor-pub))?$"
-          },
-          {
-            "pattern": "^owen-barfield$"
-          },
-          {
-            "pattern": "^charles-williams$"
-          },
-          {
-            "pattern": "^warren-lewis$"
-          },
-          {
-            "pattern": "^inklings$"
-          }
-        ]
       }
     },
-    "required": ["id", "name", "address"]
+    "required": ["id", "name"]
   }
 }

@@ -1,16 +1,16 @@
-.vis-timeline .vis-group.tolkien {
+.vis-timeline .vis-group.jrr-tolkien {
   background-color: hsl(106, 36%, 95%);
 }
 
-.vis-timeline .vis-label.tolkien {
+.vis-timeline .vis-label.jrr-tolkien {
   background-color: hsl(106, 36%, 95%);
 }
 
-.vis-timeline .vis-label.lewis {
+.vis-timeline .vis-label.cs-lewis {
   background-color: hsl(47, 100%, 96%);
 }
 
-.vis-timeline .vis-group.lewis {
+.vis-timeline .vis-group.cs-lewis {
   background-color: hsl(47, 100%, 96%);
 }
 

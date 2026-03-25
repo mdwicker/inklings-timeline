@@ -141,13 +141,6 @@ function deepCopy(object) {
   return copy;
 }
 
-function getClasses(group) {
-  const classes = []
-  classes.push(...group.tags);
-  classes.push(`groupId-${group.id}`);
-  return classes.join(" ");
-}
-
 function formatVisItem({ item } = {}) {
   const { id, title, start, priority, type, group, category } = item;
 
@@ -184,7 +177,7 @@ function formatVisGroup({ group } = {}) {
   const visGroup = {
     id, person, category, address,
     content: name,
-    className: getClasses(group),
+    className: slugify(name),
   };
 
   if (group.parentId) visGroup.parentId = group.parentId;
@@ -209,43 +202,6 @@ function formatVisGroup({ group } = {}) {
   visGroup.subgroupStack = subgroupStack;
 
   return visGroup;
-}
-
-function removeNestedGroups({ groups, items }) {
-  // Map every group to its root (parent or itself)
-  const rootOf = {};
-  for (const group of groups) {
-    rootOf[group.id] = group.parentId ?? group.id;
-  }
-
-  // Create root groups
-  const roots = {};
-  for (const group of groups) {
-    if (!group.parentId) {
-      roots[group.id] = {
-        ...group,
-        items: [...(group.items ?? [])],
-      };
-    }
-  }
-
-  // Push nestedGroup items into their parent
-  for (const group of groups) {
-    if (group.parentId) {
-      delete roots[group.parentId].nestedGroups;
-      roots[group.parentId].items.push(...(group.items ?? []));
-    }
-  }
-
-  const processedGroups = Object.values(roots);
-
-  // Remap items to parent groups
-  const processedItems = items.map(item => ({
-    ...item,
-    group: rootOf[item.group],
-  }));
-
-  return { groups: processedGroups, items: processedItems };
 }
 
 function slugify(name) {
