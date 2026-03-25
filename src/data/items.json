@@ -302,8 +302,7 @@
     "category": "life",
     "title": "Birth of J.R.R. Tolkien",
     "priority": 0,
-    "start": "1892-01-03",
-    "type": "point"
+    "start": "1892-01-03"
   },
   {
     "id": 31,
@@ -312,8 +311,7 @@
     "title": "Death of Arthur Tolkien",
     "priority": 2,
     "start": "1896-02-15",
-    "description": "J.R.R. Tolkien's father",
-    "type": "point"
+    "description": "J.R.R. Tolkien's father"
   },
   {
     "id": 32,
@@ -321,8 +319,7 @@
     "category": "life",
     "title": "Marriage of J.R.R. Tolkien & Edith Bratt",
     "priority": 0,
-    "start": "1916-03-22",
-    "type": "point"
+    "start": "1916-03-22"
   },
   {
     "id": 33,
@@ -330,8 +327,7 @@
     "category": "life",
     "title": "Tolkiens convert to Catholicism",
     "priority": 2,
-    "start": "1900-06-01",
-    "type": "point"
+    "start": "1900-06-01"
   },
   {
     "id": 34,
@@ -340,8 +336,7 @@
     "title": "Death of Mabel Tolkien",
     "priority": 1,
     "start": "1904-11-01",
-    "description": "J.R.R. Tolkien's mother",
-    "type": "point"
+    "description": "J.R.R. Tolkien's mother"
   },
   {
     "id": 35,
@@ -349,8 +344,7 @@
     "category": "life",
     "title": "Tolkien meets Edith",
     "priority": 2,
-    "start": "1908-01-01",
-    "type": "point"
+    "start": "1908-01-01"
   },
   {
     "id": 36,
@@ -358,8 +352,7 @@
     "category": "life",
     "title": "Communication with Edith forbidden",
     "priority": 3,
-    "start": "1910-01-21",
-    "type": "point"
+    "start": "1910-01-21"
   },
   {
     "id": 37,
@@ -367,8 +360,7 @@
     "category": "life",
     "title": "T.C.B.S. formed",
     "priority": 2,
-    "start": "1911-07-01",
-    "type": "point"
+    "start": "1911-07-01"
   },
   {
     "id": 38,
@@ -376,8 +368,7 @@
     "category": "life",
     "title": "Tolkien visits Switzerland",
     "priority": 3,
-    "start": "1911-08-01",
-    "type": "point"
+    "start": "1911-08-01"
   },
   {
     "id": 39,
@@ -385,8 +376,7 @@
     "category": "life",
     "title": "Tolkien writes to Edith",
     "priority": 3,
-    "start": "1913-01-03",
-    "type": "point"
+    "start": "1913-01-03"
   },
   {
     "id": 40,
@@ -395,8 +385,7 @@
     "title": "Tolkien joins army",
     "priority": 2,
     "start": "1915-07-15",
-    "description": "Receives commission in Lancashire Fusiliers",
-    "type": "point"
+    "description": "Receives commission in Lancashire Fusiliers"
   },
   {
     "id": 41,
@@ -404,8 +393,7 @@
     "category": "life",
     "title": "Final T.C.B.S. meeting",
     "priority": 3,
-    "start": "1915-09-26",
-    "type": "point"
+    "start": "1915-09-26"
   },
   {
     "id": 42,
@@ -413,8 +401,7 @@
     "category": "life",
     "title": "Edith dances in glade",
     "priority": 3,
-    "start": "1917-05-01",
-    "type": "point"
+    "start": "1917-05-01"
   },
   {
     "id": 43,
@@ -422,8 +409,7 @@
     "category": "life",
     "title": "John Tolkien born",
     "priority": 2,
-    "start": "1917-11-16",
-    "type": "point"
+    "start": "1917-11-16"
   },
   {
     "id": 44,
@@ -431,8 +417,7 @@
     "category": "life",
     "title": "Michael Tolkien born",
     "priority": 2,
-    "start": "1920-10-22",
-    "type": "point"
+    "start": "1920-10-22"
   },
   {
     "id": 45,
@@ -440,8 +425,7 @@
     "category": "life",
     "title": "Christopher Tolkien born",
     "priority": 1,
-    "start": "1924-11-21",
-    "type": "point"
+    "start": "1924-11-21"
   },
   {
     "id": 46,
@@ -449,8 +433,7 @@
     "category": "life",
     "title": "Priscilla Tolkien born",
     "priority": 2,
-    "start": "1929-06-18",
-    "type": "point"
+    "start": "1929-06-18"
   },
   {
     "id": 47,
@@ -459,8 +442,7 @@
     "title": "Tolkiens' Mediterranean cruise",
     "priority": 4,
     "start": "1966-09-14",
-    "end": "1966-10-06",
-    "type": "point"
+    "end": "1966-10-06"
   },
   {
     "id": 48,
@@ -468,8 +450,7 @@
     "category": "life",
     "title": "Death of Edith Tolkien",
     "priority": 0,
-    "start": "1971-11-29",
-    "type": "point"
+    "start": "1971-11-29"
   },
   {
     "id": 49,
@@ -477,8 +458,7 @@
     "category": "life",
     "title": "Tolkien receives CBE",
     "priority": 3,
-    "start": "1972-01-01",
-    "type": "point"
+    "start": "1972-01-01"
   },
   {
     "id": 50,
@@ -486,8 +466,7 @@
     "category": "life",
     "title": "Death of J.R.R. Tolkien",
     "priority": 0,
-    "start": "1973-09-02",
-    "type": "point"
+    "start": "1973-09-02"
   },
   {
     "id": 51,
@@ -495,8 +474,7 @@
     "category": "major-pub",
     "title": "The Hobbit",
     "priority": 0,
-    "start": "1937-09-21",
-    "type": "point"
+    "start": "1937-09-21"
   },
   {
     "id": 52,
@@ -504,8 +482,7 @@
     "category": "major-pub",
     "title": "Leaf by Niggle",
     "priority": 2,
-    "start": "1945-01-01",
-    "type": "point"
+    "start": "1945-01-01"
   },
   {
     "id": 53,
@@ -514,8 +491,7 @@
     "title": "On Fairy Stories",
     "priority": 2,
     "start": "1947-12-04",
-    "description": "Essays Presented to Charles Williams",
-    "type": "point"
+    "description": "Essays Presented to Charles Williams"
   },
   {
     "id": 54,
@@ -523,8 +499,7 @@
     "category": "major-pub",
     "title": "Farmer Giles of Ham",
     "priority": 2,
-    "start": "1949-10-20",
-    "type": "point"
+    "start": "1949-10-20"
   },
   {
     "id": 55,
@@ -532,8 +507,7 @@
     "category": "major-pub",
     "title": "The Fellowship of the Ring",
     "priority": 0,
-    "start": "1954-07-29",
-    "type": "point"
+    "start": "1954-07-29"
   },
   {
     "id": 56,
@@ -541,8 +515,7 @@
     "category": "major-pub",
     "title": "The Two Towers",
     "priority": 0,
-    "start": "1954-11-11",
-    "type": "point"
+    "start": "1954-11-11"
   },
   {
     "id": 57,
@@ -550,8 +523,7 @@
     "category": "major-pub",
     "title": "The Return of the King",
     "priority": 0,
-    "start": "1955-10-20",
-    "type": "point"
+    "start": "1955-10-20"
   },
   {
     "id": 58,
@@ -559,8 +531,7 @@
     "category": "major-pub",
     "title": "Smith of Wooton Major",
     "priority": 2,
-    "start": "1967-11-09",
-    "type": "point"
+    "start": "1967-11-09"
   },
   {
     "id": 59,
@@ -568,8 +539,7 @@
     "category": "major-pub",
     "title": "The Silmarillion",
     "priority": 1,
-    "start": "1977-09-15",
-    "type": "point"
+    "start": "1977-09-15"
   },
   {
     "id": 60,
@@ -577,8 +547,7 @@
     "category": "major-pub",
     "title": "Unfinished Tales",
     "priority": 1,
-    "start": "1980-10-02",
-    "type": "point"
+    "start": "1980-10-02"
   },
   {
     "id": 61,
@@ -587,8 +556,7 @@
     "title": "Goblin Feet",
     "priority": 4,
     "start": "1915-12-01",
-    "description": "Oxford Poetry 1915",
-    "type": "point"
+    "description": "Oxford Poetry 1915"
   },
   {
     "id": 62,
@@ -596,8 +564,7 @@
     "category": "minor-pub",
     "title": "A Middle English Vocabulary",
     "priority": 4,
-    "start": "1922-05-11",
-    "type": "point"
+    "start": "1922-05-11"
   },
   {
     "id": 63,
@@ -606,8 +573,7 @@
     "title": "Sir Gawain and the Green Knight",
     "priority": 3,
     "start": "1925-04-23",
-    "description": "with E.V. Gordon (Clarendon Press)",
-    "type": "point"
+    "description": "with E.V. Gordon (Clarendon Press)"
   },
   {
     "id": 64,
@@ -616,8 +582,7 @@
     "title": "Errantry",
     "priority": 3,
     "start": "1933-11-09",
-    "description": "The Oxford Magazine",
-    "type": "point"
+    "description": "The Oxford Magazine"
   },
   {
     "id": 65,
@@ -625,8 +590,7 @@
     "category": "minor-pub",
     "title": "Beowulf: The Monsters and the Critics",
     "priority": 2,
-    "start": "1937-07-01",
-    "type": "point"
+    "start": "1937-07-01"
   },
   {
     "id": 66,
@@ -634,8 +598,7 @@
     "category": "minor-pub",
     "title": "The Homecoming of Beorhtnoth Beorhthelm's Son",
     "priority": 3,
-    "start": "1953-10-01",
-    "type": "point"
+    "start": "1953-10-01"
   },
   {
     "id": 67,
@@ -643,8 +606,7 @@
     "category": "minor-pub",
     "title": "Sir Gawain and the Green Knight broadcast on BBC Radio",
     "priority": 3,
-    "start": "1953-12-06",
-    "type": "point"
+    "start": "1953-12-06"
   },
   {
     "id": 68,
@@ -652,8 +614,7 @@
     "category": "minor-pub",
     "title": "The Adventures of Tom Bombadil",
     "priority": 3,
-    "start": "1962-11-22",
-    "type": "point"
+    "start": "1962-11-22"
   },
   {
     "id": 69,
@@ -661,8 +622,7 @@
     "category": "minor-pub",
     "title": "English and Welsh",
     "priority": 3,
-    "start": "1963-07-08",
-    "type": "point"
+    "start": "1963-07-08"
   },
   {
     "id": 70,
@@ -670,8 +630,7 @@
     "category": "minor-pub",
     "title": "Tree and Leaf",
     "priority": 3,
-    "start": "1964-05-28",
-    "type": "point"
+    "start": "1964-05-28"
   },
   {
     "id": 71,
@@ -680,8 +639,7 @@
     "title": "Ace Books LOTR",
     "priority": 3,
     "start": "1965-07-01",
-    "description": "unauthorized",
-    "type": "point"
+    "description": "unauthorized"
   },
   {
     "id": 72,
@@ -689,8 +647,7 @@
     "category": "minor-pub",
     "title": "Ballantine Books LOTR",
     "priority": 3,
-    "start": "1965-12-01",
-    "type": "point"
+    "start": "1965-12-01"
   },
   {
     "id": 73,
@@ -699,8 +656,7 @@
     "title": "The Jerusalem Bible",
     "priority": 4,
     "start": "1966-01-01",
-    "description": "Jonah by Tolkien",
-    "type": "point"
+    "description": "Jonah by Tolkien"
   },
   {
     "id": 74,
@@ -708,8 +664,7 @@
     "category": "minor-pub",
     "title": "LOTR 2ed.",
     "priority": 3,
-    "start": "1966-10-27",
-    "type": "point"
+    "start": "1966-10-27"
   },
   {
     "id": 75,
@@ -717,8 +672,7 @@
     "category": "minor-pub",
     "title": "The Road Goes Ever On",
     "priority": 3,
-    "start": "1967-10-31",
-    "type": "point"
+    "start": "1967-10-31"
   },
   {
     "id": 76,
@@ -726,8 +680,7 @@
     "category": "minor-pub",
     "title": "Father Christmas Letters",
     "priority": 2,
-    "start": "1976-09-02",
-    "type": "point"
+    "start": "1976-09-02"
   },
   {
     "id": 77,
@@ -736,8 +689,7 @@
     "title": "J.R.R. Tolkien: A Biography",
     "priority": 2,
     "start": "1977-05-05",
-    "description": "Carpenter",
-    "type": "point"
+    "description": "Carpenter"
   },
   {
     "id": 78,
@@ -1033,8 +985,7 @@
     "title": "Birth of C.S. Lewis",
     "priority": 0,
     "edtf": "1898-11-29",
-    "start": "1898-11-29",
-    "type": "point"
+    "start": "1898-11-29"
   },
   {
     "id": 101,
@@ -1045,8 +996,7 @@
     "edtf": "1908-08-23T06:30",
     "start": "1908-08-23",
     "description": "C.S. Lewis's mother",
-    "source": "Chronologically Lewis",
-    "type": "point"
+    "source": "Chronologically Lewis"
   },
   {
     "id": 102,
@@ -1056,8 +1006,7 @@
     "priority": 3,
     "edtf": "1910-11",
     "start": "1910-11-01",
-    "source": "Chronologically Lewis",
-    "type": "point"
+    "source": "Chronologically Lewis"
   },
   {
     "id": 103,
@@ -1068,8 +1017,7 @@
     "edtf": "1914-04-15~",
     "start": "1914-04-05",
     "source": "Chronologically Lewis",
-    "note": "Sometime \"mid-April\" according to CL",
-    "type": "point"
+    "note": "Sometime \"mid-April\" according to CL"
   },
   {
     "id": 104,
@@ -1080,8 +1028,7 @@
     "edtf": "1917-06-05",
     "start": "1917-06-05",
     "description": "Lewis Joins the No.4 Officer Cadet Battalion (Company E) as No.738 Cadet under Lieutenant Colonel J.F. Stenning. He rooms with Paddy Moore at Keble College.",
-    "source": "Chronologically Lewis",
-    "type": "point"
+    "source": "Chronologically Lewis"
   },
   {
     "id": 105,
@@ -1092,8 +1039,7 @@
     "edtf": "1917-09-26",
     "start": "1917-09-26",
     "description": "Second Lieutenant",
-    "source": "Chronologically Lewis",
-    "type": "point"
+    "source": "Chronologically Lewis"
   },
   {
     "id": 106,
@@ -1104,8 +1050,7 @@
     "edtf": "1917-10-16",
     "start": "1917-10-16",
     "description": "3rd Batallion",
-    "source": "Chronologically Lewis",
-    "type": "point"
+    "source": "Chronologically Lewis"
   },
   {
     "id": 107,
@@ -1116,8 +1061,7 @@
     "edtf": "1918-03-24",
     "start": "1918-03-24",
     "description": "First reported missing, later confirmed dead.",
-    "source": "Chronologically Lewis",
-    "type": "point"
+    "source": "Chronologically Lewis"
   },
   {
     "id": 108,
@@ -1128,8 +1072,7 @@
     "edtf": "1918-04-15",
     "start": "1918-04-15",
     "description": "Wounded in left hand, left leg, and left side on Mount Bernenchon near Lillers, France.",
-    "source": "Chronologically Lewis",
-    "type": "point"
+    "source": "Chronologically Lewis"
   },
   {
     "id": 109,
@@ -1139,8 +1082,7 @@
     "priority": 2,
     "edtf": "1918-12-24",
     "start": "1918-12-24",
-    "source": "Chronologically Lewis",
-    "type": "point"
+    "source": "Chronologically Lewis"
   },
   {
     "id": 110,
@@ -1151,8 +1093,7 @@
     "edtf": "1920-05-03~",
     "start": "1920-05-03",
     "source": "Chronologically Lewis",
-    "note": "By May 3 they had moved to a new address together.",
-    "type": "point"
+    "note": "By May 3 they had moved to a new address together."
   },
   {
     "id": 111,
@@ -1164,8 +1105,7 @@
     "start": "1930-07-20",
     "description": "\"Most reluctant convert.\" He reports the date to be Trinity Term 1929, but most scholars believe he is off by a year.",
     "source": "Chronologically Lewis",
-    "note": "Sources vary, but CL takes July 17-26 sometime as the most likely date. Sometime in June 1-6 is also possible but less likely. Lewis's own reported date of Trinity Term 1929 is very likely incorrect.",
-    "type": "point"
+    "note": "Sources vary, but CL takes July 17-26 sometime as the most likely date. Sometime in June 1-6 is also possible but less likely. Lewis's own reported date of Trinity Term 1929 is very likely incorrect."
   },
   {
     "id": 112,
@@ -1177,8 +1117,7 @@
     "start": "1931-09-28",
     "description": "Lewis professes faith in Christ in Warren's sidecar on the way to Whipsnade Zoo.",
     "source": "Chronologically Lewis",
-    "note": "Some scholars think this could have been in 1932. Sayer inaccurately dates this to September 22 with no explanation. Warren's diary supports the given date.",
-    "type": "point"
+    "note": "Some scholars think this could have been in 1932. Sayer inaccurately dates this to September 22 with no explanation. Warren's diary supports the given date."
   },
   {
     "id": 113,
@@ -1188,8 +1127,7 @@
     "priority": 3,
     "edtf": "1950-01-10",
     "start": "1950-01-10",
-    "source": "Chronologically Lewis",
-    "type": "point"
+    "source": "Chronologically Lewis"
   },
   {
     "id": 114,
@@ -1199,8 +1137,7 @@
     "priority": 3,
     "edtf": "1951-01-12T17:00",
     "start": "1951-01-12",
-    "source": "Chronologically Lewis",
-    "type": "point"
+    "source": "Chronologically Lewis"
   },
   {
     "id": 115,
@@ -1210,8 +1147,7 @@
     "priority": 2,
     "edtf": "1951-02-08",
     "start": "1951-02-08",
-    "source": "Chronologically Lewis",
-    "type": "point"
+    "source": "Chronologically Lewis"
   },
   {
     "id": 116,
@@ -1222,8 +1158,7 @@
     "edtf": "1951-12-04",
     "start": "1951-12-04",
     "description": "Responding to a letter from Winston Churchill received the previous day.",
-    "source": "Chronologically Lewis",
-    "type": "point"
+    "source": "Chronologically Lewis"
   },
   {
     "id": 117,
@@ -1234,8 +1169,7 @@
     "edtf": "1952-09-24",
     "start": "1952-09-24",
     "description": "Lewis and George Sayer meet Joy and Phyllis Williams for lunch",
-    "source": "Chronologically Lewis",
-    "type": "point"
+    "source": "Chronologically Lewis"
   },
   {
     "id": 118,
@@ -1246,8 +1180,7 @@
     "edtf": "1956-04-23",
     "start": "1956-04-23",
     "description": "Civil marriage at Oxford Registry Office",
-    "source": "Chronologically Lewis",
-    "type": "point"
+    "source": "Chronologically Lewis"
   },
   {
     "id": 119,
@@ -1258,8 +1191,7 @@
     "edtf": "1956-10-19",
     "start": "1956-10-19",
     "description": "Joy broke her femur on October 18, and the x-rays the following day revealed an advanced case of cancer.",
-    "source": "Chronologically Lewis",
-    "type": "point"
+    "source": "Chronologically Lewis"
   },
   {
     "id": 120,
@@ -1269,8 +1201,7 @@
     "priority": 2,
     "edtf": "1960-07-13T22:15",
     "start": "1960-07-13",
-    "source": "Chronologically Lewis",
-    "type": "point"
+    "source": "Chronologically Lewis"
   },
   {
     "id": 121,
@@ -1280,8 +1211,7 @@
     "priority": 0,
     "edtf": "1963-11-22T17:33~",
     "start": "1963-11-22",
-    "source": "Chronologically Lewis",
-    "type": "point"
+    "source": "Chronologically Lewis"
   },
   {
     "id": 122,
@@ -1291,8 +1221,7 @@
     "priority": 1,
     "start": "1938-09-23",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 123,
@@ -1302,8 +1231,7 @@
     "priority": 2,
     "start": "1940-10-18",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 124,
@@ -1314,8 +1242,7 @@
     "start": "1942-02-09",
     "description": "in book form",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 125,
@@ -1325,8 +1252,7 @@
     "priority": 1,
     "start": "1943-04-20",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 126,
@@ -1336,8 +1262,7 @@
     "priority": 2,
     "start": "1944-01-06",
     "source": "Chronologically Lewis",
-    "note": "Lecture happened on Feb 23 1943",
-    "type": "point"
+    "note": "Lecture happened on Feb 23 1943"
   },
   {
     "id": 127,
@@ -1347,8 +1272,7 @@
     "priority": 1,
     "start": "1945-08-16",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 128,
@@ -1359,8 +1283,7 @@
     "start": "1946-01-14",
     "description": "published in serial form in the Guardian from Nov. 10 1944 to Apr. 13 1945",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 129,
@@ -1370,8 +1293,7 @@
     "priority": 2,
     "start": "1947-05-12",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 130,
@@ -1381,8 +1303,7 @@
     "priority": 0,
     "start": "1950-10-16",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 131,
@@ -1392,8 +1313,7 @@
     "priority": 2,
     "start": "1951-10-15",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 132,
@@ -1404,8 +1324,7 @@
     "start": "1952-07-07",
     "description": "Compiling his talks from the war",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 133,
@@ -1415,8 +1334,7 @@
     "priority": 2,
     "start": "1952-09-15",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 134,
@@ -1426,8 +1344,7 @@
     "priority": 2,
     "start": "1953-09-07",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 135,
@@ -1437,8 +1354,7 @@
     "priority": 2,
     "start": "1954-09-06",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 136,
@@ -1448,8 +1364,7 @@
     "priority": 2,
     "start": "1955-01-01",
     "source": "Chronologically Lewis",
-    "note": "date approximate",
-    "type": "point"
+    "note": "date approximate"
   },
   {
     "id": 137,
@@ -1459,8 +1374,7 @@
     "priority": 2,
     "start": "1955-05-02",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 138,
@@ -1470,8 +1384,7 @@
     "priority": 2,
     "start": "1956-09-10",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 139,
@@ -1479,8 +1392,7 @@
     "category": "major-pub",
     "title": "The Last Battle",
     "priority": 1,
-    "start": "1956-03-19",
-    "type": "point"
+    "start": "1956-03-19"
   },
   {
     "id": 140,
@@ -1490,8 +1402,7 @@
     "priority": 2,
     "start": "1960-03-28",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 141,
@@ -1502,8 +1413,7 @@
     "start": "1961-09-29",
     "description": "Under the name N.W. Clerk",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 142,
@@ -1514,8 +1424,7 @@
     "start": "1964-05-07",
     "description": "Posthumous",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 143,
@@ -1526,8 +1435,7 @@
     "start": "1933-05-25",
     "description": "J.M. Dent, published under Clive Hamliton",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 144,
@@ -1538,8 +1446,7 @@
     "start": "1936-05-21",
     "description": "Clarendon Press",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 145,
@@ -1550,8 +1457,7 @@
     "start": "1919-03-20",
     "description": "Heinemann, published under Clive Hamilton",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 146,
@@ -1562,8 +1468,7 @@
     "start": "1926-09-08",
     "description": "J.M. Dent, published under Clive Hamilton",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 147,
@@ -1586,8 +1491,7 @@
     "priority": 3,
     "start": "1942-10-08",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 149,
@@ -1598,8 +1502,7 @@
     "start": "1942-07-13",
     "description": "1st part of Mere Christianity",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 150,
@@ -1610,8 +1513,7 @@
     "start": "1944-01-18",
     "description": "2nd part of Mere Christianity",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 151,
@@ -1622,8 +1524,7 @@
     "start": "1944-10-09",
     "description": "3rd part of Mere Christianity",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 152,
@@ -1633,8 +1534,7 @@
     "priority": 4,
     "start": "1947-12-04",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 153,
@@ -1644,8 +1544,7 @@
     "priority": 4,
     "start": "1948-10-21",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 154,
@@ -1655,8 +1554,7 @@
     "priority": 3,
     "start": "1949-07-02",
     "source": "Chronologically Lewis",
-    "note": "unknown date in 1949",
-    "type": "point"
+    "note": "unknown date in 1949"
   },
   {
     "id": 155,
@@ -1667,8 +1565,7 @@
     "start": "1954-09-16",
     "description": "Oxford History of English Literature",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 156,
@@ -1678,8 +1575,7 @@
     "priority": 3,
     "start": "1958-09-08",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 157,
@@ -1690,8 +1586,7 @@
     "start": "1959-12-19",
     "description": "Article in the Saturday Evening Post",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 158,
@@ -1701,8 +1596,7 @@
     "priority": 3,
     "start": "1960-02-10",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 159,
@@ -1712,8 +1606,7 @@
     "priority": 3,
     "start": "1960-09-09",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 160,
@@ -1724,8 +1617,7 @@
     "start": "1964-01-27",
     "description": "Posthumous",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 161,
@@ -1734,8 +1626,7 @@
     "priority": 0,
     "start": "1898-11-09",
     "source": "Owen Barfield Literary Estate",
-    "note": "exact date",
-    "type": "point"
+    "note": "exact date"
   },
   {
     "id": 162,
@@ -1744,8 +1635,7 @@
     "priority": 1,
     "start": "1923-04-11",
     "source": "Chronologically Lewis",
-    "note": "exact date",
-    "type": "point"
+    "note": "exact date"
   },
   {
     "id": 163,
@@ -1754,8 +1644,7 @@
     "priority": 2,
     "start": "1923-06-01",
     "source": "Owen Barfield Literary Estate",
-    "note": "date approximate, joined Anthroposophic Society of Great Britain in January 1924",
-    "type": "point"
+    "note": "date approximate, joined Anthroposophic Society of Great Britain in January 1924"
   },
   {
     "id": 164,
@@ -1764,8 +1653,7 @@
     "priority": 2,
     "start": "1928-05-01",
     "source": "Chronologically Lewis",
-    "note": "Only year known. Lewis purchased a copy at the end of May",
-    "type": "point"
+    "note": "Only year known. Lewis purchased a copy at the end of May"
   },
   {
     "id": 165,
@@ -1774,8 +1662,7 @@
     "priority": 3,
     "start": "1950-01-01",
     "source": "Owen Barfield Literary Estate",
-    "note": "year only",
-    "type": "point"
+    "note": "year only"
   },
   {
     "id": 166,
@@ -1784,8 +1671,7 @@
     "priority": 3,
     "start": "1957-01-01",
     "source": "Owen Barfield Literary Estate",
-    "note": "year only",
-    "type": "point"
+    "note": "year only"
   },
   {
     "id": 167,
@@ -1794,8 +1680,7 @@
     "priority": 2,
     "start": "1959-01-01",
     "source": "Owen Barfield Literary Estate",
-    "note": "year only",
-    "type": "point"
+    "note": "year only"
   },
   {
     "id": 168,
@@ -1804,8 +1689,7 @@
     "priority": 0,
     "start": "1997-12-14",
     "source": "Owen Barfield Literary Estate",
-    "note": "exact date",
-    "type": "point"
+    "note": "exact date"
   },
   {
     "id": 169,
@@ -1814,8 +1698,7 @@
     "priority": 0,
     "start": "1886-09-20",
     "source": "The Fellowship",
-    "note": "exact date",
-    "type": "point"
+    "note": "exact date"
   },
   {
     "id": 170,
@@ -1825,8 +1708,7 @@
     "start": "1908-06-09",
     "description": "Amen House",
     "source": "The Fellowship",
-    "note": "exact date",
-    "type": "point"
+    "note": "exact date"
   },
   {
     "id": 171,
@@ -1835,8 +1717,7 @@
     "priority": 2,
     "start": "1917-09-23",
     "source": "The Fellowship",
-    "note": "date exact (autumn equinox)",
-    "type": "point"
+    "note": "date exact (autumn equinox)"
   },
   {
     "id": 172,
@@ -1845,8 +1726,7 @@
     "priority": 1,
     "start": "1931-01-01",
     "source": "Charles Williams Society",
-    "note": "Only year known.",
-    "type": "point"
+    "note": "Only year known."
   },
   {
     "id": 173,
@@ -1855,8 +1735,7 @@
     "priority": 2,
     "start": "1937-01-01",
     "source": "Charles Williams Society",
-    "note": "Only year known.",
-    "type": "point"
+    "note": "Only year known."
   },
   {
     "id": 174,
@@ -1865,8 +1744,7 @@
     "priority": 1,
     "start": "1939-09-07",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 175,
@@ -1875,8 +1753,7 @@
     "priority": 3,
     "start": "1945-01-01",
     "source": "Charles Williams Society",
-    "note": "Only year known.",
-    "type": "point"
+    "note": "Only year known."
   },
   {
     "id": 176,
@@ -1885,8 +1762,7 @@
     "priority": 0,
     "start": "1945-05-15",
     "source": "Charles Williams Society",
-    "note": "exact date",
-    "type": "point"
+    "note": "exact date"
   },
   {
     "id": 177,
@@ -1895,8 +1771,7 @@
     "priority": 0,
     "start": "1895-06-15",
     "source": "Chronologically Lewis",
-    "note": "exact date",
-    "type": "point"
+    "note": "exact date"
   },
   {
     "id": 178,
@@ -1917,8 +1792,7 @@
     "priority": 2,
     "start": "1931-05-09",
     "source": "Chronologically Lewis",
-    "note": "exact date",
-    "type": "point"
+    "note": "exact date"
   },
   {
     "id": 180,
@@ -1927,8 +1801,7 @@
     "priority": 2,
     "start": "1932-12-21",
     "source": "Chronologically Lewis",
-    "note": "exact date",
-    "type": "point"
+    "note": "exact date"
   },
   {
     "id": 181,
@@ -1937,8 +1810,7 @@
     "priority": 3,
     "start": "1930-12-01",
     "source": "Chronologically Lewis",
-    "note": "month only",
-    "type": "point"
+    "note": "month only"
   },
   {
     "id": 182,
@@ -1947,8 +1819,7 @@
     "priority": 3,
     "start": "1953-11-01",
     "source": "Chronologically Lewis",
-    "note": "sometime this year after October 17",
-    "type": "point"
+    "note": "sometime this year after October 17"
   },
   {
     "id": 183,
@@ -1957,8 +1828,7 @@
     "priority": 4,
     "start": "1964-01-01",
     "source": "Chronologically Lewis",
-    "note": "year only",
-    "type": "point"
+    "note": "year only"
   },
   {
     "id": 184,
@@ -1967,8 +1837,7 @@
     "priority": 2,
     "start": "1966-04-18",
     "source": "Chronologically Lewis",
-    "note": "exact date",
-    "type": "point"
+    "note": "exact date"
   },
   {
     "id": 185,
@@ -1978,8 +1847,7 @@
     "start": "1973-04-09",
     "description": "Walter Hooper goes to visit him at the Kilns and finds he has just died.",
     "source": "Chronologically Lewis",
-    "note": "exact date",
-    "type": "point"
+    "note": "exact date"
   },
   {
     "id": 186,
@@ -1989,8 +1857,7 @@
     "edtf": "1919-11",
     "start": "1919-11-15",
     "source": "Chronologically Lewis",
-    "note": "month known, not date",
-    "type": "point"
+    "note": "month known, not date"
   },
   {
     "id": 187,
@@ -2023,8 +1890,7 @@
     "priority": 1,
     "start": "1926-05-11",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 190,
@@ -2033,8 +1899,7 @@
     "priority": 1,
     "start": "1931-09-19",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   },
   {
     "id": 191,
@@ -2043,7 +1908,6 @@
     "priority": 2,
     "start": "1936-03-11",
     "source": "Chronologically Lewis",
-    "note": "date exact",
-    "type": "point"
+    "note": "date exact"
   }
 ]

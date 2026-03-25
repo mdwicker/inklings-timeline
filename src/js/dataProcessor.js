@@ -11,7 +11,7 @@ group
 title
 category
 edtf
-(start/end makes things easier at this point)
+(start/end makes things easier at this point, though eventually that can be derived)
 metadata (description, etc)
 
 Outputs:
@@ -37,7 +37,6 @@ Outputs:
       id (unique positive integer)
       group (id of parent group)
       content (string with the event's name)
-      subject (person, group, etc. the main domain of the event)
       category (type of event: location, occupation, publication, etc)
       priority (integer from 0-4)
       start (ISO date)
@@ -64,8 +63,6 @@ import rawItems from '../data/items.json'
 import { DataSet } from "vis-data/peer"
 
 
-const flattenNestedGroups = true;
-
 // These categories are displayed differently
 const backgroundCategories = ["location", "occupation"];
 
@@ -83,6 +80,7 @@ validateData({ groups: rawGroups, items: rawItems });
 const formattedData = format({ groups: rawGroups, items: rawItems });
 
 const visData = toVis({ groups: formattedData.groups, items: formattedData.items });
+
 
 function validateData({ groups, items } = {}) {
   // verify that all parentIds exist
@@ -142,12 +140,14 @@ function deepCopy(object) {
 }
 
 function formatVisItem({ item } = {}) {
-  const { id, title, start, priority, type, group, category } = item;
+  const { id, title, start, priority, group, category } = item;
 
   const visItem = {
-    id, group, start, priority, type, category,
+    id, group, start, priority, category,
     content: title,
   };
+
+  visItem.type = item.end ? "range" : "point";
 
   if (item.end) visItem.end = item.end;
   if (item.description) visItem.description = item.description;

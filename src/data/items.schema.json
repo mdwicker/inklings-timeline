@@ -42,10 +42,6 @@
         "minimum": 0,
         "maximum": 4
       },
-      "type": {
-        "type": "string",
-        "enum": ["point", "range"]
-      },
       "source": {
         "type": "string"
       },
@@ -53,6 +49,6 @@
         "type": "string"
       }
     },
-    "required": ["id", "title", "start", "priority", "type"]
+    "required": ["id", "title", "start", "priority"]
   }
 }
