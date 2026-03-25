@@ -1,4 +1,19 @@
 /*
+Minimum input:
+group:
+id
+title
+(currently: parentId)
+
+id:
+id
+group
+title
+category
+edtf
+(start/end makes things easier at this point)
+metadata (description, etc)
+
 Outputs:
   Dataset of groups with the following fields:
     {
@@ -50,7 +65,11 @@ import { DataSet } from "vis-data/peer"
 
 
 const flattenNestedGroups = true;
+
+// These categories are displayed differently
 const backgroundCategories = ["location", "occupation"];
+
+// These prefixes get prepended to the display name
 const categoryPrefixes = {
   "location": "🏠",
   "occupation": "🎓"
