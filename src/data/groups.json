@@ -9,30 +9,30 @@
     "name": "C.S. Lewis",
     "tags": ["lewis"],
     "address": "cs-lewis",
-    "id": 7
+    "id": 2
   },
   {
     "name": "Owen Barfield",
     "tags": ["barfield"],
     "address": "owen-barfield",
-    "id": 13
+    "id": 3
   },
   {
     "name": "Charles Williams",
     "tags": ["williams"],
     "address": "charles-williams",
-    "id": 14
+    "id": 4
   },
   {
     "name": "Warren Lewis",
     "tags": ["warren-lewis"],
     "address": "warren-lewis",
-    "id": 15
+    "id": 5
   },
   {
     "name": "Inklings",
     "tags": ["inklings"],
     "address": "inklings",
-    "id": 16
+    "id": 6
   }
 ]
