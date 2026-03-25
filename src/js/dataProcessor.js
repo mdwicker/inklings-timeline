@@ -149,10 +149,10 @@ function getClasses(group) {
 }
 
 function formatVisItem({ item } = {}) {
-  const { id, title, start, priority, type, group, person, category } = item;
+  const { id, title, start, priority, type, group, category } = item;
 
   const visItem = {
-    id, group, start, priority, type, person, category,
+    id, group, start, priority, type, category,
     content: title,
   };
 
