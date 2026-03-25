@@ -82,8 +82,7 @@ validateData({ groups: rawGroups, items: rawItems });
 
 const formattedData = format({ groups: rawGroups, items: rawItems });
 
-const visData = toVis({ groups: formattedData.groups, items: formattedData.items, flattenNestedGroups });
-
+const visData = toVis({ groups: formattedData.groups, items: formattedData.items });
 
 function validateData({ groups, items } = {}) {
   // verify that all parentIds exist
@@ -94,42 +93,35 @@ function validateData({ groups, items } = {}) {
 }
 
 function format({ groups, items } = {}) {
-  /**
-   * GROUP input fields
-   *  -address (reconsider this. consider forming it from slugified name.)
-   *  -id (unique)
-   *  -tags (array, will be converted into HTML class names)
-   * ...I genuinely can't tell if anything else is needed lol. annoying.
-   */
+  const formattedGroups = groups.map(group => deepCopy(group));
+  const formattedItems = items.map(item => deepCopy(item));
 
-  const addressBook = groups.reduce((addresses, group) => {
-    addresses[group.address] = group.id
-    return addresses;
-  }, {});
-  const relationships = getRelationships({ groups, items, addressBook });
-
-  const formattedGroups = groups.map(group => {
-    return normalizeGroup({ group, relationships: relationships[group.id] });
+  // add an array of item ids to each group for its child items
+  formattedGroups.forEach(group => {
+    group.items = items
+      .filter(item => item.group === group.id)
+      .map(item => item.id);
   });
 
-  const formattedItems = items.map(item => {
-    return normalizeItem({ item, groupId: addressBook[getAddress(item)] });
-  });
+  // format date fields
+  formattedItems.forEach(item => {
+    const start = item.start;
+    item.start = new Date(start);
+
+    if (item.end) {
+      const end = item.end;
+      item.end = new Date(end);
+    }
+  })
 
   return {
     groups: formattedGroups, items: formattedItems
   };
 }
 
-function toVis({ groups, items, flattenNestedGroups } = {}) {
+function toVis({ groups, items } = {}) {
   let processedGroups = groups;
   let processedItems = items;
-
-  if (flattenNestedGroups) {
-    const data = removeNestedGroups({ groups, items });
-    processedGroups = data.groups;
-    processedItems = data.items;
-  }
 
   const visGroups = processedGroups.map(group => formatVisGroup({ group }));
   const visItems = processedItems.map(item => formatVisItem({ item }));
@@ -137,70 +129,16 @@ function toVis({ groups, items, flattenNestedGroups } = {}) {
   return { groups: visGroups, items: visItems };
 }
 
-function getRelationships({ groups, items, addressBook } = {}) {
-  // initialize with empty arrays;
-  const relationships = {};
-  groups.forEach(group => {
-    relationships[group.id] = { nestedGroups: [], items: [] };
-  })
-
-  groups.forEach(group => {
-    if (!group.parentId) return;
-    relationships[group.parentId].nestedGroups.push(group.id);
-  });
-
-  items.forEach(item => {
-    const address = getAddress(item);
-
-    const groupId = addressBook[address];
-    if (!groupId) {
-      throw new Error(`Address ${address} not found for item ${item.title}`);
-    }
-    relationships[groupId].items.push(item.id);
-  })
-
-  return relationships;
-}
-
-function normalizeGroup({ group, relationships } = {}) {
-  const normalized = normalize({ object: group });
-
-  if (relationships) {
-    const nestedGroups = relationships.nestedGroups;
-    if (nestedGroups) normalized.nestedGroups = [...nestedGroups];
-
-    const items = relationships.items;
-    if (items) normalized.items = [...items];
-  }
-
-  return normalized;
-}
-
-function normalizeItem({ item, groupId } = {}) {
-  const normalized = normalize({ object: item });
-
-  normalized.start = new Date(normalized.start);
-
-  if (normalized.end) {
-    normalized.end = new Date(normalized.end);
-  }
-
-  normalized.group = groupId;
-
-
-  return normalized;
-}
-
-function normalize({ object } = {}) {
-  const normalized = { ...object };
+function deepCopy(object) {
+  const copy = { ...object };
   // copy arrays to avoid mutating raw data
-  Object.keys(normalized).forEach(key => {
-    if (Array.isArray(normalized[key])) {
-      normalized[key] = [...normalized[key]];
+  Object.keys(copy).forEach(key => {
+    if (Array.isArray(copy[key])) {
+      copy[key] = [...copy[key]];
     }
   });
 
-  return normalized;
+  return copy;
 }
 
 function getClasses(group) {
@@ -208,12 +146,6 @@ function getClasses(group) {
   classes.push(...group.tags);
   classes.push(`groupId-${group.id}`);
   return classes.join(" ");
-}
-
-function getAddress(item) {
-  const itemAddressElements = [slugify(item.person)];
-  if (item.category) itemAddressElements.push(item.category)
-  return itemAddressElements.join(".");
 }
 
 function formatVisItem({ item } = {}) {
