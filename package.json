@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/mdwicker/inklings-timeline#readme",
   "dependencies": {
+    "edtf": "^4.10.1",
     "vis-data": "^8.0.0",
     "vis-timeline": "^8.5.0"
   },

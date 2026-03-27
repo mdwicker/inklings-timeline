@@ -2,8 +2,7 @@
 Minimum input:
 group:
 id
-title
-(currently: parentId)
+name
 
 id:
 id
@@ -61,7 +60,7 @@ Outputs:
 import rawGroups from '../data/groups.json'
 import rawItems from '../data/items.json'
 import { DataSet } from "vis-data/peer"
-
+import edtf, { parse } from "edtf"
 
 // These categories are displayed differently
 const backgroundCategories = ["location", "occupation"];
@@ -75,11 +74,11 @@ const categoryPrefixes = {
 
 // MAIN PIPELINE
 
-validateData({ groups: rawGroups, items: rawItems });
+const validatedData = validateData({ groups: rawGroups, items: rawItems });
 
-const formattedData = format({ groups: rawGroups, items: rawItems });
+const formattedData = format(validatedData);
 
-const visData = toVis({ groups: formattedData.groups, items: formattedData.items });
+const visData = toVis(formattedData);
 
 
 function validateData({ groups, items } = {}) {
@@ -88,6 +87,113 @@ function validateData({ groups, items } = {}) {
   // verify that ids are sequential
   // verify that nested groups are sequential with parent group IDs
   // verify that edtf dates follow spec
+
+  const validatedGroups = [];
+  const validatedItems = [];
+
+  const groupIds = new Set();
+  const itemIds = new Set();
+
+  for (const group of groups) {
+    if (isValidGroup(group)) {
+      if (groupIds.has(group.id)) {
+        console.log(`Group id '${group.id}' is used twice.`);
+      } else {
+        groupIds.add(group.id);
+        validatedGroups.push(group);
+      }
+    }
+  }
+
+  for (const item of items) {
+    if (isValidItem(item)) {
+      if (!groupIds.has(item.group)) {
+        console.log(`Group id '${item.group}' does not exist.`);
+      } else if (itemIds.has(item.id)) {
+        console.log(`Item id '${item.id}' is used twice.`);
+      } else {
+        itemIds.add(item.id);
+        validatedItems.push(item);
+      }
+    }
+  }
+
+  return { groups: validatedGroups, items: validatedItems }
+}
+
+function isValidGroup(group) {
+  const requiredFields = ['id', 'name'];
+
+  for (const field of requiredFields) {
+    if (!(field in group)) {
+      console.log(`Error: '${field}' field required for all groups. Ignoring the following group:`)
+      console.log(group);
+
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function isValidItem(item) {
+  const requiredFields = ['id', 'group', 'name', 'priority'];
+  const dateFields = ['start', 'end', 'edtf'];
+  const priorityMin = 0;
+  const priorityMax = 4;
+
+  for (const field of requiredFields) {
+    if (!(field in item)) {
+      console.log(`Error: '${field}' field required for all item. Ignoring the following item:`)
+      console.log(item);
+
+      return false;
+    }
+  }
+
+  // Must contain some valid date information
+  if (!('edtf' in item) && !('start' in item)) {
+    console.log(`Error: All items must contain a date, either 'edtf' or 'start.' Ignoring the following item:`);
+    console.log(item);
+
+    return false;
+  }
+
+  // check for valid date fields
+  for (const field of dateFields) {
+    if (!(field in item)) continue;
+    try {
+      const edtfDate = edtf(item[field]);
+
+      // unless it's an edtf date, it should contain exactly a year, month, and day
+      if (field !== 'edtf' && edtfDate.values.length !== 3) {
+        console.log(`Sorry, couldn't parse the '${field}' field in the following item: `);
+        console.log(item);
+
+        return false;
+      }
+    } catch {
+      console.log(`Sorry, couldn't parse the '${field}' field in the following item: `);
+      console.log(item);
+
+      return false;
+    }
+  }
+
+  // check that the priority field contains an integer between 1 and 5
+  if (
+    isNaN(Number(item.priority)) ||
+    !Number.isInteger(item.priority) ||
+    item.priority < priorityMin ||
+    item.priority > priorityMax
+  ) {
+    console.log("Error: 'priority' field must contain an integer from 0-4. Ignoring the following item: ");
+    console.log(item);
+
+    return false;
+  }
+
+  return true;
 }
 
 function format({ groups, items } = {}) {
@@ -112,9 +218,7 @@ function format({ groups, items } = {}) {
     }
   })
 
-  return {
-    groups: formattedGroups, items: formattedItems
-  };
+  return { groups: formattedGroups, items: formattedItems };
 }
 
 function toVis({ groups, items } = {}) {
@@ -140,11 +244,11 @@ function deepCopy(object) {
 }
 
 function formatVisItem({ item } = {}) {
-  const { id, title, start, priority, group, category } = item;
+  const { id, name, start, priority, group, category } = item;
 
   const visItem = {
     id, group, start, priority, category,
-    content: title,
+    content: name,
   };
 
   visItem.type = item.end ? "range" : "point";

@@ -19,7 +19,7 @@
           "publication"
         ]
       },
-      "title": {
+      "name": {
         "type": "string",
         "maxLength": 100
       },
@@ -49,6 +49,6 @@
         "type": "string"
       }
     },
-    "required": ["id", "title", "start", "priority"]
+    "required": ["id", "name", "start", "priority"]
   }
 }
