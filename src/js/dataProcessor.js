@@ -87,126 +87,107 @@ const formattedData = format(validatedData);
 
 const visData = toVis(formattedData);
 
-
-function validateData({ groups, items } = {}) {
-  const validatedGroups = [];
-  const validatedItems = [];
+// Returns a list of all issues found in the data
+function validateData({ groups = [], items = [] } = {}) {
+  const issues = [];
 
   const groupIds = new Set();
   const itemIds = new Set();
 
   for (const group of groups) {
-    if (isValidGroup(group)) {
+    issues.push(...validateGroup(group));
+
+    if ("id" in group) {
       if (groupIds.has(group.id)) {
-        console.log(`Group id '${group.id}' is used twice.`);
+        issues.push(`Group id '${group.id}' used twice:\n${group}`);
       } else {
         groupIds.add(group.id);
-        validatedGroups.push(group);
       }
     }
   }
 
   for (const item of items) {
-    if (isValidItem(item)) {
-      if (!groupIds.has(item.group)) {
-        console.log(`Group id '${item.group}' does not exist.`);
-      } else if (itemIds.has(item.id)) {
-        console.log(`Item id '${item.id}' is used twice.`);
+    issues.push(...validateItem(item));
+
+    if (("id" in item)) {
+      if (itemIds.has(item.id)) {
+        issues.push(`Item id '${item.id}' used twice:\n${item}`);
       } else {
         itemIds.add(item.id);
-        validatedItems.push(item);
       }
+    }
+
+    if (("group" in item) && !groupIds.has(item.group)) {
+      issues.push(`Group id '${item.group}' does not exist:\n${item}`);
     }
   }
 
-  return { groups: validatedGroups, items: validatedItems }
+  return issues;
 }
 
-function isValidGroup(group) {
+function validateGroup(group) {
   const requiredFields = ['id', 'name'];
+  const issues = [];
 
   for (const field of requiredFields) {
     if (!(field in group)) {
-      console.log(`Error: '${field}' field required for all groups. Ignoring the following group:`)
-      console.log(group);
-
-      return false;
+      issues.push(`Missing '${field}':\n${group}`)
     }
   }
 
-  return true;
+  return issues;
 }
 
-function isValidItem(item) {
+function validateItem(item) {
   const requiredFields = ['id', 'group', 'name', 'priority'];
   const dateFields = ['start', 'end', 'edtf'];
+  const issues = [];
   const priorityMin = 0;
   const priorityMax = 4;
 
   for (const field of requiredFields) {
     if (!(field in item)) {
-      console.log(`Error: '${field}' field required for all items. Ignoring the following item:`)
-      console.log(item);
-
-      return false;
+      issues.push(`Missing '${field}':\n${item}`)
     }
   }
 
   // Must contain some valid date information
   if (!('edtf' in item) && !('start' in item)) {
-    console.log(`Error: All items must contain a date, either 'edtf' or 'start.' Ignoring the following item:`);
-    console.log(item);
+    issues.push(`No date field:\n${item}`);
 
-    return false;
   }
 
   // check for valid date fields
   for (const field of dateFields) {
     if (!(field in item)) continue;
     try {
-      const edtfDate = edtf(item[field]);
+      const parsed = parse(item[field]);
 
       // unless it's an edtf date, it should contain exactly a year, month, and day
-      if (field !== 'edtf' && edtfDate.values.length !== 3) {
-        console.log(`Sorry, couldn't parse the '${field}' field in the following item: `);
-        console.log(item);
-
-        return false;
+      if (field !== 'edtf' && parsed.values.length !== 3) {
+        issues.push(`Invalid '${field}' date:\n${item}`);
       }
     } catch {
-      console.log(`Sorry, couldn't parse the '${field}' field in the following item: `);
-      console.log(item);
-
-      return false;
+      issues.push(`Invalid '${field}' date:\n${item}`);
     }
   }
 
-  // check that the priority field contains an integer between 1 and 5
+  // check that the priority field contains an integer in range
   if (
     isNaN(Number(item.priority)) ||
-    !Number.isInteger(item.priority) ||
+    !Number.isInteger(Number(item.priority)) ||
     item.priority < priorityMin ||
     item.priority > priorityMax
   ) {
-    console.log("Error: 'priority' field must contain an integer from 0-4. Ignoring the following item: ");
-    console.log(item);
-
-    return false;
+    issues.push(`Priority must be int ${priorityMin}-${priorityMax}:\n${item}`);
   }
 
-  return true;
+  return issues;
 }
 
 function format({ groups, items } = {}) {
   const formattedGroups = groups.map(group => deepCopy(group));
   const formattedItems = items.map(item => deepCopy(item));
-
-  // add an array of item ids to each group for its child items
-  formattedGroups.forEach(group => {
-    group.items = items
-      .filter(item => item.group === group.id)
-      .map(item => item.id);
-  });
 
   // format date fields
   formattedItems.forEach(item => {
@@ -277,7 +258,7 @@ function formatVisItem({ item } = {}) {
 }
 
 function formatVisGroup({ group } = {}) {
-  const { person, category, address, name, id, items } = group;
+  const { person, category, address, name, id } = group;
 
   const visGroup = {
     id, person, category, address,
