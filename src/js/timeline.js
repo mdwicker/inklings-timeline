@@ -226,7 +226,11 @@ timeline.on("rangechange", (properties) => {
   const start = properties.start;
   const end = properties.end;
 
-  const zoomChange = (currentWindow.start !== start && currentWindow.end !== end);
+  const zoomChange = (
+    (currentWindow.start.valueOf() - currentWindow.end.valueOf()) !==
+    (start - end)
+  );
+  console.log(zoomChange)
   currentWindow = { start, end };
 
   pubSub.publish(events.rangeChange, { start, end, zoomChange });
@@ -241,5 +245,5 @@ pubSub.subscribe(events.rangeChange, (range) => {
 // toggle group upon request
 pubSub.subscribe(events.requestGroupToggle, (e) => {
   groupViewManager.toggleGroup({ id: e.id, toggleStatus: e.toggleStatus });
-  groupViewManager.view.refresh();
+  groupView.refresh();
 });
