@@ -1,8 +1,23 @@
-import { groups as groupSet, items as itemSet } from "./dataProcessor.js";
+import rawGroups from '../data/groups.json'
+import rawItems from '../data/items.json'
 import { pubSub, events } from "./pubSub.js";
-import { DataView } from "vis-data/peer";
+import { DataView, DataSet } from "vis-data/peer";
+import { validateData, visifyGroup, visifyItem } from './dataProcessor.js'
 
 const showAll = false; // Force all events to be shown regardless of filtering rules
+
+// Initialize data
+const validationIssues = validateData({ groups: rawGroups, items: rawItems });
+
+if (validationIssues.length > 0) {
+  validationIssues.forEach(issue => {
+    console.log(issue);
+  })
+  throw new Error("Data validation failed. See console for details.");
+}
+
+const groupSet = new DataSet(rawGroups.map(group => visifyGroup(group)));
+const itemSet = new DataSet(rawItems.map(item => visifyItem(item)));
 
 
 // Initialize Managers and Event Wiring

@@ -57,9 +57,6 @@ Outputs:
     }
 */
 
-import rawGroups from '../data/groups.json'
-import rawItems from '../data/items.json'
-import { DataSet } from "vis-data/peer"
 import edtf, { parse } from "edtf"
 
 // Constants for formatting
@@ -95,16 +92,7 @@ const subgroupOrder = function (a, b) {
 
 // MAIN PIPELINE
 
-const validationIssues = validateData({ groups: rawGroups, items: rawItems });
 
-if (validationIssues.length > 0) {
-  validationIssues.forEach(issue => {
-    console.log(issue);
-  })
-  throw new Error("Data validation failed. See console for details.");
-}
-
-const visData = toVis({ groups: rawGroups, items: rawItems });
 
 // Returns a list of all issues found in the data
 function validateData({ groups = [], items = [] } = {}) {
@@ -144,6 +132,7 @@ function validateData({ groups = [], items = [] } = {}) {
   return issues;
 }
 
+// Returns a list of issues found in the group
 function validateGroup(group) {
   const requiredFields = ['id', 'name'];
   const issues = [];
@@ -157,6 +146,7 @@ function validateGroup(group) {
   return issues;
 }
 
+// Returns a list of issues found in the item
 function validateItem(item) {
   const requiredFields = ['id', 'group', 'name', 'priority'];
   const dateFields = ['start', 'end', 'edtf'];
@@ -202,17 +192,11 @@ function validateItem(item) {
   return issues;
 }
 
-function toVis({ groups, items } = {}) {
-  let processedGroups = groups;
-  let processedItems = items;
-
-  const visGroups = processedGroups.map(group => visifyGroup(group));
-  const visItems = processedItems.map(item => visifyItem(item));
-
-  return { groups: visGroups, items: visItems };
-}
-
+// Returns an item formatted for use with visTimeline
 function visifyItem(item) {
+  // create a shallow copy to ensure no unexpected mutation of the raw data
+  item = { ...item };
+
   if ("category" in item && item.category in categoryPrefixes) {
     item.content = categoryPrefixes[item.category];
   } else {
@@ -239,7 +223,11 @@ function visifyItem(item) {
   return item;
 }
 
+// Returns a group formatted for use with visTimeline
 function visifyGroup(group) {
+  // create a shallow copy to ensure no unexpected mutation of the raw data
+  group = { ...group };
+
   group.content = group.name;
   group.className = slugify(group.name);
   delete group.name;
@@ -258,7 +246,8 @@ function slugify(name) {
     .replace(/[^\w-]/g, '');
 }
 
-const groups = new DataSet(visData.groups);
-const items = new DataSet(visData.items);
 
-export { groups, items, validateData }
+export {
+  validateData, validateItem, validateGroup,
+  visifyItem, visifyGroup
+}
