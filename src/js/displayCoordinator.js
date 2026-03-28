@@ -242,11 +242,6 @@ function inDays(dateValue) {
   return dateValue / 1000 / 60 / 60 / 24;
 }
 
-function inYears(dateValue) {
-  return inDays(dateValue) / 365;
-}
-
-
 // Item sorting
 
 function getPrioritizedItems({ itemSet, type = false, background = false } = {}) {
