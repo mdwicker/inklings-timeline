@@ -4,10 +4,9 @@
  *  -Test scrolling and zooming behavior on different devices
  *  -Implement visualization of timeline width (or maybe scrollbar....)
  * 
- * Notes:
- *  -Consider changing group behavior: get rid of subgroups,
- *   leave all groups always visible (UNLESS they get collapsed at certain
- *   zoom leveels, maybe).
+ * 
+ * Testing targets:
+ *  utils, dataProcessor, displayCoordinator (ALL exported functions from each)
  */
 
 import "../styles/vis-timeline-graph2d.min.css";
