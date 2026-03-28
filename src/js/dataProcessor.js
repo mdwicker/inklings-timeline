@@ -74,6 +74,13 @@ const categoryPrefixes = {
 
 // MAIN PIPELINE
 
+/*
+validation (filters out invalid data)
+deep copy (leaves the raw groups and raw items intact just in case)
+format date fields on items
+populate "items" group on groups...although I'm not convinced it is ever actually called. 
+*/
+
 const validatedData = validateData({ groups: rawGroups, items: rawItems });
 
 const formattedData = format(validatedData);
@@ -82,12 +89,6 @@ const visData = toVis(formattedData);
 
 
 function validateData({ groups, items } = {}) {
-  // verify that all parentIds exist
-  // verify that all item groups exist
-  // verify that ids are sequential
-  // verify that nested groups are sequential with parent group IDs
-  // verify that edtf dates follow spec
-
   const validatedGroups = [];
   const validatedItems = [];
 
@@ -144,7 +145,7 @@ function isValidItem(item) {
 
   for (const field of requiredFields) {
     if (!(field in item)) {
-      console.log(`Error: '${field}' field required for all item. Ignoring the following item:`)
+      console.log(`Error: '${field}' field required for all items. Ignoring the following item:`)
       console.log(item);
 
       return false;
