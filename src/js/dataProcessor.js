@@ -62,8 +62,11 @@ import rawItems from '../data/items.json'
 import { DataSet } from "vis-data/peer"
 import edtf, { parse } from "edtf"
 
-// These categories are displayed differently
+// Constants for formatting
 const backgroundCategories = ["location", "occupation"];
+const priorityMin = 0;
+const priorityMax = 4;
+
 
 // These prefixes get prepended to the display name
 const categoryPrefixes = {
@@ -71,15 +74,26 @@ const categoryPrefixes = {
   "occupation": "🎓"
 };
 
+// subgroup sorting and stacking parameters
+const subgroupStack = { "normal": true };
+for (const category of backgroundCategories) {
+  subgroupStack[category] = true;
+}
+
+const subgroupOrder = function (a, b) {
+  const ordering = { "normal": 0 };
+  let priority = 1
+  // reverse the array so that the first items in the array are on top
+  for (const category of backgroundCategories.toReversed()) {
+    ordering[category] = priority;
+    priority++;
+  }
+
+  return ordering[a.subgroup] - ordering[b.subgroup];
+};
+
 
 // MAIN PIPELINE
-
-/*
-validation (filters out invalid data)
-deep copy (leaves the raw groups and raw items intact just in case)
-format date fields on items
-populate "items" group on groups...although I'm not convinced it is ever actually called. 
-*/
 
 const validationIssues = validateData({ groups: rawGroups, items: rawItems });
 
@@ -90,9 +104,7 @@ if (validationIssues.length > 0) {
   throw new Error("Data validation failed. See console for details.");
 }
 
-const formattedData = format({ groups: rawGroups, items: rawItems });
-
-const visData = toVis(formattedData);
+const visData = toVis({ groups: rawGroups, items: rawItems });
 
 // Returns a list of all issues found in the data
 function validateData({ groups = [], items = [] } = {}) {
@@ -149,8 +161,6 @@ function validateItem(item) {
   const requiredFields = ['id', 'group', 'name', 'priority'];
   const dateFields = ['start', 'end', 'edtf'];
   const issues = [];
-  const priorityMin = 0;
-  const priorityMax = 4;
 
   for (const field of requiredFields) {
     if (!(field in item)) {
@@ -192,109 +202,52 @@ function validateItem(item) {
   return issues;
 }
 
-function format({ groups, items } = {}) {
-  const formattedGroups = groups.map(group => deepCopy(group));
-  const formattedItems = items.map(item => deepCopy(item));
-
-  // format date fields
-  formattedItems.forEach(item => {
-    const start = item.start;
-    item.start = new Date(start);
-
-    if (item.end) {
-      const end = item.end;
-      item.end = new Date(end);
-    }
-  })
-
-  return { groups: formattedGroups, items: formattedItems };
-}
-
 function toVis({ groups, items } = {}) {
   let processedGroups = groups;
   let processedItems = items;
 
-  const visGroups = processedGroups.map(group => formatVisGroup({ group }));
-  const visItems = processedItems.map(item => formatVisItem({ item }));
+  const visGroups = processedGroups.map(group => visifyGroup(group));
+  const visItems = processedItems.map(item => visifyItem(item));
 
   return { groups: visGroups, items: visItems };
 }
 
-function deepCopy(object) {
-  const copy = { ...object };
-  // copy arrays to avoid mutating raw data
-  Object.keys(copy).forEach(key => {
-    if (Array.isArray(copy[key])) {
-      copy[key] = [...copy[key]];
-    }
-  });
-
-  return copy;
-}
-
-function formatVisItem({ item } = {}) {
-  const { id, name, start, priority, group, category } = item;
-
-  const visItem = {
-    id, group, start, priority, category,
-    content: name,
-  };
-
-  visItem.type = item.end ? "range" : "point";
-
-  if (item.end) visItem.end = item.end;
-  if (item.description) visItem.description = item.description;
-  if (item.source) visItem.source = item.source;
-  if (item.note) visItem.note = item.note;
-  if (item.tags) visItem.tags = [...item.tags];
-
-  if (backgroundCategories.includes(item.category)) {
-    visItem.subgroup = item.category;
-    visItem.className = "background";
-    visItem.isBackground = true;
+function visifyItem(item) {
+  if ("category" in item && item.category in categoryPrefixes) {
+    item.content = categoryPrefixes[item.category];
   } else {
-    visItem.subgroup = "normal";
-    visItem.isBackground = false;
+    item.content = "";
+  }
+  item.content += item.name;
+  delete item.name;
+
+  if ("category" in item && backgroundCategories.includes(item.category)) {
+    item.subgroup = item.category;
+    item.className = "background";
+    item.isBackground = true;
+  } else {
+    item.subgroup = "normal";
+    item.isBackground = false;
   }
 
-  if (item.category in categoryPrefixes) {
-    visItem.content = `${categoryPrefixes[item.category]} ${visItem.content}`;
-  }
+  item.start = new Date(item.start);
+  if ("edtf" in item) item.edtf = edtf(item.edtf);
+  if ("end" in item) item.end = new Date(item.end);
 
-  return visItem;
+  item.type = item.end ? "range" : "point";
+
+  return item;
 }
 
-function formatVisGroup({ group } = {}) {
-  const { person, category, address, name, id } = group;
+function visifyGroup(group) {
+  group.content = group.name;
+  group.className = slugify(group.name);
+  delete group.name;
 
-  const visGroup = {
-    id, person, category, address,
-    content: name,
-    className: slugify(name),
-  };
+  group.subgroupOrder = subgroupOrder;
+  group.subgroupStack = subgroupStack;
 
-  if (group.parentId) visGroup.parentId = group.parentId;
-  if (group.nestedGroups) visGroup.nestedGroups = [...group.nestedGroups];
-
-  visGroup.subgroupOrder = (a, b) => {
-    const ordering = { "normal": 0 };
-    let priority = 1
-    // reverse the array so that the first items in the array are on top
-    for (const category of backgroundCategories.toReversed()) {
-      ordering[category] = priority;
-      priority++;
-    }
-
-    return ordering[a.subgroup] - ordering[b.subgroup];
-  };
-
-  const subgroupStack = { "normal": true };
-  for (const category of backgroundCategories) {
-    subgroupStack[category] = true;
-  }
-  visGroup.subgroupStack = subgroupStack;
-
-  return visGroup;
+  return group;
 }
 
 function slugify(name) {
@@ -308,4 +261,4 @@ function slugify(name) {
 const groups = new DataSet(visData.groups);
 const items = new DataSet(visData.items);
 
-export { groups, items }
+export { groups, items, validateData }
