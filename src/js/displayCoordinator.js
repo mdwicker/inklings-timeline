@@ -1,42 +1,8 @@
-import rawGroups from '../data/groups.json'
-import rawItems from '../data/items.json'
 import { pubSub, events } from "./pubSub.js";
-import { DataView, DataSet } from "vis-data/peer";
-import { validateData, visifyGroup, visifyItem } from './dataProcessor.js'
+import { DataView } from "vis-data/peer";
 
 const showAll = false; // Force all events to be shown regardless of filtering rules
 
-// Initialize data
-const validationIssues = validateData({ groups: rawGroups, items: rawItems });
-
-if (validationIssues.length > 0) {
-  validationIssues.forEach(issue => {
-    console.log(issue);
-  })
-  throw new Error("Data validation failed. See console for details.");
-}
-
-const groupSet = new DataSet(rawGroups.map(group => visifyGroup(group)));
-const itemSet = new DataSet(rawItems.map(item => visifyItem(item)));
-
-
-// Initialize Managers and Event Wiring
-
-const LodManager = createLodManager({
-  itemSet,
-  numberOfSteps: 23,
-  stepSize: 1.5,
-  sectionsPerWindow: 3,
-  itemsPerSection: 9
-});
-
-const itemViewManager = createItemViewManager({ itemSet });
-
-const groupViewManager = createGroupViewManager({ groupSet });
-
-setupEventWiring({ LodManager, itemViewManager, groupViewManager });
-
-// Factory Functions, etc
 
 function createLodManager(
   { itemSet,
@@ -47,7 +13,7 @@ function createLodManager(
   } = {}
 ) {
   const idsByZoomLevel = {};
-  const totalRange = getTotalRange({ itemSet });
+  const totalRange = getTotalRange(itemSet.get());
 
   // extend total range slightly to include items at the outer limits
   totalRange.start = new Date(totalRange.start.valueOf() - 1);
@@ -160,34 +126,13 @@ function createGroupViewManager({ groupSet } = {}) {
   return { view, toggleGroup };
 };
 
-function setupEventWiring({ LodManager, itemViewManager, groupViewManager } = {}) {
-  // initialize with starting range values
-  pubSub.subscribe(events.initializeTimeline, (range) => {
-    const visibleIds = LodManager.getIds({ windowRange: range });
-    itemViewManager.refreshVisibleIds({ ids: visibleIds });
-  })
-
-  // refresh on range change
-  pubSub.subscribe(events.rangeChange, (range) => {
-    const visibleIds = LodManager.getIds({ windowRange: range });
-    itemViewManager.refreshVisibleIds({ ids: visibleIds });
-  })
-
-  // toggle group upon request
-  pubSub.subscribe(events.requestGroupToggle, (e) => {
-    groupViewManager.toggleGroup({ id: e.id, toggleStatus: e.toggleStatus });
-    groupViewManager.view.refresh();
-  });
-}
-
-
 // Utility functions
 
-function getTotalRange({ itemSet } = {}) {
+function getTotalRange(items) {
   let min = Infinity;
   let max = -Infinity;
 
-  for (const item of itemSet.get()) {
+  for (const item of items) {
     const start = item.start.valueOf();
     const end = item.end ? item.end.valueOf() : start;
 
@@ -276,6 +221,4 @@ function getPrioritizedItems({ itemSet, type = false, background = false } = {})
   return prioritizedItems;
 }
 
-export const allGroups = groupSet.get();
-export const groupView = groupViewManager.view;
-export const itemView = itemViewManager.view;
+export { createLodManager, createGroupViewManager, createItemViewManager }

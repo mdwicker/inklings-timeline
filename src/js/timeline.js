@@ -13,7 +13,12 @@
 import "../styles/vis-timeline-graph2d.min.css";
 import "../styles/styles.css";
 
-import { itemView, groupView, allGroups } from "./displayCoordinator.js";
+import rawGroups from '../data/groups.json'
+import rawItems from '../data/items.json'
+
+import { validateData, visifyGroup, visifyItem } from './dataProcessor.js'
+import { DataSet } from "vis-data/peer";
+import { createLodManager, createItemViewManager, createGroupViewManager } from "./displayCoordinator.js";
 import { pubSub, events } from "./pubSub.js";
 
 import { Timeline } from "vis-timeline/peer"
@@ -22,6 +27,39 @@ import { Timeline } from "vis-timeline/peer"
 /* =====================
  *  State initialization
  * ===================== */
+
+// Initialize data
+const validationIssues = validateData({ groups: rawGroups, items: rawItems });
+
+if (validationIssues.length > 0) {
+  validationIssues.forEach(issue => {
+    console.log(issue);
+  })
+  throw new Error("Data validation failed. See console for details.");
+}
+
+const groupSet = new DataSet(rawGroups.map(group => visifyGroup(group)));
+const itemSet = new DataSet(rawItems.map(item => visifyItem(item)));
+
+
+// Initliaize DataViews and LOD Management
+
+const LodManager = createLodManager({
+  itemSet,
+  numberOfSteps: 23,
+  stepSize: 1.5,
+  sectionsPerWindow: 3,
+  itemsPerSection: 9
+});
+
+const itemViewManager = createItemViewManager({ itemSet });
+const itemView = itemViewManager.view;
+
+const groupViewManager = createGroupViewManager({ groupSet });
+const groupView = groupViewManager.view;
+
+
+// Initialize timeline object
 
 const container = document.getElementById("visualization");
 
@@ -47,13 +85,9 @@ const timeline = new Timeline(container, itemView, groupView, {
   }
 });
 
-const initialRange = timeline.getWindow();
-
-
-
 
 /* =====================
- *  UI Initialization
+ *  App Initialization
  * ===================== */
 
 const VisibilityToggles = (function (groups) {
@@ -166,21 +200,26 @@ const VisibilityToggles = (function (groups) {
       toggle.label.classList.toggle("parent-toggled-off", !toggleOn);
     });
   }
-})(allGroups);
+})(groupSet.get());
+
+// Set up initial timeline window
+const initialWindow = timeline.getWindow();
+
+itemViewManager.refreshVisibleIds({
+  ids: LodManager.getIds({
+    windowRange: {
+      start: initialWindow.start,
+      end: initialWindow.end
+    }
+  })
+});
+
 
 /* =====================
  *  Event wiring
  * ===================== */
-const initialWindow = timeline.getWindow();
-let currentWindow = initialWindow;
 
-pubSub.publish(
-  events.initializeTimeline,
-  {
-    start: initialWindow.start,
-    end: initialWindow.end,
-  }
-);
+let currentWindow = initialWindow;
 
 // Listen for range change
 timeline.on("rangechange", (properties) => {
@@ -191,4 +230,16 @@ timeline.on("rangechange", (properties) => {
   currentWindow = { start, end };
 
   pubSub.publish(events.rangeChange, { start, end, zoomChange });
+});
+
+// refresh on range change
+pubSub.subscribe(events.rangeChange, (range) => {
+  const visibleIds = LodManager.getIds({ windowRange: range });
+  itemViewManager.refreshVisibleIds({ ids: visibleIds });
+})
+
+// toggle group upon request
+pubSub.subscribe(events.requestGroupToggle, (e) => {
+  groupViewManager.toggleGroup({ id: e.id, toggleStatus: e.toggleStatus });
+  groupViewManager.view.refresh();
 });
