@@ -57,21 +57,24 @@ Outputs:
     }
 */
 
-import edtf, { parse } from "edtf"
+import edtf, { parse } from "edtf";
+import { slugify } from "./utils.js";
 
-// Constants for formatting
+/**
+ * Constants for data formatting
+ */
 const backgroundCategories = ["location", "occupation"];
-const priorityMin = 0;
-const priorityMax = 4;
-
-
-// These prefixes get prepended to the display name
 const categoryPrefixes = {
   "location": "🏠",
   "occupation": "🎓"
 };
+const priorityMin = 0;
+const priorityMax = 4;
 
-// subgroup sorting and stacking parameters
+
+/** 
+ * Subgroup sorting parameters for visifying groups
+*/
 const subgroupStack = { "normal": true };
 for (const category of backgroundCategories) {
   subgroupStack[category] = true;
@@ -88,10 +91,6 @@ for (const category of backgroundCategories.toReversed()) {
 const subgroupOrder = function (a, b) {
   return subgroupOrdering[a.subgroup] - subgroupOrdering[b.subgroup];
 };
-
-
-// MAIN PIPELINE
-
 
 
 // Returns a list of all issues found in the data
@@ -237,15 +236,6 @@ function visifyGroup(group) {
 
   return group;
 }
-
-function slugify(name) {
-  return name
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/[^\w-]/g, '');
-}
-
 
 export {
   validateData, validateItem, validateGroup,

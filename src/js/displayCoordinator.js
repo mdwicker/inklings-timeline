@@ -1,5 +1,6 @@
 import { pubSub, events } from "./pubSub.js";
 import { DataView } from "vis-data/peer";
+import { getTotalRange, getItemsInRange, inDays } from "./utils.js";
 
 const showAll = false; // Force all events to be shown regardless of filtering rules
 
@@ -126,23 +127,8 @@ function createGroupViewManager({ groupSet } = {}) {
   return { view, toggleGroup };
 };
 
-// Utility functions
 
-function getTotalRange(items) {
-  let min = Infinity;
-  let max = -Infinity;
-
-  for (const item of items) {
-    const start = item.start.valueOf();
-    const end = item.end ? item.end.valueOf() : start;
-
-
-    if (start < min) min = start;
-    if (end > max) max = end;
-  }
-
-  return { start: new Date(min), end: new Date(max) };
-}
+// Support functions
 
 function getRangeSections({ totalRange, windowSize, sectionsPerWindow } = {}) {
   const sections = [];
@@ -158,36 +144,6 @@ function getRangeSections({ totalRange, windowSize, sectionsPerWindow } = {}) {
 
   return sections;
 }
-
-function isInRange({ item, range, rangeMode = "enclose" } = {}) {
-  const itemStart = item.start;
-  const itemEnd = item.end ? item.end : item.start;
-
-  if (rangeMode === "overlap") {
-    // Range items will return true if they are visible anywhere in the range
-    return itemStart <= range.end && itemEnd > range.start;
-  } else if (rangeMode === "start") {
-    // Range items will return true if their start date is visible in the range
-    return itemStart <= range.end && itemStart > range.start;
-  }
-
-  // By default, range items return true if they are fully enclosed by the range
-  return itemStart > range.start && itemEnd <= range.end;
-}
-
-function getItemsInRange({ items, range, type = false, rangeMode = "enclose" } = {}) {
-  const inRange = items.filter(item => isInRange({ item, range, rangeMode }));
-
-  if (!type) return inRange;
-
-  return inRange.filter(item => item.type === type);
-}
-
-function inDays(dateValue) {
-  return dateValue / 1000 / 60 / 60 / 24;
-}
-
-// Item sorting
 
 function getPrioritizedItems({ itemSet, type = false, background = false } = {}) {
   const prioritizedItems = itemSet.get({
