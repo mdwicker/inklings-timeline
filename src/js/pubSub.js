@@ -32,5 +32,4 @@ export const events = {
   toggleGroup: "toggleGroup",
   rangeChange: "rangeChange",
   groupRangeChange: "groupRangeChange",
-  initializeTimeline: "initialize"
 }

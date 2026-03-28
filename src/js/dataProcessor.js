@@ -77,16 +77,16 @@ for (const category of backgroundCategories) {
   subgroupStack[category] = true;
 }
 
-const subgroupOrder = function (a, b) {
-  const ordering = { "normal": 0 };
-  let priority = 1
-  // reverse the array so that the first items in the array are on top
-  for (const category of backgroundCategories.toReversed()) {
-    ordering[category] = priority;
-    priority++;
-  }
+const subgroupOrdering = { "normal": 0 };
+let priority = 1
+// reverse the array so that the first items in the array are on top
+for (const category of backgroundCategories.toReversed()) {
+  subgroupOrdering[category] = priority;
+  priority++;
+}
 
-  return ordering[a.subgroup] - ordering[b.subgroup];
+const subgroupOrder = function (a, b) {
+  return subgroupOrdering[a.subgroup] - subgroupOrdering[b.subgroup];
 };
 
 

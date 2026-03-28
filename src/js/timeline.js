@@ -227,8 +227,8 @@ timeline.on("rangechange", (properties) => {
   const end = properties.end;
 
   const zoomChange = (
-    (currentWindow.start.valueOf() - currentWindow.end.valueOf()) !==
-    (start - end)
+    (currentWindow.end.valueOf() - currentWindow.start.valueOf()) !==
+    (end - start)
   );
   console.log(zoomChange)
   currentWindow = { start, end };
