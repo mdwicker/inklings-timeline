@@ -81,9 +81,16 @@ format date fields on items
 populate "items" group on groups...although I'm not convinced it is ever actually called. 
 */
 
-const validatedData = validateData({ groups: rawGroups, items: rawItems });
+const validationIssues = validateData({ groups: rawGroups, items: rawItems });
 
-const formattedData = format(validatedData);
+if (validationIssues.length > 0) {
+  validationIssues.forEach(issue => {
+    console.log(issue);
+  })
+  throw new Error("Data validation failed. See console for details.");
+}
+
+const formattedData = format({ groups: rawGroups, items: rawItems });
 
 const visData = toVis(formattedData);
 
@@ -99,7 +106,7 @@ function validateData({ groups = [], items = [] } = {}) {
 
     if ("id" in group) {
       if (groupIds.has(group.id)) {
-        issues.push(`Group id '${group.id}' used twice:\n${group}`);
+        issues.push(`Group id '${group.id}' used twice:\n${JSON.stringify(group)}`);
       } else {
         groupIds.add(group.id);
       }
@@ -111,14 +118,14 @@ function validateData({ groups = [], items = [] } = {}) {
 
     if (("id" in item)) {
       if (itemIds.has(item.id)) {
-        issues.push(`Item id '${item.id}' used twice:\n${item}`);
+        issues.push(`Item id '${item.id}' used twice:\n${JSON.stringify(item)}`);
       } else {
         itemIds.add(item.id);
       }
     }
 
     if (("group" in item) && !groupIds.has(item.group)) {
-      issues.push(`Group id '${item.group}' does not exist:\n${item}`);
+      issues.push(`Group id '${item.group}' does not exist:\n${JSON.stringify(item)}`);
     }
   }
 
@@ -131,7 +138,7 @@ function validateGroup(group) {
 
   for (const field of requiredFields) {
     if (!(field in group)) {
-      issues.push(`Missing '${field}':\n${group}`)
+      issues.push(`Missing '${field}':\n${JSON.stringify(group)}`)
     }
   }
 
@@ -147,13 +154,13 @@ function validateItem(item) {
 
   for (const field of requiredFields) {
     if (!(field in item)) {
-      issues.push(`Missing '${field}':\n${item}`)
+      issues.push(`Missing '${field}':\n${JSON.stringify(item)}`)
     }
   }
 
   // Must contain some valid date information
   if (!('edtf' in item) && !('start' in item)) {
-    issues.push(`No date field:\n${item}`);
+    issues.push(`No date field:\n${JSON.stringify(item)}`);
 
   }
 
@@ -165,10 +172,10 @@ function validateItem(item) {
 
       // unless it's an edtf date, it should contain exactly a year, month, and day
       if (field !== 'edtf' && parsed.values.length !== 3) {
-        issues.push(`Invalid '${field}' date:\n${item}`);
+        issues.push(`Invalid '${field}' date:\n${JSON.stringify(item)}`);
       }
     } catch {
-      issues.push(`Invalid '${field}' date:\n${item}`);
+      issues.push(`Invalid '${field}' date:\n${JSON.stringify(item)}`);
     }
   }
 
@@ -179,7 +186,7 @@ function validateItem(item) {
     item.priority < priorityMin ||
     item.priority > priorityMax
   ) {
-    issues.push(`Priority must be int ${priorityMin}-${priorityMax}:\n${item}`);
+    issues.push(`Priority must be int ${priorityMin}-${priorityMax}:\n${JSON.stringify(item)}`);
   }
 
   return issues;
