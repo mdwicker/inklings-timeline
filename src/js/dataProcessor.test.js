@@ -25,14 +25,26 @@ describe('validateGroup', () => {
     test('Negative id', () => {
         const negativeId = { "id": -1, "name": "Test" };
         expect(validateGroup(negativeId))
-            .toEqual([`Id must be a positive integer:\n${JSON.stringify(negativeId)}`]);
+            .toEqual([`Id must be positive integer:\n${JSON.stringify(negativeId)}`]);
     });
 
     test('Zero id', () => {
         const zeroId = { "id": 0, "name": "Test" };
         expect(validateGroup(zeroId))
-            .toEqual([`Id must be a positive integer:\n${JSON.stringify(zeroId)}`]);
+            .toEqual([`Id must be positive integer:\n${JSON.stringify(zeroId)}`]);
     });
+
+    test('non-numeric id', () => {
+        const nonNumericId = { "id": "One", "name": "Test" };
+        expect(validateGroup(nonNumericId))
+            .toEqual([`Id must be positive integer:\n${JSON.stringify(nonNumericId)}`])
+    });
+
+    test('non-integer id', () => {
+        const nonIntegerId = { "id": 1.5, "name": "Test" };
+        expect(validateGroup(nonIntegerId))
+            .toEqual([`Id must be positive integer:\n${JSON.stringify(nonIntegerId)}`])
+    })
 
     test('Missing name', () => {
         const missingName = { "id": 1 };
@@ -74,7 +86,7 @@ describe('validateItem', () => {
         expect(validateItem(withOptional)).toEqual([]);
     });
 
-    test('well-formed with nonsense', () => {
+    test('well-formed with unknown fields', () => {
         expect(validateItem(
             {
                 ...wellFormed,
@@ -84,6 +96,38 @@ describe('validateItem', () => {
                 bonusArray: [1, 2, "test"],
             }
         )).toEqual([]);
+    });
+
+    test('non-numeric id', () => {
+        const nonNumericID = { ...wellFormed };
+        nonNumericID.id = "One";
+
+        expect(validateItem(nonNumericID))
+            .toEqual([`Id must be positive integer:\n${JSON.stringify(nonNumericID)}`]);
+    });
+
+    test('non-integer id', () => {
+        const nonIntID = { ...wellFormed };
+        nonIntID.id = 1.5;
+
+        expect(validateItem(nonIntID))
+            .toEqual([`Id must be positive integer:\n${JSON.stringify(nonIntID)}`]);
+    });
+
+    test('zero id', () => {
+        const zeroID = { ...wellFormed };
+        zeroID.id = 0;
+
+        expect(validateItem(zeroID))
+            .toEqual([`Id must be positive integer:\n${JSON.stringify(zeroID)}`]);
+    });
+
+    test('negative id', () => {
+        const negativeId = { ...wellFormed };
+        negativeId.id = -2;
+
+        expect(validateItem(negativeId))
+            .toEqual([`Id must be positive integer:\n${JSON.stringify(negativeId)}`]);
     });
 
     test('missing ID', () => {

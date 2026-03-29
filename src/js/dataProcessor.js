@@ -140,8 +140,8 @@ function validateGroup(group) {
     }
   }
 
-  if ('id' in group && group.id <= 0) {
-    issues.push(`Id must be a positive integer:\n${JSON.stringify(group)}`);
+  if ('id' in group && !isValidId(group.id)) {
+    issues.push(`Id must be positive integer:\n${JSON.stringify(group)}`);
   }
 
   return issues;
@@ -163,8 +163,8 @@ function validateItem(item) {
     }
   }
 
-  if ('id' in item && item.id <= 0) {
-    issues.push(`Id must be a positive integer:\n${JSON.stringify(item)}`);
+  if ('id' in item && !isValidId(item.id)) {
+    issues.push(`Id must be positive integer:\n${JSON.stringify(item)}`);
   }
 
   // Must contain some valid date information
@@ -199,6 +199,22 @@ function validateItem(item) {
   }
 
   return issues;
+}
+
+function isValidId(id) {
+  if (isNaN(Number(id))) {
+    return false;
+  }
+
+  if (!Number.isInteger(Number(id))) {
+    return false;
+  }
+
+  if (Number(id) <= 0) {
+    return false;
+  }
+
+  return true;
 }
 
 // Returns an item formatted for use with visTimeline
