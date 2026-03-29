@@ -1,4 +1,4 @@
-import { validateGroup, validateItem } from "./dataProcessor";
+import { validateGroup, validateItem, validateData } from "./dataProcessor";
 
 describe('validateGroup', () => {
     test('Well-formed', () => {
@@ -286,5 +286,93 @@ describe('validateItem', () => {
         const validEdtf = { ...wellFormed };
         validEdtf.edtf = "1900-01-01";
         expect(validateItem(validEdtf)).toEqual([]);
+    });
+});
+
+describe('validateData', () => {
+    const groups = [
+        {
+            id: 1,
+            name: "Group 1"
+        },
+        {
+            id: 2,
+            name: "Group 2"
+        },
+        {
+            id: 3,
+            name: "Group 3"
+        }
+    ];
+
+    const items = [
+        {
+            id: 1,
+            group: 1,
+            name: "Item One",
+            start: "1900-01-01",
+            priority: 1,
+        },
+        {
+            id: 2,
+            group: 1,
+            name: "Item Two",
+            start: "1901-01-01",
+            priority: 1,
+        },
+        {
+            id: 3,
+            group: 2,
+            name: "Item Three",
+            start: "1902-01-01",
+            priority: 1,
+        },
+        {
+            id: 4,
+            group: 3,
+            name: "Item Four",
+            start: "1903-01-01",
+            priority: 1,
+        }
+    ];
+
+    test('well-formed data', () => {
+        expect(validateData({ groups, items }))
+            .toEqual([]);
+    });
+
+    test('duplicate group id', () => {
+        expect(validateData({
+            groups: [...groups, { id: 1, name: "Duplicate 1" }], items
+        })).toEqual(["Group id '1' used twice."]);
+    });
+
+    test('duplicate item id', () => {
+        expect(validateData({
+            groups,
+            items: [...items,
+            {
+                id: 1,
+                group: 1,
+                name: "Duplicate One",
+                start: "1900-01-01",
+                priority: 1,
+            }]
+        })).toEqual(["Item id '1' used twice."]);
+    });
+
+    test('invalid id', () => {
+        expect(validateData({
+            groups, items: [
+                ...items,
+                {
+                    id: 5,
+                    group: 5,
+                    name: "Invalid Group",
+                    start: "1900-01-01",
+                    priority: 1,
+                }
+            ]
+        })).toEqual(["Group id '5' does not exist."]);
     });
 });

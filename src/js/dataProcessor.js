@@ -103,7 +103,7 @@ function validateData({ groups = [], items = [] } = {}) {
 
     if ("id" in group) {
       if (groupIds.has(group.id)) {
-        issues.push(`Group id '${group.id}' used twice:\n${JSON.stringify(group)}`);
+        issues.push(`Group id '${group.id}' used twice.`);
       } else {
         groupIds.add(group.id);
       }
@@ -115,14 +115,14 @@ function validateData({ groups = [], items = [] } = {}) {
 
     if (("id" in item)) {
       if (itemIds.has(item.id)) {
-        issues.push(`Item id '${item.id}' used twice:\n${JSON.stringify(item)}`);
+        issues.push(`Item id '${item.id}' used twice.`);
       } else {
         itemIds.add(item.id);
       }
     }
 
     if (("group" in item) && !groupIds.has(item.group)) {
-      issues.push(`Group id '${item.group}' does not exist:\n${JSON.stringify(item)}`);
+      issues.push(`Group id '${item.group}' does not exist.`);
     }
   }
 
