@@ -41,7 +41,9 @@ function createLodManager(
   function getForegroundIdsAtZoomLevel({ windowSize } = {}) {
     const ids = [];
 
-    const itemPool = getPrioritizedItems({ itemSet });
+    const itemPool = itemSet.get({
+      order: sortItems, filter: item => !item.isBackground
+    });
     const sections = getRangeSections({ totalRange, windowSize, sectionsPerWindow });
 
     for (const section of sections) {
@@ -132,36 +134,17 @@ function createGroupViewManager({ groupSet } = {}) {
 
 // Support functions
 
-function getPrioritizedItems({ itemSet, type = false, background = false } = {}) {
-  const prioritizedItems = itemSet.get({
-    order: sortItems,
-    filter: filterByType
-  });
-
-  function sortItems(a, b) {
-    if (a.priority != b.priority) {
-      return a.priority - b.priority;
-    }
-
-    if (a.type != b.type) {
-      if (a.type === "range") return -1;
-      else if (b.type === "range") return 1;
-    }
-
-    return a.content - b.content;
+function sortItems(a, b) {
+  if (a.priority != b.priority) {
+    return a.priority - b.priority;
   }
 
-  function filterByType(item) {
-    if (type === "background" || background) {
-      return item.isBackground
-    } else if (!type) {
-      return !item.isBackground;
-    } else {
-      return !item.isBackground && item.type === type;
-    }
+  if (a.type != b.type) {
+    if (a.type === "range") return -1;
+    else if (b.type === "range") return 1;
   }
 
-  return prioritizedItems;
+  return a.content - b.content;
 }
 
 export { createLodManager, createGroupViewManager, createItemViewManager }
