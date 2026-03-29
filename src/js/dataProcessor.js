@@ -68,8 +68,6 @@ const categoryPrefixes = {
   "location": "🏠",
   "occupation": "🎓"
 };
-const priorityMin = 0;
-const priorityMax = 4;
 
 
 /** 
@@ -138,8 +136,12 @@ function validateGroup(group) {
 
   for (const field of requiredFields) {
     if (!(field in group)) {
-      issues.push(`Missing '${field}':\n${JSON.stringify(group)}`)
+      issues.push(`Missing '${field}':\n${JSON.stringify(group)}`);
     }
+  }
+
+  if ('id' in group && group.id <= 0) {
+    issues.push(`Id must be a positive integer:\n${JSON.stringify(group)}`);
   }
 
   return issues;
@@ -149,7 +151,11 @@ function validateGroup(group) {
 function validateItem(item) {
   const requiredFields = ['id', 'group', 'name', 'priority'];
   const dateFields = ['start', 'end', 'edtf'];
+  const priorityMin = 0;
+  const priorityMax = 4;
+
   const issues = [];
+
 
   for (const field of requiredFields) {
     if (!(field in item)) {
@@ -157,10 +163,13 @@ function validateItem(item) {
     }
   }
 
+  if ('id' in item && item.id <= 0) {
+    issues.push(`Id must be a positive integer:\n${JSON.stringify(item)}`);
+  }
+
   // Must contain some valid date information
   if (!('edtf' in item) && !('start' in item)) {
     issues.push(`No date field:\n${JSON.stringify(item)}`);
-
   }
 
   // check for valid date fields
@@ -180,10 +189,11 @@ function validateItem(item) {
 
   // check that the priority field contains an integer in range
   if (
-    isNaN(Number(item.priority)) ||
-    !Number.isInteger(Number(item.priority)) ||
-    item.priority < priorityMin ||
-    item.priority > priorityMax
+    'priority' in item &&
+    (isNaN(Number(item.priority)) ||
+      !Number.isInteger(Number(item.priority)) ||
+      item.priority < priorityMin ||
+      item.priority > priorityMax)
   ) {
     issues.push(`Priority must be int ${priorityMin}-${priorityMax}:\n${JSON.stringify(item)}`);
   }
