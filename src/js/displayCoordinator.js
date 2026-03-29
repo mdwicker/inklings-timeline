@@ -1,6 +1,6 @@
 import { pubSub, events } from "./pubSub.js";
 import { DataView } from "vis-data/peer";
-import { getTotalRange, isInRange, inDays, getRangeSections } from "./utils.js";
+import { getTotalRange, isInRange, inDays, getRangeSections, sortItems } from "./utils.js";
 
 const showAll = false; // Force all events to be shown regardless of filtering rules
 
@@ -130,21 +130,5 @@ function createGroupViewManager({ groupSet } = {}) {
 
   return { view, toggleGroup };
 };
-
-
-// Support functions
-
-function sortItems(a, b) {
-  if (a.priority != b.priority) {
-    return a.priority - b.priority;
-  }
-
-  if (a.type != b.type) {
-    if (a.type === "range") return -1;
-    else if (b.type === "range") return 1;
-  }
-
-  return a.content - b.content;
-}
 
 export { createLodManager, createGroupViewManager, createItemViewManager }

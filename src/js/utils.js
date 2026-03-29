@@ -74,3 +74,16 @@ export function getRangeSections({ totalRange, windowSize, sectionsPerWindow } =
 
     return sections;
 }
+
+export function sortItems(a, b) {
+    if (a.priority != b.priority) {
+        return a.priority - b.priority;
+    }
+
+    if (a.type != b.type) {
+        if (a.type === "range") return -1;
+        else if (b.type === "range") return 1;
+    }
+
+    return a.content - b.content;
+}
