@@ -229,7 +229,6 @@ timeline.on("rangechange", (properties) => {
     (currentWindow.end.valueOf() - currentWindow.start.valueOf()) !==
     (end - start)
   );
-  console.log(zoomChange)
   currentWindow = { start, end };
 
   pubSub.publish(events.rangeChange, { start, end, zoomChange });
