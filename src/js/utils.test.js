@@ -16,6 +16,10 @@ describe('inDays', () => {
     test('0 days', () => {
         expect(inDays(0)).toBe(0);
     })
+
+    test('negative', () => {
+        expect(inDays(-86400000)).toBe(1);
+    });
 });
 
 describe('isInRange', () => {
@@ -282,7 +286,7 @@ describe('isInRange', () => {
 
 describe('getTotalRange', () => {
 
-    test('Throws error with no input', () => {
+    test('Throws error with empty array', () => {
         expect(() => { getTotalRange([]) }).toThrow();
     });
 
@@ -292,19 +296,21 @@ describe('getTotalRange', () => {
         }).toThrow("Missing date field.");
     });
 
-    test('Throws error with invalid date field', () => {
+    test('Throws error with invalid start date', () => {
         expect(() => {
             getTotalRange([
                 { start: "1900-01-01" }
             ]);
         }).toThrow("Invalid date field.");
+    });
 
+    test('Throws error with invalid end date', () => {
         expect(() => {
             getTotalRange([
                 { start: new Date("1900-01-01"), end: "1910-01-01" }
             ]);
         }).toThrow("Invalid date field.");
-    })
+    });
 
     test('Single range', () => {
         expect(getTotalRange([
@@ -549,6 +555,7 @@ describe('slugify', () => {
         expect(slugify("test test")).toEqual("test-test");
         expect(slugify("test  test")).toEqual("test-test");
         expect(slugify("test\ntest")).toEqual("test-test");
+        expect(slugify("test\ttest")).toEqual("test-test");
         expect(slugify("test test test")).toEqual("test-test-test");
     });
 
