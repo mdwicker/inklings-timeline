@@ -1,6 +1,6 @@
 import { pubSub, events } from "./pubSub.js";
 import { DataView } from "vis-data/peer";
-import { getTotalRange, getItemsInRange, inDays } from "./utils.js";
+import { getTotalRange, isInRange, inDays } from "./utils.js";
 
 const showAll = false; // Force all events to be shown regardless of filtering rules
 
@@ -45,7 +45,9 @@ function createLodManager(
     const sections = getRangeSections({ totalRange, windowSize, sectionsPerWindow });
 
     for (const section of sections) {
-      const itemsInRange = getItemsInRange({ range: section, items: itemPool, rangeMode: "start" });
+      const itemsInRange = itemPool.filter(
+        item => isInRange({ item, range: section, rangeMode: "start" })
+      );
 
       ids.push(...itemsInRange.slice(0, itemsPerSection).map(item => item.id));
     }

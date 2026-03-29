@@ -56,10 +56,6 @@ export function isInRange({ item, range, rangeMode = "enclose" } = {}) {
     return itemStart >= range.start && itemEnd < range.end;
 }
 
-export function getItemsInRange({ items, range, rangeMode = "enclose" } = {}) {
-    return items.filter(item => isInRange({ item, range, rangeMode }));
-}
-
 export function inDays(dateValue) {
     return dateValue / 1000 / 60 / 60 / 24;
 }
