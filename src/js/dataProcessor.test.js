@@ -1,11 +1,15 @@
-import { validateGroup, validateItem, validateData } from "./dataProcessor";
+import edtf from "edtf";
+import {
+    validateGroup, validateItem, validateData,
+    visifyGroup, visifyItem
+} from "./dataProcessor";
 
 describe('validateGroup', () => {
     test('Well-formed', () => {
         expect(validateGroup({
             "id": 1,
             "name": "Test"
-        })).toEqual([]);
+        })).toStrictEqual([]);
     });
 
     test('Well-formed with extra fields', () => {
@@ -13,43 +17,43 @@ describe('validateGroup', () => {
             "id": 1,
             "name": "Test",
             "person": "J.R.R. Tolkien",
-        })).toEqual([]);
+        })).toStrictEqual([]);
     });
 
     test('Missing id', () => {
         const missingId = { "name": "Test" };
         expect(validateGroup(missingId))
-            .toEqual([`Missing 'id':\n${JSON.stringify(missingId)}`]);
+            .toStrictEqual([`Missing 'id':\n${JSON.stringify(missingId)}`]);
     });
 
     test('Negative id', () => {
         const negativeId = { "id": -1, "name": "Test" };
         expect(validateGroup(negativeId))
-            .toEqual([`Id must be positive integer:\n${JSON.stringify(negativeId)}`]);
+            .toStrictEqual([`Id must be positive integer:\n${JSON.stringify(negativeId)}`]);
     });
 
     test('Zero id', () => {
         const zeroId = { "id": 0, "name": "Test" };
         expect(validateGroup(zeroId))
-            .toEqual([`Id must be positive integer:\n${JSON.stringify(zeroId)}`]);
+            .toStrictEqual([`Id must be positive integer:\n${JSON.stringify(zeroId)}`]);
     });
 
     test('non-numeric id', () => {
         const nonNumericId = { "id": "One", "name": "Test" };
         expect(validateGroup(nonNumericId))
-            .toEqual([`Id must be positive integer:\n${JSON.stringify(nonNumericId)}`])
+            .toStrictEqual([`Id must be positive integer:\n${JSON.stringify(nonNumericId)}`])
     });
 
     test('non-integer id', () => {
         const nonIntegerId = { "id": 1.5, "name": "Test" };
         expect(validateGroup(nonIntegerId))
-            .toEqual([`Id must be positive integer:\n${JSON.stringify(nonIntegerId)}`])
+            .toStrictEqual([`Id must be positive integer:\n${JSON.stringify(nonIntegerId)}`])
     })
 
     test('Missing name', () => {
         const missingName = { "id": 1 };
         expect(validateGroup(missingName))
-            .toEqual([`Missing 'name':\n${JSON.stringify(missingName)}`]);
+            .toStrictEqual([`Missing 'name':\n${JSON.stringify(missingName)}`]);
     });
 
     test('Empty object', () => {
@@ -70,7 +74,7 @@ describe('validateItem', () => {
     };
 
     test('well-formed', () => {
-        expect(validateItem(wellFormed)).toEqual([]);
+        expect(validateItem(wellFormed)).toStrictEqual([]);
     });
 
     test('well-formed with optional fields', () => {
@@ -83,7 +87,7 @@ describe('validateItem', () => {
             source: "Test source",
             note: "Note here"
         };
-        expect(validateItem(withOptional)).toEqual([]);
+        expect(validateItem(withOptional)).toStrictEqual([]);
     });
 
     test('well-formed with unknown fields', () => {
@@ -95,7 +99,7 @@ describe('validateItem', () => {
                 isTest: true,
                 bonusArray: [1, 2, "test"],
             }
-        )).toEqual([]);
+        )).toStrictEqual([]);
     });
 
     test('non-numeric id', () => {
@@ -103,7 +107,7 @@ describe('validateItem', () => {
         nonNumericID.id = "One";
 
         expect(validateItem(nonNumericID))
-            .toEqual([`Id must be positive integer:\n${JSON.stringify(nonNumericID)}`]);
+            .toStrictEqual([`Id must be positive integer:\n${JSON.stringify(nonNumericID)}`]);
     });
 
     test('non-integer id', () => {
@@ -111,7 +115,7 @@ describe('validateItem', () => {
         nonIntID.id = 1.5;
 
         expect(validateItem(nonIntID))
-            .toEqual([`Id must be positive integer:\n${JSON.stringify(nonIntID)}`]);
+            .toStrictEqual([`Id must be positive integer:\n${JSON.stringify(nonIntID)}`]);
     });
 
     test('zero id', () => {
@@ -119,7 +123,7 @@ describe('validateItem', () => {
         zeroID.id = 0;
 
         expect(validateItem(zeroID))
-            .toEqual([`Id must be positive integer:\n${JSON.stringify(zeroID)}`]);
+            .toStrictEqual([`Id must be positive integer:\n${JSON.stringify(zeroID)}`]);
     });
 
     test('negative id', () => {
@@ -127,7 +131,7 @@ describe('validateItem', () => {
         negativeId.id = -2;
 
         expect(validateItem(negativeId))
-            .toEqual([`Id must be positive integer:\n${JSON.stringify(negativeId)}`]);
+            .toStrictEqual([`Id must be positive integer:\n${JSON.stringify(negativeId)}`]);
     });
 
     test('missing ID', () => {
@@ -135,7 +139,7 @@ describe('validateItem', () => {
         delete missingId.id;
 
         expect(validateItem(missingId))
-            .toEqual([`Missing 'id':\n${JSON.stringify(missingId)}`]);
+            .toStrictEqual([`Missing 'id':\n${JSON.stringify(missingId)}`]);
     });
 
     test('missing name', () => {
@@ -143,7 +147,7 @@ describe('validateItem', () => {
         delete missingName.name;
 
         expect(validateItem(missingName))
-            .toEqual([`Missing 'name':\n${JSON.stringify(missingName)}`]);
+            .toStrictEqual([`Missing 'name':\n${JSON.stringify(missingName)}`]);
     });
 
     test('missing group', () => {
@@ -151,7 +155,7 @@ describe('validateItem', () => {
         delete missingGroup.group;
 
         expect(validateItem(missingGroup))
-            .toEqual([`Missing 'group':\n${JSON.stringify(missingGroup)}`]);
+            .toStrictEqual([`Missing 'group':\n${JSON.stringify(missingGroup)}`]);
     });
 
     test('missing priority', () => {
@@ -159,7 +163,7 @@ describe('validateItem', () => {
         delete missingPriority.priority;
 
         expect(validateItem(missingPriority))
-            .toEqual([`Missing 'priority':\n${JSON.stringify(missingPriority)}`]);
+            .toStrictEqual([`Missing 'priority':\n${JSON.stringify(missingPriority)}`]);
     });
 
     test('non-numeric priority', () => {
@@ -167,7 +171,7 @@ describe('validateItem', () => {
         nonNumericPriority.priority = "Priority One";
 
         expect(validateItem(nonNumericPriority))
-            .toEqual([`Priority must be int ${minPriority}-${maxPriority}:\n${JSON.stringify(nonNumericPriority)}`]);
+            .toStrictEqual([`Priority must be int ${minPriority}-${maxPriority}:\n${JSON.stringify(nonNumericPriority)}`]);
     });
 
     test('non-integer priority', () => {
@@ -175,7 +179,7 @@ describe('validateItem', () => {
         nonIntPriority.priority = 1.5;
 
         expect(validateItem(nonIntPriority))
-            .toEqual([`Priority must be int ${minPriority}-${maxPriority}:\n${JSON.stringify(nonIntPriority)}`]);
+            .toStrictEqual([`Priority must be int ${minPriority}-${maxPriority}:\n${JSON.stringify(nonIntPriority)}`]);
     });
 
     test('valid priorities', () => {
@@ -183,7 +187,7 @@ describe('validateItem', () => {
 
         for (let i = minPriority; i <= maxPriority; i++) {
             validPriority.priority = i;
-            expect(validateItem(validPriority)).toEqual([]);
+            expect(validateItem(validPriority)).toStrictEqual([]);
         }
     });
 
@@ -192,7 +196,7 @@ describe('validateItem', () => {
         negativePriority.priority = -2;
 
         expect(validateItem(negativePriority))
-            .toEqual([`Priority must be int ${minPriority}-${maxPriority}:\n${JSON.stringify(negativePriority)}`]);
+            .toStrictEqual([`Priority must be int ${minPriority}-${maxPriority}:\n${JSON.stringify(negativePriority)}`]);
     });
 
     test('priority too large', () => {
@@ -200,7 +204,7 @@ describe('validateItem', () => {
         largePriority.priority = maxPriority + 1;
 
         expect(validateItem(largePriority))
-            .toEqual([`Priority must be int ${minPriority}-${maxPriority}:\n${JSON.stringify(largePriority)}`]);
+            .toStrictEqual([`Priority must be int ${minPriority}-${maxPriority}:\n${JSON.stringify(largePriority)}`]);
     });
 
     test('no date field', () => {
@@ -208,7 +212,7 @@ describe('validateItem', () => {
         delete noDate.start;
 
         expect(validateItem(noDate))
-            .toEqual([`No date field:\n${JSON.stringify(noDate)}`]);
+            .toStrictEqual([`No date field:\n${JSON.stringify(noDate)}`]);
     });
 
     test('invalid start date', () => {
@@ -216,28 +220,28 @@ describe('validateItem', () => {
         invalidStart.start = "Invalid";
 
         expect(validateItem(invalidStart))
-            .toEqual([`Invalid 'start' date:\n${JSON.stringify(invalidStart)}`]);
+            .toStrictEqual([`Invalid 'start' date:\n${JSON.stringify(invalidStart)}`]);
     });
 
     test('start date: no such day', () => {
         const invalidStart = { ...wellFormed };
         invalidStart.start = "1900-02-31";
         expect(validateItem(invalidStart))
-            .toEqual([`Invalid 'start' date:\n${JSON.stringify(invalidStart)}`]);
+            .toStrictEqual([`Invalid 'start' date:\n${JSON.stringify(invalidStart)}`]);
     });
 
     test('edtf date as start date', () => {
         const invalidStart = { ...wellFormed };
         invalidStart.start = "1900-02-31?";
         expect(validateItem(invalidStart))
-            .toEqual([`Invalid 'start' date:\n${JSON.stringify(invalidStart)}`]);
+            .toStrictEqual([`Invalid 'start' date:\n${JSON.stringify(invalidStart)}`]);
     });
 
     test('valid end date', () => {
         const validEnd = { ...wellFormed };
         validEnd.end = "1900-01-01";
 
-        expect(validateItem(validEnd)).toEqual([]);
+        expect(validateItem(validEnd)).toStrictEqual([]);
     });
 
     test('invalid end date', () => {
@@ -245,47 +249,47 @@ describe('validateItem', () => {
         invalidEnd.end = "Invalid";
 
         expect(validateItem(invalidEnd))
-            .toEqual([`Invalid 'end' date:\n${JSON.stringify(invalidEnd)}`]);
+            .toStrictEqual([`Invalid 'end' date:\n${JSON.stringify(invalidEnd)}`]);
     });
 
     test('end date: no such day', () => {
         const invalidEnd = { ...wellFormed };
         invalidEnd.end = "1900-02-31";
         expect(validateItem(invalidEnd))
-            .toEqual([`Invalid 'end' date:\n${JSON.stringify(invalidEnd)}`]);
+            .toStrictEqual([`Invalid 'end' date:\n${JSON.stringify(invalidEnd)}`]);
     });
 
     test('edtf date as end date', () => {
         const invalidEnd = { ...wellFormed };
         invalidEnd.end = "1900-02-31?";
         expect(validateItem(invalidEnd))
-            .toEqual([`Invalid 'end' date:\n${JSON.stringify(invalidEnd)}`]);
+            .toStrictEqual([`Invalid 'end' date:\n${JSON.stringify(invalidEnd)}`]);
     });
 
     test('invalid edtf date', () => {
         const invalidEdtf = { ...wellFormed };
         invalidEdtf.edtf = "Invalid";
         expect(validateItem(invalidEdtf))
-            .toEqual([`Invalid 'edtf' date:\n${JSON.stringify(invalidEdtf)}`]);
+            .toStrictEqual([`Invalid 'edtf' date:\n${JSON.stringify(invalidEdtf)}`]);
     });
 
     test('edtf date: no such day', () => {
         const invalidEdtf = { ...wellFormed };
         invalidEdtf.edtf = "1900-02-31";
         expect(validateItem(invalidEdtf))
-            .toEqual([`Invalid 'edtf' date:\n${JSON.stringify(invalidEdtf)}`]);
+            .toStrictEqual([`Invalid 'edtf' date:\n${JSON.stringify(invalidEdtf)}`]);
     });
 
     test('valid edtf-only date', () => {
         const validEdtf = { ...wellFormed };
         validEdtf.edtf = "1900-01-01?";
-        expect(validateItem(validEdtf)).toEqual([]);
+        expect(validateItem(validEdtf)).toStrictEqual([]);
     });
 
     test('valid edtf date', () => {
         const validEdtf = { ...wellFormed };
         validEdtf.edtf = "1900-01-01";
-        expect(validateItem(validEdtf)).toEqual([]);
+        expect(validateItem(validEdtf)).toStrictEqual([]);
     });
 });
 
@@ -338,13 +342,13 @@ describe('validateData', () => {
 
     test('well-formed data', () => {
         expect(validateData({ groups, items }))
-            .toEqual([]);
+            .toStrictEqual([]);
     });
 
     test('duplicate group id', () => {
         expect(validateData({
             groups: [...groups, { id: 1, name: "Duplicate 1" }], items
-        })).toEqual(["Group id '1' used twice."]);
+        })).toStrictEqual(["Group id '1' used twice."]);
     });
 
     test('duplicate item id', () => {
@@ -358,7 +362,7 @@ describe('validateData', () => {
                 start: "1900-01-01",
                 priority: 1,
             }]
-        })).toEqual(["Item id '1' used twice."]);
+        })).toStrictEqual(["Item id '1' used twice."]);
     });
 
     test('invalid id', () => {
@@ -373,6 +377,187 @@ describe('validateData', () => {
                     priority: 1,
                 }
             ]
-        })).toEqual(["Group id '5' does not exist."]);
+        })).toStrictEqual(["Group id '5' does not exist."]);
+    });
+});
+
+describe('visifyGroup', () => {
+    basic = visifyGroup({
+        "id": 1,
+        "name": "Test"
+    });
+
+    withAdditionalFields = visifyGroup({
+        "id": 1,
+        "name": "Test",
+        "category": "person",
+        "tags": ["tag1", "tag2"]
+    });
+
+    test('basic group keys', () => {
+        const keys = Object.keys(basic);
+
+        expect(keys)
+            .toContain(
+                'id',
+                'content',
+                'className',
+                'subgroupOrder',
+                'subgroupStack'
+            );
+        expect(keys).toHaveLength(5);
+    });
+
+    test('group with additional fields keys', () => {
+        const keys = Object.keys(withAdditionalFields);
+
+        expect(keys)
+            .toContain(
+                'id',
+                'content',
+                'className',
+                'subgroupOrder',
+                'subgroupStack',
+                'category',
+                'tags'
+            );
+        expect(keys).toHaveLength(7);
+    });
+
+    test('content field', () => {
+        expect(basic.content).toStrictEqual("Test");
+    });
+
+    test('id field', () => {
+        expect(basic.id).toBe(1);
+    });
+
+    test('className field', () => {
+        expect(basic.className).toStrictEqual("test");
+    });
+
+    test('additional fields', () => {
+        expect(withAdditionalFields.category).toStrictEqual("person");
+        expect(withAdditionalFields.tags).toStrictEqual(["tag1", "tag2"]);
+    });
+
+    test('subgroup stack', () => {
+        expect(basic.subgroupStack).toStrictEqual({
+            "normal": true,
+            "location": true,
+            "occupation": true
+        });
+    });
+
+    test('subgroup order', () => {
+        locationItem = { subgroup: "location" };
+        occupationItem = { subgroup: "occupation" };
+        normalItem = { subgroup: "normal" };
+
+        expect(basic.subgroupOrder(locationItem, normalItem)).toBeGreaterThan(0);
+        expect(basic.subgroupOrder(normalItem, locationItem)).toBeLessThan(0);
+
+        expect(basic.subgroupOrder(occupationItem, normalItem)).toBeGreaterThan(0);
+        expect(basic.subgroupOrder(normalItem, occupationItem)).toBeLessThan(0);
+
+        // actual order of background categories doesn't matter,
+        // but they shouldn't be the same.
+        expect(basic.subgroupOrder(locationItem, occupationItem)).not.toBe(0);
+    });
+});
+
+describe('visifyItem', () => {
+    basicPoint = {
+        id: 1,
+        group: 1,
+        name: "Test",
+        start: "1900-01-01",
+        priority: 1,
+    };
+
+    basicRange = {
+        id: 1,
+        group: 1,
+        name: "Test",
+        start: "1900-01-01",
+        end: "1910-01-01",
+        priority: 1,
+    }
+
+    test('basic point', () => {
+        expect(visifyItem(basicPoint))
+            .toStrictEqual({
+                id: 1,
+                group: 1,
+                content: "Test",
+                start: new Date("1900-01-01"),
+                priority: 1,
+                type: "point",
+                subgroup: "normal",
+                isBackground: false,
+            });
+    });
+
+    test('basic range', () => {
+        expect(visifyItem(basicRange))
+            .toStrictEqual({
+                id: 1,
+                group: 1,
+                content: "Test",
+                start: new Date("1900-01-01"),
+                end: new Date("1910-01-01"),
+                priority: 1,
+                type: "range",
+                subgroup: "normal",
+                isBackground: false,
+            });
+    });
+
+    test('optional fields', () => {
+        expect(visifyItem({
+            ...basicPoint,
+            category: "life",
+            description: "Test description.",
+            edtf: "1900-01?",
+            source: "Test source",
+            note: "Test note"
+        })).toStrictEqual({
+            id: 1,
+            group: 1,
+            content: "Test",
+            start: new Date("1900-01-01"),
+            edtf: edtf("1900-01?"),
+            priority: 1,
+            category: "life",
+            description: "Test description.",
+            source: "Test source",
+            note: "Test note",
+            type: "point",
+            subgroup: "normal",
+            isBackground: false,
+        });
+    });
+
+    test('unknown fields', () => {
+        expect(visifyItem({
+            ...basicPoint,
+            extraString: "test",
+            anotherNumber: 123,
+            isTest: true,
+            bonusArray: [1, 2, "test"],
+        })).toStrictEqual({
+            id: 1,
+            group: 1,
+            content: "Test",
+            start: new Date("1900-01-01"),
+            priority: 1,
+            type: "point",
+            subgroup: "normal",
+            isBackground: false,
+            extraString: "test",
+            anotherNumber: 123,
+            isTest: true,
+            bonusArray: [1, 2, "test"],
+        });
     });
 });
