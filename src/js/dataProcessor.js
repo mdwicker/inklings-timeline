@@ -196,6 +196,8 @@ function visifyItem(item) {
   // create a shallow copy to ensure no unexpected mutation of the raw data
   item = { ...item };
 
+  item.id = Number(item.id);
+
   if ("category" in item && item.category in categoryPrefixes) {
     item.content = categoryPrefixes[item.category];
   } else {
@@ -226,6 +228,8 @@ function visifyItem(item) {
 function visifyGroup(group) {
   // create a shallow copy to ensure no unexpected mutation of the raw data
   group = { ...group };
+
+  group.id = Number(group.id);
 
   group.content = group.name;
   group.className = slugify(group.name);

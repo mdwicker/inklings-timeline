@@ -285,7 +285,6 @@ describe('isInRange', () => {
 });
 
 describe('getTotalRange', () => {
-
     test('Throws error with empty array', () => {
         expect(() => { getTotalRange([]) }).toThrow();
     });
