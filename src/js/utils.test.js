@@ -533,5 +533,41 @@ describe('getTotalRange', () => {
 });
 
 describe('slugify', () => {
-    // what to test
+    test('no transformation', () => {
+        expect(slugify("test")).toEqual("test");
+    });
+
+    test('trims whitespace', () => {
+        expect(slugify("   test")).toEqual("test");
+        expect(slugify("test ")).toEqual("test");
+        expect(slugify(" test ")).toEqual("test");
+        expect(slugify("\ntest")).toEqual("test");
+        expect(slugify("\ttest")).toEqual("test");
+    });
+
+    test('whitespace to hyphens', () => {
+        expect(slugify("test test")).toEqual("test-test");
+        expect(slugify("test  test")).toEqual("test-test");
+        expect(slugify("test\ntest")).toEqual("test-test");
+        expect(slugify("test test test")).toEqual("test-test-test");
+    });
+
+    test('punctuation', () => {
+        expect(slugify("te.st")).toEqual("test");
+        expect(slugify("~!@#$%^&*()+\"\\`';:|}{[]/?.,><test")).toEqual("test");
+    });
+
+    test('numbers', () => {
+        expect(slugify("test123")).toEqual("test123");
+    });
+
+    test('lowercase', () => {
+        expect(slugify("TEST")).toEqual("test");
+        expect(slugify("Test")).toEqual("test");
+        expect(slugify("TEsT")).toEqual("test");
+    });
+
+    test('real world test', () => {
+        expect(slugify("J.R.R. Tolkien")).toEqual("jrr-tolkien");
+    });
 });
