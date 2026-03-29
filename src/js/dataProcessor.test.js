@@ -1,8 +1,5 @@
 import edtf from "edtf";
-import {
-    validateGroup, validateItem, validateData,
-    visifyGroup, visifyItem
-} from "./dataProcessor";
+import { validateGroup, validateItem, validateData, visifyGroup, visifyItem } from "./dataProcessor";
 
 describe('validateGroup', () => {
     test('Well-formed', () => {
@@ -365,7 +362,7 @@ describe('validateData', () => {
         })).toStrictEqual(["Item id '1' used twice."]);
     });
 
-    test('invalid id', () => {
+    test('non-existent group id', () => {
         expect(validateData({
             groups, items: [
                 ...items,
@@ -379,15 +376,23 @@ describe('validateData', () => {
             ]
         })).toStrictEqual(["Group id '5' does not exist."]);
     });
+
+    test('no arguments', () => {
+        expect(validateData()).toStrictEqual([]);
+    });
+
+    test('empty array arguments', () => {
+        expect(validateData({ groups: [], items: [] })).toStrictEqual([]);
+    });
 });
 
 describe('visifyGroup', () => {
-    basic = visifyGroup({
+    const basic = visifyGroup({
         "id": 1,
         "name": "Test"
     });
 
-    withAdditionalFields = visifyGroup({
+    const withAdditionalFields = visifyGroup({
         "id": 1,
         "name": "Test",
         "category": "person",
@@ -397,39 +402,46 @@ describe('visifyGroup', () => {
     test('basic group keys', () => {
         const keys = Object.keys(basic);
 
-        expect(keys)
-            .toContain(
-                'id',
-                'content',
-                'className',
-                'subgroupOrder',
-                'subgroupStack'
-            );
-        expect(keys).toHaveLength(5);
+        expect(keys).toStrictEqual(expect.arrayContaining([
+            'id',
+            'content',
+            'className',
+            'subgroupOrder',
+            'subgroupStack'
+        ]));
     });
 
     test('group with additional fields keys', () => {
         const keys = Object.keys(withAdditionalFields);
 
-        expect(keys)
-            .toContain(
-                'id',
-                'content',
-                'className',
-                'subgroupOrder',
-                'subgroupStack',
-                'category',
-                'tags'
-            );
-        expect(keys).toHaveLength(7);
+        expect(keys).toStrictEqual(expect.arrayContaining([
+            'id',
+            'content',
+            'className',
+            'subgroupOrder',
+            'subgroupStack',
+            'category',
+            'tags'
+        ]));
     });
 
     test('content field', () => {
         expect(basic.content).toStrictEqual("Test");
     });
 
+    test('name field deleted', () => {
+        expect(Object.keys(basic)).not.toContain('name');
+    });
+
     test('id field', () => {
         expect(basic.id).toBe(1);
+    });
+
+    test('id from string', () => {
+        expect(visifyGroup({
+            id: "1",
+            name: "Test"
+        }).id).toBe(1);
     });
 
     test('className field', () => {
@@ -450,9 +462,9 @@ describe('visifyGroup', () => {
     });
 
     test('subgroup order', () => {
-        locationItem = { subgroup: "location" };
-        occupationItem = { subgroup: "occupation" };
-        normalItem = { subgroup: "normal" };
+        const locationItem = { subgroup: "location" };
+        const occupationItem = { subgroup: "occupation" };
+        const normalItem = { subgroup: "normal" };
 
         expect(basic.subgroupOrder(locationItem, normalItem)).toBeGreaterThan(0);
         expect(basic.subgroupOrder(normalItem, locationItem)).toBeLessThan(0);
@@ -467,7 +479,7 @@ describe('visifyGroup', () => {
 });
 
 describe('visifyItem', () => {
-    basicPoint = {
+    const basicPoint = {
         id: 1,
         group: 1,
         name: "Test",
@@ -475,17 +487,44 @@ describe('visifyItem', () => {
         priority: 1,
     };
 
-    basicRange = {
+    const basicRange = {
         id: 1,
         group: 1,
         name: "Test",
         start: "1900-01-01",
         end: "1910-01-01",
         priority: 1,
-    }
+    };
+
+    const backgroundItem = {
+        id: 1,
+        group: 1,
+        name: "Test",
+        start: "1900-01-01",
+        end: "1910-01-01",
+        priority: 1,
+        category: "location"
+    };
 
     test('basic point', () => {
         expect(visifyItem(basicPoint))
+            .toStrictEqual({
+                id: 1,
+                group: 1,
+                content: "Test",
+                start: new Date("1900-01-01"),
+                priority: 1,
+                type: "point",
+                subgroup: "normal",
+                isBackground: false,
+            });
+    });
+
+    test('id from string', () => {
+        const withStringId = { ...basicPoint };
+        withStringId.id = "1";
+
+        expect(visifyItem(withStringId))
             .toStrictEqual({
                 id: 1,
                 group: 1,
@@ -559,5 +598,22 @@ describe('visifyItem', () => {
             isTest: true,
             bonusArray: [1, 2, "test"],
         });
+    });
+
+    test('background item', () => {
+        expect(visifyItem(backgroundItem))
+            .toStrictEqual({
+                id: 1,
+                group: 1,
+                content: "🏠Test",
+                className: "background",
+                start: new Date("1900-01-01"),
+                end: new Date("1910-01-01"),
+                priority: 1,
+                category: "location",
+                type: "range",
+                subgroup: "location",
+                isBackground: true,
+            });
     });
 });

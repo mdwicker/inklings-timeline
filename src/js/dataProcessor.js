@@ -68,6 +68,8 @@ const categoryPrefixes = {
   "location": "🏠",
   "occupation": "🎓"
 };
+const priorityMin = 0;
+const priorityMax = 4;
 
 
 /** 
@@ -151,8 +153,6 @@ function validateGroup(group) {
 function validateItem(item) {
   const requiredFields = ['id', 'group', 'name', 'priority'];
   const dateFields = ['start', 'end', 'edtf'];
-  const priorityMin = 0;
-  const priorityMax = 4;
 
   const issues = [];
 
