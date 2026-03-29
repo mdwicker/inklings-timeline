@@ -1,6 +1,6 @@
 import { pubSub, events } from "./pubSub.js";
 import { DataView } from "vis-data/peer";
-import { getTotalRange, isInRange, inDays } from "./utils.js";
+import { getTotalRange, isInRange, inDays, getRangeSections } from "./utils.js";
 
 const showAll = false; // Force all events to be shown regardless of filtering rules
 
@@ -131,21 +131,6 @@ function createGroupViewManager({ groupSet } = {}) {
 
 
 // Support functions
-
-function getRangeSections({ totalRange, windowSize, sectionsPerWindow } = {}) {
-  const sections = [];
-  const size = windowSize / sectionsPerWindow;
-
-  let sectionStart = totalRange.start.valueOf();
-  let end = totalRange.end.valueOf();
-
-  while (sectionStart < end) {
-    sections.push({ start: new Date(sectionStart), end: new Date(sectionStart + size) });
-    sectionStart += size;
-  }
-
-  return sections;
-}
 
 function getPrioritizedItems({ itemSet, type = false, background = false } = {}) {
   const prioritizedItems = itemSet.get({

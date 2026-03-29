@@ -59,3 +59,18 @@ export function isInRange({ item, range, rangeMode = "enclose" } = {}) {
 export function inDays(dateValue) {
     return Math.abs(dateValue / 1000 / 60 / 60 / 24);
 }
+
+export function getRangeSections({ totalRange, windowSize, sectionsPerWindow } = {}) {
+    const sections = [];
+    const size = windowSize / sectionsPerWindow;
+
+    let sectionStart = totalRange.start.valueOf();
+    let end = totalRange.end.valueOf();
+
+    while (sectionStart < end) {
+        sections.push({ start: new Date(sectionStart), end: new Date(sectionStart + size) });
+        sectionStart += size;
+    }
+
+    return sections;
+}
