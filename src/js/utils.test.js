@@ -1,4 +1,4 @@
-import { inDays, isInRange, getItemsInRange, getTotalRange, slugify } from "./utils";
+import { inDays, isInRange, getTotalRange, slugify } from "./utils";
 
 describe('inDays', () => {
     test('1 day', () => {
@@ -280,12 +280,236 @@ describe('isInRange', () => {
     });
 });
 
-describe('getItemsInRange', () => {
-    // what to test
-});
-
 describe('getTotalRange', () => {
-    // what to test
+
+    test('Throws error with no input', () => {
+        expect(() => { getTotalRange([]) }).toThrow();
+    });
+
+    test('Single range', () => {
+        expect(getTotalRange([
+            {
+                start: new Date("1900-01-01"),
+                end: new Date("1910-01-01")
+            }
+        ])).toEqual(
+            {
+                start: new Date("1900-01-01"),
+                end: new Date("1910-01-01")
+            }
+        );
+    });
+
+    test('Two ranges', () => {
+        expect(getTotalRange([
+            {
+                start: new Date("1900-01-01"),
+                end: new Date("1910-01-01")
+            },
+            {
+                start: new Date("1920-01-01"),
+                end: new Date("1925-01-01")
+            }
+        ])).toEqual(
+            {
+                start: new Date("1900-01-01"),
+                end: new Date("1925-01-01")
+            }
+        )
+    });
+
+    test('Many ranges sorted', () => {
+        expect(getTotalRange([
+            { start: new Date("1900-01-01"), end: new Date("1900-12-31") },
+            { start: new Date("1902-01-01"), end: new Date("1902-12-31") },
+            { start: new Date("1903-01-01"), end: new Date("1903-12-31") },
+            { start: new Date("1904-01-01"), end: new Date("1904-12-31") },
+            { start: new Date("1905-01-01"), end: new Date("1905-12-31") },
+            { start: new Date("1906-01-01"), end: new Date("1906-12-31") },
+            { start: new Date("1907-01-01"), end: new Date("1907-12-31") },
+            { start: new Date("1908-01-01"), end: new Date("1908-12-31") },
+            { start: new Date("1909-01-01"), end: new Date("1909-12-31") },
+            { start: new Date("1910-01-01"), end: new Date("1910-12-31") },
+            { start: new Date("1911-01-01"), end: new Date("1911-12-31") },
+            { start: new Date("1912-01-01"), end: new Date("1912-12-31") },
+            { start: new Date("1913-01-01"), end: new Date("1913-12-31") },
+            { start: new Date("1914-01-01"), end: new Date("1914-12-31") }
+        ])).toEqual(
+            {
+                start: new Date("1900-01-01"),
+                end: new Date("1914-12-31")
+            }
+        );
+    });
+
+    test('Many ranges unsorted', () => {
+        expect(getTotalRange([
+            { start: new Date("1912-01-01"), end: new Date("1912-12-31") },
+            { start: new Date("1904-01-01"), end: new Date("1904-12-31") },
+            { start: new Date("1908-01-01"), end: new Date("1908-12-31") },
+            { start: new Date("1900-01-01"), end: new Date("1900-12-31") },
+            { start: new Date("1914-01-01"), end: new Date("1914-12-31") },
+            { start: new Date("1902-01-01"), end: new Date("1902-12-31") },
+            { start: new Date("1907-01-01"), end: new Date("1907-12-31") },
+            { start: new Date("1911-01-01"), end: new Date("1911-12-31") },
+            { start: new Date("1903-01-01"), end: new Date("1903-12-31") },
+            { start: new Date("1909-01-01"), end: new Date("1909-12-31") },
+            { start: new Date("1905-01-01"), end: new Date("1905-12-31") },
+            { start: new Date("1913-01-01"), end: new Date("1913-12-31") },
+            { start: new Date("1906-01-01"), end: new Date("1906-12-31") },
+            { start: new Date("1910-01-01"), end: new Date("1910-12-31") }
+        ])).toEqual(
+            {
+                start: new Date("1900-01-01"),
+                end: new Date("1914-12-31")
+            }
+        );
+    });
+
+    test('Overlapping ranges', () => {
+        expect(getTotalRange([
+            { start: new Date("1900-01-01"), end: new Date("1905-01-01") },
+            { start: new Date("1902-01-01"), end: new Date("1908-01-01") },
+            { start: new Date("1901-01-01"), end: new Date("1907-01-01") }
+        ])).toEqual(
+            {
+                start: new Date("1900-01-01"),
+                end: new Date("1908-01-01")
+            }
+        );
+    });
+
+    test('Nested ranges', () => {
+        expect(getTotalRange([
+            { start: new Date("1900-01-01"), end: new Date("1910-01-01") },
+            { start: new Date("1902-01-01"), end: new Date("1907-01-01") }
+        ])).toEqual(
+            {
+                start: new Date("1900-01-01"),
+                end: new Date("1910-01-01")
+            }
+        );
+    });
+
+    test('Single point', () => {
+        expect(getTotalRange([
+            {
+                start: new Date("1900-01-01")
+            }
+        ])).toEqual(
+            {
+                start: new Date("1900-01-01"),
+                end: new Date("1900-01-01")
+            }
+        )
+    });
+
+    test('Two points', () => {
+        expect(getTotalRange([
+            { start: new Date("1900-01-01") },
+            { start: new Date("1910-01-01") }
+
+        ])).toEqual(
+            {
+                start: new Date("1900-01-01"),
+                end: new Date("1910-01-01")
+            }
+        )
+    });
+
+    test('Many points sorted', () => {
+        expect(getTotalRange([
+            { start: new Date("1900-01-01") },
+            { start: new Date("1901-01-01") },
+            { start: new Date("1902-01-01") },
+            { start: new Date("1903-01-01") },
+            { start: new Date("1904-01-01") },
+            { start: new Date("1905-01-01") },
+            { start: new Date("1906-01-01") },
+            { start: new Date("1907-01-01") },
+            { start: new Date("1908-01-01") },
+            { start: new Date("1909-01-01") },
+            { start: new Date("1910-01-01") },
+            { start: new Date("1911-01-01") },
+            { start: new Date("1912-01-01") },
+            { start: new Date("1913-01-01") },
+            { start: new Date("1914-01-01") }
+        ])).toEqual(
+            {
+                start: new Date("1900-01-01"),
+                end: new Date("1914-01-01")
+            }
+        );
+    });
+
+    test('Many points unsorted', () => {
+        expect(getTotalRange([
+            { start: new Date("1907-01-01") },
+            { start: new Date("1912-01-01") },
+            { start: new Date("1901-01-01") },
+            { start: new Date("1914-01-01") },
+            { start: new Date("1904-01-01") },
+            { start: new Date("1900-01-01") },
+            { start: new Date("1909-01-01") },
+            { start: new Date("1903-01-01") },
+            { start: new Date("1911-01-01") },
+            { start: new Date("1906-01-01") },
+            { start: new Date("1913-01-01") },
+            { start: new Date("1905-01-01") },
+            { start: new Date("1908-01-01") },
+            { start: new Date("1902-01-01") },
+            { start: new Date("1910-01-01") }
+        ])).toEqual(
+            {
+                start: new Date("1900-01-01"),
+                end: new Date("1914-01-01")
+            }
+        );
+    });
+
+    test('Points and ranges mixed', () => {
+        expect(getTotalRange([
+            { start: new Date("1900-01-01") },
+            { start: new Date("1890-01-01"), end: new Date("1910-01-01") },
+            { start: new Date("1920-01-01") }
+        ])).toEqual(
+            {
+                start: new Date("1890-01-01"),
+                end: new Date("1920-01-01")
+            }
+        );
+    });
+
+    test('Chaos test', () => {
+        expect(getTotalRange([
+            { start: new Date("1950-01-01"), end: new Date("1960-01-01") },
+            { start: new Date("1905-06-15") },
+            { start: new Date("1920-01-01"), end: new Date("1930-01-01") },
+            { start: new Date("1900-01-01"), end: new Date("1910-01-01") },
+            { start: new Date("1995-01-01") },
+            { start: new Date("1925-01-01"), end: new Date("1935-01-01") },
+            { start: new Date("1902-01-01"), end: new Date("1908-01-01") },
+            { start: new Date("1970-01-01"), end: new Date("1980-01-01") },
+            { start: new Date("1999-12-31"), end: new Date("2000-01-01") },
+            { start: new Date("1955-01-01"), end: new Date("1958-01-01") },
+            { start: new Date("1910-01-01"), end: new Date("1920-01-01") },
+            { start: new Date("1940-01-01") },
+            { start: new Date("1985-01-01"), end: new Date("1990-01-01") },
+            { start: new Date("1900-01-01"), end: new Date("1910-01-01") },
+            { start: new Date("1965-01-01") },
+            { start: new Date("1930-01-01"), end: new Date("1945-01-01") },
+            { start: new Date("1900-05-01") },
+            { start: new Date("1998-01-01"), end: new Date("1999-01-01") },
+            { start: new Date("1915-01-01"), end: new Date("1916-01-01") },
+            { start: new Date("1950-01-01"), end: new Date("1960-01-01") }
+        ])).toEqual(
+            {
+                start: new Date("1900-01-01"),
+                end: new Date("2000-01-01")
+            }
+        );
+    });
+
 });
 
 describe('slugify', () => {

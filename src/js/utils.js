@@ -7,6 +7,10 @@ export function slugify(name) {
 }
 
 export function getTotalRange(items) {
+    if (items.length === 0) {
+        throw new Error("getTotalRange needs a non-empty array of items");
+    }
+
     let min = Infinity;
     let max = -Infinity;
 
