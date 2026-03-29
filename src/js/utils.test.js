@@ -286,6 +286,26 @@ describe('getTotalRange', () => {
         expect(() => { getTotalRange([]) }).toThrow();
     });
 
+    test('Throws error with missing date field', () => {
+        expect(() => {
+            getTotalRange([{}]);
+        }).toThrow("Missing date field.");
+    });
+
+    test('Throws error with invalid date field', () => {
+        expect(() => {
+            getTotalRange([
+                { start: "1900-01-01" }
+            ]);
+        }).toThrow("Invalid date field.");
+
+        expect(() => {
+            getTotalRange([
+                { start: new Date("1900-01-01"), end: "1910-01-01" }
+            ]);
+        }).toThrow("Invalid date field.");
+    })
+
     test('Single range', () => {
         expect(getTotalRange([
             {

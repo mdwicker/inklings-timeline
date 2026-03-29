@@ -15,6 +15,20 @@ export function getTotalRange(items) {
     let max = -Infinity;
 
     for (const item of items) {
+        if (!("start" in item)) {
+            throw new Error("Missing date field.");
+        }
+
+        if (!(item.start instanceof Date && !isNaN(item.start))) {
+            throw new Error("Invalid date field.");
+        }
+
+        if ("end" in item &&
+            !(item.end instanceof Date && !isNaN(item.end))
+        ) {
+            throw new Error("Invalid date field.");
+        }
+
         const start = item.start.valueOf();
         const end = item.end ? item.end.valueOf() : start;
 
