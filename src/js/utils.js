@@ -61,6 +61,14 @@ export function inDays(dateValue) {
 }
 
 export function getRangeSections({ totalRange, windowSize, sectionsPerWindow } = {}) {
+    if (sectionsPerWindow <= 0) {
+        throw new Error("sectionsPerWindow must be positive.");
+    }
+
+    if (windowSize <= 0) {
+        throw new Error("windowSize must be positive.");
+    }
+
     const sections = [];
     const size = windowSize / sectionsPerWindow;
 
@@ -76,14 +84,30 @@ export function getRangeSections({ totalRange, windowSize, sectionsPerWindow } =
 }
 
 export function sortItems(a, b) {
+    const typeOrder = {
+        "range": 0,
+        "point": 1
+    }
+
+    const categoryOrder = {
+        "life": 0,
+        "occupation": 1,
+        "location": 2,
+        "major-pub": 3,
+        "minor-pub": 4
+    }
+
     if (a.priority != b.priority) {
         return a.priority - b.priority;
     }
 
     if (a.type != b.type) {
-        if (a.type === "range") return -1;
-        else if (b.type === "range") return 1;
+        return typeOrder[a.type] - typeOrder[b.type];
     }
 
-    return a.content - b.content;
+    if (("category" in a && "category" in b) && a.category != b.category) {
+        return categoryOrder[a.category] - categoryOrder[b.category];
+    }
+
+    return a.content.localeCompare(b.content);
 }
