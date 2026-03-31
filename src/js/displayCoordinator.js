@@ -31,6 +31,7 @@ function createLodManager(
       rangeEnd: totalRange.end,
       numberOfLevels, levelMultiplier
     });
+  const minZoomLevel = Math.min(...zoomLevels);
 
   // populate ids for each zoom level
   for (const zoomLevel of zoomLevels) {
@@ -76,8 +77,8 @@ function createLodManager(
     const windowSize = Math.abs(windowEnd - windowStart);
 
     // if window Size is smaller than 1 month, show all events
-    if (inDays(windowSize) < 30) {
-      return itemSet.get().map(item => item.id);
+    if (inDays(windowSize) < 30 || windowSize < minZoomLevel) {
+      return new Set(itemSet.get().map(item => item.id));
     }
 
     // otherwise, show the appropriate zoom level
