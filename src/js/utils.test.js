@@ -1,7 +1,8 @@
 import {
     slugify,
     inDays, isInRange, getTotalRange,
-    getRangeSections, sortItems
+    getRangeSections, sortItems,
+    getCurrentZoomLevel
 } from "./utils";
 
 describe('slugify', () => {
@@ -1207,4 +1208,51 @@ describe('sortItems', () => {
         expect(items.sort(sortItems).map(item => item.id))
             .toStrictEqual([7, 13, 3, 9, 1, 15, 5, 11, 2, 8, 14, 4, 10, 6, 12]);
     })
+});
+
+describe('getCurrentZoomLevel', () => {
+    const levels = [10, 20, 30, 40];
+
+    test('widest zoom level', () => {
+        expect(getCurrentZoomLevel({ levels, windowSize: 45 })).toBe(40);
+    });
+
+    test('middle zoom level', () => {
+        expect(getCurrentZoomLevel({ levels, windowSize: 29 })).toBe(20);
+    });
+
+    test('smallest zoom level', () => {
+        expect(getCurrentZoomLevel({ levels, windowSize: 15 })).toBe(10);
+    });
+
+    test('exact zoom level', () => {
+        expect(getCurrentZoomLevel({ levels, windowSize: 30 })).toBe(30);
+    });
+
+    test('extremely large zoom', () => {
+        expect(getCurrentZoomLevel({ levels, windowSize: 1000000000000 })).toBe(40);
+    });
+
+    test('fractional window size', () => {
+        expect(getCurrentZoomLevel({ levels, windowSize: 33.5 })).toBe(30);
+    });
+
+    test('fractional zoom level', () => {
+        const fractionalLevels = [1.5, 5.5, 50.5, 80.3]
+        expect(
+            getCurrentZoomLevel({ levels: fractionalLevels, windowSize: 33 }))
+            .toBe(5.5);
+    });
+
+    test('window size smaller than smallest', () => {
+        expect(getCurrentZoomLevel({ levels, windowSize: 5 })).toBe(0);
+    });
+
+    test('window size zero', () => {
+        expect(getCurrentZoomLevel({ levels, windowSize: 0 })).toBe(0);
+    });
+
+    test('window size negative', () => {
+        expect(getCurrentZoomLevel({ levels, windowSize: -5 })).toBe(0);
+    });
 });
