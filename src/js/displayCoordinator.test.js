@@ -268,8 +268,6 @@ describe('group view manager', () => {
 });
 
 describe('LOD manager', () => {
-    // getIds shows all events when zoomed in closer than 30 days
-    // getIds retreives the appropriate ids in a simple set of items
     const items = [
         {
             id: 1,
@@ -293,7 +291,7 @@ describe('LOD manager', () => {
         },
         {
             id: 3,
-            group: 1,
+            group: 2,
             content: "Test 3",
             start: new Date("1903-06-01"),
             priority: 1,
@@ -353,6 +351,75 @@ describe('LOD manager', () => {
             windowEnd: new Date("1906-01-01")
         })).toStrictEqual(new Set([2, 3, 5]));
     });
+
+    test('closer than 30 days', () => {
+        const monthItems = [
+            {
+                id: 6,
+                group: 1,
+                content: "Test 6",
+                start: new Date("1901-01-03"),
+                priority: 4,
+                type: "point",
+                subgroup: "normal",
+                isBackground: false,
+            },
+            {
+                id: 7,
+                group: 1,
+                content: "Test 7",
+                start: new Date("1901-01-15"),
+                priority: 3,
+                type: "point",
+                subgroup: "normal",
+                isBackground: false,
+            },
+            {
+                id: 8,
+                group: 3,
+                content: "Test 8",
+                start: new Date("1901-01-15"),
+                priority: 4,
+                type: "point",
+                subgroup: "normal",
+                isBackground: false,
+            },
+            {
+                id: 9,
+                group: 1,
+                content: "Test 9",
+                start: new Date("1901-01-20"),
+                priority: 1,
+                type: "point",
+                subgroup: "normal",
+                isBackground: false,
+            },
+            {
+                id: 10,
+                group: 2,
+                content: "Test 10",
+                start: new Date("1901-01-22"),
+                priority: 2,
+                type: "point",
+                subgroup: "normal",
+                isBackground: false,
+            },
+        ]
+        const monthSet = new DataSet([...items, ...monthItems]);
+
+        const LodManager = createLodManager({
+            itemSet: monthSet,
+            numberOfLevels: 1,
+            levelMultiplier: 2,
+            sectionsPerWindow: 2,
+            itemsPerSection: 2
+        });
+
+        expect(LodManager.getIds({
+            windowStart: new Date("1901-01-01"),
+            windowEnd: new Date("1901-01-25")
+        })).toStrictEqual(new Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
+    })
 
     /**
      * so to break it down systematically. while STAYING at only a single zoom level, I can verify the following:
