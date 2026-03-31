@@ -113,5 +113,11 @@ export function sortItems(a, b) {
 }
 
 export function getCurrentZoomLevel({ levels, windowSize } = {}) {
-    return Math.max(...levels.filter(level => level <= windowSize));
+    const level = Math.max(...levels.filter(level => level <= windowSize));
+
+    if (level <= 0) {
+        return 0;
+    }
+
+    return level;
 }
