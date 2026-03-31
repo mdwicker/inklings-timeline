@@ -236,7 +236,7 @@ timeline.on("rangechange", (properties) => {
 // refresh on range change
 pubSub.subscribe(events.rangeChange, (range) => {
   const visibleIds = LodManager.getIds({ windowRange: range });
-  itemViewManager.refreshVisibleIds({ ids: visibleIds });
+  itemViewManager.refreshVisibleIds(visibleIds);
 })
 
 // toggle group upon request
