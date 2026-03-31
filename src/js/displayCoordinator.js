@@ -20,6 +20,10 @@ function createLodManager(
   const idsByZoomLevel = {};
   const totalRange = getTotalRange(itemSet.get());
 
+  // expand total range slightly to include boundary items in filters
+  totalRange.start = new Date(totalRange.start.valueOf() - 1);
+  totalRange.end = new Date(totalRange.end.valueOf() + 1);
+
   // Set up zoom level boundaries
   const zoomLevels =
     calculateZoomLevels({

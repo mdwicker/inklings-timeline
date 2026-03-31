@@ -127,10 +127,20 @@ export function calculateZoomLevels({ rangeStart, rangeEnd, numberOfLevels, leve
 
     const zoomLevels = [];
 
-    // extend total range slightly to include items on boundaries
-    rangeStart = new Date(rangeStart.valueOf() - 1);
-    rangeEnd = new Date(rangeEnd.valueOf() + 1);
+    if ((!(rangeStart instanceof Date) || isNaN(rangeStart)) ||
+        (!(rangeEnd instanceof Date) || isNaN(rangeEnd))) {
+        throw new Error("Range boundaries must be Date objects.");
+    }
+
     let windowSize = Math.abs(rangeEnd - rangeStart);
+
+    if (numberOfLevels <= 0) {
+        throw new Error("Cannot have less than one zoom level.");
+    }
+
+    if (levelMultiplier <= 1) {
+        throw new Error("Level multiplier must be greater than one.");
+    }
 
     for (let i = numberOfLevels; i > 0; i--) {
         zoomLevels.push(windowSize);

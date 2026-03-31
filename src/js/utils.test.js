@@ -2,8 +2,10 @@ import {
     slugify,
     inDays, isInRange, getTotalRange,
     getRangeSections, sortItems,
-    getCurrentZoomLevel
+    getCurrentZoomLevel, calculateZoomLevels
 } from "./utils";
+
+const ONEDAYINMS = 86400000;
 
 describe('slugify', () => {
     test('no transformation', () => {
@@ -584,8 +586,6 @@ describe('getTotalRange', () => {
 });
 
 describe('getRangeSections', () => {
-    const ONEDAYINMS = 86400000;
-
     test('one window, one section', () => {
         const sections = getRangeSections({
             totalRange: { start: new Date("1900-01-01"), end: new Date("1900-01-02") },
@@ -1254,5 +1254,100 @@ describe('getCurrentZoomLevel', () => {
 
     test('window size negative', () => {
         expect(getCurrentZoomLevel({ levels, windowSize: -5 })).toBe(0);
+    });
+});
+
+describe('calculateZoomLevels', () => {
+    test('zero levels', () => {
+        expect(() => {
+            calculateZoomLevels({
+                rangeStart: new Date("1900-01-01"),
+                rangeEnd: new Date("2000-01-01"),
+                numberOfLevels: 0,
+                levelMultiplier: 2
+            })
+        }).toThrow("Cannot have less than one zoom level.");
+    });
+
+    test('negative number of levels', () => {
+        expect(() => {
+            calculateZoomLevels({
+                rangeStart: new Date("1900-01-01"),
+                rangeEnd: new Date("2000-01-01"),
+                numberOfLevels: -1,
+                levelMultiplier: 2
+            })
+        }).toThrow("Cannot have less than one zoom level.");
+    });
+
+    test('level multiplier zero', () => {
+        expect(() => {
+            calculateZoomLevels({
+                rangeStart: new Date("1900-01-01"),
+                rangeEnd: new Date("2000-01-01"),
+                numberOfLevels: 5,
+                levelMultiplier: 0
+            })
+        }).toThrow("Level multiplier must be greater than one.");
+    });
+
+    test('negative level multiplier', () => {
+        expect(() => {
+            calculateZoomLevels({
+                rangeStart: new Date("1900-01-01"),
+                rangeEnd: new Date("2000-01-01"),
+                numberOfLevels: 5,
+                levelMultiplier: -1
+            })
+        }).toThrow("Level multiplier must be greater than one.");
+    });
+
+    test('level multiplier one', () => {
+        expect(() => {
+            calculateZoomLevels({
+                rangeStart: new Date("1900-01-01"),
+                rangeEnd: new Date("2000-01-01"),
+                numberOfLevels: 5,
+                levelMultiplier: 1
+            })
+        }).toThrow("Level multiplier must be greater than one.");
+    });
+
+    test('invalid range field', () => {
+        expect(() => {
+            calculateZoomLevels({
+                rangeStart: "1900-01-01",
+                rangeEnd: new Date("2000-01-01"),
+                numberOfLevels: 5,
+                levelMultiplier: 1
+            })
+        }).toThrow("Range boundaries must be Date objects.");
+    });
+
+    test('three levels, multiplier 2', () => {
+        expect(calculateZoomLevels({
+            rangeStart: new Date("1900-01-01"),
+            rangeEnd: new Date("1900-01-21"),
+            numberOfLevels: 3,
+            levelMultiplier: 2
+        })).toStrictEqual([ONEDAYINMS * 20, ONEDAYINMS * 10, ONEDAYINMS * 5]);
+    });
+
+    test('fractional multiplier', () => {
+        expect(calculateZoomLevels({
+            rangeStart: new Date("1900-01-01"),
+            rangeEnd: new Date("1900-01-19"),
+            numberOfLevels: 3,
+            levelMultiplier: 1.5
+        })).toStrictEqual([ONEDAYINMS * 18, ONEDAYINMS * 12, ONEDAYINMS * 8]);
+    });
+
+    test('large multiplier', () => {
+        expect(calculateZoomLevels({
+            rangeStart: new Date("1900-01-01"),
+            rangeEnd: new Date("1900-01-31"),
+            numberOfLevels: 3,
+            levelMultiplier: 30
+        })).toStrictEqual([ONEDAYINMS * 30, ONEDAYINMS, ONEDAYINMS / 30]);
     });
 });
