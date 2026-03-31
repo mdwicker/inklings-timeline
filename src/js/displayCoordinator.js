@@ -82,7 +82,7 @@ function createLodManager(
   return { getIds };
 }
 
-function createItemViewManager({ itemSet } = {}) {
+function createItemViewManager(itemSet) {
   let idsToDisplay = new Set();
 
   const view = new DataView(itemSet, {
@@ -94,7 +94,7 @@ function createItemViewManager({ itemSet } = {}) {
     }
   });
 
-  const refreshVisibleIds = function ({ ids }) {
+  const refreshVisibleIds = function (ids) {
     idsToDisplay = new Set([...ids]);
     view.refresh();
   }
@@ -102,7 +102,7 @@ function createItemViewManager({ itemSet } = {}) {
   return { view, refreshVisibleIds };
 }
 
-function createGroupViewManager({ groupSet } = {}) {
+function createGroupViewManager(groupSet) {
   const groupIds = groupSet.get().map(group => group.id)
   let groupsToggledOn = new Set(groupIds);
 

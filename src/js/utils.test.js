@@ -1028,7 +1028,6 @@ describe('sortItems', () => {
     });
 
     test('chaos data', () => {
-        // ─── CHAOS INPUT (array order intentionally scrambled) ──────────────────────
         const items = [
             {
                 id: 1,

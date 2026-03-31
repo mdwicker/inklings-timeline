@@ -51,10 +51,10 @@ const LodManager = createLodManager({
   itemsPerSection: 9
 });
 
-const itemViewManager = createItemViewManager({ itemSet });
+const itemViewManager = createItemViewManager(itemSet);
 const itemView = itemViewManager.view;
 
-const groupViewManager = createGroupViewManager({ groupSet });
+const groupViewManager = createGroupViewManager(groupSet);
 const groupView = groupViewManager.view;
 
 
@@ -204,14 +204,13 @@ const VisibilityToggles = (function (groups) {
 // Set up initial timeline window
 const initialWindow = timeline.getWindow();
 
-itemViewManager.refreshVisibleIds({
-  ids: LodManager.getIds({
+itemViewManager.refreshVisibleIds(
+  LodManager.getIds({
     windowRange: {
       start: initialWindow.start,
       end: initialWindow.end
     }
-  })
-});
+  }));
 
 
 /* =====================
