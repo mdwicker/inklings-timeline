@@ -103,7 +103,7 @@ function createItemViewManager(itemSet) {
 }
 
 function createGroupViewManager(groupSet) {
-  const groupIds = groupSet.get().map(group => group.id)
+  const groupIds = groupSet.get().map(group => group.id);
   let groupsToggledOn = new Set(groupIds);
 
   const view = new DataView(groupSet, {
@@ -117,6 +117,10 @@ function createGroupViewManager(groupSet) {
   });
 
   const toggleGroup = function ({ id, toggleStatus } = {}) {
+    if (!groupIds.includes(id)) {
+      return;
+    }
+
     const isOn = groupsToggledOn.has(id);
 
     if (isOn && !toggleStatus) {
