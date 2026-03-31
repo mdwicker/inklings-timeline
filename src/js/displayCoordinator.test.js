@@ -1,4 +1,5 @@
-import { createItemViewManager, createGroupViewManager } from './displayCoordinator.js';
+import { createItemViewManager, createGroupViewManager, createLodManager } from './displayCoordinator.js';
+import { getTotalRange, isInRange, inDays } from './utils.js';
 import { DataSet } from 'vis-data';
 import { pubSub, events } from './pubSub.js';
 
@@ -264,4 +265,8 @@ describe('group view manager', () => {
         expect(groupView.view.get().map(group => group.id))
             .toStrictEqual([1, 2, 3, 4, 5, 6]);
     });
+});
+
+describe('LOD manager', () => {
+
 });

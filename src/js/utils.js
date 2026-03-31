@@ -111,3 +111,7 @@ export function sortItems(a, b) {
 
     return a.content.localeCompare(b.content);
 }
+
+export function getCurrentZoomLevel({ levels, windowSize } = {}) {
+    return Math.max(...levels.filter(level => level <= windowSize));
+}

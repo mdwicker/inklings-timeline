@@ -1,6 +1,9 @@
 import { pubSub, events } from "./pubSub.js";
 import { DataView } from "vis-data/peer";
-import { getTotalRange, isInRange, inDays, getRangeSections, sortItems } from "./utils.js";
+import {
+  getTotalRange, isInRange, inDays,
+  getRangeSections, sortItems, getCurrentZoomLevel
+} from "./utils.js";
 
 const showAll = false; // Force all events to be shown regardless of filtering rules
 
@@ -64,10 +67,6 @@ function createLodManager(
       }
     });
     return items.map(item => item.id);
-  }
-
-  function getCurrentZoomLevel({ levels, windowSize } = {}) {
-    return Math.max(...levels.filter(level => level <= windowSize));
   }
 
   const getIds = function ({ windowRange }) {
