@@ -7,11 +7,11 @@ import {
 
 const showAll = false; // Force all events to be shown regardless of filtering rules
 
-
+// number of 
 function createLodManager(
   { itemSet,
-    numberOfSteps = 23,
-    stepSize = 1.5,
+    numberOfLevels = 23,
+    levelMultiplier = 1.5,
     sectionsPerWindow = 3,
     itemsPerSection = 9
   } = {}
@@ -19,25 +19,39 @@ function createLodManager(
   const idsByZoomLevel = {};
   const totalRange = getTotalRange(itemSet.get());
 
-  // extend total range slightly to include items at the outer limits
-  totalRange.start = new Date(totalRange.start.valueOf() - 1);
-  totalRange.end = new Date(totalRange.end.valueOf() + 1);
+  // Set up zoom level boundaries
+  const zoomLevels =
+    calculateZoomLevels({
+      rangeStart: totalRange.start,
+      rangeEnd: totalRange.end,
+      numberOfLevels, levelMultiplier
+    });
 
   // populate ids for each zoom level
-  let windowSize = Math.abs(totalRange.end - totalRange.start);
-  for (let i = numberOfSteps; i > 0; i--) {
-    idsByZoomLevel[windowSize] = getIdsAtZoomLevel({ windowSize });
-    windowSize = Math.floor(windowSize / stepSize);
+  for (const zoomLevel of zoomLevels) {
+    idsByZoomLevel[zoomLevel] = getIdsAtZoomLevel(zoomLevel);
   }
 
-  // Set up a normalized array of the zoomLevel values
-  const zoomLevels = Object.keys(idsByZoomLevel).map(level => Number(level));
+  function calculateZoomLevels({ rangeStart, rangeEnd, numberOfLevels, levelMultiplier }) {
+    const zoomLevels = [];
 
+    // extend total range slightly to include items on boundaries
+    rangeStart = new Date(rangeStart.valueOf() - 1);
+    rangeEnd = new Date(rangeEnd.valueOf() + 1);
+    let windowSize = Math.abs(rangeEnd - rangeStart);
 
-  function getIdsAtZoomLevel({ windowSize } = {}) {
+    for (let i = numberOfLevels; i > 0; i--) {
+      zoomLevels.push(windowSize);
+      windowSize = Math.floor(windowSize / levelMultiplier);
+    }
+
+    return zoomLevels;
+  }
+
+  function getIdsAtZoomLevel(zoomLevel) {
     return new Set([
-      ...getForegroundIdsAtZoomLevel({ windowSize }),
-      ...getBackgroundIdsAtZoomLevel({ windowSize }),
+      ...getForegroundIdsAtZoomLevel({ windowSize: zoomLevel }),
+      ...getBackgroundIdsAtZoomLevel({ windowSize: zoomLevel }),
     ]);
   }
 

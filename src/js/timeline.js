@@ -45,8 +45,8 @@ const itemSet = new DataSet(rawItems.map(item => visifyItem(item)));
 
 const LodManager = createLodManager({
   itemSet,
-  numberOfSteps: 23,
-  stepSize: 1.5,
+  numberOfLevels: 23,
+  levelMultiplier: 1.5,
   sectionsPerWindow: 3,
   itemsPerSection: 9
 });
