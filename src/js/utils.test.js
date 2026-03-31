@@ -1265,8 +1265,41 @@ describe('calculateZoomLevels', () => {
                 rangeEnd: new Date("2000-01-01"),
                 numberOfLevels: 0,
                 levelMultiplier: 2
-            })
+            });
         }).toThrow("Cannot have less than one zoom level.");
+    });
+
+    test('non-integer numberOfLevels', () => {
+        expect(() => {
+            calculateZoomLevels({
+                rangeStart: new Date("1900-01-01"),
+                rangeEnd: new Date("2000-01-01"),
+                numberOfLevels: 1.5,
+                levelMultiplier: 2
+            });
+        }).toThrow("numberOfLevels must be an integer.");
+    });
+
+    test('non-numeric numberOfLevels', () => {
+        expect(() => {
+            calculateZoomLevels({
+                rangeStart: new Date("1900-01-01"),
+                rangeEnd: new Date("2000-01-01"),
+                numberOfLevels: "1",
+                levelMultiplier: 2
+            });
+        }).toThrow("numberOfLevels must be an integer.");
+    });
+
+    test('non-numeric level multiplier', () => {
+        expect(() => {
+            calculateZoomLevels({
+                rangeStart: new Date("1900-01-01"),
+                rangeEnd: new Date("2000-01-01"),
+                numberOfLevels: 1,
+                levelMultiplier: "2"
+            });
+        }).toThrow("levelMultiplier must be a finite number.");
     });
 
     test('negative number of levels', () => {
@@ -1287,7 +1320,7 @@ describe('calculateZoomLevels', () => {
                 rangeEnd: new Date("2000-01-01"),
                 numberOfLevels: 5,
                 levelMultiplier: 0
-            })
+            });
         }).toThrow("Level multiplier must be greater than one.");
     });
 
@@ -1309,19 +1342,52 @@ describe('calculateZoomLevels', () => {
                 rangeEnd: new Date("2000-01-01"),
                 numberOfLevels: 5,
                 levelMultiplier: 1
-            })
+            });
         }).toThrow("Level multiplier must be greater than one.");
     });
 
-    test('invalid range field', () => {
+    test('invalid range start field', () => {
         expect(() => {
             calculateZoomLevels({
                 rangeStart: "1900-01-01",
                 rangeEnd: new Date("2000-01-01"),
                 numberOfLevels: 5,
-                levelMultiplier: 1
-            })
+                levelMultiplier: 2
+            });
         }).toThrow("Range boundaries must be Date objects.");
+    });
+
+    test('invalid range end field', () => {
+        expect(() => {
+            calculateZoomLevels({
+                rangeStart: new Date("1900-01-01"),
+                rangeEnd: "2000-01-01",
+                numberOfLevels: 5,
+                levelMultiplier: 2
+            });
+        }).toThrow("Range boundaries must be Date objects.");
+    });
+
+    test('range size of zero', () => {
+        expect(() => {
+            calculateZoomLevels(({
+                rangeStart: new Date("1900-01-01"),
+                rangeEnd: new Date("1900-01-01"),
+                numberOfLevels: 2,
+                levelMultiplier: 2
+            }));
+        }).toThrow("Range size must be larger than zero.");
+    });
+
+    test('range size of zero', () => {
+        expect(() => {
+            calculateZoomLevels(({
+                rangeStart: new Date("1900-01-01"),
+                rangeEnd: new Date("1800-01-01"),
+                numberOfLevels: 2,
+                levelMultiplier: 2
+            }));
+        }).toThrow("Range size must be larger than zero.");
     });
 
     test('three levels, multiplier 2', () => {
@@ -1349,5 +1415,14 @@ describe('calculateZoomLevels', () => {
             numberOfLevels: 3,
             levelMultiplier: 30
         })).toStrictEqual([ONEDAYINMS * 30, ONEDAYINMS, ONEDAYINMS / 30]);
+    });
+
+    test('one level', () => {
+        expect(calculateZoomLevels({
+            rangeStart: new Date("1900-01-01"),
+            rangeEnd: new Date("1900-01-02"),
+            numberOfLevels: 1,
+            levelMultiplier: 3
+        })).toStrictEqual([ONEDAYINMS]);
     });
 });

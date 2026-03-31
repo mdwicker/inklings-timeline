@@ -125,22 +125,35 @@ export function getCurrentZoomLevel({ levels, windowSize } = {}) {
 export function calculateZoomLevels({ rangeStart, rangeEnd, numberOfLevels, levelMultiplier }) {
     // calculates the maximum number of milliseconds per window for each zoom level
 
-    const zoomLevels = [];
+    // validate parameters
+    if (!Number.isInteger(numberOfLevels)) {
+        throw new Error("numberOfLevels must be an integer.");
+    }
+
+    if (numberOfLevels <= 0) {
+        throw new Error("Cannot have less than one zoom level.");
+    }
+
+    if (!Number.isFinite(levelMultiplier)) {
+        throw new Error("levelMultiplier must be a finite number.");
+    }
+
+    if (levelMultiplier <= 1) {
+        throw new Error("Level multiplier must be greater than one.");
+    }
 
     if ((!(rangeStart instanceof Date) || isNaN(rangeStart)) ||
         (!(rangeEnd instanceof Date) || isNaN(rangeEnd))) {
         throw new Error("Range boundaries must be Date objects.");
     }
 
+    if (rangeEnd.valueOf() <= rangeStart.valueOf()) {
+        throw new Error("Range size must be larger than zero.");
+    }
+
+    const zoomLevels = [];
+
     let windowSize = Math.abs(rangeEnd - rangeStart);
-
-    if (numberOfLevels <= 0) {
-        throw new Error("Cannot have less than one zoom level.");
-    }
-
-    if (levelMultiplier <= 1) {
-        throw new Error("Level multiplier must be greater than one.");
-    }
 
     for (let i = numberOfLevels; i > 0; i--) {
         zoomLevels.push(windowSize);
