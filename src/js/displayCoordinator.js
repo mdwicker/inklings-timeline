@@ -66,6 +66,10 @@ function createLodManager(
     return items.map(item => item.id);
   }
 
+  function getCurrentZoomLevel({ levels, windowSize } = {}) {
+    return Math.max(...levels.filter(level => level <= windowSize));
+  }
+
   const getIds = function ({ windowRange }) {
     const windowSize = Math.abs(windowRange.end - windowRange.start);
 
@@ -75,8 +79,8 @@ function createLodManager(
     }
 
     // otherwise, show the appropriate zoom level
-    const zoomLevel = Math.max(...zoomLevels.filter(level => level <= windowSize));
-    return idsByZoomLevel[zoomLevel];
+
+    return idsByZoomLevel[getCurrentZoomLevel({ levels: zoomLevels, windowSize })];
   }
 
   return { getIds };
