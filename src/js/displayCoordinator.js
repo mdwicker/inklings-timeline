@@ -72,8 +72,8 @@ function createLodManager(
     return items.map(item => item.id);
   }
 
-  const getIds = function ({ windowRange }) {
-    const windowSize = Math.abs(windowRange.end - windowRange.start);
+  const getIds = function ({ windowStart, windowEnd }) {
+    const windowSize = Math.abs(windowEnd - windowStart);
 
     // if window Size is smaller than 1 month, show all events
     if (inDays(windowSize) < 30) {

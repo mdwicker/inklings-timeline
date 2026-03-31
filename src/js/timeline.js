@@ -206,10 +206,8 @@ const initialWindow = timeline.getWindow();
 
 itemViewManager.refreshVisibleIds(
   LodManager.getIds({
-    windowRange: {
-      start: initialWindow.start,
-      end: initialWindow.end
-    }
+    windowStart: initialWindow.start,
+    windowEnd: initialWindow.end
   }));
 
 
@@ -235,7 +233,7 @@ timeline.on("rangechange", (properties) => {
 
 // refresh on range change
 pubSub.subscribe(events.rangeChange, (range) => {
-  const visibleIds = LodManager.getIds({ windowRange: range });
+  const visibleIds = LodManager.getIds({ windowStart: range.start, windowEnd: range.end });
   itemViewManager.refreshVisibleIds(visibleIds);
 })
 
