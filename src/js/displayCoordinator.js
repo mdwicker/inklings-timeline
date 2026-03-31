@@ -2,7 +2,8 @@ import { pubSub, events } from "./pubSub.js";
 import { DataView } from "vis-data/peer";
 import {
   getTotalRange, isInRange, inDays,
-  getRangeSections, sortItems, getCurrentZoomLevel
+  getRangeSections, sortItems,
+  calculateZoomLevels, getCurrentZoomLevel
 } from "./utils.js";
 
 const showAll = false; // Force all events to be shown regardless of filtering rules
@@ -30,22 +31,6 @@ function createLodManager(
   // populate ids for each zoom level
   for (const zoomLevel of zoomLevels) {
     idsByZoomLevel[zoomLevel] = getIdsAtZoomLevel(zoomLevel);
-  }
-
-  function calculateZoomLevels({ rangeStart, rangeEnd, numberOfLevels, levelMultiplier }) {
-    const zoomLevels = [];
-
-    // extend total range slightly to include items on boundaries
-    rangeStart = new Date(rangeStart.valueOf() - 1);
-    rangeEnd = new Date(rangeEnd.valueOf() + 1);
-    let windowSize = Math.abs(rangeEnd - rangeStart);
-
-    for (let i = numberOfLevels; i > 0; i--) {
-      zoomLevels.push(windowSize);
-      windowSize = Math.floor(windowSize / levelMultiplier);
-    }
-
-    return zoomLevels;
   }
 
   function getIdsAtZoomLevel(zoomLevel) {

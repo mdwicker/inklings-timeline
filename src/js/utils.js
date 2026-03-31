@@ -121,3 +121,21 @@ export function getCurrentZoomLevel({ levels, windowSize } = {}) {
 
     return level;
 }
+
+export function calculateZoomLevels({ rangeStart, rangeEnd, numberOfLevels, levelMultiplier }) {
+    // calculates the maximum number of milliseconds per window for each zoom level
+
+    const zoomLevels = [];
+
+    // extend total range slightly to include items on boundaries
+    rangeStart = new Date(rangeStart.valueOf() - 1);
+    rangeEnd = new Date(rangeEnd.valueOf() + 1);
+    let windowSize = Math.abs(rangeEnd - rangeStart);
+
+    for (let i = numberOfLevels; i > 0; i--) {
+        zoomLevels.push(windowSize);
+        windowSize = Math.floor(windowSize / levelMultiplier);
+    }
+
+    return zoomLevels;
+}
