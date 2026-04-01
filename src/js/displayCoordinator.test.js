@@ -320,6 +320,9 @@ describe('LOD manager', () => {
             isBackground: false,
         },
     ];
+    const extraItems = [
+
+    ]
     const itemSet = new DataSet(items);
 
     test('simple happy path, two sections', () => {
@@ -420,6 +423,172 @@ describe('LOD manager', () => {
             windowEnd: new Date("1901-01-25")
         })).toStrictEqual(new Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
     })
+
+    test('item at beginning and end of range are not ignored', () => {
+        const boundaryItems = [
+            {
+                id: 1,
+                group: 1,
+                content: "Start boundary",
+                start: new Date("1901-01-01"),
+                priority: 1,
+                type: "point",
+                subgroup: "normal",
+                isBackground: false,
+            },
+            {
+                id: 2,
+                group: 1,
+                content: "End boundary",
+                start: new Date("1904-12-31"),
+                priority: 1,
+                type: "point",
+                subgroup: "normal",
+                isBackground: false,
+            }
+        ];
+        const boundarySet = new DataSet(boundaryItems);
+        const LodManager = createLodManager({
+            itemSet: boundarySet,
+            numberOfLevels: 1,
+            levelMultiplier: 2,
+            sectionsPerWindow: 2,
+            itemsPerSection: 2
+        })
+
+        expect(LodManager.getIds({
+            windowStart: new Date("1900-01-01"),
+            windowEnd: new Date("1904-12-31")
+        })).toStrictEqual(new Set([1, 2]));
+    });
+
+    test('items on boundary between sections', () => {
+        const baseDate = new Date("1900-01-01");
+
+        // large range size to avoid the "closer than 30 = show all"
+        const rangeSize = 10000000000;
+
+
+        const boundaryItems = [
+            {
+                id: 1,
+                group: 1,
+                content: "Start boundary",
+                start: baseDate,
+                priority: 2,
+                type: "point",
+                subgroup: "normal",
+                isBackground: false,
+            },
+            {
+                id: 2,
+                group: 1,
+                content: "Before midpoint",
+                start: new Date(baseDate.valueOf() + (rangeSize / 2) - 1),
+                priority: 1,
+                type: "point",
+                subgroup: "normal",
+                isBackground: false,
+            },
+            {
+                id: 3,
+                group: 1,
+                content: "Midpoint",
+                start: new Date(baseDate.valueOf() + (rangeSize / 2)),
+                priority: 1,
+                type: "point",
+                subgroup: "normal",
+                isBackground: false,
+            },
+            {
+                id: 4,
+                group: 1,
+                content: "End boundary",
+                start: new Date(baseDate.valueOf() + rangeSize),
+                priority: 2,
+                type: "point",
+                subgroup: "normal",
+                isBackground: false,
+            },
+        ];
+        const boundarySet = new DataSet(boundaryItems);
+        const LodManager = createLodManager({
+            itemSet: boundarySet,
+            numberOfLevels: 1,
+            levelMultiplier: 2,
+            sectionsPerWindow: 2,
+            itemsPerSection: 1
+        })
+
+        expect(LodManager.getIds({
+            windowStart: new Date("1900-01-01"),
+            windowEnd: new Date("1900-06-01")
+        })).toStrictEqual(new Set([2, 3]));
+    });
+
+    test('boundary items not counted twice', () => {
+        const baseDate = new Date("1900-01-01");
+
+        // large range size to avoid the "closer than 30 = show all"
+        const rangeSize = 10000000000;
+
+
+        const boundaryItems = [
+            {
+                id: 1,
+                group: 1,
+                content: "Start boundary",
+                start: baseDate,
+                priority: 2,
+                type: "point",
+                subgroup: "normal",
+                isBackground: false,
+            },
+            {
+                id: 2,
+                group: 1,
+                content: "Before midpoint",
+                start: new Date(baseDate.valueOf() + (rangeSize / 2) - 1),
+                priority: 1,
+                type: "point",
+                subgroup: "normal",
+                isBackground: false,
+            },
+            {
+                id: 3,
+                group: 1,
+                content: "Midpoint",
+                start: new Date(baseDate.valueOf() + (rangeSize / 2)),
+                priority: 1,
+                type: "point",
+                subgroup: "normal",
+                isBackground: false,
+            },
+            {
+                id: 4,
+                group: 1,
+                content: "End boundary",
+                start: new Date(baseDate.valueOf() + rangeSize),
+                priority: 2,
+                type: "point",
+                subgroup: "normal",
+                isBackground: false,
+            },
+        ];
+        const boundarySet = new DataSet(boundaryItems);
+        const LodManager = createLodManager({
+            itemSet: boundarySet,
+            numberOfLevels: 1,
+            levelMultiplier: 2,
+            sectionsPerWindow: 2,
+            itemsPerSection: 2
+        })
+
+        expect(LodManager.getIds({
+            windowStart: new Date("1900-01-01"),
+            windowEnd: new Date("1900-06-01")
+        })).toStrictEqual(new Set([1, 2, 3, 4]));
+    });
 
     /**
      * so to break it down systematically. while STAYING at only a single zoom level, I can verify the following:
