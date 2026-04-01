@@ -17,6 +17,15 @@ function createLodManager(
     itemsPerSection = 9
   } = {}
 ) {
+  // validate itemsPerSection
+  if (!Number.isInteger(itemsPerSection) || itemsPerSection < 0) {
+    throw new Error("Items per section must be a non-negative integer.");
+  }
+
+  if (itemSet.get().length === 0) {
+    throw new Error("LOD Manager requires a non-empty itemSet.");
+  }
+
   const idsByZoomLevel = {};
   const totalRange = getTotalRange(itemSet.get());
 
