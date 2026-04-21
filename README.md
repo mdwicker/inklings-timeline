@@ -1,7 +1,6 @@
 # Inklings Timeline
-*An interactive timeline of events in the life of the Inklings and its members.*
-[Click here to go to the timeline.]
-(https://mdwicker.github.io/inklings-timeline)
+*An interactive timeline of events in the life of the Inklings and its members.*  
+[Click here to go to the timeline.](https://mdwicker.github.io/inklings-timeline)
 
 ## What This Is
 This site is a timeline of the Inklings and its members, focusing especially
