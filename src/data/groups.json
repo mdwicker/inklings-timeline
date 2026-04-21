@@ -1,26 +1,26 @@
 [
-  {
-    "name": "J.R.R. Tolkien",
-    "id": 1
-  },
-  {
-    "name": "C.S. Lewis",
-    "id": 2
-  },
-  {
-    "name": "Owen Barfield",
-    "id": 3
-  },
-  {
-    "name": "Charles Williams",
-    "id": 4
-  },
-  {
-    "name": "Warren Lewis",
-    "id": 5
-  },
-  {
-    "name": "Inklings",
-    "id": 6
-  }
+    {
+        "id": 1,
+        "name": "J.R.R. Tolkien"
+    },
+    {
+        "id": 2,
+        "name": "C.S. Lewis"
+    },
+    {
+        "id": 3,
+        "name": "Owen Barfield"
+    },
+    {
+        "id": 4,
+        "name": "Charles Williams"
+    },
+    {
+        "id": 5,
+        "name": "Warren Lewis"
+    },
+    {
+        "id": 6,
+        "name": "Inklings"
+    }
 ]
