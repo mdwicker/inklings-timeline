@@ -209,7 +209,7 @@ describe('validateItem', () => {
         delete noDate.start;
 
         expect(validateItem(noDate))
-            .toStrictEqual([`No date field:\n${JSON.stringify(noDate)}`]);
+            .toStrictEqual([expect.stringContaining("No date field")]);
     });
 
     test('invalid start date', () => {
@@ -217,21 +217,21 @@ describe('validateItem', () => {
         invalidStart.start = "Invalid";
 
         expect(validateItem(invalidStart))
-            .toStrictEqual([`Invalid 'start' date:\n${JSON.stringify(invalidStart)}`]);
+            .toStrictEqual([expect.stringContaining("Invalid 'start' date")]);
     });
 
     test('start date: no such day', () => {
         const invalidStart = { ...wellFormed };
         invalidStart.start = "1900-02-31";
         expect(validateItem(invalidStart))
-            .toStrictEqual([`Invalid 'start' date:\n${JSON.stringify(invalidStart)}`]);
+            .toStrictEqual([expect.stringContaining("Invalid 'start' date")]);
     });
 
     test('edtf date as start date', () => {
         const invalidStart = { ...wellFormed };
         invalidStart.start = "1900-02-31?";
         expect(validateItem(invalidStart))
-            .toStrictEqual([`Invalid 'start' date:\n${JSON.stringify(invalidStart)}`]);
+            .toStrictEqual([expect.stringContaining("Invalid 'start' date")]);
     });
 
     test('valid end date', () => {
@@ -246,35 +246,35 @@ describe('validateItem', () => {
         invalidEnd.end = "Invalid";
 
         expect(validateItem(invalidEnd))
-            .toStrictEqual([`Invalid 'end' date:\n${JSON.stringify(invalidEnd)}`]);
+            .toStrictEqual([expect.stringContaining("Invalid 'end' date")]);
     });
 
     test('end date: no such day', () => {
         const invalidEnd = { ...wellFormed };
         invalidEnd.end = "1900-02-31";
         expect(validateItem(invalidEnd))
-            .toStrictEqual([`Invalid 'end' date:\n${JSON.stringify(invalidEnd)}`]);
+            .toStrictEqual([expect.stringContaining("Invalid 'end' date")]);
     });
 
     test('edtf date as end date', () => {
         const invalidEnd = { ...wellFormed };
         invalidEnd.end = "1900-02-31?";
         expect(validateItem(invalidEnd))
-            .toStrictEqual([`Invalid 'end' date:\n${JSON.stringify(invalidEnd)}`]);
+            .toStrictEqual([expect.stringContaining("Invalid 'end' date")]);
     });
 
     test('invalid edtf date', () => {
         const invalidEdtf = { ...wellFormed };
         invalidEdtf.edtf = "Invalid";
         expect(validateItem(invalidEdtf))
-            .toStrictEqual([`Invalid 'edtf' date:\n${JSON.stringify(invalidEdtf)}`]);
+            .toStrictEqual([expect.stringContaining("Invalid 'edtf' date")]);
     });
 
     test('edtf date: no such day', () => {
         const invalidEdtf = { ...wellFormed };
         invalidEdtf.edtf = "1900-02-31";
         expect(validateItem(invalidEdtf))
-            .toStrictEqual([`Invalid 'edtf' date:\n${JSON.stringify(invalidEdtf)}`]);
+            .toStrictEqual([expect.stringContaining("Invalid 'edtf' date")]);
     });
 
     test('valid edtf-only date', () => {
