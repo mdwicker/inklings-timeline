@@ -1,3 +1,9 @@
+// TODO: Handle priority sorting for background events more intelligently
+//  (currently only priority 2 and lower are ever displayed)
+
+// TODO: Break apart the LOD Manager, maybe into a separate module
+//  (try and make it a little bit less black box)
+
 import { pubSub, events } from "./pubSub.js";
 import { DataView } from "vis-data/peer";
 import {
@@ -7,15 +13,13 @@ import {
 } from "./utils.js";
 
 
-// number of 
-function createLodManager(
-  { itemSet,
-    numberOfLevels = 23,
-    levelMultiplier = 1.5,
-    sectionsPerWindow = 3,
-    itemsPerSection = 9
-  } = {}
-) {
+
+function createLodManager({ itemSet,
+  numberOfLevels = 23,
+  levelMultiplier = 1.5,
+  sectionsPerWindow = 3,
+  itemsPerSection = 9
+} = {}) {
   // validate itemsPerSection
   if (!Number.isInteger(itemsPerSection) || itemsPerSection < 0) {
     throw new Error("Items per section must be a non-negative integer.");

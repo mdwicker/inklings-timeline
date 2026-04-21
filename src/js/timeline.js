@@ -1,13 +1,4 @@
-/**
- * TO-DO
- *  -Improve visuals: color, fonts, etc
- *  -Test scrolling and zooming behavior on different devices
- *  -Implement visualization of timeline width (or maybe scrollbar....)
- * 
- * 
- * Testing targets:
- *  utils, dataProcessor, displayCoordinator (ALL exported functions from each)
- */
+// TODO: Move VisibilityToggles into its own module
 
 import "../styles/vis-timeline-graph2d.min.css";
 import "../styles/styles.css";

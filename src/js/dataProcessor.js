@@ -9,9 +9,12 @@ id
 group
 title
 category
-edtf
-(start/end makes things easier at this point, though eventually that can be derived)
-metadata (description, etc)
+start*
+metadata (description, source, etc)
+
+*currently this field is required, but eventually start_edtf
+will become the source of truth and start will be an optional backup
+in case of a timeline date that should differ from what the edtf date would produce
 
 Outputs:
   Dataset of groups with the following fields:
@@ -49,7 +52,7 @@ Outputs:
       -REQUIRED FOR RANGE EVENTS-
       end (ISO date)
 
-      -OPTIONAL-
+      -METADATA, optional-
       description (string with further details about event)
       source (string with bibliographic info)
       note (string with bibliographic commentary)
@@ -94,6 +97,8 @@ const subgroupOrder = function (a, b) {
   return subgroupOrdering[a.subgroup] - subgroupOrdering[b.subgroup];
 };
 
+
+/* Functions for export */
 
 // Returns a list of all issues found in the data
 function validateData({ groups = [], items = [] } = {}) {
@@ -203,22 +208,6 @@ function validateItem(item) {
   return issues;
 }
 
-function isValidId(id) {
-  if (isNaN(Number(id))) {
-    return false;
-  }
-
-  if (!Number.isInteger(Number(id))) {
-    return false;
-  }
-
-  if (Number(id) <= 0) {
-    return false;
-  }
-
-  return true;
-}
-
 // Returns an item formatted for use with visTimeline
 function visifyItem(item) {
   // create a deep copy to ensure no unexpected mutation of the raw data
@@ -267,6 +256,25 @@ function visifyGroup(group) {
   group.subgroupStack = subgroupStack;
 
   return group;
+}
+
+
+/* Utility functions */
+
+function isValidId(id) {
+  if (isNaN(Number(id))) {
+    return false;
+  }
+
+  if (!Number.isInteger(Number(id))) {
+    return false;
+  }
+
+  if (Number(id) <= 0) {
+    return false;
+  }
+
+  return true;
 }
 
 export {
