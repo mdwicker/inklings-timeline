@@ -8,16 +8,12 @@
         "type": "integer",
         "maximum": 9999
       },
+      "group": {
+        "type": "integer",
+        "maximum": 9999
+      },
       "category": {
-        "type": "string",
-        "enum": [
-          "location",
-          "occupation",
-          "life",
-          "major-pub",
-          "minor-pub",
-          "publication"
-        ]
+        "type": "string"
       },
       "name": {
         "type": "string",
@@ -42,13 +38,10 @@
         "minimum": 0,
         "maximum": 4
       },
-      "source": {
-        "type": "string"
-      },
       "note": {
         "type": "string"
       }
     },
-    "required": ["id", "name", "start", "priority"]
+    "required": ["id", "group", "category", "name", "start", "edtf", "priority"]
   }
 }

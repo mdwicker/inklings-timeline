@@ -2,12 +2,13 @@
   "name": "inklings-timeline",
   "version": "1.0.0",
   "description": "*An interactive timeline of events in the life of the Inklings and its members.*",
-  "main": "data.js",
+  "main": "timeline.js",
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "dev": "webpack serve --open --config webpack.dev.js",
     "deploy": "git push origin $(git subtree split --prefix dist):gh-pages --force",
-    "test": "jest"
+    "test": "jest",
+    "sync": "python3 ./data_management/sync.py"
   },
   "repository": {
     "type": "git",
