@@ -219,8 +219,8 @@ function isValidId(id) {
 
 // Returns an item formatted for use with visTimeline
 function visifyItem(item) {
-  // create a shallow copy to ensure no unexpected mutation of the raw data
-  item = { ...item };
+  // create a deep copy to ensure no unexpected mutation of the raw data
+  item = JSON.parse(JSON.stringify(item));
 
   item.id = Number(item.id);
 
