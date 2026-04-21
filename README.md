@@ -1,5 +1,7 @@
 # Inklings Timeline
 *An interactive timeline of events in the life of the Inklings and its members.*
+[Click here to go to the timeline.]
+(https://mdwicker.github.io/inklings-timeline)
 
 ## What This Is
 This site is a timeline of the Inklings and its members, focusing especially
@@ -27,10 +29,6 @@ and difficult to visualize. So I decided to make my own.
 I hope to flesh this out much more, both with more events and with more
 interactivity.
 
-## Try It Out
-All you have to do to try it out is visit[mdwicker.github.io/inklings-timeline]
-(https://mdwicker.github.io/inklings-timeline).
-
 ## Limitations (for now)
 - No category-based filtering (tags are in place, but haven't been implemented)
 - Not much detail about their writing processes
@@ -44,7 +42,7 @@ All you have to do to try it out is visit[mdwicker.github.io/inklings-timeline]
 ## Feature Roadmap
 - Cleaner UI (more color-coding, scrollbars, etc)
 - Category-based filtering (life events, publications, writing, etc)
-- <a id="group-aggregation">Group aggregation.</a> Collapse together groups (e.g. "Barfield," "Warren Lewis", etc) when they do not have many events on the timeline. If, for instance, there are not many pertinent events for Williams, Havard, Warnie, and Barfield at a particular zoom level, they could all be grouped together into a group called "Other Inklings" or something like that.
+- <a id="group-aggregation">Group aggregation.</a> Collapse together groups (e.g. "Barfield," "Warren Lewis", etc) when they do not have many events on the timeline. If, for instance, there are not many pertinent events for Williams, Havard, Warnie, and Barfield at a particular zoom level, they could all be grouped together into a group called "Other Inklings" or something like that. Then when the user zooms into a period where Warnie did a lot of interesting things, he would pop out of that group and be listed on his own once more.
 - Incorporate aggregation into the intelligent zoom system. This will help with background categories, so that for instance one could switch from simply listing "Birmingham" as a location to listing ecah individual address in Birmingham, depending on the zoom level.
 
 ## Event Priority Guidelines
