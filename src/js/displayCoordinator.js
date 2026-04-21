@@ -6,7 +6,6 @@ import {
   calculateZoomLevels, getCurrentZoomLevel
 } from "./utils.js";
 
-const showAll = false; // Force all events to be shown regardless of filtering rules
 
 // number of 
 function createLodManager(
@@ -103,9 +102,6 @@ function createItemViewManager(itemSet) {
 
   const view = new DataView(itemSet, {
     filter: item => {
-      // THIS LINE MUST CHANGE WHEN AGGREGATION IS INTRODUCED.
-      // Otherwise, parent and child items will display simultaneously.
-      if (showAll) return true;
       return (idsToDisplay.has(item.id));
     }
   });
