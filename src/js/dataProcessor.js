@@ -154,7 +154,7 @@ function validateGroup(group) {
 // Returns a list of issues found in the item
 function validateItem(item) {
   const requiredFields = ['id', 'group', 'name', 'priority'];
-  const dateFields = ['start', 'end', 'edtf'];
+  const dateFields = ['start', 'end', 'start_edtf', 'end_edtf'];
 
   const issues = [];
 
@@ -170,7 +170,7 @@ function validateItem(item) {
   }
 
   // Must contain some valid date information
-  if (!('edtf' in item) && !('start' in item)) {
+  if (!dateFields.some(field => field in item)) {
     issues.push(`No date field:\n${JSON.stringify(item)}`);
   }
 
@@ -181,10 +181,10 @@ function validateItem(item) {
       const parsed = parse(item[field]);
 
       // unless it's an edtf date, it should contain exactly a year, month, and day
-      if (field !== 'edtf' && parsed.values.length !== 3) {
+      if (!field.includes('edtf') && parsed.values.length !== 3) {
         issues.push(`Invalid '${field}' date in item ${item.id}:\n${item[field]}`);
       }
-    } catch {
+    } catch (e) {
       issues.push(`Invalid '${field}' date in item ${item.id}:\n${item[field]}`);
     }
   }

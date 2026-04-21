@@ -80,7 +80,8 @@ describe('validateItem', () => {
             end: "1910-01-01",
             category: "life",
             description: "Test description.",
-            edtf: "1900-01/1910-01-01?",
+            start_edtf: "1900-01",
+            end_edtf: "1910-01-01?",
             source: "Test source",
             note: "Note here"
         };
@@ -263,29 +264,42 @@ describe('validateItem', () => {
             .toStrictEqual([expect.stringContaining("Invalid 'end' date")]);
     });
 
-    test('invalid edtf date', () => {
+    test('invalid edtf start date', () => {
         const invalidEdtf = { ...wellFormed };
-        invalidEdtf.edtf = "Invalid";
+        invalidEdtf.start_edtf = "Invalid";
         expect(validateItem(invalidEdtf))
-            .toStrictEqual([expect.stringContaining("Invalid 'edtf' date")]);
+            .toStrictEqual([expect.stringContaining("Invalid 'start_edtf' date")]);
+    });
+
+    test('invalid edtf end date', () => {
+        const invalidEdtf = { ...wellFormed };
+        invalidEdtf.end_edtf = "Invalid";
+        expect(validateItem(invalidEdtf))
+            .toStrictEqual([expect.stringContaining("Invalid 'end_edtf' date")]);
     });
 
     test('edtf date: no such day', () => {
         const invalidEdtf = { ...wellFormed };
-        invalidEdtf.edtf = "1900-02-31";
+        invalidEdtf.start_edtf = "1900-02-31";
         expect(validateItem(invalidEdtf))
-            .toStrictEqual([expect.stringContaining("Invalid 'edtf' date")]);
+            .toStrictEqual([expect.stringContaining("Invalid 'start_edtf' date")]);
     });
 
-    test('valid edtf-only date', () => {
+    test('valid edtf-only start date', () => {
         const validEdtf = { ...wellFormed };
-        validEdtf.edtf = "1900-01-01?";
+        validEdtf.start_edtf = "1900-01-01?";
+        expect(validateItem(validEdtf)).toStrictEqual([]);
+    });
+
+    test('valid edtf-only end date', () => {
+        const validEdtf = { ...wellFormed };
+        validEdtf.end_edtf = "1900-01-01?";
         expect(validateItem(validEdtf)).toStrictEqual([]);
     });
 
     test('valid edtf date', () => {
         const validEdtf = { ...wellFormed };
-        validEdtf.edtf = "1900-01-01";
+        validEdtf.start_edtf = "1900-01-01";
         expect(validateItem(validEdtf)).toStrictEqual([]);
     });
 });
