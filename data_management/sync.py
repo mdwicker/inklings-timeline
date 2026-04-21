@@ -9,7 +9,7 @@ field_replacements = {
 
 def format_item(item):
     # Ignore fields that start with workflow, those are reserved for database management
-    formatted = {field: item[field] for field in item if not field.startswith('workflow')}
+    formatted = {field: item[field] for field in item if not field.startswith('workflow') and item[field] is not None}
 
     # Perform any required name changes
     for old_field, new_field in field_replacements.items():
@@ -27,14 +27,15 @@ def format_item(item):
 
     for prefix in source_field_prefixes:
         if not item[prefix + "source_id"]:
-            del formatted[prefix + "source_id"]
-            del formatted[prefix + "source_page"]
             continue
 
         source_id = item[prefix + "source_id"]
         source = {field: value for field, value in sources[source_id].items() if value is not None}
+        del formatted[prefix + "source_id"]
+
         if item[prefix + "source_page"]:
             source["page"] = item[prefix + "source_page"]
+            del formatted[prefix + "source_page"]
 
         if prefix != "":
             source["source_type"] = prefix.replace("_", "")
@@ -42,9 +43,6 @@ def format_item(item):
             source["source_type"] = "main"
 
         item_sources.append(source)
-
-        del formatted[prefix + "source_id"]
-        del formatted[prefix + "source_page"]
 
     formatted["sources"] = item_sources
 
@@ -68,7 +66,7 @@ def get_entries_with_field_names(table_name):
 
 
 
-# Create the DB in the current folder
+# Connect to the DB in the current folder
 conn = sqlite3.connect(DB_PATH)
 cur = conn.cursor()
 

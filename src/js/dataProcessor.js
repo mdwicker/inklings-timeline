@@ -57,7 +57,7 @@ Outputs:
     }
 */
 
-import edtf, { parse } from "edtf";
+import edtf, { parse, defaults } from "edtf";
 import { slugify } from "./utils.js";
 
 /**
@@ -71,6 +71,8 @@ const categoryPrefixes = {
 const priorityMin = 0;
 const priorityMax = 4;
 
+// enable the use of seasons in intervals
+defaults.level = 3;
 
 /** 
  * Subgroup sorting parameters for visifying groups
@@ -180,10 +182,10 @@ function validateItem(item) {
 
       // unless it's an edtf date, it should contain exactly a year, month, and day
       if (field !== 'edtf' && parsed.values.length !== 3) {
-        issues.push(`Invalid '${field}' date:\n${JSON.stringify(item)}`);
+        issues.push(`Invalid '${field}' date in item ${item.id}:\n${item[field]}`);
       }
     } catch {
-      issues.push(`Invalid '${field}' date:\n${JSON.stringify(item)}`);
+      issues.push(`Invalid '${field}' date in item ${item.id}:\n${item[field]}`);
     }
   }
 

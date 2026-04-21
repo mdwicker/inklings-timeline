@@ -71,7 +71,7 @@ with open('../src/data/items.json', 'r') as f:
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', (
             entry.get('group'), cat_id, entry.get('name'),
-            entry.get('description'), entry.get('start'), entry.get('end'), 
+            entry.get('description'), entry.get('start'), entry.get('end'),
             entry.get('edtf'), entry.get('priority'), entry.get('note'), source_id
         ))
 
