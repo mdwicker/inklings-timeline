@@ -16,13 +16,13 @@ class PubSub {
   // Unsubscribe from an event
   unsubscribe(event, callback) {
     if (!this.events[event]) return;
-    this.events[event] = this.events[event].filter(fn => fn !== callback);
+    this.events[event] = this.events[event].filter((fn) => fn !== callback);
   }
 
   // Publish an event
   publish(event, data) {
     if (!this.events[event]) return;
-    this.events[event].forEach(callback => callback(data));
+    this.events[event].forEach((callback) => callback(data));
   }
 }
 
@@ -32,4 +32,4 @@ export const events = {
   toggleGroup: "toggleGroup",
   rangeChange: "rangeChange",
   groupRangeChange: "groupRangeChange",
-}
+};

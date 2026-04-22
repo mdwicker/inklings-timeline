@@ -68,8 +68,8 @@ import { slugify } from "./utils.js";
  */
 const backgroundCategories = ["location", "occupation"];
 const categoryPrefixes = {
-  "location": "🏠",
-  "occupation": "🎓"
+  location: "🏠",
+  occupation: "🎓",
 };
 const priorityMin = 0;
 const priorityMax = 4;
@@ -77,16 +77,16 @@ const priorityMax = 4;
 // enable the use of seasons in intervals
 defaults.level = 3;
 
-/** 
+/**
  * Subgroup sorting parameters for visifying groups
-*/
-const subgroupStack = { "normal": true };
+ */
+const subgroupStack = { normal: true };
 for (const category of backgroundCategories) {
   subgroupStack[category] = true;
 }
 
-const subgroupOrdering = { "normal": 0 };
-let priority = 1
+const subgroupOrdering = { normal: 0 };
+let priority = 1;
 // reverse the array so that the first items in the array are on top
 for (const category of backgroundCategories.toReversed()) {
   subgroupOrdering[category] = priority;
@@ -96,7 +96,6 @@ for (const category of backgroundCategories.toReversed()) {
 const subgroupOrder = function (a, b) {
   return subgroupOrdering[a.subgroup] - subgroupOrdering[b.subgroup];
 };
-
 
 /* Functions for export */
 
@@ -122,7 +121,7 @@ function validateData({ groups = [], items = [] } = {}) {
   for (const item of items) {
     issues.push(...validateItem(item));
 
-    if (("id" in item)) {
+    if ("id" in item) {
       if (itemIds.has(item.id)) {
         issues.push(`Item id '${item.id}' used twice.`);
       } else {
@@ -130,7 +129,7 @@ function validateData({ groups = [], items = [] } = {}) {
       }
     }
 
-    if (("group" in item) && !groupIds.has(item.group)) {
+    if ("group" in item && !groupIds.has(item.group)) {
       issues.push(`Group id '${item.group}' does not exist.`);
     }
   }
@@ -140,7 +139,7 @@ function validateData({ groups = [], items = [] } = {}) {
 
 // Returns a list of issues found in the group
 function validateGroup(group) {
-  const requiredFields = ['id', 'name'];
+  const requiredFields = ["id", "name"];
   const issues = [];
 
   for (const field of requiredFields) {
@@ -149,7 +148,7 @@ function validateGroup(group) {
     }
   }
 
-  if ('id' in group && !isValidId(group.id)) {
+  if ("id" in group && !isValidId(group.id)) {
     issues.push(`Id must be positive integer:\n${JSON.stringify(group)}`);
   }
 
@@ -158,24 +157,23 @@ function validateGroup(group) {
 
 // Returns a list of issues found in the item
 function validateItem(item) {
-  const requiredFields = ['id', 'group', 'name', 'priority'];
-  const dateFields = ['start', 'end', 'start_edtf', 'end_edtf'];
+  const requiredFields = ["id", "group", "name", "priority"];
+  const dateFields = ["start", "end", "start_edtf", "end_edtf"];
 
   const issues = [];
 
-
   for (const field of requiredFields) {
     if (!(field in item)) {
-      issues.push(`Missing '${field}':\n${JSON.stringify(item)}`)
+      issues.push(`Missing '${field}':\n${JSON.stringify(item)}`);
     }
   }
 
-  if ('id' in item && !isValidId(item.id)) {
+  if ("id" in item && !isValidId(item.id)) {
     issues.push(`Id must be positive integer:\n${JSON.stringify(item)}`);
   }
 
   // Must contain some valid date information
-  if (!dateFields.some(field => field in item)) {
+  if (!dateFields.some((field) => field in item)) {
     issues.push(`No date field:\n${JSON.stringify(item)}`);
   }
 
@@ -186,23 +184,29 @@ function validateItem(item) {
       const parsed = parse(item[field]);
 
       // unless it's an edtf date, it should contain exactly a year, month, and day
-      if (!field.includes('edtf') && parsed.values.length !== 3) {
-        issues.push(`Invalid '${field}' date in item ${item.id}:\n${item[field]}`);
+      if (!field.includes("edtf") && parsed.values.length !== 3) {
+        issues.push(
+          `Invalid '${field}' date in item ${item.id}:\n${item[field]}`,
+        );
       }
-    } catch (e) {
-      issues.push(`Invalid '${field}' date in item ${item.id}:\n${item[field]}`);
+    } catch {
+      issues.push(
+        `Invalid '${field}' date in item ${item.id}:\n${item[field]}`,
+      );
     }
   }
 
   // check that the priority field contains an integer in range
   if (
-    'priority' in item &&
+    "priority" in item &&
     (isNaN(Number(item.priority)) ||
       !Number.isInteger(Number(item.priority)) ||
       item.priority < priorityMin ||
       item.priority > priorityMax)
   ) {
-    issues.push(`Priority must be int ${priorityMin}-${priorityMax}:\n${JSON.stringify(item)}`);
+    issues.push(
+      `Priority must be int ${priorityMin}-${priorityMax}:\n${JSON.stringify(item)}`,
+    );
   }
 
   return issues;
@@ -258,7 +262,6 @@ function visifyGroup(group) {
   return group;
 }
 
-
 /* Utility functions */
 
 function isValidId(id) {
@@ -277,7 +280,4 @@ function isValidId(id) {
   return true;
 }
 
-export {
-  validateData, validateItem, validateGroup,
-  visifyItem, visifyGroup
-}
+export { validateData, validateItem, validateGroup, visifyItem, visifyGroup };

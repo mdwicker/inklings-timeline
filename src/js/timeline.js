@@ -3,16 +3,19 @@
 import "../styles/vis-timeline-graph2d.min.css";
 import "../styles/styles.css";
 
-import rawGroups from '../data/groups.json'
-import rawItems from '../data/items.json'
+import rawGroups from "../data/groups.json";
+import rawItems from "../data/items.json";
 
-import { validateData, visifyGroup, visifyItem } from './dataProcessor.js'
+import { validateData, visifyGroup, visifyItem } from "./dataProcessor.js";
 import { DataSet } from "vis-data/peer";
-import { createLodManager, createItemViewManager, createGroupViewManager } from "./displayCoordinator.js";
+import {
+  createLodManager,
+  createItemViewManager,
+  createGroupViewManager,
+} from "./displayCoordinator.js";
 import { pubSub, events } from "./pubSub.js";
 
-import { Timeline } from "vis-timeline/peer"
-
+import { Timeline } from "vis-timeline/peer";
 
 /* =====================
  *  State initialization
@@ -22,15 +25,14 @@ import { Timeline } from "vis-timeline/peer"
 const validationIssues = validateData({ groups: rawGroups, items: rawItems });
 
 if (validationIssues.length > 0) {
-  validationIssues.forEach(issue => {
+  validationIssues.forEach((issue) => {
     console.log(issue);
-  })
+  });
   throw new Error("Data validation failed. See console for details.");
 }
 
-const groupSet = new DataSet(rawGroups.map(group => visifyGroup(group)));
-const itemSet = new DataSet(rawItems.map(item => visifyItem(item)));
-
+const groupSet = new DataSet(rawGroups.map((group) => visifyGroup(group)));
+const itemSet = new DataSet(rawItems.map((item) => visifyItem(item)));
 
 // Initliaize DataViews and LOD Management
 
@@ -39,7 +41,7 @@ const LodManager = createLodManager({
   numberOfLevels: 23,
   levelMultiplier: 1.5,
   sectionsPerWindow: 3,
-  itemsPerSection: 9
+  itemsPerSection: 9,
 });
 
 const itemViewManager = createItemViewManager(itemSet);
@@ -47,7 +49,6 @@ const itemView = itemViewManager.view;
 
 const groupViewManager = createGroupViewManager(groupSet);
 const groupView = groupViewManager.view;
-
 
 // Initialize timeline object
 
@@ -72,20 +73,20 @@ const timeline = new Timeline(container, itemView, groupView, {
   },
   tooltip: {
     template: (item) => item.description || item.content,
-  }
+  },
 });
-
 
 /* =====================
  *  App Initialization
  * ===================== */
-
-const VisibilityToggles = (function (groups) {
+// initialize Visibility Toggles
+(function (groups) {
   const groupList = document.querySelector(".visibility-toggles .group-list");
-  const toggles = {}
+  const toggles = {};
 
   // Create nodes
-  groups.filter(group => !group.parentId)
+  groups
+    .filter((group) => !group.parentId)
     .forEach((group) => {
       const node = createGroupNode(group);
       if (group.nestedGroups != undefined) {
@@ -94,7 +95,7 @@ const VisibilityToggles = (function (groups) {
         nestedList.classList.add("subgroup-list");
         for (const id of group.nestedGroups) {
           nestedList.append(
-            createGroupNode(groups.find(subGroup => subGroup.id == id))
+            createGroupNode(groups.find((subGroup) => subGroup.id == id)),
           );
           toggles[group.id].nestedGroups.push(id);
         }
@@ -105,7 +106,8 @@ const VisibilityToggles = (function (groups) {
     });
 
   // Control visibility toggles collapse state
-  document.querySelector("button.collapse-toggles")
+  document
+    .querySelector("button.collapse-toggles")
     .addEventListener("click", function (e) {
       const button = e.target;
       const expanded = button.getAttribute("aria-expanded") === "true";
@@ -115,14 +117,17 @@ const VisibilityToggles = (function (groups) {
     });
 
   // Publish group toggle changes
-  groupList.addEventListener("change", e => {
+  groupList.addEventListener("change", (e) => {
     if (!e.target.matches("input[type='checkbox']")) return;
 
     const id = Number(e.target.dataset.groupId);
     if (!id) return;
 
-    pubSub.publish(events.requestGroupToggle, { id, toggleStatus: e.target.checked });
-  })
+    pubSub.publish(events.requestGroupToggle, {
+      id,
+      toggleStatus: e.target.checked,
+    });
+  });
 
   // update toggle status
   pubSub.subscribe(events.toggleGroup, (e) => {
@@ -135,12 +140,12 @@ const VisibilityToggles = (function (groups) {
 
   // update groups out of range
   pubSub.subscribe(events.groupRangeChange, (e) => {
-    e.left.forEach(id => {
+    e.left.forEach((id) => {
       toggles[id].label.classList.toggle("out-of-range", true);
-    })
-    e.entered.forEach(id => {
+    });
+    e.entered.forEach((id) => {
       toggles[id].label.classList.toggle("out-of-range", false);
-    })
+    });
   });
 
   function createGroupNode(group) {
@@ -157,7 +162,7 @@ const VisibilityToggles = (function (groups) {
     toggles[group.id] = {};
     node.append(
       createCheckbox(name, group.id),
-      createLabel(name, group.content, group.id)
+      createLabel(name, group.content, group.id),
     );
 
     return node;
@@ -184,7 +189,7 @@ const VisibilityToggles = (function (groups) {
   }
 
   function updateChildToggles(id, toggleOn) {
-    toggles[id].nestedGroups.forEach(toggleId => {
+    toggles[id].nestedGroups.forEach((toggleId) => {
       const toggle = toggles[toggleId];
       toggle.checkbox.disabled = !toggleOn;
       toggle.label.classList.toggle("parent-toggled-off", !toggleOn);
@@ -198,9 +203,9 @@ const initialWindow = timeline.getWindow();
 itemViewManager.refreshVisibleIds(
   LodManager.getIds({
     windowStart: initialWindow.start,
-    windowEnd: initialWindow.end
-  }));
-
+    windowEnd: initialWindow.end,
+  }),
+);
 
 /* =====================
  *  Event wiring
@@ -213,10 +218,8 @@ timeline.on("rangechange", (properties) => {
   const start = properties.start;
   const end = properties.end;
 
-  const zoomChange = (
-    (currentWindow.end.valueOf() - currentWindow.start.valueOf()) !==
-    (end - start)
-  );
+  const zoomChange =
+    currentWindow.end.valueOf() - currentWindow.start.valueOf() !== end - start;
   currentWindow = { start, end };
 
   pubSub.publish(events.rangeChange, { start, end, zoomChange });
@@ -224,9 +227,12 @@ timeline.on("rangechange", (properties) => {
 
 // refresh on range change
 pubSub.subscribe(events.rangeChange, (range) => {
-  const visibleIds = LodManager.getIds({ windowStart: range.start, windowEnd: range.end });
+  const visibleIds = LodManager.getIds({
+    windowStart: range.start,
+    windowEnd: range.end,
+  });
   itemViewManager.refreshVisibleIds(visibleIds);
-})
+});
 
 // toggle group upon request
 pubSub.subscribe(events.requestGroupToggle, (e) => {

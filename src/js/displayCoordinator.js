@@ -7,18 +7,21 @@
 import { pubSub, events } from "./pubSub.js";
 import { DataView } from "vis-data/peer";
 import {
-  getTotalRange, isInRange, inDays,
-  getRangeSections, sortItems,
-  calculateZoomLevels, getCurrentZoomLevel
+  getTotalRange,
+  isInRange,
+  inDays,
+  getRangeSections,
+  sortItems,
+  calculateZoomLevels,
+  getCurrentZoomLevel,
 } from "./utils.js";
 
-
-
-function createLodManager({ itemSet,
+function createLodManager({
+  itemSet,
   numberOfLevels = 23,
   levelMultiplier = 1.5,
   sectionsPerWindow = 3,
-  itemsPerSection = 9
+  itemsPerSection = 9,
 } = {}) {
   // validate itemsPerSection
   if (!Number.isInteger(itemsPerSection) || itemsPerSection < 0) {
@@ -37,12 +40,12 @@ function createLodManager({ itemSet,
   totalRange.end = new Date(totalRange.end.valueOf() + 1);
 
   // Set up zoom level boundaries
-  const zoomLevels =
-    calculateZoomLevels({
-      rangeStart: totalRange.start,
-      rangeEnd: totalRange.end,
-      numberOfLevels, levelMultiplier
-    });
+  const zoomLevels = calculateZoomLevels({
+    rangeStart: totalRange.start,
+    rangeEnd: totalRange.end,
+    numberOfLevels,
+    levelMultiplier,
+  });
   const minZoomLevel = Math.min(...zoomLevels);
 
   // populate ids for each zoom level
@@ -61,28 +64,35 @@ function createLodManager({ itemSet,
     const ids = [];
 
     const itemPool = itemSet.get({
-      order: sortItems, filter: item => !item.isBackground
+      order: sortItems,
+      filter: (item) => !item.isBackground,
     });
-    const sections = getRangeSections({ totalRange, windowSize, sectionsPerWindow });
+    const sections = getRangeSections({
+      totalRange,
+      windowSize,
+      sectionsPerWindow,
+    });
 
     for (const section of sections) {
-      const itemsInRange = itemPool.filter(
-        item => isInRange({ item, range: section, rangeMode: "start" })
+      const itemsInRange = itemPool.filter((item) =>
+        isInRange({ item, range: section, rangeMode: "start" }),
       );
 
-      ids.push(...itemsInRange.slice(0, itemsPerSection).map(item => item.id));
+      ids.push(
+        ...itemsInRange.slice(0, itemsPerSection).map((item) => item.id),
+      );
     }
 
     return ids;
   }
 
-  function getBackgroundIdsAtZoomLevel({ windowSize } = {}) {
+  function getBackgroundIdsAtZoomLevel() {
     const items = itemSet.get({
-      filter: item => {
+      filter: (item) => {
         return item.isBackground && item.priority < 2;
-      }
+      },
     });
-    return items.map(item => item.id);
+    return items.map((item) => item.id);
   }
 
   const getIds = function ({ windowStart, windowEnd }) {
@@ -90,13 +100,15 @@ function createLodManager({ itemSet,
 
     // if window Size is smaller than 1 month, show all events
     if (inDays(windowSize) < 30 || windowSize < minZoomLevel) {
-      return new Set(itemSet.get().map(item => item.id));
+      return new Set(itemSet.get().map((item) => item.id));
     }
 
     // otherwise, show the appropriate zoom level
 
-    return idsByZoomLevel[getCurrentZoomLevel({ levels: zoomLevels, windowSize })];
-  }
+    return idsByZoomLevel[
+      getCurrentZoomLevel({ levels: zoomLevels, windowSize })
+    ];
+  };
 
   return { getIds };
 }
@@ -105,21 +117,21 @@ function createItemViewManager(itemSet) {
   let idsToDisplay = new Set();
 
   const view = new DataView(itemSet, {
-    filter: item => {
-      return (idsToDisplay.has(item.id));
-    }
+    filter: (item) => {
+      return idsToDisplay.has(item.id);
+    },
   });
 
   const refreshVisibleIds = function (ids) {
     idsToDisplay = new Set([...ids]);
     view.refresh();
-  }
+  };
 
   return { view, refreshVisibleIds };
 }
 
 function createGroupViewManager(groupSet) {
-  const groupIds = groupSet.get().map(group => group.id);
+  const groupIds = groupSet.get().map((group) => group.id);
   let groupsToggledOn = new Set(groupIds);
 
   const view = new DataView(groupSet, {
@@ -129,7 +141,7 @@ function createGroupViewManager(groupSet) {
         return false;
       }
       return groupsToggledOn.has(group.id);
-    }
+    },
   });
 
   const toggleGroup = function ({ id, toggleStatus } = {}) {
@@ -145,10 +157,10 @@ function createGroupViewManager(groupSet) {
       groupsToggledOn.add(id);
     }
 
-    pubSub.publish(events.toggleGroup, { id, toggleStatus })
-  }
+    pubSub.publish(events.toggleGroup, { id, toggleStatus });
+  };
 
   return { view, toggleGroup };
-};
+}
 
-export { createLodManager, createGroupViewManager, createItemViewManager }
+export { createLodManager, createGroupViewManager, createItemViewManager };
