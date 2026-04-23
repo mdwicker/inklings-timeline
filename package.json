@@ -8,7 +8,8 @@
     "dev": "webpack serve --open --config webpack.dev.js",
     "deploy": "git push origin $(git subtree split --prefix dist):gh-pages --force",
     "test": "jest",
-    "sync": "python3 ./data_management/sync.py"
+    "sync": "python3 ./data_management/sync.py",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -28,13 +29,17 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.29.2",
-    "@eslint/js": "^10.0.1",
+    "@eslint/compat": "^2.0.5",
+    "@eslint/js": "^9.39.4",
     "css-loader": "^7.1.2",
-    "eslint": "^10.2.1",
+    "eslint": "^9.39.4",
+    "eslint-config-airbnb-extended": "^3.1.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
     "globals": "^17.5.0",
     "html-webpack-plugin": "^5.6.5",
     "jest": "^30.3.0",
-    "prettier": "3.8.3",
+    "prettier": "^3.8.3",
     "style-loader": "^4.0.0",
     "webpack": "^5.104.1",
     "webpack-cli": "^6.0.1",

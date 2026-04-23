@@ -4,17 +4,18 @@
 // TODO: Break apart the LOD Manager, maybe into a separate module
 //  (try and make it a little bit less black box)
 
-import { pubSub, events } from "./pubSub.js";
 import { DataView } from "vis-data/peer";
+
+import { events, pubSub } from "./pubSub";
 import {
-  getTotalRange,
-  isInRange,
-  inDays,
-  getRangeSections,
-  sortItems,
   calculateZoomLevels,
   getCurrentZoomLevel,
-} from "./utils.js";
+  getRangeSections,
+  getTotalRange,
+  inDays,
+  isInRange,
+  sortItems,
+} from "./utils";
 
 function createLodManager({
   itemSet,
@@ -88,9 +89,7 @@ function createLodManager({
 
   function getBackgroundIdsAtZoomLevel() {
     const items = itemSet.get({
-      filter: (item) => {
-        return item.isBackground && item.priority < 2;
-      },
+      filter: (item) => item.isBackground && item.priority < 2,
     });
     return items.map((item) => item.id);
   }
@@ -117,9 +116,7 @@ function createItemViewManager(itemSet) {
   let idsToDisplay = new Set();
 
   const view = new DataView(itemSet, {
-    filter: (item) => {
-      return idsToDisplay.has(item.id);
-    },
+    filter: (item) => idsToDisplay.has(item.id),
   });
 
   const refreshVisibleIds = function (ids) {
@@ -132,7 +129,7 @@ function createItemViewManager(itemSet) {
 
 function createGroupViewManager(groupSet) {
   const groupIds = groupSet.get().map((group) => group.id);
-  let groupsToggledOn = new Set(groupIds);
+  const groupsToggledOn = new Set(groupIds);
 
   const view = new DataView(groupSet, {
     filter: (group) => {
@@ -163,4 +160,4 @@ function createGroupViewManager(groupSet) {
   return { view, toggleGroup };
 }
 
-export { createLodManager, createGroupViewManager, createItemViewManager };
+export { createGroupViewManager, createItemViewManager, createLodManager };
