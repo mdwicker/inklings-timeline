@@ -60,9 +60,8 @@ Outputs:
     }
 */
 
-import edtf, { defaults, parse } from "edtf";
-
-import { slugify } from "./utils";
+import edtf, { parse, defaults } from "edtf";
+import { slugify } from "./utils.js";
 
 /**
  * Constants for data formatting
@@ -91,7 +90,7 @@ let priority = 1;
 // reverse the array so that the first items in the array are on top
 for (const category of backgroundCategories.toReversed()) {
   subgroupOrdering[category] = priority;
-  priority += 1;
+  priority++;
 }
 
 const subgroupOrder = function (a, b) {
@@ -281,4 +280,4 @@ function isValidId(id) {
   return true;
 }
 
-export { validateData, validateGroup, validateItem, visifyGroup, visifyItem };
+export { validateData, validateItem, validateGroup, visifyItem, visifyGroup };

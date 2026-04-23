@@ -44,8 +44,7 @@ export function isInRange({ item, range, rangeMode = "enclose" } = {}) {
   if (rangeMode === "overlap") {
     // Range items will return true if they are visible anywhere in the range
     return itemStart < range.end && itemEnd >= range.start;
-  }
-  if (rangeMode === "start") {
+  } else if (rangeMode === "start") {
     // Range items will return true if their start date is visible in the range
     return itemStart < range.end && itemStart >= range.start;
   }
@@ -75,7 +74,7 @@ export function getRangeSections({
   const size = windowSize / sectionsPerWindow;
 
   let sectionStart = totalRange.start.valueOf();
-  const end = totalRange.end.valueOf();
+  let end = totalRange.end.valueOf();
 
   while (sectionStart < end) {
     sections.push({

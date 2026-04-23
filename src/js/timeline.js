@@ -1,19 +1,21 @@
 // TODO: Move VisibilityToggles into its own module
 
-import { DataSet } from "vis-data/peer";
-import { Timeline } from "vis-timeline/peer";
+import "../styles/vis-timeline-graph2d.min.css";
+import "../styles/styles.css";
 
-import { validateData, visifyGroup, visifyItem } from "./dataProcessor";
-import {
-  createGroupViewManager,
-  createItemViewManager,
-  createLodManager,
-} from "./displayCoordinator";
-import { events, pubSub } from "./pubSub";
 import rawGroups from "../data/groups.json";
 import rawItems from "../data/items.json";
-import "../styles/styles.css";
-import "../styles/vis-timeline-graph2d.min.css";
+
+import { validateData, visifyGroup, visifyItem } from "./dataProcessor.js";
+import { DataSet } from "vis-data/peer";
+import {
+  createLodManager,
+  createItemViewManager,
+  createGroupViewManager,
+} from "./displayCoordinator.js";
+import { pubSub, events } from "./pubSub.js";
+
+import { Timeline } from "vis-timeline/peer";
 
 /* =====================
  *  State initialization
@@ -87,13 +89,13 @@ const timeline = new Timeline(container, itemView, groupView, {
     .filter((group) => !group.parentId)
     .forEach((group) => {
       const node = createGroupNode(group);
-      if (group.nestedGroups !== undefined) {
+      if (group.nestedGroups != undefined) {
         toggles[group.id].nestedGroups = [];
         const nestedList = document.createElement("ul");
         nestedList.classList.add("subgroup-list");
         for (const id of group.nestedGroups) {
           nestedList.append(
-            createGroupNode(groups.find((subGroup) => subGroup.id === id)),
+            createGroupNode(groups.find((subGroup) => subGroup.id == id)),
           );
           toggles[group.id].nestedGroups.push(id);
         }
@@ -106,7 +108,7 @@ const timeline = new Timeline(container, itemView, groupView, {
   // Control visibility toggles collapse state
   document
     .querySelector("button.collapse-toggles")
-    .addEventListener("click", (e) => {
+    .addEventListener("click", function (e) {
       const button = e.target;
       const expanded = button.getAttribute("aria-expanded") === "true";
 
@@ -213,8 +215,8 @@ let currentWindow = initialWindow;
 
 // Listen for range change
 timeline.on("rangechange", (properties) => {
-  const { start } = properties;
-  const { end } = properties;
+  const start = properties.start;
+  const end = properties.end;
 
   const zoomChange =
     currentWindow.end.valueOf() - currentWindow.start.valueOf() !== end - start;

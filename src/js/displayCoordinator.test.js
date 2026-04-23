@@ -1,11 +1,10 @@
-import { DataSet } from "vis-data";
-
 import {
-  createGroupViewManager,
   createItemViewManager,
+  createGroupViewManager,
   createLodManager,
-} from "./displayCoordinator";
-import { pubSub } from "./pubSub";
+} from "./displayCoordinator.js";
+import { DataSet } from "vis-data";
+import { pubSub } from "./pubSub.js";
 
 jest.mock("./pubSub.js", () => ({
   pubSub: { publish: jest.fn() },

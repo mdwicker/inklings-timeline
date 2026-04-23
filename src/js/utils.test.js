@@ -1,12 +1,12 @@
 import {
-  calculateZoomLevels,
-  getCurrentZoomLevel,
-  getRangeSections,
-  getTotalRange,
+  slugify,
   inDays,
   isInRange,
-  slugify,
+  getTotalRange,
+  getRangeSections,
   sortItems,
+  getCurrentZoomLevel,
+  calculateZoomLevels,
 } from "./utils";
 
 const ONEDAYINMS = 86400000;
